@@ -6,15 +6,12 @@
   <title>Vimanga Umange | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <!-- Twemoji for consistent flag rendering -->
-  <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
   <style>
-    .flag-icon {
-      height: 1em;
-      width: 1.5em;
-      vertical-align: middle;
+    .flag {
+      font-family: "Twemoji Country Flags", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Apple Color Emoji", "EmojiOne Color", "Android Emoji", sans-serif;
+      display: inline-block;
       margin-left: 0.25em;
-      display: inline;
+      vertical-align: middle;
     }
     .resume-btn {
       background-color: #3B82F6;
@@ -31,6 +28,11 @@
       background-color: #2563EB;
       transform: translateY(-2px);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    @font-face {
+      font-family: "Twemoji Country Flags";
+      src: local("Apple Color Emoji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
+      unicode-range: U+1F1E6-1F1FF;
     }
   </style>
 </head>
@@ -51,12 +53,12 @@
       <div class="space-y-4">
         <div>
           <p class="font-medium">University of Windsor, M.Sc. Computer Science (Expected December 2026) 
-            <img class="flag-icon" alt="Canada" src="https://twemoji.maxcdn.com/v/latest/svg/1f1e8-1f1e6.svg">
+            <span class="flag" aria-label="Canada">🇨🇦</span>
           </p>
         </div>
         <div>
           <p class="font-medium">Wichita State University, B.Sc. Computer Science (January 2016 – July 2021) 
-            <img class="flag-icon" alt="USA" src="https://twemoji.maxcdn.com/v/latest/svg/1f1fa-1f1f8.svg">
+            <span class="flag" aria-label="USA">🇺🇸</span>
           </p>
         </div>
         <div>
@@ -75,7 +77,7 @@
       <a href="https://github.com/vimanga-x64" target="_blank" class="flex items-center gap-1 hover:text-blue-500">
         <i class="ph ph-github-logo"></i> GitHub
       </a>
-      <a href="resume.pdf" download class="resume-btn">
+      <a href="Resume_CompSci.pdf" download class="resume-btn">
         <i class="ph ph-download-simple"></i> Download My Resume
       </a>
     </div>
@@ -87,7 +89,7 @@
       <div>
         <h4 class="text-lg font-bold flex items-center gap-2">
           <i class="ph ph-buildings"></i> Etezazi Industries – IT Specialist (2021–2024) 
-          <img class="flag-icon" alt="USA" src="https://twemoji.maxcdn.com/v/latest/svg/1f1fa-1f1f8.svg">
+          <span class="flag" aria-label="USA">🇺🇸</span>
         </h4>
         <ul class="list-disc list-inside">
           <li>Migrated 100+ user accounts to a new domain with zero downtime.</li>
@@ -99,7 +101,7 @@
       <div>
         <h4 class="text-lg font-bold flex items-center gap-2">
           <i class="ph ph-buildings"></i> Arimac Digital – Software Eng. Intern (2017) 
-          <img class="flag-icon" alt="Sri Lanka" src="https://twemoji.maxcdn.com/v/latest/svg/1f1f1-1f1f0.svg">
+          <span class="flag" aria-label="Sri Lanka">🇱🇰</span>
         </h4>
         <ul class="list-disc list-inside">
           <li>Improved data log retrieval speeds by 60% by eliminating global cache reliance.</li>
@@ -156,13 +158,5 @@
   <footer class="p-6 text-center border-t border-gray-700">
     <p>&copy; 2025 Vimanga Umange • Built with Tailwind CSS</p>
   </footer>
-
-  <script>
-    // Initialize Twemoji to ensure consistent rendering
-    twemoji.parse(document.body, {
-      folder: 'svg',
-      ext: '.svg'
-    });
-  </script>
 </body>
 </html>
