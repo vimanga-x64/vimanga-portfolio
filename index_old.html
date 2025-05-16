@@ -7,12 +7,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
-    .flag {
-      font-family: "Twemoji Country Flags", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Apple Color Emoji", "EmojiOne Color", "Android Emoji", sans-serif;
-      display: inline-block;
-      margin-left: 0.25em;
-      vertical-align: middle;
-    }
     .resume-btn {
       background-color: #3B82F6;
       color: white;
@@ -29,11 +23,6 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    @font-face {
-      font-family: "Twemoji Country Flags";
-      src: local("Apple Color Emoji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
-      unicode-range: U+1F1E6-1F1FF;
-    }
   </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -47,19 +36,17 @@
     <h2 class="text-2xl font-semibold mb-2">Graduate Student in Computer Science</h2>
     <p class="mb-6">M.Sc. @ University of Windsor | Passionate about AI, NLP, IT Infrastructure</p>
     
-    <!-- Education with Flags -->
+    <!-- Education with Locations -->
     <div class="mb-8">
       <h3 class="text-xl font-semibold mb-4">Education</h3>
       <div class="space-y-4">
         <div>
-          <p class="font-medium">University of Windsor, M.Sc. Computer Science (Expected December 2026) 
-            <span class="flag" aria-label="Canada">🇨🇦</span>
-          </p>
+          <p class="font-medium">University of Windsor, M.Sc. Computer Science (Expected December 2026)</p>
+          <p class="text-gray-400">Windsor, ON, Canada</p>
         </div>
         <div>
-          <p class="font-medium">Wichita State University, B.Sc. Computer Science (January 2016 – July 2021) 
-            <span class="flag" aria-label="USA">🇺🇸</span>
-          </p>
+          <p class="font-medium">Wichita State University, B.Sc. Computer Science (January 2016 – July 2021)</p>
+          <p class="text-gray-400">Wichita, KS, USA</p>
         </div>
         <div>
           <p class="font-medium">Google Cloud: Core Infrastructure Certificate (October 2021)</p>
@@ -77,7 +64,7 @@
       <a href="https://github.com/vimanga-x64" target="_blank" class="flex items-center gap-1 hover:text-blue-500">
         <i class="ph ph-github-logo"></i> GitHub
       </a>
-      <a href="Resume_CompSci.pdf" download class="resume-btn">
+      <a href="resume.pdf" download class="resume-btn">
         <i class="ph ph-download-simple"></i> Download My Resume
       </a>
     </div>
@@ -88,24 +75,14 @@
     <div class="space-y-6">
       <div>
         <h4 class="text-lg font-bold flex items-center gap-2">
-          <i class="ph ph-buildings"></i> Etezazi Industries – IT Specialist (2021–2024) 
-          <span class="flag" aria-label="USA">🇺🇸</span>
+          <i class="ph ph-buildings"></i> Etezazi Industries – IT Specialist (2021–2024)
         </h4>
+        <p class="text-gray-400">Wichita, KS, USA</p>
         <ul class="list-disc list-inside">
           <li>Migrated 100+ user accounts to a new domain with zero downtime.</li>
           <li>Managed Active Directory, VPN, SonicWall firewalls, and server infrastructure.</li>
           <li>Redesigned the company website using WordPress, HTML, CSS.</li>
           <li>Automated inventory management with Python scripts, reducing scrap parts by 40%.</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-lg font-bold flex items-center gap-2">
-          <i class="ph ph-buildings"></i> Arimac Digital – Software Eng. Intern (2017) 
-          <span class="flag" aria-label="Sri Lanka">🇱🇰</span>
-        </h4>
-        <ul class="list-disc list-inside">
-          <li>Improved data log retrieval speeds by 60% by eliminating global cache reliance.</li>
-          <li>Collaborated with engineers on testing and feature development.</li>
         </ul>
       </div>
     </div>
@@ -114,25 +91,28 @@
   <section class="p-8">
     <h3 class="text-xl font-semibold mb-4">Projects</h3>
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <div class="bg-gray-800 p-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg hover:ring-2 hover:ring-blue-500 hover:ring-opacity-50">
+        <img src="images/movie-app.png" alt="Project Image" class="rounded mb-2 w-full h-40 object-cover">
         <h4 class="font-bold text-lg flex items-center gap-2">
           <i class="ph ph-film-strip"></i> AI Movie Search App
         </h4>
         <p>React + NLP with Hugging Face + TMDB API, animated cards, dark/light mode.</p>
         <a href="#" class="text-blue-500 underline">View on GitHub</a>
       </div>
-      <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <div class="bg-gray-800 p-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg hover:ring-2 hover:ring-blue-500 hover:ring-opacity-50">
+        <img src="images/free-games.png" alt="Project Image" class="rounded mb-2 w-full h-40 object-cover">
         <h4 class="font-bold text-lg flex items-center gap-2">
           <i class="ph ph-game-controller"></i> Free Game Scraper
         </h4>
         <p>Flask API + React frontend with real-time countdowns and accessibility features.</p>
         <a href="#" class="text-blue-500 underline">View on GitHub</a>
       </div>
-      <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <div class="bg-gray-800 p-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg hover:ring-2 hover:ring-blue-500 hover:ring-opacity-50">
         <h4 class="font-bold text-lg flex items-center gap-2">
-          <i class="ph ph-cloud-sun"></i> Weather App – Capstone
+          <i class="ph ph-cloud-sun"></i> Senior Capstone: WSU GO Weather App
         </h4>
         <p>Led 4-member team, built in Dart/Flutter with Open Weather API integration.</p>
+        <a href="#" class="text-blue-500 underline">View on GitHub</a>
       </div>
     </div>
   </section>
