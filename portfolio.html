@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vimanga Umange | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Dark/light mode toggle
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    }
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</head>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+  <header class="p-6 flex justify-between items-center shadow-md dark:shadow-gray-800">
+    <h1 class="text-3xl font-bold">Vimanga Umange</h1>
+    <button onclick="toggleDarkMode()" class="px-3 py-1 border rounded-md dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800">Toggle Mode</button>
+  </header>
+
+  <section class="p-8 text-center">
+    <h2 class="text-2xl font-semibold mb-2">Computer Science Graduate Student</h2>
+    <p class="mb-4">Focused on AI, NLP, and IT Infrastructure | MSc @ University of Windsor</p>
+    <div class="flex justify-center gap-4">
+      <a href="mailto:vimangau@gmail.com" class="underline hover:text-blue-500">Email</a>
+      <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="underline hover:text-blue-500">LinkedIn</a>
+      <a href="https://github.com/vimanga-x64" target="_blank" class="underline hover:text-blue-500">GitHub</a>
+      <a href="resume.pdf" download class="underline hover:text-blue-500">Download Resume</a>
+    </div>
+  </section>
+
+  <section class="p-8">
+    <h3 class="text-xl font-semibold mb-4">Projects</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md">
+        <h4 class="font-bold text-lg">AI-Powered Movie Search</h4>
+        <p>React app using Hugging Face and TMDB API with semantic search, animated UI, and dark/light mode toggle.</p>
+        <a href="#" class="text-blue-500 underline">GitHub</a>
+      </div>
+      <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md">
+        <h4 class="font-bold text-lg">Free Game Scraper</h4>
+        <p>Flask backend scraping free games with a React frontend, real-time countdowns, and carousel UI.</p>
+        <a href="#" class="text-blue-500 underline">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="p-8">
+    <h3 class="text-xl font-semibold mb-4">Research</h3>
+    <div class="space-y-4">
+      <div>
+        <h4 class="font-bold">Hypergraph Neural Networks</h4>
+        <p>Explored top-k densest subgraph augmentation strategies, achieving +4% accuracy gain on prediction tasks.</p>
+      </div>
+      <div>
+        <h4 class="font-bold">Automated Glossing for Low-Resource Languages</h4>
+        <p>Built a transformer-based framework for glossing languages like Ancient Greek and Arapaho.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="p-6 text-center border-t dark:border-gray-700">
+    <p>&copy; 2025 Vimanga Umange. Built with ❤️ using Tailwind CSS.</p>
+  </footer>
+</body>
+</html>
