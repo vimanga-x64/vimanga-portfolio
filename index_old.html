@@ -7,6 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
+    .flag {
+      font-family: "Twemoji Country Flags", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Apple Color Emoji", "EmojiOne Color", "Android Emoji", sans-serif;
+      display: inline-block;
+      margin-left: 0.25em;
+      vertical-align: middle;
+    }
     .resume-btn {
       background-color: #3B82F6;
       color: white;
@@ -23,7 +29,12 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    </style>
+    @font-face {
+      font-family: "Twemoji Country Flags";
+      src: local("Apple Color Emoji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
+      unicode-range: U+1F1E6-1F1FF;
+    }
+  </style>
 </head>
 <body class="bg-gray-900 text-white">
   <header class="p-6 flex justify-between items-center shadow-md shadow-gray-800">
@@ -42,12 +53,12 @@
       <div class="space-y-4">
         <div>
           <p class="font-medium">University of Windsor, M.Sc. Computer Science (Expected December 2026) 
-            🇨🇦
+            <span class="flag" aria-label="Canada">🇨🇦</span>
           </p>
         </div>
         <div>
           <p class="font-medium">Wichita State University, B.Sc. Computer Science (January 2016 – July 2021) 
-            🇺🇸
+            <span class="flag" aria-label="USA">🇺🇸</span>
           </p>
         </div>
         <div>
@@ -78,7 +89,7 @@
       <div>
         <h4 class="text-lg font-bold flex items-center gap-2">
           <i class="ph ph-buildings"></i> Etezazi Industries – IT Specialist (2021–2024) 
-          🇺🇸
+          <span class="flag" aria-label="USA">🇺🇸</span>
         </h4>
         <ul class="list-disc list-inside">
           <li>Migrated 100+ user accounts to a new domain with zero downtime.</li>
@@ -90,7 +101,7 @@
       <div>
         <h4 class="text-lg font-bold flex items-center gap-2">
           <i class="ph ph-buildings"></i> Arimac Digital – Software Eng. Intern (2017) 
-          🇱🇰
+          <span class="flag" aria-label="Sri Lanka">🇱🇰</span>
         </h4>
         <ul class="list-disc list-inside">
           <li>Improved data log retrieval speeds by 60% by eliminating global cache reliance.</li>
@@ -102,29 +113,28 @@
 
   <section class="p-8">
     <h3 class="text-xl font-semibold mb-4">Projects</h3>
-    <div class="grid md:grid-cols-2 gap-6"><div class="bg-gray-800 p-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg hover:ring-2 hover:ring-blue-500 hover:ring-opacity-50">
-        <img src="images/movie-app.png" alt="Project Image" class="rounded mb-2 w-full h-40 object-cover">
-<h4 class="font-bold text-lg flex items-center gap-2">
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+        <h4 class="font-bold text-lg flex items-center gap-2">
           <i class="ph ph-film-strip"></i> AI Movie Search App
         </h4>
         <p>React + NLP with Hugging Face + TMDB API, animated cards, dark/light mode.</p>
         <a href="#" class="text-blue-500 underline">View on GitHub</a>
       </div>
-<div class="bg-gray-800 p-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg hover:ring-2 hover:ring-blue-500 hover:ring-opacity-50">
-        <img src="images/free-games.png" alt="Project Image" class="rounded mb-2 w-full h-40 object-cover">
-<h4 class="font-bold text-lg flex items-center gap-2">
+      <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+        <h4 class="font-bold text-lg flex items-center gap-2">
           <i class="ph ph-game-controller"></i> Free Game Scraper
         </h4>
         <p>Flask API + React frontend with real-time countdowns and accessibility features.</p>
         <a href="#" class="text-blue-500 underline">View on GitHub</a>
       </div>
-<div class="bg-gray-800 p-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg hover:ring-2 hover:ring-blue-500 hover:ring-opacity-50">
-        <img src="images/weather-app.png" alt="Project Image" class="rounded mb-2 w-full h-40 object-cover">
-<h4 class="font-bold text-lg flex items-center gap-2">
+      <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+        <h4 class="font-bold text-lg flex items-center gap-2">
           <i class="ph ph-cloud-sun"></i> Weather App – Capstone
         </h4>
         <p>Led 4-member team, built in Dart/Flutter with Open Weather API integration.</p>
-      </div></div>
+      </div>
+    </div>
   </section>
 
   <section class="p-8 bg-gray-800">
