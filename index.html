@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vimanga Umange | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <script>
-    // Dark/light mode toggle
     function toggleDarkMode() {
       document.documentElement.classList.toggle('dark');
       localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
@@ -16,55 +16,106 @@
     }
   </script>
 </head>
-<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition duration-300">
   <header class="p-6 flex justify-between items-center shadow-md dark:shadow-gray-800">
-    <h1 class="text-3xl font-bold">Vimanga Umange</h1>
-    <button onclick="toggleDarkMode()" class="px-3 py-1 border rounded-md dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800">Toggle Mode</button>
+    <h1 class="text-3xl font-bold flex items-center gap-2">
+      <i class="ph ph-code"></i> Vimanga Umange
+    </h1>
+    <button onclick="toggleDarkMode()" class="px-3 py-1 border rounded-md dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800">
+      Toggle Mode
+    </button>
   </header>
 
   <section class="p-8 text-center">
-    <h2 class="text-2xl font-semibold mb-2">Computer Science Graduate Student</h2>
-    <p class="mb-4">Focused on AI, NLP, and IT Infrastructure | MSc @ University of Windsor</p>
-    <div class="flex justify-center gap-4">
-      <a href="mailto:vimangau@gmail.com" class="underline hover:text-blue-500">Email</a>
-      <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="underline hover:text-blue-500">LinkedIn</a>
-      <a href="https://github.com/vimanga-x64" target="_blank" class="underline hover:text-blue-500">GitHub</a>
-      <a href="resume.pdf" download class="underline hover:text-blue-500">Download Resume</a>
+    <h2 class="text-2xl font-semibold mb-2">Graduate Student in Computer Science</h2>
+    <p class="mb-4">M.Sc. @ University of Windsor | Passionate about AI, NLP, IT Infrastructure</p>
+    <div class="flex justify-center gap-6 text-lg">
+      <a href="mailto:vimangau@gmail.com" class="flex items-center gap-1 hover:text-blue-500">
+        <i class="ph ph-envelope"></i> Email
+      </a>
+      <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="flex items-center gap-1 hover:text-blue-500">
+        <i class="ph ph-linkedin-logo"></i> LinkedIn
+      </a>
+      <a href="https://github.com/vimanga-x64" target="_blank" class="flex items-center gap-1 hover:text-blue-500">
+        <i class="ph ph-github-logo"></i> GitHub
+      </a>
+      <a href="resume.pdf" download class="flex items-center gap-1 hover:text-blue-500">
+        <i class="ph ph-download-simple"></i> Resume
+      </a>
+    </div>
+  </section>
+
+  <section class="p-8 bg-gray-50 dark:bg-gray-800">
+    <h3 class="text-xl font-semibold mb-4">Experience</h3>
+    <div class="space-y-6">
+      <div>
+        <h4 class="text-lg font-bold flex items-center gap-2">
+          <i class="ph ph-buildings"></i> Etezazi Industries – IT Specialist (2021–2024)
+        </h4>
+        <ul class="list-disc list-inside">
+          <li>Migrated 100+ user accounts to a new domain with zero downtime.</li>
+          <li>Managed Active Directory, VPN, SonicWall firewalls, and server infrastructure.</li>
+          <li>Redesigned the company website using WordPress, HTML, CSS.</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold flex items-center gap-2">
+          <i class="ph ph-buildings"></i> Arimac Digital – Software Eng. Intern (2017)
+        </h4>
+        <ul class="list-disc list-inside">
+          <li>Improved data log retrieval speeds by 60% by eliminating global cache reliance.</li>
+          <li>Collaborated with engineers on testing and feature development.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <section class="p-8">
     <h3 class="text-xl font-semibold mb-4">Projects</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid md:grid-cols-2 gap-6">
       <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md">
-        <h4 class="font-bold text-lg">AI-Powered Movie Search</h4>
-        <p>React app using Hugging Face and TMDB API with semantic search, animated UI, and dark/light mode toggle.</p>
-        <a href="#" class="text-blue-500 underline">GitHub</a>
+        <h4 class="font-bold text-lg flex items-center gap-2">
+          <i class="ph ph-film-strip"></i> AI Movie Search App
+        </h4>
+        <p>React + NLP with Hugging Face + TMDB API, animated cards, dark/light mode.</p>
+        <a href="#" class="text-blue-500 underline">View on GitHub</a>
       </div>
       <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md">
-        <h4 class="font-bold text-lg">Free Game Scraper</h4>
-        <p>Flask backend scraping free games with a React frontend, real-time countdowns, and carousel UI.</p>
-        <a href="#" class="text-blue-500 underline">GitHub</a>
+        <h4 class="font-bold text-lg flex items-center gap-2">
+          <i class="ph ph-game-controller"></i> Free Game Scraper
+        </h4>
+        <p>Flask API + React frontend with real-time countdowns and accessibility features.</p>
+        <a href="#" class="text-blue-500 underline">View on GitHub</a>
+      </div>
+      <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md">
+        <h4 class="font-bold text-lg flex items-center gap-2">
+          <i class="ph ph-cloud-sun"></i> Weather App – Capstone
+        </h4>
+        <p>Led 4-member team, built in Dart/Flutter with Open Weather API integration.</p>
       </div>
     </div>
   </section>
 
-  <section class="p-8">
+  <section class="p-8 bg-gray-50 dark:bg-gray-800">
     <h3 class="text-xl font-semibold mb-4">Research</h3>
     <div class="space-y-4">
       <div>
-        <h4 class="font-bold">Hypergraph Neural Networks</h4>
-        <p>Explored top-k densest subgraph augmentation strategies, achieving +4% accuracy gain on prediction tasks.</p>
+        <h4 class="font-bold flex items-center gap-2">
+          <i class="ph ph-graph"></i> Hypergraph Neural Networks (2025)
+        </h4>
+        <p>Used top-k densest subgraph augmentation for HGNNs, boosting prediction accuracy by 4%.</p>
       </div>
       <div>
-        <h4 class="font-bold">Automated Glossing for Low-Resource Languages</h4>
-        <p>Built a transformer-based framework for glossing languages like Ancient Greek and Arapaho.</p>
+        <h4 class="font-bold flex items-center gap-2">
+          <i class="ph ph-book-open-text"></i> NLP Glossing of Low-Resource Languages (2025)
+        </h4>
+        <p>Built transformer-based glossing models for languages like Arapaho and Ancient Greek.</p>
       </div>
     </div>
   </section>
 
   <footer class="p-6 text-center border-t dark:border-gray-700">
-    <p>&copy; 2025 Vimanga Umange. Built with ❤️ using Tailwind CSS.</p>
+    <p>&copy; 2025 Vimanga Umange • Built with Tailwind CSS</p>
   </footer>
 </body>
 </html>
