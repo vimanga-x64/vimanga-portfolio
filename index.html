@@ -5,256 +5,359 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vimanga Umange | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://unpkg.com/phosphor-icons"></script>
   <style>
-    .resume-btn {
-      background-color: #3B82F6;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
+    .hero-section {
+      background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
     }
-    .resume-btn:hover {
-      background-color: #2563EB;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    .badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .badge {
+      transition: all 0.3s ease;
+      height: 40px;
+    }
+    .badge:hover {
+      transform: translateY(-3px);
+    }
+    .tab-button {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .tab-button::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3B82F6;
+      transition: width 0.3s;
+    }
+    .tab-button.active::after {
+      width: 100%;
+    }
+    .tab-button:hover::after {
+      width: 100%;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     .project-card {
-      background: linear-gradient(to bottom right, #1F2937, #111827);
+      transition: all 0.3s ease;
     }
-    h3 {
-      transition: transform 0.3s ease;
-    }
-    h3:hover {
-      transform: translateX(4px);
-    }
-    .skill-tag {
-      transition: all 0.2s ease;
-    }
-    .skill-tag:hover {
-      transform: translateY(-2px);
-      background-color: #374151;
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body class="bg-gray-900 text-white">
-  <header class="p-6 flex justify-between items-center shadow-md shadow-gray-800">
-    <h1 class="text-3xl font-bold flex items-center gap-2">
-      <i class="ph ph-code"></i> Vimanga Umange
-    </h1>
-    <nav class="hidden md:flex gap-6">
-      <a href="#experience" class="hover:text-blue-500">Experience</a>
-      <a href="#projects" class="hover:text-blue-500">Projects</a>
-      <a href="#research" class="hover:text-blue-500">Research</a>
-      <a href="#skills" class="hover:text-blue-500">Skills</a>
-    </nav>
-  </header>
-
-  <section class="p-8 text-center">
-    <h2 class="text-2xl font-semibold mb-2">Graduate Student in Computer Science</h2>
-    <p class="mb-6">M.Sc. @ University of Windsor | Passionate about <strong>AI systems</strong>, <strong>scalable infrastructure</strong>, and <strong>full-stack development</strong></p>
+  <!-- Hero Section -->
+  <section class="hero-section min-h-screen flex flex-col items-center justify-center p-6 text-center">
+    <div class="max-w-2xl mx-auto">
+      <h1 class="text-5xl md:text-6xl font-bold mb-4">Vimanga Umange</h1>
+      <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-blue-400">Computer Science Graduate Student</h2>
+      <p class="text-xl mb-8 leading-relaxed">
+        Passionate about <span class="text-blue-400">AI systems</span>, 
+        <span class="text-blue-400">scalable infrastructure</span>, and 
+        <span class="text-blue-400">full-stack development</span>.
+        Currently pursuing my M.Sc. at University of Windsor.
+      </p>
+      
+      <div class="flex justify-center gap-4 mb-8">
+        <a href="mailto:vimangau@gmail.com" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-all">
+          <i class="ph ph-envelope"></i> Contact Me
+        </a>
+        <a href="resume.pdf" download class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-all">
+          <i class="ph ph-download-simple"></i> Resume
+        </a>
+      </div>
+      
+      <!-- Badges Section -->
+      <div class="badge-container">
+        <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank">
+          <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" class="badge">
+        </a>
+        <a href="https://github.com/vimanga-x64" target="_blank">
+          <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" class="badge">
+        </a>
+        <a href="https://medium.com/@vimangau" target="_blank">
+          <img src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white" class="badge">
+        </a>
+        <a href="https://www.cloudskillsboost.google/public_profiles/your-profile-id" target="_blank">
+          <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" class="badge">
+        </a>
+      </div>
+    </div>
     
-    <!-- Education with Locations -->
-    <div class="mb-8">
-      <h3 class="text-xl font-semibold mb-4">Education</h3>
-      <div class="space-y-4">
+    <div class="absolute bottom-10 animate-bounce">
+      <i class="ph ph-arrow-down text-2xl text-blue-400"></i>
+    </div>
+  </section>
+
+  <!-- Main Content with Tabs -->
+  <div class="container mx-auto px-4 py-12">
+    <!-- Tab Navigation -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12 border-b border-gray-700 pb-4">
+      <button class="tab-button active px-6 py-2 text-lg font-medium" data-tab="about">About</button>
+      <button class="tab-button px-6 py-2 text-lg font-medium" data-tab="experience">Experience</button>
+      <button class="tab-button px-6 py-2 text-lg font-medium" data-tab="projects">Projects</button>
+      <button class="tab-button px-6 py-2 text-lg font-medium" data-tab="research">Research</button>
+      <button class="tab-button px-6 py-2 text-lg font-medium" data-tab="skills">Skills</button>
+    </div>
+    
+    <!-- Tab Contents -->
+    <div id="about" class="tab-content active max-w-4xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-8">
         <div>
-          <p class="font-medium">University of Windsor, M.Sc. Computer Science (Expected December 2026)</p>
-          <p class="text-gray-400">Windsor, ON, Canada</p>
+          <h3 class="text-2xl font-bold mb-4">About Me</h3>
+          <p class="mb-4">
+            I'm a graduate student in Computer Science at the University of Windsor, specializing in AI systems and scalable infrastructure. 
+            My research focuses on applying machine learning techniques to solve real-world problems.
+          </p>
+          <p class="mb-4">
+            With a strong background in both theoretical computer science and practical IT solutions, 
+            I bridge the gap between cutting-edge research and production-ready systems.
+          </p>
+          <div class="flex gap-4">
+            <a href="mailto:vimangau@gmail.com" class="text-blue-400 hover:text-blue-300 flex items-center gap-1">
+              <i class="ph ph-envelope"></i> Email
+            </a>
+            <a href="tel:+15198169683" class="text-blue-400 hover:text-blue-300 flex items-center gap-1">
+              <i class="ph ph-phone"></i> +1 (519) 816-9683
+            </a>
+          </div>
         </div>
+        
         <div>
-          <p class="font-medium">Wichita State University, B.Sc. Computer Science (January 2016 – July 2021)</p>
-          <p class="text-gray-400">Wichita, KS, USA</p>
+          <h3 class="text-2xl font-bold mb-4">Education</h3>
+          <div class="space-y-4">
+            <div class="bg-gray-800 p-4 rounded-lg">
+              <h4 class="font-bold">University of Windsor</h4>
+              <p class="text-gray-400">M.Sc. Computer Science (Expected December 2026)</p>
+              <p class="text-gray-400">Windsor, ON, Canada</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg">
+              <h4 class="font-bold">Wichita State University</h4>
+              <p class="text-gray-400">B.Sc. Computer Science (January 2016 – July 2021)</p>
+              <p class="text-gray-400">Wichita, KS, USA</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     
-    <div class="flex justify-center gap-6 text-lg">
-      <a href="mailto:vimangau@gmail.com" class="flex items-center gap-1 hover:text-blue-500">
-        <i class="ph ph-envelope"></i> Email
-      </a>
-      <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="flex items-center gap-1 hover:text-blue-500">
-        <i class="ph ph-linkedin-logo"></i> LinkedIn
-      </a>
-      <a href="https://github.com/vimanga-x64" target="_blank" class="flex items-center gap-1 hover:text-blue-500">
-        <i class="ph ph-github-logo"></i> GitHub
-      </a>
-      <a href="resume.pdf" download class="resume-btn">
-        <i class="ph ph-download-simple"></i> Download My Resume
-      </a>
-    </div>
-  </section>
+    <div id="experience" class="tab-content max-w-4xl mx-auto">
+      <h3 class="text-2xl font-bold mb-6">Professional Experience</h3>
+      <div class="space-y-6">
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <h4 class="text-xl font-bold flex items-center gap-2 mb-2">
+            <i class="ph ph-graduation-cap"></i> University of Windsor – Graduate Assistant
+          </h4>
+          <p class="text-gray-400 mb-3">2025–Present | Windsor, ON, Canada</p>
+          <ul class="list-disc list-inside space-y-2">
+            <li>Grade assignments and exams for 100+ students in undergraduate <strong>Computer Networks</strong> course.</li>
+            <li>Supervise lab sessions, providing troubleshooting support for network simulations (Wireshark, Cisco Packet Tracer).</li>
+            <li>Hold office hours to clarify concepts like TCP/IP, routing protocols, and network security.</li>
+          </ul>
+        </div>
 
-  <!-- Skills Section -->
- <section id="skills" class="p-8 bg-gray-800">
-    <h3 class="text-xl font-semibold mb-6">Technical Skills</h3>
-    <div class="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
-      <!-- Programming Languages -->
-      <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
-        <i class="ph ph-terminal"></i> Python
-      </span>
-      <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
-        <i class="ph ph-file-js"></i> JavaScript
-      </span>
-      <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
-        <i class="ph ph-brackets-curly"></i> Java
-      </span>
-      
-      <!-- Web/Cloud -->
-      <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
-        <i class="ph ph-cloud"></i> Google Cloud
-      </span>
-      <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
-        <i class="ph ph-globe"></i> HTML/CSS
-      </span>
-      
-      <!-- IT/DevOps -->
-      <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
-        <i class="ph ph-circuitry"></i> IT Infrastructure
-      </span>
-      <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
-        <i class="ph ph-shield-check"></i> Active Directory
-      </span>
-      
-      <!-- AI/Data -->
-      <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
-        <i class="ph ph-brain"></i> PyTorch/TensorFlow
-      </span>
-      <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
-        <i class="ph ph-database"></i> SQL
-      </span>
-    </div>
- </section>
-
-  <!-- Experience Section -->
-  <section id="experience" class="p-8">
-    <h3 class="text-xl font-semibold mb-6">Experience</h3>
-    <div class="space-y-8">
-      <div class="bg-gray-800 p-6 rounded-lg">
-        <h4 class="text-lg font-bold flex items-center gap-2">
-          <i class="ph ph-graduation-cap"></i> University of Windsor – Graduate Assistant (2025–Present)
-        </h4>
-        <p class="text-gray-400 mb-3">Windsor, ON, Canada</p>
-        <ul class="list-disc list-inside space-y-2">
-          <li>Grade assignments and exams for 100+ students in undergraduate <strong>Computer Networks</strong> course.</li>
-          <li>Supervise lab sessions, providing troubleshooting support for network simulations (Wireshark, Cisco Packet Tracer).</li>
-          <li>Hold office hours to clarify concepts like TCP/IP, routing protocols, and network security.</li>
-        </ul>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg">
-        <h4 class="text-lg font-bold flex items-center gap-2">
-          <i class="ph ph-buildings"></i> Etezazi Industries – IT Specialist (2021–2024)
-        </h4>
-        <p class="text-gray-400 mb-3">Wichita, KS, USA</p>
-        <ul class="list-disc list-inside space-y-2">
-          <li>Migrated 100+ user accounts to a new domain with zero downtime.</li>
-          <li>Managed Active Directory, VPN, SonicWall firewalls, and server infrastructure.</li>
-          <li>Redesigned the company website using WordPress, HTML, CSS.</li>
-          <li>Automated inventory management with Python scripts, reducing scrap parts by 40%.</li>
-        </ul>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg">
-        <h4 class="text-lg font-bold flex items-center gap-2">
-          <i class="ph ph-buildings"></i> Etezazi Industries – IT Intern (2021)
-        </h4>
-        <p class="text-gray-400 mb-3">Wichita, KS, USA</p>
-        <ul class="list-disc list-inside space-y-2">
-          <li>Resolved 200+ IT complaints using centralized monitoring system, reducing downtime.</li>
-          <li>Stored company data in databases and wrote SQL queries for information retrieval.</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="p-8 bg-gray-800">
-    <h3 class="text-xl font-semibold mb-6">Projects</h3>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="project-card p-6 rounded-lg shadow-md transform transition duration-300 hover:scale-[1.02] hover:shadow-lg hover:ring-2 hover:ring-blue-500 hover:ring-opacity-50">
-        <img src="images/movie-app.png" alt="AI Movie Search App" class="rounded mb-4 w-full h-48 object-cover" loading="lazy">
-        <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
-          <i class="ph ph-film-strip"></i> AI Movie Search App
-        </h4>
-        <p class="mb-3">React + NLP with Hugging Face + TMDB API. Features semantic search understanding with 95% query accuracy.</p>
-        <a href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" class="text-blue-500 hover:underline flex items-center gap-1">
-          <i class="ph ph-github-logo"></i> View on GitHub
-        </a>
-      </div>
-
-      <div class="project-card p-6 rounded-lg shadow-md transform transition duration-300 hover:scale-[1.02] hover:shadow-lg hover:ring-2 hover:ring-blue-500 hover:ring-opacity-50">
-        <img src="images/free-games.png" alt="Free Game Scraper" class="rounded mb-4 w-full h-48 object-cover" loading="lazy">
-        <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
-          <i class="ph ph-game-controller"></i> Free Game Scraper
-        </h4>
-        <p class="mb-3">Flask API + React frontend scraping 6+ platforms. Reduced API calls by 30% through caching.</p>
-        <a href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" class="text-blue-500 hover:underline flex items-center gap-1">
-          <i class="ph ph-github-logo"></i> View on GitHub
-        </a>
-      </div>
-
-      <div class="project-card p-6 rounded-lg shadow-md transform transition duration-300 hover:scale-[1.02] hover:shadow-lg hover:ring-2 hover:ring-blue-500 hover:ring-opacity-50">
-        <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
-          <i class="ph ph-cloud-sun"></i> Senior Capstone: WSU GO Weather App
-        </h4>
-        <p class="mb-3">Led 4-member team to build Flutter weather app with OpenWeather API. Achieved 100+ GitHub commits.</p>
-        <a href="https://github.com/vimanga-x64/SeniorProject-WSUGO" target="_blank" class="text-blue-500 hover:underline flex items-center gap-1">
-          <i class="ph ph-github-logo"></i> View on GitHub
-        </a>
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <h4 class="text-xl font-bold flex items-center gap-2 mb-2">
+            <i class="ph ph-buildings"></i> Etezazi Industries – IT Specialist
+          </h4>
+          <p class="text-gray-400 mb-3">2021–2024 | Wichita, KS, USA</p>
+          <ul class="list-disc list-inside space-y-2">
+            <li>Migrated 100+ user accounts to a new domain with zero downtime.</li>
+            <li>Managed Active Directory, VPN, SonicWall firewalls, and server infrastructure.</li>
+            <li>Redesigned the company website using WordPress, HTML, CSS.</li>
+            <li>Automated inventory management with Python scripts, reducing scrap parts by 40%.</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </section>
+    
+    <div id="projects" class="tab-content max-w-6xl mx-auto">
+      <h3 class="text-2xl font-bold mb-6">Projects</h3>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="project-card bg-gray-800 p-6 rounded-lg">
+          <img src="images/movie-app.png" alt="AI Movie Search App" class="rounded mb-4 w-full h-48 object-cover" loading="lazy">
+          <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
+            <i class="ph ph-film-strip"></i> AI Movie Search App
+          </h4>
+          <p class="mb-3">React + NLP with Hugging Face + TMDB API. Features semantic search understanding with 95% query accuracy.</p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">React</span>
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">NLP</span>
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Hugging Face</span>
+          </div>
+          <a href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" class="mt-4 inline-block text-blue-400 hover:text-blue-300 flex items-center gap-1">
+            <i class="ph ph-github-logo"></i> View on GitHub
+          </a>
+        </div>
 
-  <!-- Research Section -->
-  <section id="research" class="p-8">
-    <h3 class="text-xl font-semibold mb-6">Research</h3>
-    <div class="space-y-6">
-      <div class="bg-gray-800 p-6 rounded-lg">
-        <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
-          <i class="ph ph-graph"></i> Hypergraph Neural Networks (Co-Author, 2025)
-        </h4>
-        <p>Used top-k densest subgraph augmentation for HGNNs, boosting movie profitability prediction accuracy by 4%.</p>
-         <div class="flex gap-4 mt-2">
-            <a href="mailto:vimangau@gmail.com" class="text-blue-500 hover:underline flex items-center gap-1">
-             <i class="ph ph-paperclip"></i> Preprint available on request
-            </a>
-         </div>
+        <div class="project-card bg-gray-800 p-6 rounded-lg">
+          <img src="images/free-games.png" alt="Free Game Scraper" class="rounded mb-4 w-full h-48 object-cover" loading="lazy">
+          <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
+            <i class="ph ph-game-controller"></i> Free Game Scraper
+          </h4>
+          <p class="mb-3">Flask API + React frontend scraping 6+ platforms. Reduced API calls by 30% through caching.</p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Flask</span>
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">React</span>
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Web Scraping</span>
+          </div>
+          <a href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" class="mt-4 inline-block text-blue-400 hover:text-blue-300 flex items-center gap-1">
+            <i class="ph ph-github-logo"></i> View on GitHub
+          </a>
+        </div>
       </div>
-      <div class="bg-gray-800 p-6 rounded-lg">
-        <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
-          <i class="ph ph-book-open-text"></i> Automated Interlinear Glossing of Low-Resource Languages using Transformers (Co-Author, 2025)
-        </h4>
-        <p class="mb-3">Built transformer-based glossing models for Arapaho and Ancient Greek with limited training data.</p>
-        <div class="flex gap-4 mt-2">
-            <a href="mailto:vimangau@gmail.com" class="text-blue-500 hover:underline flex items-center gap-1">
-             <i class="ph ph-paperclip"></i> Preprint available on request
-            </a>
-         </div>
-        <div class="flex gap-4 mt-2">
-          <a href="https://github.com/vimanga-x64/COMP8730_Project" target="_blank" class="text-blue-500 hover:underline flex items-center gap-1">
+    </div>
+    
+    <div id="research" class="tab-content max-w-4xl mx-auto">
+      <h3 class="text-2xl font-bold mb-6">Research</h3>
+      <div class="space-y-6">
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <h4 class="font-bold text-xl flex items-center gap-2 mb-2">
+            <i class="ph ph-graph"></i> Hypergraph Neural Networks (Co-Author, 2025)
+          </h4>
+          <p class="mb-4">Used top-k densest subgraph augmentation for HGNNs, boosting movie profitability prediction accuracy by 4%.</p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Hypergraphs</span>
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Neural Networks</span>
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">PyTorch</span>
+          </div>
+          <a href="mailto:vimangau@gmail.com" class="mt-4 inline-block text-blue-400 hover:text-blue-300 flex items-center gap-1">
+            <i class="ph ph-paperclip"></i> Preprint available on request
+          </a>
+        </div>
+        
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <h4 class="font-bold text-xl flex items-center gap-2 mb-2">
+            <i class="ph ph-book-open-text"></i> Automated Interlinear Glossing of Low-Resource Languages using Transformers (Co-Author, 2025)
+          </h4>
+          <p class="mb-4">Built transformer-based glossing models for Arapaho and Ancient Greek with limited training data.</p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">NLP</span>
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Transformers</span>
+            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Low-Resource</span>
+          </div>
+          <a href="https://github.com/vimanga-x64/COMP8730_Project" target="_blank" class="mt-4 inline-block text-blue-400 hover:text-blue-300 flex items-center gap-1">
             <i class="ph ph-github-logo"></i> View Code
           </a>
         </div>
       </div>
     </div>
-  </section>
+    
+    <div id="skills" class="tab-content max-w-4xl mx-auto">
+      <h3 class="text-2xl font-bold mb-6">Technical Skills</h3>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <h4 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i class="ph ph-code"></i> Programming Languages
+          </h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+              <i class="ph ph-terminal"></i> Python
+            </span>
+            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+              <i class="ph ph-file-js"></i> JavaScript
+            </span>
+            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+              <i class="ph ph-brackets-curly"></i> Java
+            </span>
+          </div>
+        </div>
+        
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <h4 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i class="ph ph-cloud"></i> Cloud & Web Technologies
+          </h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+              <i class="ph ph-cloud"></i> Google Cloud
+            </span>
+            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+              <i class="ph ph-globe"></i> HTML/CSS
+            </span>
+            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+              <i class="ph ph-database"></i> SQL
+            </span>
+          </div>
+        </div>
+        
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <h4 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i class="ph ph-circuitry"></i> IT & DevOps
+          </h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+              <i class="ph ph-circuitry"></i> IT Infrastructure
+            </span>
+            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+              <i class="ph ph-shield-check"></i> Active Directory
+            </span>
+          </div>
+        </div>
+        
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <h4 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i class="ph ph-brain"></i> AI & Machine Learning
+          </h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+              <i class="ph ph-brain"></i> PyTorch/TensorFlow
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <footer class="p-6 text-center border-t border-gray-700 bg-gray-800">
+  <footer class="p-6 text-center border-t border-gray-700 bg-gray-800 mt-12">
     <div class="flex justify-center gap-6 mb-3">
-      <a href="tel:+15198169683" class="hover:text-blue-500 flex items-center gap-1">
+      <a href="tel:+15198169683" class="hover:text-blue-400 flex items-center gap-1">
         <i class="ph ph-phone"></i> +1 (519) 816-9683
       </a>
-      <a href="mailto:vimangau@gmail.com" class="hover:text-blue-500 flex items-center gap-1">
+      <a href="mailto:vimangau@gmail.com" class="hover:text-blue-400 flex items-center gap-1">
         <i class="ph ph-envelope"></i> vimangau@gmail.com
       </a>
     </div>
     <p>&copy; 2025 Vimanga Umange • Built with Tailwind CSS</p>
   </footer>
+
+  <script>
+    // Tab functionality
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons and contents
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+        // Add active class to clicked button and corresponding content
+        button.classList.add('active');
+        const tabId = button.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+    
+    // Smooth scroll to tabs from hero section
+    document.querySelector('.ph-arrow-down').addEventListener('click', () => {
+      document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
