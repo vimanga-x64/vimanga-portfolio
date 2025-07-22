@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vimanga Umange | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/phosphor-icons"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
     .hero-section {
       background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
     }
     .profile-pic {
-      width: 300px;
-      height: 300px;
+      width: 280px;
+      height: 280px;
       object-fit: cover;
       border-radius: 50%;
       border: 4px solid #3B82F6;
@@ -22,21 +22,6 @@
     .profile-pic:hover {
       transform: scale(1.05);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .badge-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-    .badge {
-      transition: all 0.3s ease;
-      height: 40px;
-    }
-    .badge:hover {
-      transform: translateY(-3px);
     }
     .tab-button {
       transition: all 0.3s ease;
@@ -60,75 +45,80 @@
     }
     .tab-content {
       display: none;
+      animation: fadeIn 0.5s ease;
     }
     .tab-content.active {
       display: block;
-      animation: fadeIn 0.5s ease;
     }
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-    .project-card {
+    .project-card, .experience-card, .research-card {
       transition: all 0.3s ease;
+      background: linear-gradient(to bottom right, #1F2937, #111827);
     }
-    .project-card:hover {
+    .project-card:hover, .experience-card:hover, .research-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    .skill-tag {
+      transition: all 0.2s ease;
+    }
+    .skill-tag:hover {
+      transform: translateY(-2px);
+      background-color: #374151 !important;
     }
   </style>
 </head>
 <body class="bg-gray-900 text-white">
   <!-- Hero Section -->
-  <section class="hero-section min-h-screen flex flex-col items-center justify-center p-6 text-center">
-    <div class="max-w-2xl mx-auto">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4">Vimanga Umange</h1>
-      <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-blue-400">Computer Science Graduate Student</h2>
-      <p class="text-xl mb-8 leading-relaxed">
-        Passionate about <span class="text-blue-400">AI systems</span>, 
-        <span class="text-blue-400">scalable infrastructure</span>, and 
-        <span class="text-blue-400">full-stack development</span>.
-        Currently pursuing my M.Sc. at University of Windsor.
-      </p>
-      
-      <div class="flex justify-center gap-4 mb-8">
-        <a href="mailto:vimangau@gmail.com" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-all">
-          <i class="ph ph-envelope"></i> Contact Me
-        </a>
-        <a href="resume.pdf" download class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-all">
-          <i class="ph ph-download-simple"></i> Resume
-        </a>
+  <section class="hero-section min-h-screen flex items-center justify-center p-6 md:p-12">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
+      <!-- Left Column - Text Content -->
+      <div class="flex-1 text-center md:text-left">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Vimanga Umange</h1>
+        <h2 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-6 text-blue-400">Computer Science Graduate Student</h2>
+        <p class="text-lg mb-8 leading-relaxed">
+          Passionate about <span class="text-blue-400">AI systems</span>, 
+          <span class="text-blue-400">scalable infrastructure</span>, and 
+          <span class="text-blue-400">full-stack development</span>.
+          Currently pursuing my M.Sc. at University of Windsor.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 mb-8">
+          <a href="mailto:vimangau@gmail.com" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all">
+            <i class="ph ph-envelope"></i> Contact Me
+          </a>
+          <a href="resume.pdf" download class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all">
+            <i class="ph ph-download-simple"></i> Resume
+          </a>
+        </div>
+        
+        <!-- Social Badges -->
+        <div class="flex flex-wrap justify-center md:justify-start gap-3">
+          <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="hover:opacity-80 transition-opacity">
+            <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" class="h-8">
+          </a>
+          <a href="https://github.com/vimanga-x64" target="_blank" class="hover:opacity-80 transition-opacity">
+            <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" class="h-8">
+          </a>
+          <a href="https://medium.com/@vimangau" target="_blank" class="hover:opacity-80 transition-opacity">
+            <img src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white" alt="Medium" class="h-8">
+          </a>
+          <a href="https://www.cloudskillsboost.google/public_profiles/your-profile-id" target="_blank" class="hover:opacity-80 transition-opacity">
+            <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="Google Cloud" class="h-8">
+          </a>
+        </div>
       </div>
       
-      <!-- Badges Section -->
-      <div class="badge-container">
-        <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank">
-          <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" class="badge">
-        </a>
-        <a href="https://github.com/vimanga-x64" target="_blank">
-          <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" class="badge">
-        </a>
-        <a href="https://medium.com/@vimangau" target="_blank">
-          <img src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white" class="badge">
-        </a>
-        <a href="https://www.cloudskillsboost.google/public_profiles/your-profile-id" target="_blank">
-          <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" class="badge">
-        </a>
-      </div>
-    </div>
-
-     <!-- Right Side - Profile Picture -->
-      <div class="mt-10 md:mt-0 flex justify-center">
+      <!-- Right Column - Profile Picture -->
+      <div class="flex-1 flex justify-center md:justify-end mt-8 md:mt-0">
         <img src="images/profile_pic.png" alt="Vimanga Umange" class="profile-pic">
       </div>
     </div>
     
     <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-      <i class="ph ph-arrow-down text-2xl text-blue-400"></i>
-    </div>
-  </section>
-    
-    <div class="absolute bottom-10 animate-bounce">
       <i class="ph ph-arrow-down text-2xl text-blue-400"></i>
     </div>
   </section>
@@ -144,7 +134,7 @@
       <button class="tab-button px-6 py-2 text-lg font-medium" data-tab="skills">Skills</button>
     </div>
     
-    <!-- Tab Contents -->
+    <!-- About Tab -->
     <div id="about" class="tab-content active max-w-4xl mx-auto">
       <div class="grid md:grid-cols-2 gap-8">
         <div>
@@ -170,12 +160,12 @@
         <div>
           <h3 class="text-2xl font-bold mb-4">Education</h3>
           <div class="space-y-4">
-            <div class="bg-gray-800 p-4 rounded-lg">
+            <div class="experience-card p-4 rounded-lg">
               <h4 class="font-bold">University of Windsor</h4>
               <p class="text-gray-400">M.Sc. Computer Science (Expected December 2026)</p>
               <p class="text-gray-400">Windsor, ON, Canada</p>
             </div>
-            <div class="bg-gray-800 p-4 rounded-lg">
+            <div class="experience-card p-4 rounded-lg">
               <h4 class="font-bold">Wichita State University</h4>
               <p class="text-gray-400">B.Sc. Computer Science (January 2016 – July 2021)</p>
               <p class="text-gray-400">Wichita, KS, USA</p>
@@ -185,10 +175,11 @@
       </div>
     </div>
     
+    <!-- Experience Tab -->
     <div id="experience" class="tab-content max-w-4xl mx-auto">
       <h3 class="text-2xl font-bold mb-6">Professional Experience</h3>
       <div class="space-y-6">
-        <div class="bg-gray-800 p-6 rounded-lg">
+        <div class="experience-card p-6 rounded-lg">
           <h4 class="text-xl font-bold flex items-center gap-2 mb-2">
             <i class="ph ph-graduation-cap"></i> University of Windsor – Graduate Assistant
           </h4>
@@ -200,7 +191,7 @@
           </ul>
         </div>
 
-        <div class="bg-gray-800 p-6 rounded-lg">
+        <div class="experience-card p-6 rounded-lg">
           <h4 class="text-xl font-bold flex items-center gap-2 mb-2">
             <i class="ph ph-buildings"></i> Etezazi Industries – IT Specialist
           </h4>
@@ -212,73 +203,101 @@
             <li>Automated inventory management with Python scripts, reducing scrap parts by 40%.</li>
           </ul>
         </div>
+
+        <div class="experience-card p-6 rounded-lg">
+          <h4 class="text-xl font-bold flex items-center gap-2 mb-2">
+            <i class="ph ph-buildings"></i> Etezazi Industries – IT Intern
+          </h4>
+          <p class="text-gray-400 mb-3">2021 | Wichita, KS, USA</p>
+          <ul class="list-disc list-inside space-y-2">
+            <li>Resolved 200+ IT complaints using centralized monitoring system, reducing downtime.</li>
+            <li>Stored company data in databases and wrote SQL queries for information retrieval.</li>
+          </ul>
+        </div>
       </div>
     </div>
     
+    <!-- Projects Tab -->
     <div id="projects" class="tab-content max-w-6xl mx-auto">
       <h3 class="text-2xl font-bold mb-6">Projects</h3>
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="project-card bg-gray-800 p-6 rounded-lg">
+        <div class="project-card p-6 rounded-lg">
           <img src="images/movie-app.png" alt="AI Movie Search App" class="rounded mb-4 w-full h-48 object-cover" loading="lazy">
           <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
             <i class="ph ph-film-strip"></i> AI Movie Search App
           </h4>
           <p class="mb-3">React + NLP with Hugging Face + TMDB API. Features semantic search understanding with 95% query accuracy.</p>
           <div class="flex flex-wrap gap-2 mt-4">
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">React</span>
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">NLP</span>
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Hugging Face</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">React</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">NLP</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">Hugging Face</span>
           </div>
           <a href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" class="mt-4 inline-block text-blue-400 hover:text-blue-300 flex items-center gap-1">
             <i class="ph ph-github-logo"></i> View on GitHub
           </a>
         </div>
 
-        <div class="project-card bg-gray-800 p-6 rounded-lg">
+        <div class="project-card p-6 rounded-lg">
           <img src="images/free-games.png" alt="Free Game Scraper" class="rounded mb-4 w-full h-48 object-cover" loading="lazy">
           <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
             <i class="ph ph-game-controller"></i> Free Game Scraper
           </h4>
           <p class="mb-3">Flask API + React frontend scraping 6+ platforms. Reduced API calls by 30% through caching.</p>
           <div class="flex flex-wrap gap-2 mt-4">
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Flask</span>
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">React</span>
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Web Scraping</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">Flask</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">React</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">Web Scraping</span>
           </div>
           <a href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" class="mt-4 inline-block text-blue-400 hover:text-blue-300 flex items-center gap-1">
+            <i class="ph ph-github-logo"></i> View on GitHub
+          </a>
+        </div>
+
+        <div class="project-card p-6 rounded-lg">
+          <h4 class="font-bold text-lg flex items-center gap-2 mb-2">
+            <i class="ph ph-cloud-sun"></i> Senior Capstone: WSU GO Weather App
+          </h4>
+          <p class="mb-3">Led 4-member team to build Flutter weather app with OpenWeather API. Achieved 100+ GitHub commits.</p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">Flutter</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">OpenWeather API</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">Team Leadership</span>
+          </div>
+          <a href="https://github.com/vimanga-x64/SeniorProject-WSUGO" target="_blank" class="mt-4 inline-block text-blue-400 hover:text-blue-300 flex items-center gap-1">
             <i class="ph ph-github-logo"></i> View on GitHub
           </a>
         </div>
       </div>
     </div>
     
+    <!-- Research Tab -->
     <div id="research" class="tab-content max-w-4xl mx-auto">
       <h3 class="text-2xl font-bold mb-6">Research</h3>
       <div class="space-y-6">
-        <div class="bg-gray-800 p-6 rounded-lg">
+        <div class="research-card p-6 rounded-lg">
           <h4 class="font-bold text-xl flex items-center gap-2 mb-2">
             <i class="ph ph-graph"></i> Hypergraph Neural Networks (Co-Author, 2025)
           </h4>
           <p class="mb-4">Used top-k densest subgraph augmentation for HGNNs, boosting movie profitability prediction accuracy by 4%.</p>
           <div class="flex flex-wrap gap-2 mt-4">
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Hypergraphs</span>
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Neural Networks</span>
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">PyTorch</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">Hypergraphs</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">Neural Networks</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">PyTorch</span>
           </div>
           <a href="mailto:vimangau@gmail.com" class="mt-4 inline-block text-blue-400 hover:text-blue-300 flex items-center gap-1">
             <i class="ph ph-paperclip"></i> Preprint available on request
           </a>
         </div>
         
-        <div class="bg-gray-800 p-6 rounded-lg">
+        <div class="research-card p-6 rounded-lg">
           <h4 class="font-bold text-xl flex items-center gap-2 mb-2">
             <i class="ph ph-book-open-text"></i> Automated Interlinear Glossing of Low-Resource Languages using Transformers (Co-Author, 2025)
           </h4>
           <p class="mb-4">Built transformer-based glossing models for Arapaho and Ancient Greek with limited training data.</p>
           <div class="flex flex-wrap gap-2 mt-4">
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">NLP</span>
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Transformers</span>
-            <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Low-Resource</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">NLP</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">Transformers</span>
+            <span class="skill-tag bg-gray-700 px-3 py-1 rounded-full text-sm">Low-Resource</span>
           </div>
           <a href="https://github.com/vimanga-x64/COMP8730_Project" target="_blank" class="mt-4 inline-block text-blue-400 hover:text-blue-300 flex items-center gap-1">
             <i class="ph ph-github-logo"></i> View Code
@@ -287,6 +306,7 @@
       </div>
     </div>
     
+    <!-- Skills Tab -->
     <div id="skills" class="tab-content max-w-4xl mx-auto">
       <h3 class="text-2xl font-bold mb-6">Technical Skills</h3>
       <div class="grid md:grid-cols-2 gap-6">
@@ -295,13 +315,13 @@
             <i class="ph ph-code"></i> Programming Languages
           </h4>
           <div class="flex flex-wrap gap-2">
-            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+            <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
               <i class="ph ph-terminal"></i> Python
             </span>
-            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+            <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
               <i class="ph ph-file-js"></i> JavaScript
             </span>
-            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+            <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
               <i class="ph ph-brackets-curly"></i> Java
             </span>
           </div>
@@ -312,13 +332,13 @@
             <i class="ph ph-cloud"></i> Cloud & Web Technologies
           </h4>
           <div class="flex flex-wrap gap-2">
-            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+            <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
               <i class="ph ph-cloud"></i> Google Cloud
             </span>
-            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+            <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
               <i class="ph ph-globe"></i> HTML/CSS
             </span>
-            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+            <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
               <i class="ph ph-database"></i> SQL
             </span>
           </div>
@@ -329,10 +349,10 @@
             <i class="ph ph-circuitry"></i> IT & DevOps
           </h4>
           <div class="flex flex-wrap gap-2">
-            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+            <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
               <i class="ph ph-circuitry"></i> IT Infrastructure
             </span>
-            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+            <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
               <i class="ph ph-shield-check"></i> Active Directory
             </span>
           </div>
@@ -343,7 +363,7 @@
             <i class="ph ph-brain"></i> AI & Machine Learning
           </h4>
           <div class="flex flex-wrap gap-2">
-            <span class="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
+            <span class="skill-tag bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-1">
               <i class="ph ph-brain"></i> PyTorch/TensorFlow
             </span>
           </div>
@@ -376,6 +396,9 @@
         button.classList.add('active');
         const tabId = button.getAttribute('data-tab');
         document.getElementById(tabId).classList.add('active');
+        
+        // Smooth scroll to tabs section
+        document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
     
