@@ -103,12 +103,15 @@
           <a href="https://github.com/vimanga-x64" target="_blank" class="hover:opacity-80 transition-opacity">
             <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" class="h-8">
           </a>
-          <a href="https://medium.com/@vimangau" target="_blank" class="hover:opacity-80 transition-opacity">
+          <a href="https://medium.com/@vishudha98" target="_blank" class="hover:opacity-80 transition-opacity">
             <img src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white" alt="Medium" class="h-8">
           </a>
-          <a href="https://www.cloudskillsboost.google/public_profiles/your-profile-id" target="_blank" class="hover:opacity-80 transition-opacity">
+          <a href="https://www.cloudskillsboost.google/public_profiles/c0bb8d2a-59e1-4a36-90e4-81a792ae00ba" target="_blank" class="hover:opacity-80 transition-opacity">
             <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="Google Cloud" class="h-8">
           </a>
+             <a href="https://coursera.org/share/508acec3267a505921c96538f8341b2d" target="_blank">
+          <img src="https://img.shields.io/badge/Coursera-0056D2?style=for-the-badge&logo=Coursera&logoColor=white" class="badge">
+        </a>
         </div>
       </div>
       
@@ -384,27 +387,30 @@
     <p>&copy; 2025 Vimanga Umange • Built with Tailwind CSS</p>
   </footer>
 
-  <script>
-    // Tab functionality
+<script>
+    
     document.querySelectorAll('.tab-button').forEach(button => {
-      button.addEventListener('click', () => {
-        // Remove active class from all buttons and contents
+      button.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        
+        
         document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
         
-        // Add active class to clicked button and corresponding content
+        
         button.classList.add('active');
         const tabId = button.getAttribute('data-tab');
         document.getElementById(tabId).classList.add('active');
-        
-        // Smooth scroll to tabs section
-        document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
     
-    // Smooth scroll to tabs from hero section
-    document.querySelector('.ph-arrow-down').addEventListener('click', () => {
-      document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+    
+    document.querySelector('.ph-arrow-down').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector('.container').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start' 
+      });
     });
   </script>
 </body>
