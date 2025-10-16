@@ -3,48 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vimanga Umange | AI/ML Engineer & Full-Stack Developer Portfolio</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Vimanga Umange - Computer Science Graduate Student specializing in AI/ML, Neural Networks, and Full-Stack Development. University of Windsor M.Sc. candidate with research in Hypergraph Neural Networks and NLP.">
-  <meta name="keywords" content="Vimanga Umange, Computer Science, Machine Learning, AI, Neural Networks, Deep Learning, NLP, Full-Stack Developer, PyTorch, TensorFlow, React, Flask, Python, JavaScript, University of Windsor, Graduate Student, Software Engineer">
-  <meta name="author" content="Vimanga Umange">
-  <meta name="robots" content="index, follow">
-  
-  <!-- Open Graph Meta Tags (for social media sharing) -->
-  <meta property="og:title" content="Vimanga Umange | AI/ML Engineer & Full-Stack Developer">
-  <meta property="og:description" content="Computer Science Graduate Student specializing in AI/ML, Neural Networks, and Full-Stack Development. M.Sc. candidate at University of Windsor with research publications in Deep Learning.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://vimanga-x64.github.io/vimanga-portfolio/">
-  <meta property="og:image" content="https://vimanga-x64.github.io/vimanga-portfolio/images/profile_pic.png">
-  
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Vimanga Umange | AI/ML Engineer Portfolio">
-  <meta name="twitter:description" content="CS Graduate Student specializing in AI/ML, Neural Networks, and Full-Stack Development">
-  <meta name="twitter:image" content="https://vimanga-x64.github.io/vimanga-portfolio/images/profile_pic.png">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://vimanga-x64.github.io/vimanga-portfolio/">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-  
+  <title>Vimanga Umange | Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EPL5BQGBMF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-EPL5BQGBMF');
-  </script>
-  
   <style>
     * {
       margin: 0;
@@ -85,43 +49,200 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
     
-    /* 3D Parallax Background */
+    /* Carousel Container */
     .parallax-bg {
-      position: absolute;
+      overflow: visible;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 3.5rem 0;
+      border-radius: 0;
+      background: transparent;
+    }
+    
+    /* Gradient fade overlays on edges - positioned absolutely */
+    .parallax-bg::before,
+    .parallax-bg::after {
+      content: '';
+      position: fixed;
       top: 0;
+      width: 200px;
+      height: 100vh;
+      z-index: 5;
+      pointer-events: none;
+    }
+    
+    .parallax-bg::before {
       left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+      background: linear-gradient(to right, var(--bg-primary) 0%, var(--bg-primary) 3%, rgba(15, 15, 18, 0.8) 20%, rgba(15, 15, 18, 0.4) 50%, transparent 100%);
+    }
+    
+    [data-theme="light"] .parallax-bg::before {
+      background: linear-gradient(to right, #ffffff 0%, #ffffff 3%, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+    }
+    
+    .parallax-bg::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg-primary) 0%, var(--bg-primary) 3%, rgba(15, 15, 18, 0.8) 20%, rgba(15, 15, 18, 0.4) 50%, transparent 100%);
+    }
+    
+    [data-theme="light"] .parallax-bg::after {
+      background: linear-gradient(to left, #ffffff 0%, #ffffff 3%, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+    }
+    
+    /* Carousel Rows */
+    .carousel-row {
+      display: flex;
+      gap: 1.5rem;
+      white-space: nowrap;
+      will-change: transform;
+      position: relative;
+    }
+    
+    /* Ambient particles and programming logos */
+    .ambient-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: floatParticle 20s infinite ease-in-out;
       z-index: 0;
     }
     
-    /* Floating Code Blocks */
-    .code-snippet {
+    @keyframes floatParticle {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.1;
+      }
+      50% {
+        transform: translate(50px, -30px) scale(1.5);
+        opacity: 0.3;
+      }
+    }
+    
+    .floating-logo {
       position: absolute;
-      width: 220px;
-      max-width: 220px;
-      padding: 12px 16px;
+      font-size: 2rem;
+      opacity: 0.15;
+      animation: floatLogo 30s infinite linear;
+      z-index: 0;
+    }
+    
+    @keyframes floatLogo {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.15;
+      }
+      90% {
+        opacity: 0.15;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Carousel Rows */
+    .carousel-row {
+      display: flex;
+      gap: 1.5rem;
+      white-space: nowrap;
+      will-change: transform;
+      position: relative;
+    }
+    
+    .carousel-row-left {
+      animation: scrollLeft 80s linear infinite;
+    }
+    
+    .carousel-row-right {
+      animation: scrollRight 80s linear infinite;
+    }
+    
+    @keyframes scrollLeft {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    
+    @keyframes scrollRight {
+      0% {
+        transform: translateX(-50%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    
+    .carousel-row:hover {
+      animation-play-state: paused;
+    }
+    
+    /* Code Snippet Cards in Carousel - Enhanced */
+    .code-snippet {
+      display: inline-block;
+      width: 240px;
+      max-width: 240px;
+      padding: 14px 18px;
       background: rgba(30, 30, 35, 0.95);
       border: 1px solid rgba(59, 130, 246, 0.4);
       border-radius: 8px;
       font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
-      font-size: 12px;
-      line-height: 1.5;
+      font-size: 13px;
+      line-height: 1.6;
       color: #abb2bf;
       white-space: pre-wrap;
       word-wrap: break-word;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(59, 130, 246, 0.1) inset;
       backdrop-filter: blur(10px);
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      opacity: 0.5;
+      pointer-events: auto;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+      position: relative;
     }
     
-    /* Keyword cards - distinct styling */
+    .code-snippet::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 8px;
+    }
+    
+    .code-snippet:hover::before {
+      opacity: 1;
+    }
+    
+    .code-snippet:hover {
+      transform: translateY(-5px) scale(1.05);
+      border-color: rgba(59, 130, 246, 0.8);
+      box-shadow: 
+        0 12px 35px rgba(59, 130, 246, 0.4),
+        0 0 0 1px rgba(59, 130, 246, 0.3) inset;
+    }
+    
+    /* Keyword cards - distinct styling with enhanced visuals */
     .code-snippet.keyword-card {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.15));
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(37, 99, 235, 0.18));
       border: 1px solid rgba(59, 130, 246, 0.6);
       color: #60A5FA;
       font-weight: 600;
@@ -130,7 +251,16 @@
       padding: 14px 18px;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       letter-spacing: 0.3px;
-      opacity: 0.5;
+      box-shadow: 
+        0 4px 20px rgba(59, 130, 246, 0.2),
+        0 0 0 1px rgba(59, 130, 246, 0.2) inset;
+    }
+    
+    .code-snippet.keyword-card:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(37, 99, 235, 0.25));
+      box-shadow: 
+        0 12px 40px rgba(59, 130, 246, 0.5),
+        0 0 0 1px rgba(59, 130, 246, 0.5) inset;
     }
     
     .code-snippet .code-keyword {
@@ -282,96 +412,97 @@
       color: var(--accent);
     }
     
-    /* Side Navigation */
+    /* Minimal Floating Top Navigation - Top Right with Text */
     .side-nav {
       position: fixed;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      width: 80px;
-      background: rgba(15, 15, 15, 0.95);
-      backdrop-filter: blur(10px);
-      border-right: 1px solid var(--border);
+      right: 2rem;
+      top: 5rem;
+      height: 50px;
+      width: auto;
+      background: rgba(30, 30, 35, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 25px;
       z-index: 1000;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      padding: 2rem 0;
-      transition: all 0.3s ease;
+      padding: 0 1.2rem;
+      gap: 0.5rem;
+      transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
     
     [data-theme="light"] .side-nav {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
     
     .side-nav:hover {
-      width: 200px;
+      background: rgba(30, 30, 35, 0.9);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 12px 48px rgba(59, 130, 246, 0.3);
+    }
+    
+    [data-theme="light"] .side-nav:hover {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 12px 48px rgba(59, 130, 246, 0.2);
     }
     
     .nav-logo {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #3B82F6, #60A5FA);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.5rem;
-      margin-bottom: 3rem;
-      transition: all 0.3s ease;
-      color: white;
-    }
-    
-    .side-nav:hover .nav-logo {
-      width: 150px;
-      justify-content: flex-start;
-      padding-left: 1rem;
+      display: none; /* Hide logo since we're using text labels */
     }
     
     .nav-items {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      width: 100%;
-      padding: 0 1rem;
+      flex-direction: row;
+      gap: 0.25rem;
+      padding: 0;
     }
     
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 0.75rem;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.9rem;
       color: var(--text-secondary);
       text-decoration: none;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      white-space: nowrap;
+      border-radius: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      position: relative;
       cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    
+    .nav-item::after {
+      display: none; /* No tooltips needed since we show text */
     }
     
     .nav-item:hover, .nav-item.active {
-      background: rgba(59, 130, 246, 0.1);
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent);
+    }
+    
+    .nav-item.active {
+      background: rgba(59, 130, 246, 0.2);
       color: var(--accent);
     }
     
     .nav-item i {
-      font-size: 1.5rem;
-      min-width: 24px;
+      font-size: 1.1rem;
     }
     
     .nav-text {
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: inline; /* Show text labels */
     }
     
-    .side-nav:hover .nav-text {
-      opacity: 1;
-    }
-    
-    /* Main Content */
+    /* Main Content - No margin needed for floating nav */
     .main-content {
-      margin-left: 80px;
+      margin-left: 0;
       min-height: 100vh;
     }
     
@@ -382,7 +513,12 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 2rem;
+      padding: 2rem 2rem 3rem 2rem;
+      background-image: 
+        linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      background-position: center center;
     }
     
     .hero-content {
@@ -390,15 +526,26 @@
       width: 100%;
       text-align: center;
       position: relative;
-      z-index: 1;
-      margin-bottom: 8rem; /* Added margin to prevent overlap with scroll indicator */
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 0;
+    }
+    
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
     }
     
     .hero-text h1 {
       font-size: 5rem;
       font-weight: 900;
       line-height: 1.1;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -416,18 +563,13 @@
     
     /* Typing Animation */
     .typing-container {
-      height: 80px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 2rem;
+      margin-bottom: 0;
       opacity: 0;
       animation: fadeInTitle 0.8s ease-out 0.5s forwards;
-    }
-    
-    [data-theme="light"] .typing-container {
-      background: rgba(255, 255, 255, 0.8) !important;
-      border-color: rgba(37, 99, 235, 0.3) !important;
     }
     
     .typing-text {
@@ -574,7 +716,7 @@
       display: flex;
       gap: 1.5rem;
       justify-content: center;
-      margin-top: 3rem;
+      margin-top: 2rem;
       flex-wrap: wrap;
     }
     
@@ -614,12 +756,13 @@
     .scroll-indicator {
       position: fixed;
       bottom: 2rem;
-      left: 100px;
+      left: 2rem;
       z-index: 100;
       text-align: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
       opacity: 0.9;
+      will-change: transform;
     }
     
     .scroll-indicator:hover {
@@ -1314,7 +1457,7 @@
       transform: translateY(-2px);
     }
     
-    /* Experience Timeline */
+    /* Experience Timeline with Animated Line */
     .timeline {
       position: relative;
       padding-left: 3rem;
@@ -1388,6 +1531,7 @@
     
     .timeline-item.filled .timeline-circle::before {
       transform: translate(-50%, -50%) scale(1);
+      background: white;
     }
     
     .timeline-content {
@@ -1678,38 +1822,46 @@
     }
     
     @media (max-width: 768px) {
+      /* Top nav stays at top right on mobile, more compact */
       .side-nav {
-        width: 100%;
-        height: auto;
-        bottom: 0;
-        top: auto;
-        flex-direction: row;
-        padding: 1rem 0;
-        border-right: none;
-        border-top: 1px solid var(--border);
-      }
-      
-      .side-nav:hover {
-        width: 100%;
-      }
-      
-      .nav-logo {
-        display: none;
+        right: 1rem;
+        top: 1rem;
+        padding: 0 0.75rem;
+        gap: 0.25rem;
+        height: 45px;
       }
       
       .nav-items {
-        flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
+        gap: 0.25rem;
+      }
+      
+      .nav-item {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
+      }
+      
+      .nav-item i {
+        font-size: 1rem;
       }
       
       .nav-text {
-        display: none;
+        display: none; /* Hide text on mobile, show only icons */
+      }
+      
+      .theme-toggle {
+        width: 45px;
+        height: 45px;
+        top: 1rem;
+        right: 1rem;
+      }
+      
+      .theme-toggle i {
+        font-size: 1.2rem;
       }
       
       .main-content {
         margin-left: 0;
-        margin-bottom: 80px;
+        margin-bottom: 0;
       }
       
       .hero-text h1 {
@@ -1718,12 +1870,6 @@
       
       .typing-text {
         font-size: 1.2rem;
-      }
-      
-      .typing-container {
-        height: 60px;
-        padding: 0.75rem 1rem !important;
-        margin: 0.75rem 0 1.5rem 0 !important;
       }
       
       .section-title {
@@ -1739,90 +1885,44 @@
         flex-wrap: wrap;
       }
       
-      .social-link {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
+      /* Carousel mobile optimization */
+      .parallax-bg {
+        height: 200px !important;
+        padding: 2rem 0 !important;
+        gap: 1.5rem !important;
       }
       
-      /* About section - stack columns */
-      .about-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+      .code-snippet {
+        width: 180px !important;
+        max-width: 180px !important;
+        padding: 10px 12px !important;
+        font-size: 11px !important;
       }
       
-      .left-column,
-      .right-column {
-        order: 2;
+      .code-snippet:nth-child(3n) {
+        width: 160px !important;
+        font-size: 10px !important;
       }
       
-      .profile-container {
-        width: 250px;
-        height: 250px;
-        margin: 0 auto;
+      .code-snippet:nth-child(5n) {
+        width: 200px !important;
+        padding: 12px 14px !important;
       }
       
-      .profile-pic {
-        width: 250px;
-        height: 250px;
+      .keyword-card {
+        font-size: 11px !important;
+        padding: 12px 14px !important;
       }
       
-      .profile-glow {
-        width: 250px;
-        height: 250px;
+      .parallax-bg::before,
+      .parallax-bg::after {
+        width: 100px !important;
       }
       
-      .profile-reveal-overlay {
-        width: 250px;
-        height: 250px;
-      }
-      
-      /* Project cards - stack */
-      .project-card {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      
-      .project-card.reverse {
-        grid-template-columns: 1fr;
-      }
-      
-      .project-3d-container {
-        height: 350px;
-      }
-      
-      /* Timeline mobile */
-      .timeline {
-        padding-left: 2rem;
-      }
-      
-      .timeline-circle {
-        left: -2.5rem;
-        width: 16px;
-        height: 16px;
-        border-width: 2px;
-      }
-      
-      .timeline-circle::before {
-        width: 8px;
-        height: 8px;
-      }
-      
-      /* Contact form */
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      
-      /* Scroll indicator */
-      .scroll-indicator {
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 6rem;
-      }
-      
-      .scroll-indicator:hover {
-        transform: translateX(-50%) translateY(-5px);
+      /* Hide ambient particles and logos on mobile for performance */
+      .ambient-particle,
+      .floating-logo {
+        display: none;
       }
     }
     
@@ -1859,61 +1959,14 @@
       opacity: 1;
       transform: translateX(0);
     }
-    
-    /* Loading Screen */
-    #loading-screen {
-      position: fixed;
-      inset: 0;
-      background: var(--bg-primary);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-      transition: opacity 0.5s ease;
-    }
-    
-    #loading-screen.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    .spinner {
-      width: 60px;
-      height: 60px;
-      border: 4px solid rgba(59, 130, 246, 0.1);
-      border-top: 4px solid var(--accent);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .loading-text {
-      margin-top: 1.5rem;
-      color: var(--accent);
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-    }
   </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="spinner"></div>
-    <div class="loading-text">LOADING...</div>
-  </div>
-
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
     <i class="ph ph-moon" id="themeIcon"></i>
   </button>
 
-  <nav class="side-nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-logo">VU</div>
+  <nav class="side-nav">
     <div class="nav-items">
       <a href="#home" class="nav-item active">
         <i class="ph ph-house"></i>
@@ -1938,37 +1991,46 @@
     </div>
   </nav>
 
-  <main class="main-content" role="main">
-    <section id="home" class="hero-section" aria-label="Hero section">
-      <div class="parallax-bg" id="parallaxBg" aria-hidden="true"></div>
+  <main class="main-content">
+    <section id="home" class="hero-section">
       
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>Vimanga Umange</h1>
-          <div class="typing-container" style="background: rgba(30, 30, 35, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 8px; padding: 1rem 1.5rem; margin: 1rem 0 2rem 0; display: inline-block;">
-            <span class="typing-text" id="typingText"></span>
-          </div>
-          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; align-items: center;">
-            <a href="#contact" class="btn btn-primary">
-              <i class="ph ph-paper-plane-tilt"></i>
-              Send Me a Message
-            </a>
-            <a href="resume.pdf" download class="btn btn-secondary btn-download">
-              <i class="ph ph-download-simple"></i>
-              Download My Resume
-            </a>
-          </div>
-          <div class="social-links">
-            <a href="https://github.com/vimanga-x64" target="_blank" class="social-link" aria-label="GitHub">
-              <i class="ph ph-github-logo"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="social-link" aria-label="LinkedIn">
-              <i class="ph ph-linkedin-logo"></i>
-            </a>
-            <a href="https://medium.com/@vishudha98" target="_blank" class="social-link" aria-label="Medium">
-              <i class="ph ph-medium-logo"></i>
-            </a>
-          </div>
+      <div class="hero-content" style="gap: 1rem;">
+        <!-- Name -->
+        <h1 style="font-size: 3.5rem; font-weight: 900; line-height: 1.2; padding: 0.2rem 0; margin-bottom: 0; background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; opacity: 0; animation: fadeInTitle 0.8s ease-out 0.2s forwards;">
+          Vimanga Umange
+        </h1>
+        
+        <!-- Typing Animation -->
+        <div class="typing-container" style="height: 45px; margin-bottom: 0;">
+          <span class="typing-text" id="typingText" style="font-size: 1.4rem;"></span>
+        </div>
+        
+        <!-- Carousel -->
+        <div class="parallax-bg" id="parallaxBg" style="position: relative; width: 100vw; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; height: 300px; margin-top: 1rem; margin-bottom: 1rem;"></div>
+        
+        <!-- Buttons -->
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; align-items: center;">
+          <a href="#contact" class="btn btn-primary" style="padding: 0.7rem 1.4rem; font-size: 0.95rem;">
+            <i class="ph ph-paper-plane-tilt"></i>
+            Send Me a Message
+          </a>
+          <a href="resume.pdf" download class="btn btn-secondary btn-download" style="padding: 0.7rem 1.4rem; font-size: 0.95rem;">
+            <i class="ph ph-download-simple"></i>
+            Download My Resume
+          </a>
+        </div>
+        
+        <!-- Social Links -->
+        <div class="social-links" style="margin-top: 0.5rem;">
+          <a href="https://github.com/vimanga-x64" target="_blank" class="social-link" aria-label="GitHub" style="width: 45px; height: 45px; font-size: 1.4rem;">
+            <i class="ph ph-github-logo"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="social-link" aria-label="LinkedIn" style="width: 45px; height: 45px; font-size: 1.4rem;">
+            <i class="ph ph-linkedin-logo"></i>
+          </a>
+          <a href="https://medium.com/@vishudha98" target="_blank" class="social-link" aria-label="Medium" style="width: 45px; height: 45px; font-size: 1.4rem;">
+            <i class="ph ph-medium-logo"></i>
+          </a>
         </div>
       </div>
       
@@ -1978,7 +2040,7 @@
       </div>
     </section>
 
-    <section id="about" aria-label="About section">
+    <section id="about">
       <div class="section-container">
         <h2 class="section-title">Hi there</h2>
         <div class="about-content reveal">
@@ -2186,7 +2248,7 @@
       </div>
     </section>
 
-    <section id="projects" aria-label="Projects showcase">
+    <section id="projects">
       <div class="section-container">
         <h2 class="section-title">Projects</h2>
         <div class="project-grid">
@@ -2382,7 +2444,7 @@
       </div>
     </section>
 
-    <section id="experience" aria-label="Work experience">
+    <section id="experience">
       <div class="section-container">
         <h2 class="section-title">Experience</h2>
         <div class="timeline reveal">
@@ -2479,7 +2541,7 @@
       </div>
     </section>
 
-    <section id="contact" aria-label="Contact section">
+    <section id="contact">
       <div class="section-container">
         <h2 class="section-title">Say Hello</h2>
         <div class="contact-grid reveal">
@@ -2524,8 +2586,8 @@
             </div>
           </div>
 
-          <form class="contact-form" action="https://formspree.io/f/xvgwddda" method="POST" id="contactForm" aria-label="Contact form">
-            <div class="form-success" id="formSuccess" role="alert" aria-live="polite">
+          <form class="contact-form" action="https://formspree.io/f/xvgwddda" method="POST" id="contactForm">
+            <div class="form-success" id="formSuccess">
               <div class="success-icon">
                 <i class="ph-fill ph-check-circle"></i>
               </div>
@@ -2539,41 +2601,18 @@
             </div>
             
             <div class="form-group">
-              <label for="name">Name *</label>
-              <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                required 
-                aria-required="true"
-                placeholder="Your name"
-                autocomplete="name"
-              >
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
-              <label for="email">Email *</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                required 
-                aria-required="true"
-                placeholder="your.email@example.com"
-                autocomplete="email"
-              >
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-              <label for="message">Message *</label>
-              <textarea 
-                id="message" 
-                name="message" 
-                required 
-                aria-required="true"
-                placeholder="Tell me about your project, opportunity, or just say hello!"
-                rows="5"
-              ></textarea>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;" aria-label="Send message">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
               <i class="ph ph-paper-plane-tilt"></i>
               Send Message
             </button>
@@ -2650,166 +2689,170 @@
     
     type();
 
-    // Bouncing Code Blocks with 3D Parallax
-    function create3DBackground() {
+    // Carousel - Two Rows Moving in Opposite Directions
+    function createCarouselBackground() {
       const bg = document.getElementById('parallaxBg');
       
-      // Popular code snippets with expertise keywords
+      // Popular code snippets with expertise keywords - MIXED for variety
       const codeSnippets = [
-        // Python & AI/ML
+        // Row 1 - Mixed content
         '<span class="code-keyword">def</span> <span class="code-function">train_model</span>():\n  <span class="code-keyword">return</span> accuracy',
-        '<span class="code-keyword">import</span> tensorflow <span class="code-keyword">as</span> tf',
-        '<span class="code-keyword">from</span> sklearn <span class="code-keyword">import</span> model',
-        'model.<span class="code-function">fit</span>(X_train, y_train)',
-        '<span class="code-keyword">import</span> torch.nn <span class="code-keyword">as</span> nn',
-        // JavaScript/React
-        '<span class="code-keyword">const</span> data = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(url)',
+        'Machine Learning',
         '<span class="code-keyword">const</span> [state, setState] =\n  <span class="code-function">useState</span>(<span class="code-number">0</span>)',
-        '<span class="code-keyword">useEffect</span>(() => {\n  <span class="code-function">fetchData</span>()\n}, [])',
-        '<span class="code-keyword">export default</span> <span class="code-function">App</span>;',
-        // Backend/API
+        '<span class="code-keyword">SELECT</span> * <span class="code-keyword">FROM</span> users\n<span class="code-keyword">WHERE</span> active = <span class="code-number">1</span>',
+        'Neural Networks',
+        '<span class="code-keyword">import</span> tensorflow <span class="code-keyword">as</span> tf',
+        'API Development',
         '<span class="code-keyword">const</span> express = <span class="code-function">require</span>(\n  <span class="code-string">\'express\'</span>\n)',
+        'Deep Learning',
+        'FROM node:<span class="code-number">18</span>-alpine\nWORKDIR /app',
+        '<span class="code-keyword">from</span> sklearn <span class="code-keyword">import</span> model',
+        'Cloud Computing',
+        '<span class="code-keyword">useEffect</span>(() => {\n  <span class="code-function">fetchData</span>()\n}, [])',
+        'Natural Language Processing',
+        'git commit -m <span class="code-string">"fix"</span>',
+        'model.<span class="code-function">fit</span>(X_train, y_train)',
+        'DevOps Pipeline',
+        // Row 2 - Mixed content
+        '<span class="code-keyword">const</span> data = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(url)',
+        'Computer Vision',
+        '<span class="code-keyword">import</span> torch.nn <span class="code-keyword">as</span> nn',
+        'Full-Stack Development',
         'app.<span class="code-function">get</span>(<span class="code-string">\'/api\'</span>, (req, res) => {})',
         '<span class="code-keyword">@app.route</span>(<span class="code-string">\'/api\'</span>)\n<span class="code-keyword">def</span> <span class="code-function">endpoint</span>():',
-        // Database
-        '<span class="code-keyword">SELECT</span> * <span class="code-keyword">FROM</span> users\n<span class="code-keyword">WHERE</span> active = <span class="code-number">1</span>',
-        'db.<span class="code-function">collection</span>().find()',
-        // DevOps/Docker
-        'FROM node:<span class="code-number">18</span>-alpine\nWORKDIR /app',
-        'docker-compose up -d',
-        // Git/Version Control
-        'git commit -m <span class="code-string">"fix"</span>',
-        'git push origin main',
-        // Cloud/AWS
-        'kubectl apply -f deploy',
-        // TypeScript
-        '<span class="code-keyword">interface</span> User {\n  id: <span class="code-function">number</span>;\n}',
-        // CSS/Styling
-        '.container {\n  display: flex;\n  gap: <span class="code-number">1rem</span>;\n}',
-        // Testing
-        '<span class="code-keyword">test</span>(<span class="code-string">\'should work\'</span>, () => {\n  expect(result).toBe(<span class="code-keyword">true</span>)\n})',
-        // Data Science
-        'df.<span class="code-function">groupby</span>(<span class="code-string">\'category\'</span>)',
-        // Expertise Keywords
-        'Machine Learning',
-        'Neural Networks',
-        'Deep Learning',
-        'Natural Language Processing',
-        'Computer Vision',
-        'API Development',
-        'Cloud Computing',
-        'DevOps Pipeline',
-        'Full-Stack Development',
         'Performance Optimization',
+        'db.<span class="code-function">collection</span>().find()',
+        'docker-compose up -d',
+        '<span class="code-keyword">export default</span> <span class="code-function">App</span>;',
+        'git push origin main',
+        'kubectl apply -f deploy',
+        '<span class="code-keyword">interface</span> User {\n  id: <span class="code-function">number</span>;\n}',
+        '.container {\n  display: flex;\n  gap: <span class="code-number">1rem</span>;\n}',
+        '<span class="code-keyword">test</span>(<span class="code-string">\'should work\'</span>, () => {\n  expect(result).toBe(<span class="code-keyword">true</span>)\n})',
+        'df.<span class="code-function">groupby</span>(<span class="code-string">\'category\'</span>)',
       ];
       
-      const floatingBlocks = [];
+      // Shuffle function to randomize
+      function shuffle(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      }
       
-      // Create bouncing code blocks and keyword cards
-      codeSnippets.forEach((snippet, i) => {
+      // Shuffle and split into two rows
+      const shuffledSnippets = shuffle(codeSnippets);
+      const midPoint = Math.ceil(shuffledSnippets.length / 2);
+      const row1Snippets = shuffledSnippets.slice(0, midPoint);
+      const row2Snippets = shuffledSnippets.slice(midPoint);
+      
+      // Create first row (scrolling left)
+      const row1 = document.createElement('div');
+      row1.className = 'carousel-row carousel-row-left';
+      
+      // Duplicate content for seamless loop
+      [...row1Snippets, ...row1Snippets].forEach(snippet => {
         const codeElement = document.createElement('div');
         codeElement.className = 'code-snippet';
         
-        // Check if it's a keyword (no HTML tags) or code snippet
         const isKeyword = !snippet.includes('<span');
         if (isKeyword) {
           codeElement.classList.add('keyword-card');
         }
         
         codeElement.innerHTML = snippet;
-        
-        bg.appendChild(codeElement);
-        
-        // Get actual rendered dimensions
-        const rect = codeElement.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        
-        // Random starting position
-        const x = Math.random() * Math.max(0, window.innerWidth - width - 100);
-        const y = Math.random() * Math.max(0, window.innerHeight - height - 100);
-        
-        codeElement.style.left = x + 'px';
-        codeElement.style.top = y + 'px';
-        
-        // Slower velocity for calmer, more refined effect
-        const velocityX = (Math.random() - 0.5) * 0.8;
-        const velocityY = (Math.random() - 0.5) * 0.8;
-        
-        // Random Z position for 3D depth
-        const z = Math.random() * 400 - 200; // -200 to 200
-        
-        floatingBlocks.push({
-          element: codeElement,
-          x: x,
-          y: y,
-          z: z,
-          vx: velocityX,
-          vy: velocityY,
-          width: width,
-          height: height,
-          rotationX: Math.random() * 10 - 5,
-          rotationY: Math.random() * 10 - 5
-        });
+        row1.appendChild(codeElement);
       });
       
-      // Animation loop - simplified for performance
-      function animateBlocks() {
-        floatingBlocks.forEach(block => {
-          // Update position
-          block.x += block.vx;
-          block.y += block.vy;
-          
-          // Bounce off walls
-          const containerWidth = window.innerWidth;
-          const containerHeight = window.innerHeight;
-          
-          if (block.x <= 0) {
-            block.x = 0;
-            block.vx = Math.abs(block.vx);
-          }
-          if (block.x + block.width >= containerWidth) {
-            block.x = containerWidth - block.width;
-            block.vx = -Math.abs(block.vx);
-          }
-          
-          if (block.y <= 0) {
-            block.y = 0;
-            block.vy = Math.abs(block.vy);
-          }
-          if (block.y + block.height >= containerHeight) {
-            block.y = containerHeight - block.height;
-            block.vy = -Math.abs(block.vy);
-          }
-          
-          // Simple 2D positioning - no expensive 3D transforms
-          block.element.style.left = block.x + 'px';
-          block.element.style.top = block.y + 'px';
-          
-          // Subtle opacity variation based on z-depth (no transform needed)
-          const opacity = 0.6 + (block.z / 800);
-          block.element.style.opacity = Math.max(0.4, Math.min(0.9, opacity));
-          block.element.style.zIndex = Math.floor(block.z + 500);
-        });
+      // Create second row (scrolling right)
+      const row2 = document.createElement('div');
+      row2.className = 'carousel-row carousel-row-right';
+      
+      // Duplicate content for seamless loop
+      [...row2Snippets, ...row2Snippets].forEach(snippet => {
+        const codeElement = document.createElement('div');
+        codeElement.className = 'code-snippet';
         
-        requestAnimationFrame(animateBlocks);
-      }
-      
-      animateBlocks();
-      
-      // Window resize handler
-      window.addEventListener('resize', () => {
-        floatingBlocks.forEach(block => {
-          block.x = Math.min(block.x, window.innerWidth - block.width);
-          block.y = Math.min(block.y, window.innerHeight - block.height);
-        });
+        const isKeyword = !snippet.includes('<span');
+        if (isKeyword) {
+          codeElement.classList.add('keyword-card');
+        }
+        
+        codeElement.innerHTML = snippet;
+        row2.appendChild(codeElement);
       });
+      
+      bg.appendChild(row1);
+      bg.appendChild(row2);
     }
     
-    create3DBackground();
+    createCarouselBackground();
+    
+    // Create ambient particles
+    function createAmbientParticles() {
+      const heroSection = document.querySelector('.hero-section');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'ambient-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.width = (Math.random() * 4 + 2) + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        heroSection.appendChild(particle);
+      }
+    }
+    
+    // Create floating programming logos
+    function createFloatingLogos() {
+      const heroSection = document.querySelector('.hero-section');
+      const logos = ['🐍', 'JS', '⚛️', 'NODE', '🐳', 'SQL', 'AWS', 'GIT'];
+      const logoCount = 8;
+      
+      for (let i = 0; i < logoCount; i++) {
+        const logo = document.createElement('div');
+        logo.className = 'floating-logo';
+        logo.textContent = logos[i];
+        
+        // Random starting position
+        logo.style.left = Math.random() * 100 + '%';
+        logo.style.top = Math.random() * 100 + '%';
+        
+        // Random translation values
+        const tx = (Math.random() - 0.5) * 200;
+        const ty = (Math.random() - 0.5) * 200;
+        logo.style.setProperty('--tx', tx + 'px');
+        logo.style.setProperty('--ty', ty + 'px');
+        
+        // Random animation delay and duration
+        logo.style.animationDelay = Math.random() * 30 + 's';
+        logo.style.animationDuration = (Math.random() * 20 + 25) + 's';
+        
+        heroSection.appendChild(logo);
+      }
+    }
+    
+    createAmbientParticles();
+    createFloatingLogos();
 
-    // Scroll indicator click
+    // Scroll indicator - move with sidebar hover
     const scrollIndicator = document.getElementById('scrollIndicator');
+    const sideNav = document.querySelector('.side-nav');
+    
+    sideNav.addEventListener('mouseenter', () => {
+      scrollIndicator.style.left = '220px';
+    });
+    
+    sideNav.addEventListener('mouseleave', () => {
+      scrollIndicator.style.left = '100px';
+    });
+    
+    // Scroll indicator click
     scrollIndicator.addEventListener('click', () => {
       document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
     });
@@ -2935,11 +2978,13 @@
       scrambleEffects.set(title, new TextScramble(title));
     });
     
-    // Reveal animations
+    // Reveal animations with Timeline Animation
     function reveal() {
       const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
       const titles = document.querySelectorAll('.section-title');
       const laptopCards = document.querySelectorAll('.project-card:has(.laptop-lid)');
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      const timeline = document.querySelector('.timeline');
       
       reveals.forEach(element => {
         const windowHeight = window.innerHeight;
@@ -2979,42 +3024,47 @@
           }, 300); // Small delay for better effect
         }
       });
+      
+      // Handle timeline animation
+      if (timeline) {
+        const windowHeight = window.innerHeight;
+        const timelineRect = timeline.getBoundingClientRect();
+        const timelineTop = timelineRect.top;
+        const timelineBottom = timelineRect.bottom;
+        const timelineHeight = timelineRect.height;
+        
+        // Calculate how much of the timeline is visible
+        if (timelineTop < windowHeight && timelineBottom > 0) {
+          timeline.classList.add('active');
+          
+          // Calculate progress percentage
+          const scrollProgress = Math.max(0, Math.min(1, 
+            (windowHeight - timelineTop) / (windowHeight + timelineHeight)
+          ));
+          const progressPercent = scrollProgress * 100;
+          
+          // Update the line height
+          timeline.style.setProperty('--timeline-progress', `${progressPercent}%`);
+          
+          // Fill circles as the line reaches them
+          timelineItems.forEach((item, index) => {
+            const itemTop = item.getBoundingClientRect().top;
+            const itemOffset = itemTop - timelineTop;
+            const itemProgress = (itemOffset / timelineHeight) * 100;
+            
+            // Fill circle if the line has reached it
+            if (progressPercent >= itemProgress) {
+              setTimeout(() => {
+                item.classList.add('filled');
+              }, index * 200); // Stagger the filling animation
+            }
+          });
+        }
+      }
     }
     
     window.addEventListener('scroll', reveal);
     reveal();
-    
-    // Timeline circle filling animation
-    function animateTimeline() {
-      const timeline = document.querySelector('.timeline');
-      if (!timeline) return;
-      
-      const timelineItems = document.querySelectorAll('.timeline-item');
-      const windowHeight = window.innerHeight;
-      const timelineTop = timeline.getBoundingClientRect().top + window.pageYOffset;
-      const timelineHeight = timeline.offsetHeight;
-      const scrollPos = window.pageYOffset + windowHeight * 0.7;
-      
-      // Calculate progress (0 to 100%)
-      if (scrollPos > timelineTop) {
-        const progress = Math.min(100, ((scrollPos - timelineTop) / timelineHeight) * 100);
-        timeline.style.setProperty('--timeline-progress', `${progress}%`);
-        timeline.classList.add('active');
-        
-        // Fill circles with stagger effect
-        timelineItems.forEach((item, index) => {
-          const itemTop = item.getBoundingClientRect().top + window.pageYOffset;
-          if (scrollPos > itemTop - 100) {
-            setTimeout(() => {
-              item.classList.add('filled');
-            }, index * 200);
-          }
-        });
-      }
-    }
-    
-    window.addEventListener('scroll', animateTimeline);
-    animateTimeline();
     
     // Contact Form Submission Handler
     const contactForm = document.getElementById('contactForm');
@@ -3024,12 +3074,6 @@
     if (contactForm) {
       contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        // Disable submit button to prevent double submission
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.innerHTML;
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="ph ph-spinner"></i> Sending...';
         
         const formData = new FormData(contactForm);
         
@@ -3059,43 +3103,17 @@
                 setTimeout(() => {
                   formSuccess.classList.remove('show');
                   contactForm.reset();
-                  submitButton.disabled = false;
-                  submitButton.innerHTML = originalButtonText;
                 }, 1000);
               }
             }, 1000);
           } else {
-            // Enhanced error handling
-            const errorData = await response.json().catch(() => ({}));
-            const errorMessage = errorData.error || 'There was a problem submitting your form.';
-            
-            alert(`Oops! ${errorMessage}\n\nPlease try again or email me directly at vimangau@gmail.com`);
-            
-            // Re-enable submit button
-            submitButton.disabled = false;
-            submitButton.innerHTML = originalButtonText;
+            alert('Oops! There was a problem submitting your form. Please try again.');
           }
         } catch (error) {
-          console.error('Form submission error:', error);
-          alert('Oops! There was a network error. Please check your connection and try again, or email me directly at vimangau@gmail.com');
-          
-          // Re-enable submit button
-          submitButton.disabled = false;
-          submitButton.innerHTML = originalButtonText;
+          alert('Oops! There was a problem submitting your form. Please try again.');
         }
       });
     }
-    
-    // Loading screen - hide when page is fully loaded
-    window.addEventListener('load', () => {
-      const loadingScreen = document.getElementById('loading-screen');
-      setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-        setTimeout(() => {
-          loadingScreen.style.display = 'none';
-        }, 500);
-      }, 500); // Small delay for smooth transition
-    });
   </script>
 </body>
 </html>
