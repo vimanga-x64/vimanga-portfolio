@@ -102,13 +102,13 @@
       width: 220px;
       max-width: 220px;
       padding: 12px 16px;
-      background: rgba(30, 30, 35, 0.95);
+      background: var(--bg-secondary);
       border: 1px solid rgba(59, 130, 246, 0.4);
       border-radius: 8px;
       font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
       font-size: 12px;
       line-height: 1.5;
-      color: #abb2bf;
+      color: var(--text-secondary);
       white-space: pre-wrap;
       word-wrap: break-word;
       overflow: hidden;
@@ -123,7 +123,7 @@
     .code-snippet.keyword-card {
       background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.15));
       border: 1px solid rgba(59, 130, 246, 0.6);
-      color: #60A5FA;
+      color: var(--accent);
       font-weight: 600;
       font-size: 13px;
       text-align: center;
@@ -133,25 +133,47 @@
       opacity: 0.5;
     }
     
-    .code-snippet .code-keyword {
+    [data-theme="dark"] .code-snippet .code-keyword {
       color: #C678DD;
       font-weight: 600;
     }
     
-    .code-snippet .code-function {
+    [data-theme="light"] .code-snippet .code-keyword {
+      color: #9333EA;
+      font-weight: 600;
+    }
+    
+    [data-theme="dark"] .code-snippet .code-function {
       color: #61AFEF;
     }
     
-    .code-snippet .code-string {
+    [data-theme="light"] .code-snippet .code-function {
+      color: #2563EB;
+    }
+    
+    [data-theme="dark"] .code-snippet .code-string {
       color: #98C379;
     }
     
-    .code-snippet .code-number {
+    [data-theme="light"] .code-snippet .code-string {
+      color: #16A34A;
+    }
+    
+    [data-theme="dark"] .code-snippet .code-number {
       color: #D19A66;
     }
     
-    .code-snippet .code-comment {
+    [data-theme="light"] .code-snippet .code-number {
+      color: #D97706;
+    }
+    
+    [data-theme="dark"] .code-snippet .code-comment {
       color: #5C6370;
+      font-style: italic;
+    }
+    
+    [data-theme="light"] .code-snippet .code-comment {
+      color: #6B7280;
       font-style: italic;
     }
     
@@ -311,7 +333,7 @@
     .nav-logo {
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, #3B82F6, #60A5FA);
+      background: linear-gradient(135deg, var(--accent), #60A5FA);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -462,17 +484,31 @@
       backdrop-filter: blur(10px);
     }
     
-    .hero-text .code-highlight {
+    [data-theme="dark"] .hero-text .code-highlight {
       color: #e6e6e6;
     }
     
-    .hero-text .keyword {
+    [data-theme="light"] .hero-text .code-highlight {
+      color: #1f2937;
+    }
+    
+    [data-theme="dark"] .hero-text .keyword {
       color: #C678DD;
       font-weight: 600;
     }
     
-    .hero-text .string {
+    [data-theme="light"] .hero-text .keyword {
+      color: #9333EA;
+      font-weight: 600;
+    }
+    
+    [data-theme="dark"] .hero-text .string {
       color: #98C379;
+      font-weight: 600;
+    }
+    
+    [data-theme="light"] .hero-text .string {
+      color: #16A34A;
       font-weight: 600;
     }
     
@@ -864,27 +900,65 @@
       height: 300px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid var(--accent);
-      box-shadow: 0 0 50px rgba(59, 130, 246, 0.5);
-      transition: all 0.3s ease;
+      border: 4px solid transparent;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       z-index: 1;
       opacity: 0;
-      transform: scale(0.8);
-      animation: fadeInProfile 0.8s ease-out forwards;
-      animation-delay: 1.5s;
+      clip-path: circle(0% at 50% 50%);
+      animation: revealProfile 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      animation-delay: 0.5s;
     }
     
-    @keyframes fadeInProfile {
-      to {
+    .profile-pic::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--accent), #60A5FA, #34D399);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      animation: borderGlow 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      animation-delay: 1s;
+    }
+    
+    @keyframes revealProfile {
+      0% {
+        opacity: 0;
+        clip-path: circle(0% at 50% 50%);
+        filter: blur(10px) brightness(0.5);
+      }
+      50% {
+        opacity: 0.7;
+        filter: blur(5px) brightness(0.8);
+      }
+      100% {
         opacity: 1;
-        transform: scale(1);
+        clip-path: circle(50% at 50% 50%);
+        filter: blur(0px) brightness(1);
+      }
+    }
+    
+    @keyframes borderGlow {
+      0% {
+        opacity: 0;
+        transform: scale(0.9) rotate(0deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(360deg);
       }
     }
     
     .profile-pic:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 70px rgba(59, 130, 246, 0.7);
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 16px 48px rgba(59, 130, 246, 0.4), 0 0 60px rgba(59, 130, 246, 0.3);
+      filter: brightness(1.1);
     }
     
     /* 3D Project Display with Laptop Opening Animation */
@@ -1314,6 +1388,110 @@
       transform: translateY(-2px);
     }
     
+    /* Orbiting Tech Stack */
+    .orbit-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 2rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .orbit-center {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--accent), #60A5FA);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+      z-index: 10;
+      position: relative;
+    }
+    
+    .orbit-ring {
+      position: absolute;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .orbit-ring-1 { width: 160px; height: 160px; }
+    .orbit-ring-2 { width: 240px; height: 240px; }
+    
+    .orbit-icon {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: var(--card-bg);
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      padding: 8px;
+    }
+    
+    .orbit-icon:hover {
+      transform: scale(1.2);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+      border-color: #60A5FA;
+    }
+    
+    .orbit-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.3));
+    }
+    
+    .orbit-icon i {
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+    
+    .orbit-icon-text {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .orbit-icon:hover .orbit-icon-text {
+      opacity: 1;
+    }
+    
+    /* Animation for orbiting */
+    @keyframes orbit {
+      from { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+      to { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+    }
+    
+    .orbit-item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      animation: orbit var(--orbit-duration) linear infinite;
+    }
+    
     /* Experience Timeline */
     .timeline {
       position: relative;
@@ -1419,6 +1597,34 @@
     .timeline-description {
       color: var(--text-secondary);
       line-height: 1.6;
+    }
+    
+    /* Globe Visualization */
+    .globe-container {
+      width: 100%;
+      max-width: 300px;
+      margin: 1rem auto;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      border-radius: 50%;
+      overflow: hidden;
+      background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.1), transparent 70%);
+    }
+    
+    #globe-canvas {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      cursor: grab;
+    }
+    
+    #globe-canvas:active {
+      cursor: grabbing;
+    }
+    
+    #globe-canvas.loaded {
+      opacity: 1;
     }
     
     /* Contact Section */
@@ -1675,6 +1881,30 @@
         top: 1rem;
         right: 1rem;
       }
+      
+      .orbit-container {
+        width: 250px;
+        height: 250px;
+      }
+      
+      .orbit-ring-1 { width: 140px; height: 140px; }
+      .orbit-ring-2 { width: 200px; height: 200px; }
+      
+      .orbit-center {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+      
+      .orbit-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      
+      .orbit-icon i {
+        font-size: 1.4rem;
+      }
     }
     
     @media (max-width: 768px) {
@@ -1823,6 +2053,35 @@
       
       .scroll-indicator:hover {
         transform: translateX(-50%) translateY(-5px);
+      }
+      
+      /* Smaller orbit on mobile */
+      .orbit-container {
+        width: 200px;
+        height: 200px;
+      }
+      
+      .orbit-ring-1 { width: 100px; height: 100px; }
+      .orbit-ring-2 { width: 160px; height: 160px; }
+      
+      .orbit-center {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+      
+      .orbit-icon {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .orbit-icon i {
+        font-size: 1.2rem;
+      }
+      
+      /* Smaller globe on mobile */
+      .globe-container {
+        max-width: 220px;
       }
     }
     
@@ -1992,7 +2251,10 @@
             
             <div class="info-card">
               <h4><i class="ph ph-map-pin"></i> Location</h4>
-              <div class="info-card-content">
+              <div class="globe-container">
+                <canvas id="globe-canvas"></canvas>
+              </div>
+              <div class="info-card-content" style="text-align: center;">
                 <strong>Windsor, ON, Canada</strong><br>
                 <span style="font-size: 0.85rem;">Open to remote & on-site</span>
               </div>
@@ -2020,7 +2282,7 @@
             </div>
           </div>
           
-          <!-- CENTER COLUMN: Bio + Education + Interests -->
+          <!-- CENTER COLUMN: Bio + Focus Areas -->
           <div style="display: flex; flex-direction: column; gap: 1.5rem;">
             <div>
               <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem; margin-bottom: 1rem;">
@@ -2051,37 +2313,25 @@
             </div>
             
             <div class="info-card">
-              <h4><i class="ph ph-heart"></i> Interests & Hobbies</h4>
-              <div class="info-card-content">
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 0.5rem;">
-                  <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="ph ph-barbell" style="color: var(--accent);"></i>
-                    <span style="font-size: 0.9rem;">Gym & Fitness</span>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="ph ph-football" style="color: var(--accent);"></i>
-                    <span style="font-size: 0.9rem;">Gridiron</span>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="ph ph-basketball" style="color: var(--accent);"></i>
-                    <span style="font-size: 0.9rem;">Basketball</span>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="ph ph-game-controller" style="color: var(--accent);"></i>
-                    <span style="font-size: 0.9rem;">Gaming</span>
-                  </div>
+              <h4><i class="ph ph-target"></i> Focus Areas</h4>
+              <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem;">
+                <div style="display: flex; align-items: start; gap: 0.5rem;">
+                  <i class="ph ph-check-circle" style="color: var(--accent); margin-top: 0.2rem;"></i>
+                  <span style="font-size: 0.9rem; color: var(--text-secondary);">Neural Networks & Deep Learning</span>
+                </div>
+                <div style="display: flex; align-items: start; gap: 0.5rem;">
+                  <i class="ph ph-check-circle" style="color: var(--accent); margin-top: 0.2rem;"></i>
+                  <span style="font-size: 0.9rem; color: var(--text-secondary);">Full-Stack Web Development</span>
+                </div>
+                <div style="display: flex; align-items: start; gap: 0.5rem;">
+                  <i class="ph ph-check-circle" style="color: var(--accent); margin-top: 0.2rem;"></i>
+                  <span style="font-size: 0.9rem; color: var(--text-secondary);">Scalable Infrastructure</span>
+                </div>
+                <div style="display: flex; align-items: start; gap: 0.5rem;">
+                  <i class="ph ph-check-circle" style="color: var(--accent); margin-top: 0.2rem;"></i>
+                  <span style="font-size: 0.9rem; color: var(--text-secondary);">NLP & Language Models</span>
                 </div>
               </div>
-            </div>
-            
-            <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.05)); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 1.5rem; text-align: center;">
-              <p style="color: var(--text-primary); font-size: 1rem; margin-bottom: 0.5rem;">
-                💡 <strong>Open to collaborations!</strong>
-              </p>
-              <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                Always interested in hearing about new projects. 
-                <a href="#contact" style="color: var(--accent); text-decoration: none; font-weight: 600;">Let's connect →</a>
-              </p>
             </div>
           </div>
           
@@ -2111,6 +2361,108 @@
             
             <div class="info-card">
               <h4><i class="ph ph-stack"></i> Tech Stack</h4>
+              
+              <!-- Orbiting Tech Icons -->
+              <div class="orbit-container">
+                <!-- Orbit rings -->
+                <div class="orbit-ring orbit-ring-1"></div>
+                <div class="orbit-ring orbit-ring-2"></div>
+                
+                <!-- Center icon -->
+                <div class="orbit-center">
+                  <i class="ph-bold ph-code"></i>
+                </div>
+                
+                <!-- Inner orbit - Main technologies -->
+                <div class="orbit-item" style="--orbit-radius: 80px; --orbit-duration: 20s; animation-delay: 0s;">
+                  <div class="orbit-icon" data-tech="python">
+                    <img src="logos/python.svg" alt="Python">
+                    <span class="orbit-icon-text">Python</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 80px; --orbit-duration: 20s; animation-delay: -5s;">
+                  <div class="orbit-icon" data-tech="javascript">
+                    <img src="logos/javascript.svg" alt="JavaScript">
+                    <span class="orbit-icon-text">JavaScript</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 80px; --orbit-duration: 20s; animation-delay: -10s;">
+                  <div class="orbit-icon" data-tech="sql">
+                    <i class="ph-bold ph-database"></i>
+                    <span class="orbit-icon-text">SQL</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 80px; --orbit-duration: 20s; animation-delay: -15s;">
+                  <div class="orbit-icon" data-tech="java">
+                    <img src="logos/java.svg" alt="Java">
+                    <span class="orbit-icon-text">Java</span>
+                  </div>
+                </div>
+                
+                <!-- Outer orbit - Frameworks & Tools (8 items evenly distributed) -->
+                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: 0s;">
+                  <div class="orbit-icon" data-tech="react">
+                    <img src="logos/react_light.svg" alt="React">
+                    <span class="orbit-icon-text">React</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -3.75s;">
+                  <div class="orbit-icon" data-tech="nodejs">
+                    <img src="logos/nodejs.svg" alt="Node.js">
+                    <span class="orbit-icon-text">Node.js</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -7.5s;">
+                  <div class="orbit-icon" data-tech="pytorch">
+                    <i class="ph-bold ph-brain"></i>
+                    <span class="orbit-icon-text">PyTorch</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -11.25s;">
+                  <div class="orbit-icon" data-tech="docker">
+                    <img src="logos/docker.svg" alt="Docker">
+                    <span class="orbit-icon-text">Docker</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -15s;">
+                  <div class="orbit-icon" data-tech="gcp">
+                    <img src="logos/google-cloud.svg" alt="Google Cloud">
+                    <span class="orbit-icon-text">GCP</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -18.75s;">
+                  <div class="orbit-icon" data-tech="git">
+                    <img src="logos/git.svg" alt="Git">
+                    <span class="orbit-icon-text">Git</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -22.5s;">
+                  <div class="orbit-icon" data-tech="mongodb">
+                    <img src="logos/mongodb.svg" alt="MongoDB">
+                    <span class="orbit-icon-text">MongoDB</span>
+                  </div>
+                </div>
+                
+                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -26.25s;">
+                  <div class="orbit-icon" data-tech="dart">
+                    <img src="logos/dart.svg" alt="Dart">
+                    <span class="orbit-icon-text">Dart</span>
+                  </div>
+                </div>
+              </div>
+
+              
+              
+              <!-- Text list below for accessibility and detail -->
               <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.75rem;">
                 <div>
                   <div style="font-size: 0.8rem; color: var(--accent); margin-bottom: 0.4rem; font-weight: 600;">LANGUAGES</div>
@@ -2118,6 +2470,7 @@
                     <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">Python</span>
                     <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">JavaScript</span>
                     <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">Java</span>
+                    <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">Dart</span>
                     <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">SQL</span>
                   </div>
                 </div>
@@ -2156,28 +2509,6 @@
                     <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">Git</span>
                     <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">Linux</span>
                   </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="info-card">
-              <h4><i class="ph ph-target"></i> Focus Areas</h4>
-              <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem;">
-                <div style="display: flex; align-items: start; gap: 0.5rem;">
-                  <i class="ph ph-check-circle" style="color: var(--accent); margin-top: 0.2rem;"></i>
-                  <span style="font-size: 0.9rem; color: var(--text-secondary);">Neural Networks & Deep Learning</span>
-                </div>
-                <div style="display: flex; align-items: start; gap: 0.5rem;">
-                  <i class="ph ph-check-circle" style="color: var(--accent); margin-top: 0.2rem;"></i>
-                  <span style="font-size: 0.9rem; color: var(--text-secondary);">Full-Stack Web Development</span>
-                </div>
-                <div style="display: flex; align-items: start; gap: 0.5rem;">
-                  <i class="ph ph-check-circle" style="color: var(--accent); margin-top: 0.2rem;"></i>
-                  <span style="font-size: 0.9rem; color: var(--text-secondary);">Scalable Infrastructure</span>
-                </div>
-                <div style="display: flex; align-items: start; gap: 0.5rem;">
-                  <i class="ph ph-check-circle" style="color: var(--accent); margin-top: 0.2rem;"></i>
-                  <span style="font-size: 0.9rem; color: var(--text-secondary);">NLP & Language Models</span>
                 </div>
               </div>
             </div>
@@ -2486,9 +2817,15 @@
           <div class="contact-info">
             <div class="contact-item">
               <i class="ph ph-envelope"></i>
-              <div>
+              <div style="flex: 1;">
                 <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Email</h4>
-                <a href="mailto:vimangau@gmail.com" style="color: var(--text-secondary); text-decoration: none;">vimangau@gmail.com</a>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <a href="mailto:vimangau@gmail.com" style="color: var(--text-secondary); text-decoration: none;">vimangau@gmail.com</a>
+                  <button onclick="copyEmail()" class="btn" style="padding: 0.3rem 0.6rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.3rem;" title="Copy email address">
+                    <i class="ph ph-copy" id="copyIcon"></i>
+                    <span id="copyText">Copy</span>
+                  </button>
+                </div>
               </div>
             </div>
             <div class="contact-item">
@@ -3096,6 +3433,364 @@
         }, 500);
       }, 500); // Small delay for smooth transition
     });
+    
+    // Copy email function
+    function copyEmail() {
+      const email = 'vimangau@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const copyIcon = document.getElementById('copyIcon');
+        const copyText = document.getElementById('copyText');
+        
+        // Change to checkmark
+        copyIcon.className = 'ph-fill ph-check';
+        copyText.textContent = 'Copied!';
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+          copyIcon.className = 'ph ph-copy';
+          copyText.textContent = 'Copy';
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Email: vimangau@gmail.com');
+      });
+    }
+    
+    // Interactive Globe - Custom Canvas Implementation
+    let globeInstance = null;
+    let globeInitialized = false;
+
+const initGlobe = () => {
+  if (globeInitialized) return;
+  
+  const canvas = document.getElementById('globe-canvas');
+  if (!canvas) {
+    console.error('Globe canvas not found');
+    return;
+  }
+
+  console.log('Initializing custom globe...');
+  globeInitialized = true;
+
+  const ctx = canvas.getContext('2d');
+  let width = canvas.parentElement.offsetWidth;
+  let height = width; // Keep it square
+  canvas.width = width * 2;
+  canvas.height = height * 2;
+  ctx.scale(2, 2);
+  ctx.lineJoin = 'round'; // Smoother lines for professional look
+  ctx.lineCap = 'round';
+
+  let rotation = 0;
+  let isDragging = false;
+  let lastX = 0;
+  
+  // Cities (unchanged)
+  const cities = [
+    { name: 'Windsor', lat: 42.3149, lon: -83.0364, size: 8 },
+    { name: 'Toronto', lat: 43.6532, lon: -79.3832, size: 5 },
+    { name: 'NYC', lat: 40.7128, lon: -74.006, size: 6 },
+    { name: 'London', lat: 51.5074, lon: -0.1278, size: 5 }
+  ];
+  
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+  // More detailed continent outlines (lon, lat pairs; simplified to ~50-100 points each for performance)
+  const continents = [
+    // North America (more points for accuracy)
+    [
+      [-168, 65], [-164, 67], [-156, 71], [-142, 70], [-130, 72], [-125, 72], [-122, 70], [-125, 60], [-130, 55],
+      [-132, 50], [-130, 45], [-124, 40], [-120, 34], [-117, 32], [-115, 30], [-112, 31], [-108, 31], [-105, 29],
+      [-102, 29], [-100, 26], [-97, 26], [-95, 29], [-90, 29], [-88, 30], [-85, 28], [-83, 29], [-81, 27], [-80, 25],
+      [-78, 26], [-77, 27], [-75, 28], [-73, 32], [-70, 43], [-68, 45], [-66, 45], [-63, 47], [-60, 50], [-58, 52],
+      [-56, 58], [-62, 62], [-68, 68], [-80, 72], [-95, 73], [-110, 73], [-125, 74], [-145, 73], [-160, 70], [-168, 65]
+    ],
+    // Central America (connected to North/South)
+    [
+      [-92, 21], [-90, 20], [-88, 16], [-86, 15], [-84, 11], [-82, 9], [-79, 9], [-77, 8], [-78, 10], [-80, 12],
+      [-83, 14], [-87, 18], [-90, 19], [-92, 21]
+    ],
+    // South America
+    [
+      [-81, 12], [-79, 8], [-77, 4], [-75, 0], [-73, -4], [-71, -10], [-70, -18], [-69, -23], [-68, -30], [-68, -38],
+      [-69, -42], [-71, -48], [-72, -52], [-74, -54], [-68, -55], [-65, -54], [-62, -52], [-58, -48], [-57, -42],
+      [-55, -35], [-54, -28], [-52, -22], [-50, -15], [-49, -10], [-50, -5], [-52, -2], [-55, 2], [-58, 5], [-62, 8],
+      [-67, 10], [-72, 11], [-77, 12], [-81, 12]
+    ],
+    // Europe
+    [
+      [-10, 54], [-8, 58], [-5, 60], [0, 60], [5, 59], [10, 58], [15, 59], [20, 60], [25, 61], [28, 69], [25, 70],
+      [20, 69], [15, 68], [12, 65], [10, 62], [8, 60], [5, 58], [8, 56], [10, 54], [12, 52], [15, 50], [18, 48],
+      [20, 46], [22, 44], [20, 42], [18, 41], [15, 40], [12, 40], [10, 42], [7, 43], [5, 43], [2, 45], [0, 47],
+      [-2, 49], [-5, 51], [-8, 52], [-10, 54]
+    ],
+    // Africa
+    [
+      [-17, 36], [-12, 35], [-8, 33], [-5, 32], [0, 32], [8, 31], [12, 30], [20, 25], [25, 20], [30, 17], [35, 12],
+      [38, 8], [40, 3], [42, -3], [43, -8], [42, -12], [40, -16], [37, -20], [35, -25], [33, -29], [30, -32],
+      [27, -34], [23, -34], [19, -33], [16, -30], [15, -26], [14, -20], [13, -15], [12, -10], [11, -5], [10, 0],
+      [9, 5], [8, 10], [6, 15], [3, 18], [0, 20], [-3, 22], [-6, 24], [-8, 27], [-10, 29], [-12, 32], [-15, 35],
+      [-17, 36]
+    ],
+    // Asia
+    [
+      [26, 72], [35, 75], [45, 75], [55, 73], [65, 70], [75, 65], [85, 60], [95, 55], [105, 50], [115, 45],
+      [125, 40], [130, 35], [135, 30], [140, 25], [145, 20], [148, 15], [148, 10], [145, 5], [140, 2], [135, 1],
+      [130, 2], [125, 5], [120, 8], [115, 12], [110, 15], [105, 18], [100, 20], [95, 22], [90, 23], [85, 23],
+      [80, 22], [75, 22], [70, 23], [65, 25], [60, 28], [55, 32], [52, 35], [50, 40], [48, 45], [46, 50],
+      [44, 55], [42, 60], [38, 65], [32, 68], [26, 72]
+    ],
+    // Oceania/Australia
+    [
+      [113, -10], [118, -12], [123, -14], [128, -14], [133, -13], [138, -14], [143, -16], [147, -19], [150, -23],
+      [153, -28], [154, -32], [153, -36], [151, -38], [148, -40], [145, -42], [142, -43], [138, -43], [135, -42],
+      [132, -40], [128, -38], [125, -36], [122, -33], [119, -30], [116, -26], [114, -22], [113, -18], [112, -14],
+      [113, -10]
+    ],
+    // Antarctica (simplified irregular outline)
+    [
+      [0, -60], [20, -62], [40, -65], [60, -68], [80, -70], [100, -72], [120, -75], [140, -78], [160, -80],
+      [180, -82], [-160, -80], [-140, -78], [-120, -75], [-100, -72], [-80, -70], [-60, -68], [-40, -65],
+      [-20, -62], [0, -60], [10, -63], [30, -66], [50, -69], [70, -71], [90, -73], [110, -76], [130, -79],
+      [150, -81], [170, -83], [-170, -83], [-150, -81], [-130, -79], [-110, -76], [-90, -73], [-70, -71],
+      [-50, -69], [-30, -66], [-10, -63], [0, -60]
+    ]
+  ];
+
+  // Project 3D point to 2D (unchanged)
+  function project3D(lat, lon, centerX, centerY, radius) {
+    const latRad = lat * Math.PI / 180;
+    const lonRad = (lon + rotation) * Math.PI / 180;
+    
+    const x = centerX + radius * Math.cos(latRad) * Math.cos(lonRad);
+    const y = centerY - radius * Math.sin(latRad);
+    const z = radius * Math.cos(latRad) * Math.sin(lonRad);
+    
+    return { x, y, z, visible: z > 0 };
+  }
+
+  // Draw globe with world map
+  function drawGlobe() {
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const radius = Math.min(width, height) / 2 - 10;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw globe background (ocean) with subtle gradient
+    const oceanGradient = ctx.createRadialGradient(centerX - radius/3, centerY - radius/3, 0, centerX, centerY, radius);
+    if (isDark) {
+      oceanGradient.addColorStop(0, 'rgba(20, 50, 90, 0.8)');
+      oceanGradient.addColorStop(1, 'rgba(5, 20, 50, 0.9)');
+    } else {
+      oceanGradient.addColorStop(0, 'rgba(150, 200, 255, 0.7)');
+      oceanGradient.addColorStop(1, 'rgba(80, 130, 220, 0.6)');
+    }
+    
+    ctx.fillStyle = oceanGradient;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Draw continents with gradient fill for depth
+    continents.forEach(continent => {
+      const projectedPoints = continent.map(([lon, lat]) => 
+        project3D(lat, lon, centerX, centerY, radius)
+      );
+      
+      // Only draw if at least some points are visible
+      const visiblePoints = projectedPoints.filter(p => p.visible);
+      if (visiblePoints.length > 2) {
+        ctx.beginPath();
+        projectedPoints.forEach((point, i) => {
+          if (point.visible) {
+            if (i === 0) ctx.moveTo(point.x, point.y);
+            else ctx.lineTo(point.x, point.y);
+          }
+        });
+        ctx.closePath();
+
+        // Gradient fill for land (professional shading)
+        const landGradient = ctx.createLinearGradient(centerX - radius, centerY, centerX + radius, centerY);
+        if (isDark) {
+          landGradient.addColorStop(0, 'rgba(50, 100, 50, 0.7)');
+          landGradient.addColorStop(1, 'rgba(30, 70, 30, 0.8)');
+        } else {
+          landGradient.addColorStop(0, 'rgba(100, 160, 100, 0.6)');
+          landGradient.addColorStop(1, 'rgba(70, 130, 70, 0.7)');
+        }
+        ctx.fillStyle = landGradient;
+        ctx.fill();
+
+        // Subtle border
+        ctx.strokeStyle = isDark ? 'rgba(80, 120, 80, 0.4)' : 'rgba(50, 100, 50, 0.5)';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+    });
+
+    // Draw latitude lines (grid) - thinner for cleaner look
+    ctx.strokeStyle = isDark ? 'rgba(100, 150, 200, 0.15)' : 'rgba(50, 100, 150, 0.2)';
+    ctx.lineWidth = 0.3;
+    
+    for (let lat = -60; lat <= 60; lat += 30) {
+      ctx.beginPath();
+      const latRadius = radius * Math.cos(lat * Math.PI / 180);
+      const yOffset = radius * Math.sin(lat * Math.PI / 180);
+      
+      for (let lon = 0; lon <= 360; lon += 5) {
+        const angle = (lon + rotation) * Math.PI / 180;
+        const x = centerX + latRadius * Math.cos(angle);
+        const z = latRadius * Math.sin(angle);
+        const y = centerY - yOffset;
+        
+        if (z > 0) { // Only draw front half
+          if (lon === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+    }
+
+    // Draw longitude lines
+    for (let lon = 0; lon < 360; lon += 30) {
+      ctx.beginPath();
+      for (let lat = -90; lat <= 90; lat += 5) {
+        const angle = (lon + rotation) * Math.PI / 180;
+        const latRadius = radius * Math.cos(lat * Math.PI / 180);
+        const z = latRadius * Math.sin(angle);
+        
+        if (z > 0) { // Only draw front half
+          const x = centerX + latRadius * Math.cos(angle);
+          const y = centerY - radius * Math.sin(lat * Math.PI / 180);
+          
+          if (lat === -90) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+    }
+
+    // Draw city markers (unchanged but with better glow)
+    cities.forEach(city => {
+      const angle = (city.lon + rotation) * Math.PI / 180;
+      const latRadius = radius * Math.cos(city.lat * Math.PI / 180);
+      const z = latRadius * Math.sin(angle);
+      
+      if (z > 0) { // Only draw if on front
+        const x = centerX + latRadius * Math.cos(angle);
+        const y = centerY - radius * Math.sin(city.lat * Math.PI / 180);
+        
+        // Draw marker
+        ctx.fillStyle = city.name === 'Windsor' ? '#3B82F6' : '#60A5FA';
+        ctx.beginPath();
+        ctx.arc(x, y, city.size, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Draw glow
+        const glowGradient = ctx.createRadialGradient(x, y, 0, x, y, city.size * 2.5);
+        glowGradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
+        glowGradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        ctx.fillStyle = glowGradient;
+        ctx.beginPath();
+        ctx.arc(x, y, city.size * 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    });
+  }
+
+  // Animation loop
+  function animate() {
+    if (!isDragging) {
+      rotation += 0.2; // Auto-rotate (adjust speed if needed)
+    }
+    drawGlobe();
+    requestAnimationFrame(animate);
+  }
+
+  // Mouse/Touch interaction (unchanged)
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    lastX = e.clientX;
+    canvas.style.cursor = 'grabbing';
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      const deltaX = e.clientX - lastX;
+      rotation += deltaX * 0.5;
+      lastX = e.clientX;
+    }
+  });
+
+  canvas.addEventListener('mouseup', () => {
+    isDragging = false;
+    canvas.style.cursor = 'grab';
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    isDragging = false;
+    canvas.style.cursor = 'grab';
+  });
+
+  // Touch events
+  canvas.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    lastX = e.touches[0].clientX;
+  });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (isDragging) {
+      const deltaX = e.touches[0].clientX - lastX;
+      rotation += deltaX * 0.5;
+      lastX = e.touches[0].clientX;
+    }
+  });
+
+  canvas.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+
+  // Handle resize
+  window.addEventListener('resize', () => {
+    width = canvas.parentElement.offsetWidth;
+    height = width;
+    canvas.width = width * 2;
+    canvas.height = height * 2;
+    ctx.scale(2, 2);
+  });
+
+  // Start animation
+  canvas.style.cursor = 'grab';
+  setTimeout(() => canvas.classList.add('loaded'), 100);
+  animate();
+  
+  console.log('Custom globe initialized successfully');
+};
+
+    // Initialize globe when visible
+    const globeContainer = document.querySelector('.globe-container');
+    
+    if (globeContainer) {
+      // Try to initialize immediately if visible
+      const rect = globeContainer.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        setTimeout(() => initGlobe(), 500);
+      }
+      
+      // Also use IntersectionObserver for lazy loading
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !globeInitialized) {
+            setTimeout(() => initGlobe(), 300);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      observer.observe(globeContainer);
+    }
   </script>
 </body>
 </html>
