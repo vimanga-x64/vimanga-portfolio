@@ -1,0 +1,51 @@
+   _    _  
+  | |  | | 
+  | |  | | 
+  | |  | | 
+  | |  | | 
+  | |\/| | 
+  | |  | | 
+  |_|  |_| 
+   \    /  
+    \  /   
+     \/    
+
+The humans.txt file explains the team, technology,
+and graphic assets behind this site humanstxt.org.
+
+_______________________________________________________________________________
+
+DESIGNER 
+
+Vimanga Umange
+Hand crafted design & web development
+
+Design tools:
+Figma
+Photoshop
+
+github.com/vimanga-x64
+
+_______________________________________________________________________________
+
+TECHNOLOGY 
+
+Vanilla JavaScript
+HTML5
+CSS3
+
+_______________________________________________________________________________
+
+FONTS 
+
+Fira Code
+
+_______________________________________________________________________________
+
+LIBRARIES & SERVICES
+
+Phosphor Icons (phosphor-icons/web)
+Formspree (Contact Form)
+Google Analytics
+Custom 3D Globe Visualization (Canvas API)
+Custom Particle System (Canvas API)

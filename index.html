@@ -28,7 +28,7 @@
   <link rel="canonical" href="https://vimanga-x64.github.io/vimanga-portfolio/">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="logos/favicon_logo.png">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,6 +83,31 @@
       color: var(--text-primary);
       overflow-x: hidden;
       transition: background 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Particle Background */
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    #particles-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    
+    /* Show particles only in contact section */
+    body.in-contact #particles-canvas {
+      opacity: 1;
     }
     
     /* 3D Parallax Background */
@@ -287,15 +312,33 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       margin-left: 1rem;
       flex-shrink: 0;
+    }
+    
+    [data-theme="light"] .theme-toggle {
+      border-color: rgba(0, 0, 0, 0.1);
     }
     
     .theme-toggle:hover {
       transform: scale(1.1) rotate(15deg);
       background: rgba(59, 130, 246, 0.15);
       box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    
+    [data-theme="light"] .theme-toggle:hover {
+      background: rgba(37, 99, 235, 0.1);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .theme-toggle {
+        transition: none;
+      }
+      .theme-toggle:hover {
+        transform: scale(1.05);
+      }
     }
     
     .theme-toggle i {
@@ -340,11 +383,36 @@
       transition: all 0.3s ease;
       color: white;
       flex-shrink: 0;
+      cursor: pointer;
+      text-decoration: none;
     }
     
     .nav-logo:hover {
       transform: scale(1.1);
       box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+      color: white;
+    }
+    
+    /* Mobile Menu Toggle Button */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .mobile-menu-toggle:hover {
+      color: var(--accent);
+      transform: scale(1.1);
+    }
+    
+    .mobile-menu-toggle i {
+      display: block;
     }
     
     .nav-items {
@@ -362,7 +430,7 @@
       color: var(--text-secondary);
       text-decoration: none;
       border-radius: 8px;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
       white-space: nowrap;
       cursor: pointer;
       font-size: 0.95rem;
@@ -373,6 +441,20 @@
       background: rgba(59, 130, 246, 0.15);
       color: var(--accent);
       transform: translateY(-2px);
+    }
+    
+    [data-theme="light"] .nav-item:hover,
+    [data-theme="light"] .nav-item.active {
+      background: rgba(37, 99, 235, 0.1);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .nav-item {
+        transition: none;
+      }
+      .nav-item:hover {
+        transform: none;
+      }
     }
     
     .nav-item i {
@@ -523,11 +605,20 @@
       padding: 1rem 2rem;
       border-radius: 12px;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
       text-decoration: none;
       cursor: pointer;
       border: none;
       font-size: 1.1rem;
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .btn {
+        transition: none;
+      }
+      .btn:hover {
+        transform: none !important;
+      }
     }
     
     .btn-primary {
@@ -618,15 +709,19 @@
       border-radius: 12px;
       color: var(--accent);
       font-size: 1.8rem;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       text-decoration: none;
       position: relative;
+    }
+    
+    [data-theme="light"] .social-link {
+      background: rgba(37, 99, 235, 0.08);
     }
     
     .social-link i {
       color: var(--accent);
       z-index: 1;
-      transition: all 0.3s ease;
+      transition: color 0.3s ease, transform 0.3s ease;
     }
     
     .social-link:hover {
@@ -647,13 +742,23 @@
       z-index: 100;
       text-align: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
       opacity: 0.9;
     }
     
     .scroll-indicator:hover {
       opacity: 1;
       transform: translateY(-5px);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-indicator {
+        animation: none !important;
+        transition: none;
+      }
+      .scroll-indicator:hover {
+        transform: translateY(-2px);
+      }
     }
     
     .scroll-wheel {
@@ -780,12 +885,36 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.5rem;
-      transition: all 0.3s ease;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    [data-theme="light"] .info-card {
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
     
     .info-card:hover {
       border-color: rgba(59, 130, 246, 0.3);
-      transform: translateY(-3px);
+    }
+    
+    @media (min-width: 768px) {
+      .info-card:hover {
+        transform: translateY(-3px);
+      }
+    }
+    
+    [data-theme="light"] .info-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .info-card {
+        transition: none;
+      }
+      .info-card:hover {
+        transform: none;
+      }
     }
     
     .info-card h4 {
@@ -864,26 +993,25 @@
       position: absolute;
       width: 300px;
       height: 300px;
-      background: linear-gradient(135deg, var(--accent), #60A5FA);
+      background: var(--bg-primary);
       border-radius: 50%;
       z-index: 2;
-      animation: slideReveal 2s ease-out forwards;
-      animation-delay: 0.5s;
-      left: 0;
+      animation: dissolveReveal 2.5s ease-out forwards;
+      animation-delay: 0.3s;
     }
     
-    @keyframes slideReveal {
+    @keyframes dissolveReveal {
       0% {
-        transform: translateX(-100%);
         opacity: 1;
+        transform: scale(1);
       }
-      50% {
-        transform: translateX(0);
-        opacity: 1;
+      60% {
+        opacity: 0.8;
+        transform: scale(1);
       }
       100% {
-        transform: translateX(120%);
         opacity: 0;
+        transform: scale(1.1);
         visibility: hidden;
       }
     }
@@ -1090,7 +1218,7 @@
     .project-screen img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       background: #0a0a0a;
       transition: transform 0.6s ease;
     }
@@ -1273,7 +1401,7 @@
     .mobile-screen img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       background: #000;
       transition: transform 0.6s ease;
     }
@@ -1312,18 +1440,37 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 2rem;
-      transition: all 0.3s ease;
+      padding: 1.5rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
       backdrop-filter: blur(10px);
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      grid-template-columns: 1fr;
+      gap: 2rem;
       align-items: center;
+    }
+    
+    @media (min-width: 900px) {
+      .project-card {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        padding: 2rem;
+      }
+    }
+    
+    [data-theme="light"] .project-card {
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      backdrop-filter: none;
     }
     
     .project-card:hover {
       border-color: rgba(59, 130, 246, 0.3);
       box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2);
+    }
+    
+    [data-theme="light"] .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 12px 36px rgba(37, 99, 235, 0.12);
     }
     
     .project-card.reverse {
@@ -1381,6 +1528,498 @@
       transform: translateY(-2px);
     }
     
+    /* Research Cards */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    /* Research Canvas with Draggable Cards */
+    .research-canvas-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      margin: 1.5rem 0;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .research-canvas-title {
+      font-size: 2rem;
+      font-weight: 200;
+      color: var(--text-secondary);
+      opacity: 0.3;
+      letter-spacing: 0.1em;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .draggable-card {
+      position: absolute;
+      padding: 1rem 1.5rem;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      border-radius: 9999px;
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: var(--text-primary);
+      cursor: grab;
+      user-select: none;
+      transition: all 0.2s ease;
+      z-index: 1;
+      white-space: nowrap;
+    }
+    
+    .draggable-card:hover {
+      transform: scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+    
+    .draggable-card:active {
+      cursor: grabbing;
+      transform: scale(0.98);
+    }
+    
+    .draggable-card.research-project-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(168, 85, 247, 0.2));
+      border-color: var(--accent);
+      font-weight: 500;
+      padding: 1.25rem 2rem;
+    }
+    
+    .draggable-card.research-project-card i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+    
+    .draggable-card.research-project-card:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(168, 85, 247, 0.3));
+      transform: scale(1.08);
+    }
+    
+    .draggable-card.my-research-card {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--accent);
+      font-weight: 400;
+      padding: 0.875rem 1.5rem;
+      font-size: 1rem;
+    }
+    
+    .draggable-card.my-research-card i {
+      font-size: 1.25rem;
+      color: var(--accent);
+    }
+    
+    .draggable-card.my-research-card:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+    
+    /* Research Publications - Article Style */
+    .research-publications {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .research-publications {
+        gap: 1.25rem;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .research-publications {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
+    }
+    
+    .publication-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    @media (min-width: 768px) {
+      .publication-card {
+        padding: 1.25rem;
+      }
+    }
+
+    /* Featured publication - spans full width */
+    .publication-card.featured {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+    }
+    
+    @media (min-width: 768px) {
+      .publication-card.featured {
+        padding: 1.5rem;
+      }
+    }
+    
+    [data-theme="light"] .publication-card {
+      background: var(--card-bg);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    [data-theme="light"] .publication-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+    }
+    
+    @media (min-width: 900px) {
+      .publication-card.featured {
+        grid-column: 1 / -1;
+      }
+    }
+    
+    .publication-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+      will-change: transform, box-shadow;
+    }
+    
+    @media (min-width: 768px) {
+      .publication-card:hover {
+        transform: translateY(-2px);
+      }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .publication-card,
+      .pub-link,
+      .pub-tag {
+        transition: none;
+      }
+      
+      .publication-card:hover {
+        transform: none;
+      }
+      
+      .pub-link:hover {
+        transform: none;
+      }
+    }
+    
+    .publication-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    
+    .publication-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .publication-icon i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+    
+    .publication-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .publication-status {
+      padding: 0.375rem 0.875rem;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .publication-year {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    .publication-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 0.4rem 0;
+      line-height: 1.3;
+    }
+    
+    .publication-authors {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0 0 0.6rem 0;
+      font-style: italic;
+    }
+    
+    .publication-abstract {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin: 0 0 0.75rem 0;
+      flex-grow: 1;
+    }
+    
+    .publication-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .pub-tag {
+      padding: 0.25rem 0.6rem;
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    [data-theme="light"] .pub-tag {
+      background: rgba(37, 99, 235, 0.06);
+      border-color: rgba(37, 99, 235, 0.15);
+    }
+    
+    .pub-tag:hover {
+      background: rgba(59, 130, 246, 0.12);
+      border-color: var(--accent);
+    }
+    
+    [data-theme="light"] .pub-tag:hover {
+      background: rgba(37, 99, 235, 0.1);
+    }
+    
+    .publication-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+    
+    @media (max-width: 767px) {
+      .publication-actions {
+        gap: 0.4rem;
+      }
+    }
+    
+    .pub-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 0.85rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    @media (min-width: 768px) {
+      .pub-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
+    
+    [data-theme="light"] .pub-link {
+      border-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .pub-link:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    
+    @media (min-width: 768px) {
+      .pub-link:hover {
+        transform: translateY(-1px);
+      }
+    }
+    
+    [data-theme="light"] .pub-link:hover {
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+    }
+
+    @media (min-width: 900px) {
+      .publication-card {
+        padding: 2rem;
+      }
+    }
+    
+    .pub-link:hover {
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.05);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    
+    .pub-link i {
+      font-size: 1.125rem;
+    }
+    
+    /* Research Details Below Canvas */
+    .research-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .research-detail-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .research-detail-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+    }
+    
+    .research-detail-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--accent), #a855f7);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .research-detail-icon i {
+      font-size: 1.75rem;
+      color: white;
+    }
+    
+    .research-detail-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+      color: var(--text-primary);
+    }
+    
+    .research-detail-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    
+    .research-detail-card .tech-stack {
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Old research card styles (keep for backwards compatibility) */
+    
+    .research-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .research-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+    }
+    
+    .research-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--accent), #a855f7);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .research-icon i {
+      font-size: 2rem;
+      color: white;
+    }
+    
+    .research-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .research-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+      color: var(--text-primary);
+    }
+    
+    .research-description {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+    
+    .research-card .tech-stack {
+      margin-bottom: 1.5rem;
+    }
+    
+    .research-card .btn {
+      align-self: flex-start;
+    }
+    
     /* Orbiting Tech Stack */
     .orbit-container {
       position: relative;
@@ -1432,15 +2071,37 @@
       justify-content: center;
       font-size: 1.5rem;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       cursor: pointer;
       padding: 8px;
+    }
+    
+    [data-theme="light"] .orbit-icon {
+      border-color: rgba(37, 99, 235, 0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     
     .orbit-icon:hover {
       transform: scale(1.2);
       box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
       border-color: #60A5FA;
+    }
+    
+    [data-theme="light"] .orbit-icon:hover {
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .orbit-icon {
+        transition: none;
+        animation: none !important;
+      }
+      .orbit-icon:hover {
+        transform: scale(1.05);
+      }
+      .orbit-ring-1, .orbit-ring-2 {
+        animation: none !important;
+      }
     }
     
     .orbit-icon img {
@@ -1486,110 +2147,333 @@
     }
     
     /* Experience Timeline */
+    /* Timeline Container */
+    .timeline-wrapper {
+      position: relative;
+      padding-bottom: 5rem;
+    }
+    
     .timeline {
       position: relative;
-      padding-left: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
       margin-top: 3rem;
     }
     
+    /* Animated vertical line - Base track - CENTERED */
     .timeline::before {
       content: '';
       position: absolute;
-      left: 0;
       top: 0;
-      width: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
       height: 100%;
-      background: rgba(59, 130, 246, 0.2);
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 10%,
+        rgba(255, 255, 255, 0.1) 90%,
+        transparent 100%
+      );
       z-index: 0;
     }
     
+    /* Light mode timeline track */
+    [data-theme="light"] .timeline::before {
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.15) 10%,
+        rgba(0, 0, 0, 0.15) 90%,
+        transparent 100%
+      );
+    }
+    
+    /* Scroll-based progress line - Flows with scroll - COLORED & CENTERED */
     .timeline::after {
       content: '';
       position: absolute;
-      left: 0;
       top: 0;
-      width: 2px;
-      height: 0%;
-      background: linear-gradient(to bottom, var(--accent), #60A5FA);
-      transition: height 0.5s ease-out;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: var(--timeline-scroll-progress, 0%);
+      background: linear-gradient(
+        to bottom,
+        var(--accent) 0%,
+        #a855f7 50%,
+        #8b5cf6 100%
+      );
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.5), 0 0 16px rgba(168, 85, 247, 0.3);
+      border-radius: 9999px;
       z-index: 1;
     }
     
-    .timeline.active::after {
-      height: var(--timeline-progress, 0%);
+    /* Light mode timeline progress glow */
+    [data-theme="light"] .timeline::after {
+      background: linear-gradient(
+        to bottom,
+        #2563eb 0%,
+        #7c3aed 50%,
+        #6d28d9 100%
+      );
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.6), 0 0 24px rgba(124, 58, 237, 0.4);
     }
     
+    /* Timeline Item Layout - Alternating sides */
     .timeline-item {
       position: relative;
-      padding-bottom: 3rem;
+      margin-bottom: 4rem;
+      padding-left: calc(50% + 30px);
+      min-height: 200px;
+    }
+    
+    .timeline-item:nth-child(even) {
+      padding-left: 0;
+      padding-right: calc(50% + 30px);
+      text-align: right;
+    }
+    
+    .timeline-item:first-child {
+      padding-top: 0;
+    }
+    
+    /* Timeline Circle - Centered on line */
+    .timeline-dot-container {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 40;
     }
     
     .timeline-circle {
-      position: absolute;
-      left: -3.6rem;
-      top: 0;
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      border: 3px solid var(--bg-primary);
-      background: var(--bg-secondary);
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: transparent !important;
+      border: 3px solid var(--text-secondary);
+      transition: border-color 0.3s ease, transform 0.3s ease;
       z-index: 2;
     }
     
-    .timeline-circle::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      width: 10px;
-      height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Light mode circle border */
+    [data-theme="light"] .timeline-circle {
+      border-color: rgba(0, 0, 0, 0.3);
+      background: white;
     }
     
-    .timeline-item.filled .timeline-circle {
+    /* Active state - circle lights up on centered line */
+    .timeline-item.active .timeline-circle {
       border-color: var(--accent);
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
-      background: var(--accent);
+      transform: scale(1.2);
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
     }
     
-    .timeline-item.filled .timeline-circle::before {
-      transform: translate(-50%, -50%) scale(1);
+    [data-theme="light"] .timeline-item.active .timeline-circle {
+      border-color: #2563eb;
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.7), 0 0 40px rgba(124, 58, 237, 0.3);
     }
     
-    .timeline-content {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: all 0.3s ease;
+    /* Keep circle centered for alternating items */
+    .timeline-item:nth-child(even) .timeline-circle {
+      left: 50%;
     }
     
-    .timeline-content:hover {
-      border-color: rgba(59, 130, 246, 0.3);
-      transform: translateX(10px);
+    /* Sticky Header (Desktop) - Hide for centered timeline */
+    .timeline-sticky-header {
+      display: none !important;
     }
     
-    .timeline-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--accent);
+    .timeline-position {
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      line-height: 1.2;
+      font-weight: bold;
       margin-bottom: 0.5rem;
     }
     
     .timeline-date {
+      font-size: 1rem;
       color: var(--text-secondary);
-      font-size: 0.875rem;
+      font-weight: normal;
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+    
+    .timeline-company {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      line-height: 1.2;
+      font-weight: normal;
+      margin-bottom: 0.25rem;
+    }
+    
+    .timeline-location {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.2;
+      font-weight: normal;
+      font-style: italic;
       margin-bottom: 1rem;
+    }
+    
+    /* Content Area */
+    .timeline-content {
+      position: relative;
+      width: 100%;
+      padding: 0;
+    }
+    
+    /* Align content for even items (right side) */
+    .timeline-item:nth-child(even) .timeline-content {
+      text-align: right;
+    }
+    
+    /* Job Descriptions List - No bullets, perfect alignment */
+    .job-descriptions {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 1rem;
+      margin-bottom: 0;
+      width: 100%;
+    }
+    
+    .job-descriptions li {
+      margin-bottom: 0.75rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    
+    .job-descriptions li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    
+    [data-theme="light"] .job-descriptions li::before {
+      color: #2563eb;
+    }
+    
+    .job-descriptions li:last-child {
+      margin-bottom: 0;
+    }
+    
+    .timeline-content p {
+      margin-bottom: 0.75rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      width: 100%;
+    }
+    
+    /* Mobile Header - Now used for all items */
+    .timeline-mobile-header {
+      display: block;
+      margin-bottom: 1rem;
+    }
+    
+    .timeline-mobile-header h3:first-child {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    [data-theme="light"] .timeline-mobile-header h3:first-child {
+      color: #2563eb;
+      text-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+    }
+    
+    .timeline-mobile-header .timeline-date {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.3;
+      margin-bottom: 0.25rem;
+    }
+    
+    .timeline-mobile-header h3:nth-child(3) {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      line-height: 1.3;
+      margin-bottom: 0.25rem;
+    }
+    
+    .timeline-mobile-header .timeline-location {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.3;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    
+    /* Align bullet points for even items */
+    .timeline-item:nth-child(even) .job-descriptions {
+      text-align: left;
+    }
+    
+    .timeline-item:nth-child(even) .job-descriptions li {
+      padding-left: 1.25rem;
+      padding-right: 0;
+    }
+    
+    .timeline-item:nth-child(even) .job-descriptions li::before {
+      content: '▸';
+      left: 0;
+      right: auto;
     }
     
     .timeline-description {
       color: var(--text-secondary);
       line-height: 1.6;
+    }
+    
+    /* Desktop: Keep mobile header visible (sticky header is hidden) */
+    @media (min-width: 768px) {
+      .timeline-mobile-header {
+        display: block;
+      }
+      
+      .timeline-item {
+        grid-template-columns: auto auto 1fr;
+        padding-top: 10rem;
+        gap: 2.5rem;
+      }
+      
+      .timeline-item:first-child {
+        padding-top: 10rem;
+      }
+      
+      /* Ensure content area starts at the same vertical position */
+      .timeline-content {
+        padding-top: 0;
+        padding-left: 0;
+        align-self: flex-start;
+      }
+      
+      .timeline-sticky-header {
+        padding-left: 0;
+      }
+      
+      /* Better alignment for job descriptions on desktop - align with first job */
+      .job-descriptions {
+        padding-left: 1.25rem;
+        margin-left: 0;
+      }
+      
+      .job-descriptions li::before {
+        left: -1.25rem;
+      }
     }
     
     /* Globe Visualization */
@@ -1620,120 +2504,518 @@
       opacity: 1;
     }
     
-    /* Contact Section */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+    /* Footer */
+    .site-footer {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+      text-align: center;
       margin-top: 3rem;
     }
     
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+    @media (min-width: 768px) {
+      .site-footer {
+        padding: 2rem 0;
+        margin-top: 4rem;
+      }
     }
     
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1.5rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      transition: all 0.3s ease;
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
     
-    .contact-item:hover {
-      border-color: rgba(59, 130, 246, 0.3);
-      transform: translateX(10px);
+    @media (min-width: 768px) {
+      .footer-content {
+        padding: 0 2rem;
+      }
     }
     
-    .contact-item i {
-      font-size: 1.5rem;
+    .footer-content p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+    
+    @media (min-width: 768px) {
+      .footer-content p {
+        font-size: 0.95rem;
+      }
+    }
+    
+    [data-theme="light"] .footer-content p {
+      color: rgba(0, 0, 0, 0.7);
+    }
+    
+    .footer-link {
       color: var(--accent);
-      margin-top: 0.25rem;
-    }
-    
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
       position: relative;
     }
     
-    /* Success Message Overlay */
-    .form-success {
+    .footer-link::after {
+      content: '';
       position: absolute;
-      top: 0;
+      bottom: -2px;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      display: none;
-      flex-direction: column;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      color: var(--accent-hover);
+    }
+    
+    .footer-link:hover::after {
+      width: 100%;
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .footer-link,
+      .footer-link::after {
+        transition: none;
+      }
+    }
+    
+    /* Contact Section */
+    /* Modern Contact Section */
+    .contact-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 4rem 0;
+    }
+    
+    .contact-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    /* Section Description */
+    .contact-section-description {
+      max-width: 800px;
+      margin: 1rem auto 3rem;
+      text-align: center;
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    /* Contact Info Cards - Clean, Personal Style */
+    .contact-info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    @media (min-width: 768px) {
+      .contact-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .contact-info-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    
+    @media (min-width: 768px) {
+      .contact-info-card {
+        padding: 1.5rem;
+      }
+    }
+    
+    [data-theme="light"] .contact-info-card {
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .contact-info-card:hover {
+      border-color: rgba(59, 130, 246, 0.5);
+      background: rgba(59, 130, 246, 0.03);
+    }
+    
+    [data-theme="light"] .contact-info-card:hover {
+      border-color: var(--accent);
+      background: rgba(37, 99, 235, 0.02);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+    }
+    
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.5rem;
-      padding: 3rem;
-      text-align: center;
-      z-index: 10;
-      animation: fadeInScale 0.5s ease-out;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      flex-shrink: 0;
     }
     
-    .form-success.show {
+    [data-theme="light"] .info-icon {
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .info-icon i {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .contact-info-card, .field-input, .contact-submit-btn, .copy-btn {
+        transition: none;
+      }
+      .field-input:focus {
+        transform: none;
+      }
+      .contact-submit-btn:active {
+        transform: none;
+      }
+    }
+    
+    .info-content {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .info-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin: 0 0 0.25rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .info-value {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .info-value:hover {
+      color: var(--accent);
+    }
+    
+    .info-value-with-copy {
       display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
     
-    @keyframes fadeInScale {
+    .copy-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      flex-shrink: 0;
+    }
+    
+    [data-theme="light"] .copy-btn {
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .copy-btn:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: var(--accent);
+    }
+    
+    [data-theme="light"] .copy-btn:hover {
+      background: rgba(37, 99, 235, 0.08);
+    }
+    
+    .copy-btn:hover i {
+      color: var(--accent);
+    }
+    
+    .copy-btn i {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+    }
+    
+    .copy-btn.copied {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: #10b981;
+    }
+    
+    .copy-btn.copied i {
+      color: #10b981;
+    }
+    
+    /* Alert */
+    .contact-alert {
+      position: fixed;
+      top: 100px;
+      right: 2rem;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+      z-index: 1000;
+      animation: slideInRight 0.3s ease-out;
+    }
+    
+    @keyframes slideInRight {
       from {
+        transform: translateX(400px);
         opacity: 0;
-        transform: scale(0.9);
       }
       to {
+        transform: translateX(0);
         opacity: 1;
-        transform: scale(1);
       }
     }
     
-    .success-icon {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, #3B82F6, #60A5FA);
-      border-radius: 50%;
+    .contact-alert i {
+      font-size: 1.5rem;
+    }
+    
+    /* Form Container */
+    .contact-form-container {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    @media (min-width: 768px) {
+      .contact-form-container {
+        padding: 2.5rem;
+      }
+    }
+    
+    [data-theme="light"] .contact-form-container {
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    [data-theme="light"] .contact-form-container {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Form Styles */
+    .modern-contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .field-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .field-input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      outline: none;
+    }
+    
+    [data-theme="light"] .field-input {
+      background: rgba(245, 245, 245, 0.8);
+      border-color: rgba(0, 0, 0, 0.15);
+    }
+    
+    .field-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    [data-theme="light"] .field-input:focus {
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+    }
+    
+    .field-input::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+    
+    textarea.field-input {
+      resize: vertical;
+      min-height: 120px;
+      font-family: inherit;
+    }
+    
+    /* Submit Button - Clean with Subtle Blue */
+    .contact-submit-btn {
+      width: 100%;
+      padding: 0.875rem 1.5rem;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: rgba(59, 130, 246, 0.05);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    
+    [data-theme="light"] .contact-submit-btn {
+      background: rgba(37, 99, 235, 0.08);
+      border-color: rgba(37, 99, 235, 0.3);
+    }
+    
+    .contact-submit-btn:hover {
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent);
+    }
+    
+    [data-theme="light"] .contact-submit-btn:hover {
+      background: rgba(37, 99, 235, 0.12);
+    }
+    
+    .contact-submit-btn:active {
+      transform: scale(0.98);
+    }
+    
+    .contact-submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .contact-submit-btn:disabled:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.05);
+      color: var(--text-primary);
+    }
+    
+    /* Social Links */
+    .contact-social {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .social-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    
+    .contact-social .social-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .contact-social .social-link {
+      width: 50px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: checkmarkPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
     
-    @keyframes checkmarkPop {
-      0% {
-        transform: scale(0);
-        opacity: 0;
+    [data-theme="light"] .contact-social .social-link {
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .contact-social .social-link:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+    }
+    
+    [data-theme="light"] .contact-social .social-link:hover {
+      box-shadow: 0 5px 20px rgba(37, 99, 235, 0.2);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .contact-social .social-link {
+        transition: none;
       }
-      50% {
-        transform: scale(1.1);
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
+      .contact-social .social-link:hover {
+        transform: translateY(-1px);
       }
     }
     
-    .success-icon i {
-      font-size: 3rem;
-      color: white;
+    .contact-social .social-link svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Images inside social links (e.g. Google Cloud badge) */
+    .contact-social .social-link img.social-img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      display: block;
     }
     
-    .success-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin: 0;
+    /* GitHub icon - uses currentColor */
+    .contact-social .social-link:nth-child(1) svg path {
+      fill: var(--text-primary);
+    }
+    
+    /* LinkedIn icon - keep brand blue in dark mode, adjust for light mode */
+    .contact-social .social-link:nth-child(2) svg path {
+      fill: #0A66C2;
+    }
+    
+    [data-theme="light"] .contact-social .social-link:nth-child(2) svg path {
+      fill: #0A66C2;
+    }
+    
+    /* Medium icon - uses currentColor */
+    .contact-social .social-link:nth-child(3) svg path {
+      fill: var(--text-primary);
+    }
+    
+    /* Google Cloud image (fallback) */
+    .contact-social .social-link:nth-child(4) img.social-img {
+      filter: none;
     }
     
     .success-message {
@@ -1905,35 +3187,64 @@
       .side-nav {
         height: 60px;
         padding: 0 1.5rem;
-        bottom: 0;
-        top: auto;
-        border-bottom: none;
-        border-top: 1px solid var(--border);
       }
       
-      .nav-logo {
-        display: none;
+      /* Show mobile menu toggle on mobile */
+      .mobile-menu-toggle {
+        display: block;
       }
       
+      /* Hide desktop navigation by default on mobile */
       .nav-items {
-        justify-content: space-around;
-        width: 100%;
-        gap: 0.25rem;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(15, 15, 15, 0.98);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem 0;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      [data-theme="light"] .nav-items {
+        background: rgba(255, 255, 255, 0.98);
+      }
+      
+      /* Show menu when active */
+      .nav-items.active {
+        max-height: 100vh;
+        opacity: 1;
       }
       
       .nav-item {
-        flex-direction: column;
-        gap: 0.25rem;
-        padding: 0.5rem 0.5rem;
-        font-size: 0.7rem;
+        width: 100%;
+        justify-content: center;
+        padding: 1rem 2rem;
+        border-radius: 0;
+        font-size: 1rem;
+      }
+      
+      .nav-item:hover {
+        transform: none;
+        background: rgba(59, 130, 246, 0.1);
       }
       
       .nav-item i {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
       }
       
       .nav-text {
-        font-size: 0.7rem;
+        font-size: 1rem;
+      }
+      
+      .theme-toggle {
+        margin: 0.5rem 0;
       }
       
       .theme-toggle {
@@ -2031,9 +3342,181 @@
         height: 350px;
       }
       
-      /* Timeline mobile */
+      /* Research cards - stack */
+      .research-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .research-canvas-container {
+        height: 250px;
+      }
+      
+      .research-canvas-title {
+        font-size: 1.25rem;
+      }
+      
+      .draggable-card {
+        font-size: 0.875rem;
+        padding: 0.625rem 1rem;
+      }
+      
+      .draggable-card.my-research-card {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.875rem;
+      }
+      
+      .draggable-card.my-research-card i {
+        font-size: 1.125rem;
+      }
+      
+      .research-publications {
+        gap: 1.5rem;
+      }
+      
+      .publication-card {
+        padding: 1.5rem;
+      }
+      
+      .publication-header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .publication-meta {
+        align-self: flex-start;
+      }
+      
+      .publication-title {
+        font-size: 1.25rem;
+      }
+      
+      .publication-authors {
+        font-size: 0.875rem;
+      }
+      
+      .publication-abstract {
+        font-size: 0.95rem;
+      }
+      
+      .publication-actions {
+        flex-direction: column;
+      }
+      
+      .pub-link {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .research-details {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .research-detail-card {
+        padding: 1.5rem;
+      }
+      
+      .research-detail-icon {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .research-detail-icon i {
+        font-size: 1.5rem;
+      }
+      
+      .research-detail-card h3 {
+        font-size: 1.25rem;
+      }
+      
+      .research-card {
+        padding: 2rem;
+      }
+      
+      .research-icon {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .research-icon i {
+        font-size: 1.75rem;
+      }
+      
+      .research-title {
+        font-size: 1.25rem;
+      }
+      
+      /* Timeline mobile - Left-aligned layout */
       .timeline {
-        padding-left: 2rem;
+        padding: 0 1rem 0 3rem;
+      }
+      
+      .timeline::before,
+      .timeline::after {
+        left: 15px;
+        transform: none;
+        width: 3px;
+      }
+      
+      .timeline-dot-container {
+        left: 15px;
+        transform: translateX(-50%);
+      }
+      
+      .timeline-circle {
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
+      }
+      
+      .timeline-item {
+        padding-left: 30px !important;
+        padding-right: 0 !important;
+        text-align: left !important;
+        margin-bottom: 3rem;
+      }
+      
+      .timeline-content {
+        text-align: left !important;
+        padding: 0 !important;
+      }
+      
+      .timeline-mobile-header h3:first-child {
+        font-size: 1.125rem;
+      }
+      
+      .timeline-mobile-header .timeline-date {
+        font-size: 0.9rem;
+      }
+      
+      .timeline-mobile-header h3:nth-child(3) {
+        font-size: 1rem;
+      }
+      
+      .timeline-mobile-header .timeline-location {
+        font-size: 0.9rem;
+      }
+      
+      .timeline-content p {
+        font-size: 0.9rem;
+      }
+      
+      .job-descriptions {
+        padding-left: 1.25rem;
+        font-size: 0.9rem;
+        text-align: left !important;
+        list-style-position: outside !important;
+      }
+      
+      .job-descriptions li::before {
+        left: -1.25rem !important;
+        right: auto !important;
+        font-size: 0.85rem;
+      }
+      
+      .timeline-item:first-child {
+        padding-top: 0;
       }
       
       .timeline-circle {
@@ -2049,9 +3532,76 @@
       }
       
       /* Contact form */
-      .contact-grid {
+      .contact-section {
+        padding: 2rem 0;
+      }
+      
+      .contact-section-description {
+        font-size: 1rem;
+        padding: 0 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .contact-wrapper {
+        padding: 0 1rem;
+      }
+      
+      .contact-info-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1rem;
+      }
+      
+      .contact-info-card {
+        padding: 1.25rem;
+      }
+      
+      .info-icon {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .info-icon i {
+        font-size: 1.25rem;
+      }
+      
+      .info-label {
+        font-size: 0.8rem;
+      }
+      
+      .info-value {
+        font-size: 0.95rem;
+      }
+      
+      .copy-btn {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .copy-btn i {
+        font-size: 0.9rem;
+      }
+      
+      .contact-form-container {
+        padding: 1.5rem;
+        border-radius: 16px;
+      }
+      
+      .field-input {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+      }
+      
+      .contact-submit-btn {
+        padding: 0.875rem;
+        font-size: 1rem;
+      }
+      
+      .contact-alert {
+        top: 80px;
+        right: 1rem;
+        left: 1rem;
+        padding: 0.875rem 1.25rem;
+        font-size: 0.95rem;
       }
       
       /* Scroll indicator */
@@ -2171,6 +3721,11 @@
   </style>
 </head>
 <body>
+  <!-- Particle Background Canvas -->
+  <div id="particles-container" class="particles-container">
+    <canvas id="particles-canvas"></canvas>
+  </div>
+
   <!-- Loading Screen -->
   <div id="loading-screen">
     <div class="spinner"></div>
@@ -2178,8 +3733,17 @@
   </div>
 
   <nav class="side-nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-logo">VU</div>
-    <div class="nav-items">
+    <a href="#home" class="nav-logo">
+      <img src="logos/Main_logo.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+    </a>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
+      <i class="ph ph-list" id="menuIcon"></i>
+    </button>
+    
+    <!-- Desktop Navigation -->
+    <div class="nav-items" id="navItems">
       <a href="#home" class="nav-item active">
         <i class="ph ph-house"></i>
         <span class="nav-text">Home</span>
@@ -2277,31 +3841,22 @@
                 <span style="font-size: 0.85rem;">2025–Present</span>
               </div>
             </div>
-            
-            <div class="info-card">
-              <h4><i class="ph ph-code"></i> Core Skills</h4>
-              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
-                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">Python</span>
-                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">JavaScript</span>
-                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">React</span>
-                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">PyTorch</span>
-                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">Flask</span>
-                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">PostgreSQL</span>
-              </div>
-            </div>
           </div>
           
-          <!-- CENTER COLUMN: Bio + Focus Areas -->
+          <!-- CENTER COLUMN: Bio + Focus Areas + Core Skills -->
           <div style="display: flex; flex-direction: column; gap: 1.5rem;">
             <div>
               <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem; margin-bottom: 1rem;">
-                I'm <strong style="color: var(--text-primary);">Vimanga Umange</strong>, a Computer Science graduate student at the 
-                <strong style="color: var(--text-primary);">University of Windsor</strong> specializing in <strong style="color: var(--accent);">AI systems, 
-                full-stack development, and scalable infrastructure</strong>.
+                Hi — I'm <strong style="color: var(--text-primary);">Vimanga Umange</strong>. I build things at the intersection of research and product: model-focused experiments, prototypes, and full-stack apps that ship.
               </p>
               <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem; margin-bottom: 1rem;">
-                Being comfortable with code allows me to rapidly prototype and validate ideas — from neural networks to production-ready web apps. 
-                My background bridges cutting-edge research with real-world IT solutions.
+                I like to move quickly from idea to working demo — whether that's validating a neural 
+                network architecture or shipping a full-stack app. I'm comfortable with the whole pipeline: 
+                from PyTorch experiments to production infrastructure.
+              </p>
+              <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem; margin-bottom: 1rem;">
+                Outside of work, you'll find me at the gym, on the basketball court, or watching 
+                football (the American one ofc). I also spend time playing video games and tinkering with web dev projects. 
               </p>
             </div>
             
@@ -2342,6 +3897,18 @@
                 </div>
               </div>
             </div>
+            
+            <div class="info-card">
+              <h4><i class="ph ph-code"></i> Core Skills</h4>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">Python</span>
+                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">JavaScript</span>
+                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">React</span>
+                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">PyTorch</span>
+                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">Flask</span>
+                <span class="tech-tag" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">PostgreSQL</span>
+              </div>
+            </div>
           </div>
           
           <!-- RIGHT COLUMN: Tech Stack + Stats -->
@@ -2362,8 +3929,8 @@
                   <span class="stat-label">Years IT Exp.</span>
                 </div>
                 <div class="stat-item">
-                  <span class="stat-number">2</span>
-                  <span class="stat-label">Publications</span>
+                  <span class="stat-number">2+</span>
+                  <span class="stat-label">Research Papers</span>
                 </div>
               </div>
             </div>
@@ -2724,34 +4291,59 @@
 
     <section id="experience" aria-label="Work experience">
       <div class="section-container">
-        <h2 class="section-title">Experience</h2>
-        <div class="timeline reveal">
-          <div class="timeline-item">
-            <div class="timeline-circle"></div>
-            <div class="timeline-content">
-              <div class="timeline-title">
-                <i class="ph ph-graduation-cap"></i> Graduate Assistant
+        <h2 class="section-title">My Work Experience</h2>
+        <div class="timeline-wrapper" id="timelineWrapper">
+          <div class="timeline reveal">
+            
+            <!-- Timeline Item 1 -->
+            <div class="timeline-item">
+              <div class="timeline-dot-container">
+                <div class="timeline-circle"></div>
               </div>
-              <div class="timeline-date">2025–Present | University of Windsor | Windsor, ON, Canada</div>
-              <div class="timeline-description">
-                <ul style="list-style: disc; margin-left: 1.5rem; margin-top: 1rem;">
+              
+              <div class="timeline-sticky-header">
+                <h3 class="timeline-position">Graduate Assistant</h3>
+                <h3 class="timeline-date">2025–Present</h3>
+                <h3 class="timeline-company">University of Windsor</h3>
+                <h3 class="timeline-location">Windsor, ON, Canada</h3>
+              </div>
+              
+              <div class="timeline-content">
+                <div class="timeline-mobile-header">
+                  <h3>Graduate Assistant</h3>
+                  <h3 class="timeline-date">2025–Present</h3>
+                  <h3>University of Windsor</h3>
+                  <h3 class="timeline-location">Windsor, ON, Canada</h3>
+                </div>
+                <ul class="job-descriptions">
                   <li>Grade assignments and exams for 100+ students in Computer Networks course</li>
                   <li>Supervise lab sessions with Wireshark and Cisco Packet Tracer</li>
                   <li>Conduct office hours covering TCP/IP, routing protocols, and network security</li>
                 </ul>
               </div>
             </div>
-          </div>
 
-          <div class="timeline-item">
-            <div class="timeline-circle"></div>
-            <div class="timeline-content">
-              <div class="timeline-title">
-                <i class="ph ph-buildings"></i> IT Specialist
+            <!-- Timeline Item 2 -->
+            <div class="timeline-item">
+              <div class="timeline-dot-container">
+                <div class="timeline-circle"></div>
               </div>
-              <div class="timeline-date">2021–2024 | Etezazi Industries | Wichita, KS, USA</div>
-              <div class="timeline-description">
-                <ul style="list-style: disc; margin-left: 1.5rem; margin-top: 1rem;">
+              
+              <div class="timeline-sticky-header">
+                <h3 class="timeline-position">IT Specialist</h3>
+                <h3 class="timeline-date">2021–2024</h3>
+                <h3 class="timeline-company">Etezazi Industries</h3>
+                <h3 class="timeline-location">Wichita, KS, USA</h3>
+              </div>
+              
+              <div class="timeline-content">
+                <div class="timeline-mobile-header">
+                  <h3>IT Specialist</h3>
+                  <h3 class="timeline-date">2021–2024</h3>
+                  <h3>Etezazi Industries</h3>
+                  <h3 class="timeline-location">Wichita, KS, USA</h3>
+                </div>
+                <ul class="job-descriptions">
                   <li>Migrated 100+ user accounts to new domain with zero downtime</li>
                   <li>Managed Active Directory, VPN, SonicWall firewalls, and server infrastructure</li>
                   <li>Redesigned company website using WordPress, HTML, CSS</li>
@@ -2759,175 +4351,351 @@
                 </ul>
               </div>
             </div>
-          </div>
 
-          <div class="timeline-item">
-            <div class="timeline-circle"></div>
-            <div class="timeline-content">
-              <div class="timeline-title">
-                <i class="ph ph-student"></i> IT Intern
+            <!-- Timeline Item 3 -->
+            <div class="timeline-item">
+              <div class="timeline-dot-container">
+                <div class="timeline-circle"></div>
               </div>
-              <div class="timeline-date">2021 | Etezazi Industries | Wichita, KS, USA</div>
-              <div class="timeline-description">
-                <ul style="list-style: disc; margin-left: 1.5rem; margin-top: 1rem;">
+              
+              <div class="timeline-sticky-header">
+                <h3 class="timeline-position">IT Intern</h3>
+                <h3 class="timeline-date">2021</h3>
+                <h3 class="timeline-company">Etezazi Industries</h3>
+                <h3 class="timeline-location">Wichita, KS, USA</h3>
+              </div>
+              
+              <div class="timeline-content">
+                <div class="timeline-mobile-header">
+                  <h3>IT Intern</h3>
+                  <h3 class="timeline-date">2021</h3>
+                  <h3>Etezazi Industries</h3>
+                  <h3 class="timeline-location">Wichita, KS, USA</h3>
+                </div>
+                <ul class="job-descriptions">
                   <li>Resolved 200+ IT complaints using centralized monitoring system</li>
                   <li>Managed company databases and wrote SQL queries for data retrieval</li>
                 </ul>
               </div>
             </div>
+            
           </div>
         </div>
 
-        <h2 class="section-title" style="font-size: 2rem; margin-top: 4rem;">Research</h2>
-        <div class="project-grid" style="grid-template-columns: 1fr;">
-          <div class="project-card reveal">
-            <h3 class="project-title">
-              <i class="ph ph-graph"></i> Hypergraph Neural Networks
-            </h3>
-            <p class="project-description">
-              Co-authored research applying top-k densest subgraph augmentation for HGNNs, 
-              achieving 4% improvement in movie profitability prediction accuracy.
-            </p>
-            <div class="tech-stack">
-              <span class="tech-tag">Hypergraphs</span>
-              <span class="tech-tag">Neural Networks</span>
-              <span class="tech-tag">PyTorch</span>
-            </div>
-            <a href="mailto:vimangau@gmail.com" class="btn btn-secondary">
-              <i class="ph ph-paperclip"></i> Request Preprint
-            </a>
+        <!-- Research Section with Draggable Cards -->
+        <h2 class="section-title">Research</h2>
+        <div class="research-canvas-container" id="researchCanvas">
+          <p class="research-canvas-title">EXPLORING AI & ML</p>
+          
+          <!-- Research Methodology Cards -->
+          <div class="draggable-card" data-rotation="12" data-top="25%" data-left="15%">
+            PyTorch
           </div>
-
-          <div class="project-card reveal">
-            <h3 class="project-title">
-              <i class="ph ph-book-open-text"></i> Automated Interlinear Glossing
-            </h3>
-            <p class="project-description">
-              Developed transformer-based models for automated glossing of low-resource languages 
-              (Arapaho and Ancient Greek) with limited training data.
-            </p>
-            <div class="tech-stack">
-              <span class="tech-tag">NLP</span>
-              <span class="tech-tag">Transformers</span>
-              <span class="tech-tag">Low-Resource Languages</span>
-            </div>
-            <a href="https://github.com/vimanga-x64/COMP8730_Project" target="_blank" class="btn btn-secondary">
-              <i class="ph ph-github-logo"></i> View Code
-            </a>
+          <div class="draggable-card" data-rotation="-18" data-top="65%" data-left="40%">
+            TensorFlow
           </div>
+          <div class="draggable-card" data-rotation="35" data-bottom="25%" data-left="65%">
+            Graph Theory
+          </div>
+          <div class="draggable-card" data-rotation="-25" data-top="50%" data-left="5%">
+            Neural Networks
+          </div>
+          <div class="draggable-card" data-rotation="8" data-top="15%" data-left="45%">
+            Transformers
+          </div>
+          <div class="draggable-card" data-rotation="-35" data-top="70%" data-left="70%">
+            NLP
+          </div>
+          <div class="draggable-card" data-rotation="28" data-top="35%" data-left="75%">
+            Hypergraphs
+          </div>
+          
+          <!-- My Research Projects -->
+          <div class="draggable-card my-research-card" data-rotation="5" data-top="75%" data-left="12%">
+            <i class="ph-fill ph-graph"></i>
+            <span>HGNN Research</span>
+          </div>
+          <div class="draggable-card my-research-card" data-rotation="-12" data-top="10%" data-left="68%">
+            <i class="ph-fill ph-translate"></i>
+            <span>Glossing Models</span>
+          </div>
+        </div>
+        
+        <!-- Research Publications -->
+        <div class="research-publications">
+          <!-- Featured: Hypergraph Neural Networks Research -->
+          <article class="publication-card reveal featured">
+            <div class="publication-header">
+              <div class="publication-icon">
+                <i class="ph-fill ph-graph"></i>
+              </div>
+              <div class="publication-meta">
+                <span class="publication-status">Completed</span>
+                <span class="publication-year">2024</span>
+              </div>
+            </div>
+            <h3 class="publication-title">Top-k Densest Subgraph Augmentation for Hypergraph Neural Networks</h3>
+            <p class="publication-authors">Vimanga Umange, et al.</p>
+            <p class="publication-abstract">
+              Investigating graph augmentation techniques for hypergraph neural networks, specifically applying 
+              top-k densest subgraph methods to improve prediction accuracy in movie profitability analysis. 
+              Achieved 4% improvement over baseline models through strategic hypergraph structure enhancement.
+            </p>
+            <div class="publication-tags">
+              <span class="pub-tag">Hypergraphs</span>
+              <span class="pub-tag">Deep Learning</span>
+              <span class="pub-tag">Graph Augmentation</span>
+            
+            </div>
+            <div class="publication-actions">
+              <a href="papers/8720 Project_paper.pdf" target="_blank" class="pub-link">
+                <i class="ph ph-file-pdf"></i>
+                View Paper
+              </a>
+            </div>
+          </article>
+          
+          <!-- Transformer-Based Interlinear Glossing -->
+          <article class="publication-card reveal">
+            <div class="publication-header">
+              <div class="publication-icon">
+                <i class="ph-fill ph-translate"></i>
+              </div>
+              <div class="publication-meta">
+                <span class="publication-status">Completed</span>
+                <span class="publication-year">2024</span>
+              </div>
+            </div>
+            <h3 class="publication-title">Transformer-Based Automated Interlinear Glossing for Low-Resource Languages</h3>
+            <p class="publication-authors">Vimanga Umange, et al.</p>
+            <p class="publication-abstract">
+              Developed transformer-based models for automated morphological analysis of Arapaho and Ancient Greek. 
+              Explored transfer learning approaches to handle limited training data in low-resource linguistic contexts.
+              Complete project documentation including proposal, literature review, methodology, and evaluation.
+            </p>
+            <div class="publication-tags">
+              <span class="pub-tag">NLP</span>
+              <span class="pub-tag">Transformers</span>
+              <span class="pub-tag">Computational Linguistics</span>
+              
+            </div>
+            <div class="publication-actions">
+              <a href="papers/COMP8730_Proposal-1.pdf" target="_blank" class="pub-link">
+                <i class="ph ph-file-pdf"></i>
+                Proposal
+              </a>
+              <a href="papers/COMP8730_LiteratureReview-2.pdf" target="_blank" class="pub-link">
+                <i class="ph ph-file-pdf"></i>
+                Literature Review
+              </a>
+              <a href="papers/COMP8730_ProposedMethod-3.pdf" target="_blank" class="pub-link">
+                <i class="ph ph-file-pdf"></i>
+                Methodology
+              </a>
+              <a href="papers/COMP8730_Evaluation-4.pdf" target="_blank" class="pub-link">
+                <i class="ph ph-file-pdf"></i>
+                Evaluation
+              </a>
+              <a href="https://github.com/vimanga-x64/COMP8730_Project" target="_blank" class="pub-link">
+                <i class="ph ph-github-logo"></i>
+                Repository
+              </a>
+            </div>
+          </article>
+          
+          <!-- COMP 8740 Projects -->
+          <article class="publication-card reveal">
+            <div class="publication-header">
+              <div class="publication-icon">
+                <i class="ph-fill ph-code"></i>
+              </div>
+              <div class="publication-meta">
+                <span class="publication-status">Completed</span>
+                <span class="publication-year">2024</span>
+              </div>
+            </div>
+            <h3 class="publication-title">Advanced Machine Learning Applications</h3>
+            <p class="publication-authors">Vimanga Umange, et al.</p>
+            <p class="publication-abstract">
+              Comprehensive exploration of advanced machine learning techniques and their practical applications. 
+              Two project implementations covering state-of-the-art methods in deep learning and model optimization.
+            </p>
+            <div class="publication-tags">
+              <span class="pub-tag">Machine Learning</span>
+              <span class="pub-tag">Deep Learning</span>
+              
+            </div>
+            <div class="publication-actions">
+              <a href="papers/COMP8740_FirstProject.pdf" target="_blank" class="pub-link">
+                <i class="ph ph-file-pdf"></i>
+                First Project
+              </a>
+              <a href="papers/COMP8740_FinalProject.pdf" target="_blank" class="pub-link">
+                <i class="ph ph-file-pdf"></i>
+                Final Project
+              </a>
+            </div>
+          </article>
+          
+          <!-- Master's Thesis - In Progress -->
+          <article class="publication-card reveal">
+            <div class="publication-header">
+              <div class="publication-icon">
+                <i class="ph-fill ph-graduation-cap"></i>
+              </div>
+              <div class="publication-meta">
+                <span class="publication-status" style="background: rgba(251, 191, 36, 0.1); color: #fbbf24; border-color: #fbbf24;">In Progress</span>
+                <span class="publication-year">2025</span>
+              </div>
+            </div>
+            <h3 class="publication-title">Master's Thesis (Working Title)</h3>
+            <p class="publication-authors">Vimanga Umange</p>
+            <p class="publication-abstract">
+              Currently developing my master's thesis research in Computer Science at the University of Windsor. 
+              Full thesis document will be available upon completion. Check back soon for updates.
+            </p>
+            <div class="publication-tags">
+              <span class="pub-tag">M.Sc. Thesis</span>
+              <span class="pub-tag">Research</span>
+            </div>
+            <div class="publication-actions">
+              <a href="#contact" class="pub-link">
+                <i class="ph ph-envelope-simple"></i>
+                Contact for Details
+              </a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="contact" aria-label="Contact section">
+    <section id="contact" aria-label="Contact section" class="contact-section">
       <div class="section-container">
-        <h2 class="section-title">Say Hello</h2>
-        <div class="contact-grid reveal">
-          <div class="contact-info">
-            <div class="contact-item">
-              <i class="ph ph-envelope"></i>
-              <div style="flex: 1;">
-                <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Email</h4>
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                  <a href="mailto:vimangau@gmail.com" style="color: var(--text-secondary); text-decoration: none;">vimangau@gmail.com</a>
-                  <button onclick="copyEmail()" class="btn" style="padding: 0.3rem 0.6rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.3rem;" title="Copy email address">
-                    <i class="ph ph-copy" id="copyIcon"></i>
-                    <span id="copyText">Copy</span>
+        <!-- Section Header - Outside the box -->
+        <h2 class="section-title">Let's Talk</h2>
+        <p class="contact-section-description">
+          I'm always interested in discussing new opportunities in software development, 
+          machine learning research, or collaborative projects. Whether you have a question 
+          about my work or want to explore potential collaborations, feel free to reach out.
+        </p>
+        
+        <div class="contact-wrapper">
+          <!-- Alert Message -->
+          <div class="contact-alert" id="contactAlert" style="display: none;">
+            <i class="ph-fill ph-check-circle"></i>
+            <span id="alertMessage">Your message has been sent!</span>
+          </div>
+          
+          <!-- Contact Info Cards -->
+          <div class="contact-info-grid">
+            <div class="contact-info-card">
+              <div class="info-icon">
+                <i class="ph-fill ph-envelope"></i>
+              </div>
+              <div class="info-content">
+                <h3 class="info-label">Email</h3>
+                <div class="info-value-with-copy">
+                  <a href="mailto:vimangau@gmail.com" class="info-value">vimangau@gmail.com</a>
+                  <button class="copy-btn" onclick="copyToClipboard('vimangau@gmail.com', event)" aria-label="Copy email">
+                    <i class="ph ph-copy"></i>
                   </button>
                 </div>
               </div>
             </div>
-            <div class="contact-item">
-              <i class="ph ph-phone"></i>
-              <div>
-                <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Phone</h4>
-                <a href="tel:+15198169683" style="color: var(--text-secondary); text-decoration: none;">+1 (519) 816-9683</a>
+            
+            <div class="contact-info-card">
+              <div class="info-icon">
+                <i class="ph-fill ph-phone"></i>
+              </div>
+              <div class="info-content">
+                <h3 class="info-label">Phone</h3>
+                <a href="tel:+15198169683" class="info-value">+1 (519) 816-9683</a>
               </div>
             </div>
-            <div class="contact-item">
-              <i class="ph ph-map-pin"></i>
-              <div>
-                <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Location</h4>
-                <p style="color: var(--text-secondary); margin: 0;">Windsor, ON, Canada</p>
+          </div>
+          
+          <!-- Contact Form Container -->
+          <div class="contact-form-container">
+            <form class="modern-contact-form" id="contactForm">
+              <div class="form-field">
+                <label for="name" class="field-label">Full Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="field-input"
+                  placeholder="Your name"
+                  autocomplete="name"
+                  required
+                />
               </div>
-            </div>
-            <div style="margin-top: 1rem;">
-              <h4 style="font-weight: 600; margin-bottom: 1rem;">Find me on</h4>
-              <div class="social-links" style="margin-top: 0; justify-content: flex-start;">
+              
+              <div class="form-field">
+                <label for="email" class="field-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="field-input"
+                  placeholder="Your e-mail address"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              
+              <div class="form-field">
+                <label for="message" class="field-label">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  class="field-input"
+                  placeholder="Tell me about your project, opportunity, or just say hello!"
+                  required
+                ></textarea>
+              </div>
+              
+              <button type="submit" class="contact-submit-btn" id="submitBtn">
+                <span id="btnText">Send Message</span>
+              </button>
+            </form>
+            
+            <!-- Social Links -->
+            <div class="contact-social">
+              <p class="social-label">Find me on</p>
+              <div class="social-links">
                 <a href="https://github.com/vimanga-x64" target="_blank" class="social-link" aria-label="GitHub">
-                  <i class="ph ph-github-logo"></i>
+                  <svg class="social-icon" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)" fill="currentColor"/>
+                  </svg>
                 </a>
                 <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="social-link" aria-label="LinkedIn">
-                  <i class="ph ph-linkedin-logo"></i>
+                  <svg class="social-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+                    <path d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453" fill="#0A66C2"/>
+                  </svg>
                 </a>
                 <a href="https://medium.com/@vishudha98" target="_blank" class="social-link" aria-label="Medium">
-                  <i class="ph ph-medium-logo"></i>
+                  <svg class="social-icon" viewBox="0 -55 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+                    <path d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z" fill="currentColor"/>
+                  </svg>
                 </a>
                 <a href="https://www.cloudskillsboost.google/public_profiles/c0bb8d2a-59e1-4a36-90e4-81a792ae00ba" target="_blank" class="social-link" aria-label="Google Cloud">
-                  <i class="ph ph-cloud"></i>
+                  <img src="logos/google-cloud.svg" alt="Google Cloud" class="social-img" />
                 </a>
               </div>
             </div>
           </div>
-
-          <form class="contact-form" action="https://formspree.io/f/xvgwddda" method="POST" id="contactForm" aria-label="Contact form">
-            <div class="form-success" id="formSuccess" role="alert" aria-live="polite">
-              <div class="success-icon">
-                <i class="ph-fill ph-check-circle"></i>
-              </div>
-              <h3 class="success-title">Message Sent!</h3>
-              <p class="success-message">
-                I'll get back to you within a couple days, sit tight!
-              </p>
-              <p class="success-countdown">
-                Redirecting to homepage in <span id="countdown">5</span> seconds...
-              </p>
-            </div>
-            
-            <div class="form-group">
-              <label for="name">Name *</label>
-              <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                required 
-                aria-required="true"
-                placeholder="Your name"
-                autocomplete="name"
-              >
-            </div>
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                required 
-                aria-required="true"
-                placeholder="your.email@example.com"
-                autocomplete="email"
-              >
-            </div>
-            <div class="form-group">
-              <label for="message">Message *</label>
-              <textarea 
-                id="message" 
-                name="message" 
-                required 
-                aria-required="true"
-                placeholder="Tell me about your project, opportunity, or just say hello!"
-                rows="5"
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;" aria-label="Send message">
-              <i class="ph ph-paper-plane-tilt"></i>
-              Send Message
-            </button>
-          </form>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2025 Vimanga Umange. <a href="humans.txt" class="footer-link">Crafted by yours truly</a>.</p>
+    </div>
+  </footer>
 
   <script>
     // Theme Toggle
@@ -2944,6 +4712,11 @@
       html.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
       updateThemeIcon(theme);
+      
+      // Update particle color based on theme
+      if (window.particleSystem) {
+        window.particleSystem.updateColor(theme === 'dark' ? '#ffffff' : '#1e1e23');
+      }
     });
     
     function updateThemeIcon(theme) {
@@ -2953,6 +4726,271 @@
         themeIcon.className = 'ph ph-sun';
       }
     }
+
+    // Particle System
+    class ParticleSystem {
+      constructor(canvasId, options = {}) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = this.canvas.getContext('2d');
+        
+        // Options
+        this.quantity = options.quantity || 100;
+        this.staticity = options.staticity || 50;
+        this.ease = options.ease || 50;
+        this.size = options.size || 0.4;
+        this.color = options.color || '#ffffff';
+        this.vx = options.vx || 0;
+        this.vy = options.vy || 0;
+        
+        // State
+        this.particles = [];
+        this.mouse = { x: 0, y: 0 };
+        this.canvasSize = { w: 0, h: 0 };
+        this.dpr = window.devicePixelRatio || 1;
+        this.animationFrame = null;
+        this.rgb = this.hexToRgb(this.color);
+        
+        // Bind methods
+        this.handleResize = this.handleResize.bind(this);
+        this.handleMouseMove = this.handleMouseMove.bind(this);
+        this.animate = this.animate.bind(this);
+        
+        // Initialize
+        this.init();
+      }
+      
+      hexToRgb(hex) {
+        hex = hex.replace('#', '');
+        if (hex.length === 3) {
+          hex = hex.split('').map(char => char + char).join('');
+        }
+        const hexInt = parseInt(hex, 16);
+        const red = (hexInt >> 16) & 255;
+        const green = (hexInt >> 8) & 255;
+        const blue = hexInt & 255;
+        return [red, green, blue];
+      }
+      
+      init() {
+        this.resizeCanvas();
+        window.addEventListener('resize', this.handleResize);
+        window.addEventListener('mousemove', this.handleMouseMove);
+        this.animate();
+      }
+      
+      handleResize() {
+        clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = setTimeout(() => {
+          this.resizeCanvas();
+        }, 200);
+      }
+      
+      handleMouseMove(e) {
+        const rect = this.canvas.getBoundingClientRect();
+        const { w, h } = this.canvasSize;
+        const x = e.clientX - rect.left - w / 2;
+        const y = e.clientY - rect.top - h / 2;
+        const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
+        
+        if (inside) {
+          this.mouse.x = x;
+          this.mouse.y = y;
+        }
+      }
+      
+      resizeCanvas() {
+        this.canvasSize.w = window.innerWidth;
+        this.canvasSize.h = window.innerHeight;
+        
+        this.canvas.width = this.canvasSize.w * this.dpr;
+        this.canvas.height = this.canvasSize.h * this.dpr;
+        this.canvas.style.width = `${this.canvasSize.w}px`;
+        this.canvas.style.height = `${this.canvasSize.h}px`;
+        this.ctx.scale(this.dpr, this.dpr);
+        
+        // Create particles
+        this.particles = [];
+        for (let i = 0; i < this.quantity; i++) {
+          this.particles.push(this.createParticle());
+        }
+      }
+      
+      createParticle() {
+        return {
+          x: Math.floor(Math.random() * this.canvasSize.w),
+          y: Math.floor(Math.random() * this.canvasSize.h),
+          translateX: 0,
+          translateY: 0,
+          size: Math.floor(Math.random() * 2) + this.size,
+          alpha: 0,
+          targetAlpha: parseFloat((Math.random() * 0.6 + 0.1).toFixed(1)),
+          dx: (Math.random() - 0.5) * 0.1,
+          dy: (Math.random() - 0.5) * 0.1,
+          magnetism: 0.1 + Math.random() * 4
+        };
+      }
+      
+      drawParticle(particle) {
+        const { x, y, translateX, translateY, size, alpha } = particle;
+        
+        this.ctx.save();
+        this.ctx.translate(translateX, translateY);
+        this.ctx.beginPath();
+        this.ctx.arc(x, y, size, 0, 2 * Math.PI);
+        this.ctx.fillStyle = `rgba(${this.rgb.join(', ')}, ${alpha})`;
+        this.ctx.fill();
+        this.ctx.restore();
+      }
+      
+      remapValue(value, start1, end1, start2, end2) {
+        const remapped = ((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
+        return remapped > 0 ? remapped : 0;
+      }
+      
+      animate() {
+        this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h);
+        
+        this.particles.forEach((particle, i) => {
+          // Calculate distance from edges
+          const edge = [
+            particle.x + particle.translateX - particle.size,
+            this.canvasSize.w - particle.x - particle.translateX - particle.size,
+            particle.y + particle.translateY - particle.size,
+            this.canvasSize.h - particle.y - particle.translateY - particle.size
+          ];
+          
+          const closestEdge = Math.min(...edge);
+          const remapClosestEdge = parseFloat(this.remapValue(closestEdge, 0, 20, 0, 1).toFixed(2));
+          
+          // Handle alpha
+          if (remapClosestEdge > 1) {
+            particle.alpha += 0.02;
+            if (particle.alpha > particle.targetAlpha) {
+              particle.alpha = particle.targetAlpha;
+            }
+          } else {
+            particle.alpha = particle.targetAlpha * remapClosestEdge;
+          }
+          
+          // Update position
+          particle.x += particle.dx + this.vx;
+          particle.y += particle.dy + this.vy;
+          
+          // Mouse interaction
+          particle.translateX += (this.mouse.x / (this.staticity / particle.magnetism) - particle.translateX) / this.ease;
+          particle.translateY += (this.mouse.y / (this.staticity / particle.magnetism) - particle.translateY) / this.ease;
+          
+          // Draw particle
+          this.drawParticle(particle);
+          
+          // Reset particle if out of bounds
+          if (
+            particle.x < -particle.size ||
+            particle.x > this.canvasSize.w + particle.size ||
+            particle.y < -particle.size ||
+            particle.y > this.canvasSize.h + particle.size
+          ) {
+            this.particles[i] = this.createParticle();
+          }
+        });
+        
+        this.animationFrame = requestAnimationFrame(this.animate);
+      }
+      
+      updateColor(newColor) {
+        this.color = newColor;
+        this.rgb = this.hexToRgb(newColor);
+      }
+      
+      destroy() {
+        window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener('mousemove', this.handleMouseMove);
+        if (this.animationFrame) {
+          cancelAnimationFrame(this.animationFrame);
+        }
+      }
+    }
+
+    // Initialize particle system
+    window.addEventListener('load', () => {
+      const theme = html.getAttribute('data-theme');
+      const particleColor = theme === 'dark' ? '#ffffff' : '#1e1e23';
+      
+      window.particleSystem = new ParticleSystem('particles-canvas', {
+        quantity: 100,
+        staticity: 50,
+        ease: 50,
+        size: 0.4,
+        color: particleColor,
+        vx: 0,
+        vy: 0
+      });
+    });
+
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.className = 'ph ph-moon';
+      } else {
+        themeIcon.className = 'ph ph-sun';
+      }
+    }
+
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navItemsContainer = document.getElementById('navItems');
+    const menuIcon = document.getElementById('menuIcon');
+    let isMenuOpen = false;
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      isMenuOpen = !isMenuOpen;
+      navItemsContainer.classList.toggle('active');
+      
+      // Animate icon change
+      if (isMenuOpen) {
+        menuIcon.className = 'ph ph-x';
+      } else {
+        menuIcon.className = 'ph ph-list';
+      }
+    });
+    
+    // Show particles only in contact section
+    window.addEventListener('scroll', () => {
+      const contactSection = document.getElementById('contact');
+      if (!contactSection) return;
+      
+      const rect = contactSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Show particles when contact section is in view
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        document.body.classList.add('in-contact');
+      } else {
+        document.body.classList.remove('in-contact');
+      }
+    });
+    
+    // Close mobile menu when clicking on a nav item
+    const navLinks = document.querySelectorAll('.nav-item');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768 && isMenuOpen) {
+          isMenuOpen = false;
+          navItemsContainer.classList.remove('active');
+          menuIcon.className = 'ph ph-list';
+        }
+      });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768 && isMenuOpen) {
+        if (!e.target.closest('.side-nav')) {
+          isMenuOpen = false;
+          navItemsContainer.classList.remove('active');
+          menuIcon.className = 'ph ph-list';
+        }
+      }
+    });
 
     // Typing Animation with Rotation
     const typingText = document.getElementById('typingText');
@@ -3331,107 +5369,6 @@
     reveal();
     
     // Timeline circle filling animation
-    function animateTimeline() {
-      const timeline = document.querySelector('.timeline');
-      if (!timeline) return;
-      
-      const timelineItems = document.querySelectorAll('.timeline-item');
-      const windowHeight = window.innerHeight;
-      const timelineTop = timeline.getBoundingClientRect().top + window.pageYOffset;
-      const timelineHeight = timeline.offsetHeight;
-      const scrollPos = window.pageYOffset + windowHeight * 0.7;
-      
-      // Calculate progress (0 to 100%)
-      if (scrollPos > timelineTop) {
-        const progress = Math.min(100, ((scrollPos - timelineTop) / timelineHeight) * 100);
-        timeline.style.setProperty('--timeline-progress', `${progress}%`);
-        timeline.classList.add('active');
-        
-        // Fill circles with stagger effect
-        timelineItems.forEach((item, index) => {
-          const itemTop = item.getBoundingClientRect().top + window.pageYOffset;
-          if (scrollPos > itemTop - 100) {
-            setTimeout(() => {
-              item.classList.add('filled');
-            }, index * 200);
-          }
-        });
-      }
-    }
-    
-    window.addEventListener('scroll', animateTimeline);
-    animateTimeline();
-    
-    // Contact Form Submission Handler
-    const contactForm = document.getElementById('contactForm');
-    const formSuccess = document.getElementById('formSuccess');
-    const countdownElement = document.getElementById('countdown');
-    
-    if (contactForm) {
-      contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        // Disable submit button to prevent double submission
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.innerHTML;
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="ph ph-spinner"></i> Sending...';
-        
-        const formData = new FormData(contactForm);
-        
-        try {
-          const response = await fetch(contactForm.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
-          });
-          
-          if (response.ok) {
-            // Show success message
-            formSuccess.classList.add('show');
-            
-            // Start countdown
-            let seconds = 5;
-            const countdownInterval = setInterval(() => {
-              seconds--;
-              countdownElement.textContent = seconds;
-              
-              if (seconds <= 0) {
-                clearInterval(countdownInterval);
-                // Redirect to homepage
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setTimeout(() => {
-                  formSuccess.classList.remove('show');
-                  contactForm.reset();
-                  submitButton.disabled = false;
-                  submitButton.innerHTML = originalButtonText;
-                }, 1000);
-              }
-            }, 1000);
-          } else {
-            // Enhanced error handling
-            const errorData = await response.json().catch(() => ({}));
-            const errorMessage = errorData.error || 'There was a problem submitting your form.';
-            
-            alert(`Oops! ${errorMessage}\n\nPlease try again or email me directly at vimangau@gmail.com`);
-            
-            // Re-enable submit button
-            submitButton.disabled = false;
-            submitButton.innerHTML = originalButtonText;
-          }
-        } catch (error) {
-          console.error('Form submission error:', error);
-          alert('Oops! There was a network error. Please check your connection and try again, or email me directly at vimangau@gmail.com');
-          
-          // Re-enable submit button
-          submitButton.disabled = false;
-          submitButton.innerHTML = originalButtonText;
-        }
-      });
-    }
-    
     // Loading screen - hide when page is fully loaded
     window.addEventListener('load', () => {
       const loadingScreen = document.getElementById('loading-screen');
@@ -3799,6 +5736,350 @@ const initGlobe = () => {
       }, { threshold: 0.1 });
       
       observer.observe(globeContainer);
+    }
+
+    // Timeline Scroll Animation with Circle Filling - Zen & Proportional
+    // Timeline Scroll Animation with Circle Filling - Zen & Proportional
+    function initTimelineAnimation() {
+      const timelineWrapper = document.getElementById('timelineWrapper');
+      const timeline = document.querySelector('.timeline');
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      if (!timelineWrapper || !timeline || timelineItems.length === 0) return;
+      
+      function updateTimelineProgress() {
+        const timelineRect = timeline.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const timelineTop = timelineRect.top;
+        const timelineBottom = timelineRect.bottom;
+        const timelineHeight = timelineRect.height;
+        
+        // Calculate progress: line should reach 100% when the bottom of timeline reaches top of viewport
+        // Start: When top of timeline reaches bottom of viewport (progress = 0%)
+        // End: When bottom of timeline reaches top of viewport (progress = 100%)
+        
+        let scrollProgress = 0;
+        
+        if (timelineTop < windowHeight && timelineBottom > 0) {
+          // Timeline is visible in viewport
+          const scrollableDistance = timelineHeight + windowHeight;
+          const scrolled = windowHeight - timelineTop;
+          scrollProgress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
+        } else if (timelineBottom <= 0) {
+          // Timeline has scrolled past (fully above viewport)
+          scrollProgress = 1;
+        }
+        
+        // Apply smoothstep easing for zen-like feel
+        const easedProgress = scrollProgress * scrollProgress * (3 - 2 * scrollProgress);
+        
+        // Update CSS variable for the progress line
+        document.documentElement.style.setProperty('--timeline-scroll-progress', `${easedProgress * 100}%`);
+        
+        // Activate circles individually as they reach 60% of viewport
+        timelineItems.forEach((item) => {
+          const itemRect = item.getBoundingClientRect();
+          const itemTop = itemRect.top;
+          const triggerPoint = windowHeight * 0.6;
+          
+          if (itemTop < triggerPoint) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      }
+      
+      // Throttled scroll handler for performance
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateTimelineProgress();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+      
+      // Update on resize
+      window.addEventListener('resize', updateTimelineProgress);
+      
+      // Initial update
+      // Initial update
+      updateTimelineProgress();
+    }
+    
+    // Initialize timeline animation when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTimelineAnimation);
+    } else {
+      initTimelineAnimation();
+    }
+    
+    // Draggable Cards for Research Section
+    function initDraggableCards() {
+      const container = document.getElementById('researchCanvas');
+      if (!container) return;
+      
+      const cards = container.querySelectorAll('.draggable-card');
+      
+      cards.forEach(card => {
+        // Set initial position and rotation from data attributes
+        const rotation = card.dataset.rotation || 0;
+        const top = card.dataset.top;
+        const bottom = card.dataset.bottom;
+        const left = card.dataset.left;
+        
+        if (top) card.style.top = top;
+        if (bottom) card.style.bottom = bottom;
+        if (left) card.style.left = left;
+        card.style.transform = `rotate(${rotation}deg)`;
+        
+        let isDragging = false;
+        let currentX = 0;
+        let currentY = 0;
+        let initialX = 0;
+        let initialY = 0;
+        
+        // Mouse events
+        card.addEventListener('mousedown', (e) => {
+          isDragging = true;
+          card.style.zIndex = 1000;
+          
+          // Get current position
+          const rect = card.getBoundingClientRect();
+          const containerRect = container.getBoundingClientRect();
+          
+          initialX = e.clientX - rect.left;
+          initialY = e.clientY - rect.top;
+          
+          currentX = rect.left - containerRect.left;
+          currentY = rect.top - containerRect.top;
+          
+          card.style.cursor = 'grabbing';
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          
+          e.preventDefault();
+          
+          const containerRect = container.getBoundingClientRect();
+          const cardRect = card.getBoundingClientRect();
+          
+          // Calculate new position
+          let newX = e.clientX - containerRect.left - initialX;
+          let newY = e.clientY - containerRect.top - initialY;
+          
+          // Constrain to container bounds
+          const maxX = containerRect.width - cardRect.width;
+          const maxY = containerRect.height - cardRect.height;
+          
+          newX = Math.max(0, Math.min(newX, maxX));
+          newY = Math.max(0, Math.min(newY, maxY));
+          
+          // Update position
+          card.style.left = `${newX}px`;
+          card.style.top = `${newY}px`;
+          card.style.bottom = 'auto'; // Remove bottom positioning when dragging
+        });
+        
+        document.addEventListener('mouseup', () => {
+          if (isDragging) {
+            isDragging = false;
+            card.style.cursor = 'grab';
+            card.style.zIndex = 1;
+          }
+        });
+        
+        // Touch events for mobile
+        card.addEventListener('touchstart', (e) => {
+          isDragging = true;
+          card.style.zIndex = 1000;
+          
+          const touch = e.touches[0];
+          const rect = card.getBoundingClientRect();
+          const containerRect = container.getBoundingClientRect();
+          
+          initialX = touch.clientX - rect.left;
+          initialY = touch.clientY - rect.top;
+          
+          currentX = rect.left - containerRect.left;
+          currentY = rect.top - containerRect.top;
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          
+          e.preventDefault();
+          
+          const touch = e.touches[0];
+          const containerRect = container.getBoundingClientRect();
+          const cardRect = card.getBoundingClientRect();
+          
+          let newX = touch.clientX - containerRect.left - initialX;
+          let newY = touch.clientY - containerRect.top - initialY;
+          
+          const maxX = containerRect.width - cardRect.width;
+          const maxY = containerRect.height - cardRect.height;
+          
+          newX = Math.max(0, Math.min(newX, maxX));
+          newY = Math.max(0, Math.min(newY, maxY));
+          
+          card.style.left = `${newX}px`;
+          card.style.top = `${newY}px`;
+          card.style.bottom = 'auto';
+        }, { passive: false });
+        
+        document.addEventListener('touchend', () => {
+          if (isDragging) {
+            isDragging = false;
+            card.style.zIndex = 1;
+          }
+        });
+      });
+    }
+    
+    // Initialize draggable cards when page loads
+    window.addEventListener('load', () => {
+      initDraggableCards();
+    });
+    
+    // Contact Form Submission
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const contactAlert = document.getElementById('contactAlert');
+    
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Change button state
+        btnText.textContent = 'Sending...';
+        submitBtn.disabled = true;
+        
+        try {
+          // Get form data
+          const formData = new FormData(contactForm);
+          
+          // Submit to Formspree
+          const response = await fetch('https://formspree.io/f/xvgwddda', {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          
+          if (response.ok) {
+            // Show success alert
+            showAlert('success', 'Your message has been sent successfully! I\'ll get back to you soon.');
+            
+            // Reset form
+            contactForm.reset();
+          } else {
+            showAlert('error', 'Oops! Something went wrong. Please try again.');
+          }
+        } catch (error) {
+          console.error('Form submission error:', error);
+          showAlert('error', 'Network error. Please check your connection and try again.');
+        } finally {
+          // Reset button state
+          btnText.textContent = 'Send Message';
+          submitBtn.disabled = false;
+        }
+      });
+    }
+    
+    function showAlert(type, message) {
+      if (!contactAlert) return;
+      
+      const alertMessage = contactAlert.querySelector('span');
+      const alertIcon = contactAlert.querySelector('i');
+      
+      // Set message
+      if (alertMessage) alertMessage.textContent = message;
+      
+      // Set icon based on type
+      if (alertIcon) {
+        alertIcon.className = type === 'success' ? 'ph-fill ph-check-circle' : 'ph-fill ph-warning-circle';
+      }
+      
+      // Set color based on type
+      if (type === 'success') {
+        contactAlert.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+      } else {
+        contactAlert.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+      }
+      
+      // Show alert
+      contactAlert.style.display = 'flex';
+      
+      // Hide after 5 seconds
+      setTimeout(() => {
+        contactAlert.style.opacity = '0';
+        setTimeout(() => {
+          contactAlert.style.display = 'none';
+          contactAlert.style.opacity = '1';
+        }, 300);
+      }, 5000);
+    }
+    
+    // Copy to Clipboard Function
+    // Accepts text and optional event (when invoked via onclick="copyToClipboard(..., event)")
+    function copyToClipboard(text, evt) {
+      // Try to resolve the button element robustly
+      let copyBtn = null;
+      if (evt && evt.target) {
+        copyBtn = evt.target.closest && evt.target.closest('.copy-btn');
+      }
+
+      // Fallback: find the first .copy-btn near a mailto link matching the text
+      if (!copyBtn) {
+        const anchors = document.querySelectorAll('a[href^="mailto:"]');
+        for (const a of anchors) {
+          if (a.href && a.href.includes(text)) {
+            // look for a sibling .copy-btn
+            const parent = a.closest('.info-value-with-copy');
+            if (parent) {
+              copyBtn = parent.querySelector('.copy-btn');
+              break;
+            }
+          }
+        }
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        try {
+          if (copyBtn) {
+            const icon = copyBtn.querySelector('i');
+            if (icon) {
+              const originalClass = icon.className;
+              icon.className = 'ph-fill ph-check';
+              copyBtn.classList.add('copied');
+
+              const originalBg = copyBtn.style.background;
+              copyBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+              copyBtn.style.borderColor = '#10b981';
+
+              setTimeout(() => {
+                icon.className = originalClass;
+                copyBtn.classList.remove('copied');
+                copyBtn.style.background = originalBg;
+                copyBtn.style.borderColor = '';
+              }, 2000);
+            }
+          }
+        } catch (e) {
+          // Non-fatal: icon/UI update failed
+          console.warn('copyToClipboard: UI feedback update failed', e);
+        }
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy email. Please copy manually: ' + text);
+      });
     }
   </script>
 </body>
