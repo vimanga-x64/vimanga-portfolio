@@ -5893,7 +5893,12 @@
         return remapped > 0 ? remapped : 0;
       }
       
-      animate() {
+      animate(timestamp) {
+        // Delta time for frame-rate independence (normalize to 60fps)
+        if (!this.lastTime) this.lastTime = timestamp;
+        const deltaTime = (timestamp - this.lastTime) / 16.67 || 1;
+        this.lastTime = timestamp;
+        
         this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h);
         
         this.particles.forEach((particle, i) => {
@@ -5910,7 +5915,7 @@
           
           // Handle alpha
           if (remapClosestEdge > 1) {
-            particle.alpha += 0.02;
+            particle.alpha += 0.02 * deltaTime;
             if (particle.alpha > particle.targetAlpha) {
               particle.alpha = particle.targetAlpha;
             }
@@ -5918,13 +5923,15 @@
             particle.alpha = particle.targetAlpha * remapClosestEdge;
           }
           
-          // Update position
-          particle.x += particle.dx + this.vx;
-          particle.y += particle.dy + this.vy;
+          // Update position with delta time
+          particle.x += (particle.dx + this.vx) * deltaTime;
+          particle.y += (particle.dy + this.vy) * deltaTime;
           
-          // Mouse interaction
-          particle.translateX += (this.mouse.x / (this.staticity / particle.magnetism) - particle.translateX) / this.ease;
-          particle.translateY += (this.mouse.y / (this.staticity / particle.magnetism) - particle.translateY) / this.ease;
+          // Mouse interaction with delta time
+          const moveX = (this.mouse.x / (this.staticity / particle.magnetism) - particle.translateX) / this.ease;
+          const moveY = (this.mouse.y / (this.staticity / particle.magnetism) - particle.translateY) / this.ease;
+          particle.translateX += moveX * deltaTime;
+          particle.translateY += moveY * deltaTime;
           
           // Draw particle
           this.drawParticle(particle);
@@ -6233,13 +6240,20 @@
         return null;
       }
       
-      function animateBlocks() {
+      let blocksLastTime = 0;
+      
+      function animateBlocks(timestamp) {
+        // Delta time for frame-rate independence
+        if (!blocksLastTime) blocksLastTime = timestamp;
+        const deltaTime = (timestamp - blocksLastTime) / 16.67 || 1;
+        blocksLastTime = timestamp;
+        
         const nameBoundary = getNameBoundary();
         
         floatingBlocks.forEach(block => {
-          // Update position
-          block.x += block.vx;
-          block.y += block.vy;
+          // Update position with delta time
+          block.x += block.vx * deltaTime;
+          block.y += block.vy * deltaTime;
           
           // Bounce off walls
           const containerWidth = window.innerWidth;
@@ -6299,7 +6313,7 @@
         requestAnimationFrame(animateBlocks);
       }
       
-      animateBlocks();
+      requestAnimationFrame(animateBlocks);
       
       // Window resize handler
       window.addEventListener('resize', () => {
@@ -6723,14 +6737,25 @@
       }, { threshold: 0.5 });
       observer.observe(heroSection);
 
-      function animateParallax() {
+      let parallaxLastTime = 0;
+
+      function animateParallax(timestamp) {
         if (!isInHero) {
           requestAnimationFrame(animateParallax);
           return;
         }
         
-        currentX = lerp(currentX, mouseX, 0.08);
-        currentY = lerp(currentY, mouseY, 0.08);
+        // Delta time for frame-rate independence
+        if (!parallaxLastTime) parallaxLastTime = timestamp;
+        const deltaTime = (timestamp - parallaxLastTime) / 16.67 || 1;
+        parallaxLastTime = timestamp;
+        
+        // Adjust lerp factor for frame-rate independence
+        const baseFactor = 0.08;
+        const adjustedFactor = 1 - Math.pow(1 - baseFactor, deltaTime);
+        
+        currentX = lerp(currentX, mouseX, adjustedFactor);
+        currentY = lerp(currentY, mouseY, adjustedFactor);
 
         // Movement values - subtle enough to not affect usability
         if (nameSection) {
