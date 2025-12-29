@@ -117,9 +117,11 @@
       opacity: 1;
     }
     
-    /* Cursor Follower */
+    /* Cursor Follower - OPTIMIZED */
     .cursor-follower {
       position: fixed;
+      top: 0;
+      left: 0;
       width: 1000px;
       height: 1000px;
       border-radius: 50%;
@@ -135,9 +137,10 @@
         rgba(168, 85, 247, 0.03) 45%,
         transparent 55%
       );
-      transform: translate3d(-50%, -50%, 0);
       filter: blur(80px);
-      will-change: transform, opacity;
+      will-change: transform;
+      backface-visibility: hidden;
+      transform: translate3d(0, 0, 0);
     }
     
     .cursor-follower.active {
@@ -3291,32 +3294,40 @@
       }
     }
     
-    /* Globe Visualization */
-    .globe-container {
-      width: 100%;
-      max-width: 300px;
-      margin: 1rem auto;
-      aspect-ratio: 1 / 1;
-      position: relative;
-      border-radius: 50%;
-      overflow: hidden;
-      background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.1), transparent 70%);
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
     }
     
-    #globe-canvas {
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      cursor: grab;
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
     }
     
-    #globe-canvas:active {
-      cursor: grabbing;
+    ::-webkit-scrollbar-thumb {
+      background: rgba(139, 92, 246, 0.4);
+      border-radius: 5px;
+      border: 2px solid var(--bg-secondary);
     }
     
-    #globe-canvas.loaded {
-      opacity: 1;
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(139, 92, 246, 0.6);
+    }
+    
+    /* Firefox scrollbar */
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(139, 92, 246, 0.4) var(--bg-secondary);
+    }
+    
+    /* Custom Text Selection */
+    ::selection {
+      background: rgba(139, 92, 246, 0.3);
+      color: inherit;
+    }
+    
+    ::-moz-selection {
+      background: rgba(139, 92, 246, 0.3);
+      color: inherit;
     }
     
     /* Footer */
@@ -4652,11 +4663,6 @@
       .orbit-icon i {
         font-size: 1.2rem;
       }
-      
-      /* Smaller globe on mobile */
-      .globe-container {
-        max-width: 220px;
-      }
     }
     
     /* Scroll animations */
@@ -4733,7 +4739,7 @@
       letter-spacing: 2px;
     }
     
-    /* NOISE TEXTURE OVERLAY */
+    /* NOISE TEXTURE OVERLAY - OPTIMIZED */
     .noise-overlay {
       position: fixed;
       top: 0;
@@ -4742,12 +4748,13 @@
       height: 100%;
       pointer-events: none;
       z-index: 9000;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5. eXlzc3Oeli4teleNjY2Li4ubm5teleNjY2teleNjY11teleNj2Li4uJiYmeli4t7e3t1dXV3d3d7e3t5eXl1dXWBgYF9fX2Dg4OFhYW3BgYF7e3t9fX2Hh4eLi4uNjY17e3t/f3+BgYGHh4eDg4NtbW1vb29xeleXl1dXV3d3d5eXl7e3t9fX1/f3+BgYGDg4OFhYWHh4eJiYmLi4uNjY2Pj4+RkZGTk5OVlZWXl5eZmZmbm5teleNj4+Pj4+RkZGTk5OVlZWXl5eZmZmbm5udnZ2fn5+hoaGjo6teleNj4+Pj4+RkZGTk5O=");
+      background-repeat: repeat;
     }
     
     [data-theme="light"] .noise-overlay {
-      opacity: 0.02;
+      opacity: 0.025;
     }
     
     /* PULSING STATUS DOT */
@@ -6462,54 +6469,55 @@
       scrambleEffects.set(title, new TextScramble(title));
     });
     
-    // Reveal animations
-    function reveal() {
-      const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-      const titles = document.querySelectorAll('.section-title');
-      const laptopCards = document.querySelectorAll('.project-card:has(.laptop-lid)');
-      
-      reveals.forEach(element => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < windowHeight - elementVisible) {
+    // OPTIMIZED Reveal animations using IntersectionObserver
+    const revealObserverOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          
+          // Add active class
           element.classList.add('active');
-        }
-      });
-      
-      // Handle section title scramble effect
-      titles.forEach(title => {
-        const windowHeight = window.innerHeight;
-        const elementTop = title.getBoundingClientRect().top;
-        const elementVisible = 200;
-        
-        if (elementTop < windowHeight - elementVisible && !title.classList.contains('active')) {
-          title.classList.add('active');
-          const scrambler = scrambleEffects.get(title);
-          const originalText = title.getAttribute('data-original');
-          if (scrambler && originalText) {
-            scrambler.setText(originalText);
+          
+          // Handle Laptop Opening
+          if (element.classList.contains('project-card') && element.querySelector('.laptop-lid')) {
+            setTimeout(() => {
+              element.classList.add('laptop-opened');
+            }, 300);
           }
+
+          // Handle Text Scramble for section titles
+          if (element.classList.contains('section-title')) {
+            const scrambler = scrambleEffects.get(element);
+            const originalText = element.getAttribute('data-original');
+            if (scrambler && originalText) {
+              scrambler.setText(originalText);
+            }
+          }
+
+          // Stop observing once revealed
+          observer.unobserve(element);
         }
       });
-      
-      // Handle laptop opening animation for ALL laptop projects (both normal and reversed)
-      laptopCards.forEach(card => {
-        const windowHeight = window.innerHeight;
-        const elementTop = card.getBoundingClientRect().top;
-        const elementVisible = 200;
-        
-        if (elementTop < windowHeight - elementVisible && !card.classList.contains('laptop-opened')) {
-          setTimeout(() => {
-            card.classList.add('laptop-opened');
-          }, 300); // Small delay for better effect
-        }
-      });
+    }, revealObserverOptions);
+
+    // Initialize observers for all reveal elements
+    function initRevealObservers() {
+      const elementsToReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .section-title, .project-card');
+      elementsToReveal.forEach(el => revealObserver.observe(el));
     }
     
-    window.addEventListener('scroll', reveal);
-    reveal();
+    // Call on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initRevealObservers);
+    } else {
+      initRevealObservers();
+    }
     
     // Timeline circle filling animation
     // Loading screen - hide when page is fully loaded
@@ -6545,342 +6553,6 @@
       });
     }
     
-    // Interactive Globe - Custom Canvas Implementation
-    let globeInstance = null;
-    let globeInitialized = false;
-
-const initGlobe = () => {
-  if (globeInitialized) return;
-  
-  const canvas = document.getElementById('globe-canvas');
-  if (!canvas) {
-    console.error('Globe canvas not found');
-    return;
-  }
-
-  console.log('Initializing custom globe...');
-  globeInitialized = true;
-
-  const ctx = canvas.getContext('2d');
-  let width = canvas.parentElement.offsetWidth;
-  let height = width; // Keep it square
-  canvas.width = width * 2;
-  canvas.height = height * 2;
-  ctx.scale(2, 2);
-  ctx.lineJoin = 'round'; // Smoother lines for professional look
-  ctx.lineCap = 'round';
-
-  let rotation = 0;
-  let isDragging = false;
-  let lastX = 0;
-  
-  // Cities (unchanged)
-  const cities = [
-    { name: 'Windsor', lat: 42.3149, lon: -83.0364, size: 8 },
-    { name: 'Toronto', lat: 43.6532, lon: -79.3832, size: 5 },
-    { name: 'NYC', lat: 40.7128, lon: -74.006, size: 6 },
-    { name: 'London', lat: 51.5074, lon: -0.1278, size: 5 }
-  ];
-  
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-
-  // More detailed continent outlines (lon, lat pairs; simplified to ~50-100 points each for performance)
-  const continents = [
-    // North America (more points for accuracy)
-    [
-      [-168, 65], [-164, 67], [-156, 71], [-142, 70], [-130, 72], [-125, 72], [-122, 70], [-125, 60], [-130, 55],
-      [-132, 50], [-130, 45], [-124, 40], [-120, 34], [-117, 32], [-115, 30], [-112, 31], [-108, 31], [-105, 29],
-      [-102, 29], [-100, 26], [-97, 26], [-95, 29], [-90, 29], [-88, 30], [-85, 28], [-83, 29], [-81, 27], [-80, 25],
-      [-78, 26], [-77, 27], [-75, 28], [-73, 32], [-70, 43], [-68, 45], [-66, 45], [-63, 47], [-60, 50], [-58, 52],
-      [-56, 58], [-62, 62], [-68, 68], [-80, 72], [-95, 73], [-110, 73], [-125, 74], [-145, 73], [-160, 70], [-168, 65]
-    ],
-    // Central America (connected to North/South)
-    [
-      [-92, 21], [-90, 20], [-88, 16], [-86, 15], [-84, 11], [-82, 9], [-79, 9], [-77, 8], [-78, 10], [-80, 12],
-      [-83, 14], [-87, 18], [-90, 19], [-92, 21]
-    ],
-    // South America
-    [
-      [-81, 12], [-79, 8], [-77, 4], [-75, 0], [-73, -4], [-71, -10], [-70, -18], [-69, -23], [-68, -30], [-68, -38],
-      [-69, -42], [-71, -48], [-72, -52], [-74, -54], [-68, -55], [-65, -54], [-62, -52], [-58, -48], [-57, -42],
-      [-55, -35], [-54, -28], [-52, -22], [-50, -15], [-49, -10], [-50, -5], [-52, -2], [-55, 2], [-58, 5], [-62, 8],
-      [-67, 10], [-72, 11], [-77, 12], [-81, 12]
-    ],
-    // Europe
-    [
-      [-10, 54], [-8, 58], [-5, 60], [0, 60], [5, 59], [10, 58], [15, 59], [20, 60], [25, 61], [28, 69], [25, 70],
-      [20, 69], [15, 68], [12, 65], [10, 62], [8, 60], [5, 58], [8, 56], [10, 54], [12, 52], [15, 50], [18, 48],
-      [20, 46], [22, 44], [20, 42], [18, 41], [15, 40], [12, 40], [10, 42], [7, 43], [5, 43], [2, 45], [0, 47],
-      [-2, 49], [-5, 51], [-8, 52], [-10, 54]
-    ],
-    // Africa
-    [
-      [-17, 36], [-12, 35], [-8, 33], [-5, 32], [0, 32], [8, 31], [12, 30], [20, 25], [25, 20], [30, 17], [35, 12],
-      [38, 8], [40, 3], [42, -3], [43, -8], [42, -12], [40, -16], [37, -20], [35, -25], [33, -29], [30, -32],
-      [27, -34], [23, -34], [19, -33], [16, -30], [15, -26], [14, -20], [13, -15], [12, -10], [11, -5], [10, 0],
-      [9, 5], [8, 10], [6, 15], [3, 18], [0, 20], [-3, 22], [-6, 24], [-8, 27], [-10, 29], [-12, 32], [-15, 35],
-      [-17, 36]
-    ],
-    // Asia
-    [
-      [26, 72], [35, 75], [45, 75], [55, 73], [65, 70], [75, 65], [85, 60], [95, 55], [105, 50], [115, 45],
-      [125, 40], [130, 35], [135, 30], [140, 25], [145, 20], [148, 15], [148, 10], [145, 5], [140, 2], [135, 1],
-      [130, 2], [125, 5], [120, 8], [115, 12], [110, 15], [105, 18], [100, 20], [95, 22], [90, 23], [85, 23],
-      [80, 22], [75, 22], [70, 23], [65, 25], [60, 28], [55, 32], [52, 35], [50, 40], [48, 45], [46, 50],
-      [44, 55], [42, 60], [38, 65], [32, 68], [26, 72]
-    ],
-    // Oceania/Australia
-    [
-      [113, -10], [118, -12], [123, -14], [128, -14], [133, -13], [138, -14], [143, -16], [147, -19], [150, -23],
-      [153, -28], [154, -32], [153, -36], [151, -38], [148, -40], [145, -42], [142, -43], [138, -43], [135, -42],
-      [132, -40], [128, -38], [125, -36], [122, -33], [119, -30], [116, -26], [114, -22], [113, -18], [112, -14],
-      [113, -10]
-    ],
-    // Antarctica (simplified irregular outline)
-    [
-      [0, -60], [20, -62], [40, -65], [60, -68], [80, -70], [100, -72], [120, -75], [140, -78], [160, -80],
-      [180, -82], [-160, -80], [-140, -78], [-120, -75], [-100, -72], [-80, -70], [-60, -68], [-40, -65],
-      [-20, -62], [0, -60], [10, -63], [30, -66], [50, -69], [70, -71], [90, -73], [110, -76], [130, -79],
-      [150, -81], [170, -83], [-170, -83], [-150, -81], [-130, -79], [-110, -76], [-90, -73], [-70, -71],
-      [-50, -69], [-30, -66], [-10, -63], [0, -60]
-    ]
-  ];
-
-  // Project 3D point to 2D (unchanged)
-  function project3D(lat, lon, centerX, centerY, radius) {
-    const latRad = lat * Math.PI / 180;
-    const lonRad = (lon + rotation) * Math.PI / 180;
-    
-    const x = centerX + radius * Math.cos(latRad) * Math.cos(lonRad);
-    const y = centerY - radius * Math.sin(latRad);
-    const z = radius * Math.cos(latRad) * Math.sin(lonRad);
-    
-    return { x, y, z, visible: z > 0 };
-  }
-
-  // Draw globe with world map
-  function drawGlobe() {
-    const centerX = width / 2;
-    const centerY = height / 2;
-    const radius = Math.min(width, height) / 2 - 10;
-
-    // Clear canvas
-    ctx.clearRect(0, 0, width, height);
-
-    // Draw globe background (ocean) with subtle gradient
-    const oceanGradient = ctx.createRadialGradient(centerX - radius/3, centerY - radius/3, 0, centerX, centerY, radius);
-    if (isDark) {
-      oceanGradient.addColorStop(0, 'rgba(20, 50, 90, 0.8)');
-      oceanGradient.addColorStop(1, 'rgba(5, 20, 50, 0.9)');
-    } else {
-      oceanGradient.addColorStop(0, 'rgba(150, 200, 255, 0.7)');
-      oceanGradient.addColorStop(1, 'rgba(80, 130, 220, 0.6)');
-    }
-    
-    ctx.fillStyle = oceanGradient;
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Draw continents with gradient fill for depth
-    continents.forEach(continent => {
-      const projectedPoints = continent.map(([lon, lat]) => 
-        project3D(lat, lon, centerX, centerY, radius)
-      );
-      
-      // Only draw if at least some points are visible
-      const visiblePoints = projectedPoints.filter(p => p.visible);
-      if (visiblePoints.length > 2) {
-        ctx.beginPath();
-        projectedPoints.forEach((point, i) => {
-          if (point.visible) {
-            if (i === 0) ctx.moveTo(point.x, point.y);
-            else ctx.lineTo(point.x, point.y);
-          }
-        });
-        ctx.closePath();
-
-        // Gradient fill for land (professional shading)
-        const landGradient = ctx.createLinearGradient(centerX - radius, centerY, centerX + radius, centerY);
-        if (isDark) {
-          landGradient.addColorStop(0, 'rgba(50, 100, 50, 0.7)');
-          landGradient.addColorStop(1, 'rgba(30, 70, 30, 0.8)');
-        } else {
-          landGradient.addColorStop(0, 'rgba(100, 160, 100, 0.6)');
-          landGradient.addColorStop(1, 'rgba(70, 130, 70, 0.7)');
-        }
-        ctx.fillStyle = landGradient;
-        ctx.fill();
-
-        // Subtle border
-        ctx.strokeStyle = isDark ? 'rgba(80, 120, 80, 0.4)' : 'rgba(50, 100, 50, 0.5)';
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-      }
-    });
-
-    // Draw latitude lines (grid) - thinner for cleaner look
-    ctx.strokeStyle = isDark ? 'rgba(100, 150, 200, 0.15)' : 'rgba(50, 100, 150, 0.2)';
-    ctx.lineWidth = 0.3;
-    
-    for (let lat = -60; lat <= 60; lat += 30) {
-      ctx.beginPath();
-      const latRadius = radius * Math.cos(lat * Math.PI / 180);
-      const yOffset = radius * Math.sin(lat * Math.PI / 180);
-      
-      for (let lon = 0; lon <= 360; lon += 5) {
-        const angle = (lon + rotation) * Math.PI / 180;
-        const x = centerX + latRadius * Math.cos(angle);
-        const z = latRadius * Math.sin(angle);
-        const y = centerY - yOffset;
-        
-        if (z > 0) { // Only draw front half
-          if (lon === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-      }
-      ctx.stroke();
-    }
-
-    // Draw longitude lines
-    for (let lon = 0; lon < 360; lon += 30) {
-      ctx.beginPath();
-      for (let lat = -90; lat <= 90; lat += 5) {
-        const angle = (lon + rotation) * Math.PI / 180;
-        const latRadius = radius * Math.cos(lat * Math.PI / 180);
-        const z = latRadius * Math.sin(angle);
-        
-        if (z > 0) { // Only draw front half
-          const x = centerX + latRadius * Math.cos(angle);
-          const y = centerY - radius * Math.sin(lat * Math.PI / 180);
-          
-          if (lat === -90) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-      }
-      ctx.stroke();
-    }
-
-    // Draw city markers (unchanged but with better glow)
-    cities.forEach(city => {
-      const angle = (city.lon + rotation) * Math.PI / 180;
-      const latRadius = radius * Math.cos(city.lat * Math.PI / 180);
-      const z = latRadius * Math.sin(angle);
-      
-      if (z > 0) { // Only draw if on front
-        const x = centerX + latRadius * Math.cos(angle);
-        const y = centerY - radius * Math.sin(city.lat * Math.PI / 180);
-        
-        // Draw marker
-        ctx.fillStyle = city.name === 'Windsor' ? '#3B82F6' : '#60A5FA';
-        ctx.beginPath();
-        ctx.arc(x, y, city.size, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Draw glow
-        const glowGradient = ctx.createRadialGradient(x, y, 0, x, y, city.size * 2.5);
-        glowGradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
-        glowGradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
-        ctx.fillStyle = glowGradient;
-        ctx.beginPath();
-        ctx.arc(x, y, city.size * 2.5, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    });
-  }
-
-  // Animation loop
-  function animate() {
-    if (!isDragging) {
-      rotation += 0.2; // Auto-rotate (adjust speed if needed)
-    }
-    drawGlobe();
-    requestAnimationFrame(animate);
-  }
-
-  // Mouse/Touch interaction (unchanged)
-  canvas.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    lastX = e.clientX;
-    canvas.style.cursor = 'grabbing';
-  });
-
-  canvas.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-      const deltaX = e.clientX - lastX;
-      rotation += deltaX * 0.5;
-      lastX = e.clientX;
-    }
-  });
-
-  canvas.addEventListener('mouseup', () => {
-    isDragging = false;
-    canvas.style.cursor = 'grab';
-  });
-
-  canvas.addEventListener('mouseleave', () => {
-    isDragging = false;
-    canvas.style.cursor = 'grab';
-  });
-
-  // Touch events
-  canvas.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    lastX = e.touches[0].clientX;
-  });
-
-  canvas.addEventListener('touchmove', (e) => {
-    if (isDragging) {
-      const deltaX = e.touches[0].clientX - lastX;
-      rotation += deltaX * 0.5;
-      lastX = e.touches[0].clientX;
-    }
-  });
-
-  canvas.addEventListener('touchend', () => {
-    isDragging = false;
-  });
-
-  // Handle resize
-  window.addEventListener('resize', () => {
-    width = canvas.parentElement.offsetWidth;
-    height = width;
-    canvas.width = width * 2;
-    canvas.height = height * 2;
-    ctx.scale(2, 2);
-  });
-
-  // Start animation
-  canvas.style.cursor = 'grab';
-  setTimeout(() => canvas.classList.add('loaded'), 100);
-  animate();
-  
-  console.log('Custom globe initialized successfully');
-};
-
-    // Initialize globe when visible
-    const globeContainer = document.querySelector('.globe-container');
-    
-    if (globeContainer) {
-      // Try to initialize immediately if visible
-      const rect = globeContainer.getBoundingClientRect();
-      if (rect.top < window.innerHeight) {
-        setTimeout(() => initGlobe(), 500);
-      }
-      
-      // Also use IntersectionObserver for lazy loading
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !globeInitialized) {
-            setTimeout(() => initGlobe(), 300);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      observer.observe(globeContainer);
-    }
-
     // Hero Network Layer Map with Illuminating Dots
     class HeroNetwork {
       constructor() {
@@ -7482,13 +7154,13 @@ const initGlobe = () => {
     window.addEventListener('scroll', checkIfAfterHero);
     checkIfAfterHero();
     
+    // OPTIMIZED: Use transform instead of left/top for GPU acceleration
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
       
-      // Update position immediately
-      cursorFollower.style.left = mouseX + 'px';
-      cursorFollower.style.top = mouseY + 'px';
+      // Use transform3d for GPU-accelerated movement (subtract 500 to center the 1000px element)
+      cursorFollower.style.transform = `translate3d(${mouseX - 500}px, ${mouseY - 500}px, 0)`;
       
       if (isAfterHero) {
         cursorFollower.classList.add('active');
