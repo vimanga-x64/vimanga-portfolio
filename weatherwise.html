@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeatherWise Case Study | Vimanga Umange</title>
+  <meta name="description"
+    content="WeatherWise — NASA Space Apps 2024 project. An interactive weather intelligence platform powered by NASA Earth observation data.">
+  <link rel="icon" type="image/png" href="logos/favicon_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0c;
+      --bg-card: #111114;
+      --bg-card-hover: #18181c;
+      --text-primary: #f5f5f0;
+      --text-secondary: #a8a8a0;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.15);
+      --accent-glow: rgba(59, 130, 246, 0.3);
+      --accent-secondary: #06b6d4;
+      --border: rgba(255, 255, 255, 0.08);
+      --font-hero: 'Playfair Display', serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ========== NOISE OVERLAY ========== */
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* ========== BACK NAV ========== */
+    .back-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 10, 12, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .back-link i {
+      font-size: 1.2rem;
+    }
+
+    .nav-title {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: all 0.4s ease;
+    }
+
+    .nav-title.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/Space_Apps_Screenshot.png') center/cover no-repeat;
+      filter: brightness(0.25) saturate(0.9);
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+
+    .hero:hover .hero-bg {
+      transform: scale(1.0);
+    }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+          rgba(10, 10, 12, 0.3) 0%,
+          rgba(10, 10, 12, 0.5) 30%,
+          rgba(10, 10, 12, 0.85) 70%,
+          var(--bg-primary) 100%);
+    }
+
+    /* Subtle orbital ring decoration */
+    .hero-orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(59, 130, 246, 0.06);
+      border-radius: 50%;
+      animation: orbitSpin 60s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-orbit:nth-child(4) {
+      width: 800px;
+      height: 800px;
+      border-color: rgba(6, 182, 212, 0.04);
+      animation-duration: 90s;
+      animation-direction: reverse;
+    }
+
+    .hero-orbit::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+      opacity: 0.6;
+    }
+
+    .hero-orbit:nth-child(4)::after {
+      background: var(--accent-secondary);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+    }
+
+    @keyframes orbitSpin {
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 2rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero h1 {
+      font-family: var(--font-hero);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+
+    .hero h1 .accent {
+      color: var(--accent);
+    }
+
+    .hero h1 .accent-secondary {
+      color: var(--accent-secondary);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+
+    .hero-tech {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.9s forwards;
+    }
+
+    .hero-tech-tag {
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .hero-tech-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.2s forwards;
+    }
+
+    .scroll-cue .line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scrollPulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: scaleY(0.6);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+    }
+
+    /* ========== SECTIONS ========== */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section h2 {
+      font-family: var(--font-hero);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .section p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 750px;
+      margin-bottom: 1.5rem;
+    }
+
+    .section p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ========== REVEAL ANIMATIONS ========== */
+    .reveal-el {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-el.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== OVERVIEW GRID ========== */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .overview-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .overview-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .overview-card:hover {
+      border-color: rgba(59, 130, 246, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .overview-card:hover::before {
+      opacity: 1;
+    }
+
+    .overview-card .icon {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .overview-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .overview-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ========== PIPELINE / ARCHITECTURE ========== */
+    .pipeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      counter-reset: step;
+    }
+
+    .pipeline-step {
+      flex: 1;
+      min-width: 250px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      transition: all 0.4s ease;
+    }
+
+    .pipeline-step:hover {
+      border-color: rgba(59, 130, 246, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .pipeline-step::before {
+      counter-increment: step;
+      content: counter(step, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: rgba(59, 130, 246, 0.12);
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+    }
+
+    .pipeline-step h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .pipeline-step p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ========== SCREENSHOT GALLERY ========== */
+    .gallery {
+      margin-top: 3rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gallery-item:hover {
+      border-color: rgba(59, 130, 246, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.02);
+    }
+
+    .gallery-caption {
+      padding: 1.5rem 2rem;
+    }
+
+    .gallery-caption h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .gallery-caption p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .gallery-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== FEATURE HIGHLIGHTS ========== */
+    .feature-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .feature-card:hover {
+      border-color: rgba(59, 130, 246, 0.15);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .feature-card .feature-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .feature-showcase {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== CHALLENGES ========== */
+    .challenge-list {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .challenge-list li {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      padding: 1.5rem 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .challenge-list li:hover {
+      border-color: rgba(59, 130, 246, 0.15);
+      transform: translateX(6px);
+    }
+
+    .challenge-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.3rem;
+    }
+
+    .challenge-text h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .challenge-text p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ========== TECH STACK GRID ========== */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .tech-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 1.5rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      transition: all 0.4s ease;
+    }
+
+    .tech-item i {
+      font-size: 1.8rem;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    .tech-item img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      opacity: 0.9;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .tech-item:hover {
+      border-color: rgba(59, 130, 246, 0.2);
+      color: var(--text-primary);
+      transform: translateY(-3px);
+      background: var(--bg-card-hover);
+    }
+
+    .tech-item:hover i {
+      transform: scale(1.15);
+    }
+
+    .tech-item:hover img {
+      transform: scale(1.15);
+      opacity: 1;
+    }
+
+    /* ========== LEARNINGS ========== */
+    .learnings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .learnings-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .learning-card {
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .learning-card:hover {
+      border-color: rgba(59, 130, 246, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .learning-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      color: var(--text-primary);
+    }
+
+    .learning-card p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .learning-card .highlight {
+      display: inline;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ========== NASA DATA CALLOUT ========== */
+    .nasa-callout {
+      position: relative;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(6, 182, 212, 0.05));
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      border-radius: 20px;
+      padding: 3rem;
+      margin-top: 3rem;
+      overflow: hidden;
+    }
+
+    .nasa-callout::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .nasa-callout h3 {
+      font-family: var(--font-hero);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .nasa-callout p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 650px;
+      margin-bottom: 0;
+    }
+
+    .nasa-callout .api-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .nasa-callout .api-tag {
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      color: var(--accent);
+    }
+
+    /* ========== CTA FOOTER ========== */
+    .cta-section {
+      text-align: center;
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-hero);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .cta-btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .cta-btn.primary:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--accent-glow);
+    }
+
+    .cta-btn.secondary {
+      background: transparent;
+      color: var(--text-primary);
+    }
+
+    .cta-btn.secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ========== SEPARATOR ========== */
+    .sep {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 600px) {
+      .back-nav {
+        padding: 1rem;
+      }
+
+      .section {
+        padding: 4rem 1.2rem;
+      }
+
+      .pipeline {
+        flex-direction: column;
+      }
+
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-orbit {
+        display: none;
+      }
+
+      .nasa-callout {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <!-- ====== NAV ====== -->
+  <nav class="back-nav">
+    <a href="index.html#projects" class="back-link">
+      <i class="ph ph-arrow-left"></i> Back to Portfolio
+    </a>
+    <span class="nav-title" id="navTitle">WeatherWise Case Study</span>
+  </nav>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-orbit"></div>
+    <div class="hero-orbit"></div>
+    <div class="hero-content">
+      <div class="hero-badge"> NASA Space Apps Challenge 2025</div>
+      <h1>Weather<span class="accent">Wise</span></h1>
+      <p class="hero-subtitle">
+        An interactive weather intelligence platform that transforms NASA Earth observation data into personalized,
+        activity-aware weather recommendations — powered by AI.
+      </p>
+      <!-- <div class="hero-tech">
+        <span class="hero-tech-tag">TypeScript</span>
+        <span class="hero-tech-tag">Flask</span>
+        <span class="hero-tech-tag">NASA POWER API</span>
+        <span class="hero-tech-tag">OpenAI</span>
+        <span class="hero-tech-tag">Leaflet.js</span>
+        <span class="hero-tech-tag">Vite</span>
+      </div> -->
+    </div>
+    <div class="scroll-cue">
+      <span>Scroll to explore</span>
+      <div class="line"></div>
+    </div>
+  </section>
+
+  <!-- ====== OVERVIEW ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Overview</div>
+    <h2>Reimagining Weather Data</h2>
+    <p>
+      Weather forecasts are everywhere — yet most still treat every user the same. A runner, a farmer, and a
+      photographer
+      all receive the same generic data. <strong>WeatherWise changes that.</strong>
+    </p>
+    <p>
+      Built during the <strong>NASA Space Apps Challenge 2024</strong>, WeatherWise is an interactive platform that
+      combines
+      NASA's Earth observation datasets with an AI-powered recommendation engine through a beautiful map-based
+      interface.
+      Users select activities and locations, and the system synthesizes satellite data into natural-language insights
+      tailored to what they actually plan to do.
+    </p>
+
+    <div class="overview-grid">
+      <div class="overview-card reveal-el">
+        <i class="ph ph-map-trifold icon"></i>
+        <h4>Interactive Map</h4>
+        <p>Leaflet.js map with NASA Blue Marble & MODIS satellite imagery layers for real-world context.</p>
+      </div>
+      <div class="overview-card reveal-el">
+        <i class="ph ph-sun-horizon icon"></i>
+        <h4>Smart Widgets</h4>
+        <p>Drag-and-drop weather widgets — temperature, humidity, wind speed, UV index — placed directly on the map.</p>
+      </div>
+      <div class="overview-card reveal-el">
+        <i class="ph ph-person-simple-run icon"></i>
+        <h4>Activity-Based AI</h4>
+        <p>Select your planned activities and get personalized weather recommendations from an AI that understands
+          context.</p>
+      </div>
+      <div class="overview-card reveal-el">
+        <i class="ph ph-globe-hemisphere-west icon"></i>
+        <h4>NASA Earth Data</h4>
+        <p>Live integration with NASA's POWER API for research-grade meteorological data spanning decades of
+          observations.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== NASA DATA CALLOUT ========== -->
+  <section class="section reveal-el">
+    <div class="section-label">Data Source</div>
+    <h2>Built on NASA's Eyes</h2>
+    <p>
+      WeatherWise doesn't rely on consumer-grade weather APIs. It taps directly into <strong>NASA's POWER (Prediction Of
+        Worldwide
+        Energy Resources)</strong> project — the same datasets used by researchers, climate scientists, and agricultural
+      planners worldwide.
+    </p>
+
+    <div class="nasa-callout reveal-el">
+      <h3>Satellite-Grade Precision</h3>
+      <p>
+        By leveraging NASA's multi-decade Earth observation archive, WeatherWise provides weather intelligence backed by
+        continuous satellite monitoring, reanalysis models, and ground-truth validation — going far beyond what
+        conventional
+        weather services offer.
+      </p>
+      <div class="api-tags">
+        <span class="api-tag">NASA POWER API</span>
+        <span class="api-tag">Blue Marble WMTS</span>
+        <span class="api-tag">MODIS Corrected Reflectance</span>
+        <span class="api-tag">Nominatim Geocoding</span>
+        <span class="api-tag">OpenAI LLM</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== SCREENSHOTS ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Product</div>
+    <h2>The Experience</h2>
+    <p>
+      From satellite imagery overlay to AI-generated activity briefs — a walkthrough of WeatherWise's core interfaces.
+    </p>
+
+    <div class="gallery">
+      <div class="gallery-grid">
+        <!-- Weather Recommendations -->
+        <div class="gallery-item reveal-el">
+          <img src="images/Nasa-Weathewise_Weather_Recommendation.jpg" alt="WeatherWise Weather Recommendations">
+          <div class="gallery-caption">
+            <h4>Weather Recommendations</h4>
+            <p>AI-generated weather insights for a selected location, with draggable metric widgets overlaid on the
+              interactive map.</p>
+          </div>
+        </div>
+
+        <div class="gallery-row">
+          <!-- Active Layers -->
+          <div class="gallery-item reveal-el">
+            <img src="images/Nasa-Weathewise_Weather_Recommendation_with_ActiveLayers.jpg"
+              alt="WeatherWise Active Satellite Layers">
+            <div class="gallery-caption">
+              <h4>Satellite Layer Control</h4>
+              <p>Toggle NASA Blue Marble and MODIS imagery layers in real-time for enhanced weather visualization
+                context.</p>
+            </div>
+          </div>
+
+          <!-- Activities -->
+          <div class="gallery-item reveal-el">
+            <img src="images/Nasa-Weathewise_Activites.jpg" alt="WeatherWise Activity Selection">
+            <div class="gallery-caption">
+              <h4>Activity Selection</h4>
+              <p>Choose from running, hiking, photography, gardening & more — the AI tailors recommendations to your
+                plans.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Space Apps Overview -->
+        <div class="gallery-item reveal-el">
+          <img src="images/Space_Apps_Screenshot.png" alt="NASA Space Apps Challenge 2024">
+          <div class="gallery-caption">
+            <h4>NASA Space Apps Challenge</h4>
+            <p>WeatherWise was developed as part of the global NASA Space Apps Challenge 2024 hackathon.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== FEATURES ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Features</div>
+    <h2>Key Capabilities</h2>
+    <p>
+      Every feature was designed to close the gap between raw satellite data and human decision-making.
+    </p>
+
+    <div class="feature-showcase">
+      <div class="feature-card reveal-el">
+        <div class="feature-icon"><i class="ph ph-map-pin"></i></div>
+        <h4>Click-to-Forecast</h4>
+        <p>Click any location on the map or search by name. Nominatim geocoding resolves coordinates and the NASA POWER
+          API returns hyperlocal weather parameters in seconds.</p>
+      </div>
+      <div class="feature-card reveal-el">
+        <div class="feature-icon"><i class="ph ph-squares-four"></i></div>
+        <h4>Drag-and-Drop Widgets</h4>
+        <p>Temperature, humidity, wind speed, and UV index cards live on the map canvas. Reposition them freely for a
+          personalized dashboard layout.</p>
+      </div>
+      <div class="feature-card reveal-el">
+        <div class="feature-icon"><i class="ph ph-brain"></i></div>
+        <h4>LLM-Powered Insights</h4>
+        <p>Raw NASA data is synthesized by OpenAI into natural-language briefs: "Good running conditions with moderate
+          UV — sunscreen recommended."</p>
+      </div>
+      <div class="feature-card reveal-el">
+        <div class="feature-icon"><i class="ph ph-stack"></i></div>
+        <h4>Satellite Imagery Layers</h4>
+        <p>Toggle between NASA Blue Marble (true color) and MODIS Corrected Reflectance layers to visualize cloud cover,
+          vegetation, and atmospheric conditions.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== ARCHITECTURE ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Architecture</div>
+    <h2>From Click to Recommendation</h2>
+    <p>
+      A two-tier architecture separating the rich interactive frontend from a lightweight Python intelligence backend.
+    </p>
+
+    <div class="pipeline">
+      <div class="pipeline-step reveal-el">
+        <h4>User Interaction</h4>
+        <p>User clicks a map location and selects activities via the TypeScript/Vite frontend. Nominatim resolves the
+          coordinates.</p>
+      </div>
+      <div class="pipeline-step reveal-el">
+        <h4>Data Retrieval</h4>
+        <p>Flask backend queries NASA's POWER API for meteorological parameters — temperature, humidity, wind, solar
+          radiation, precipitation.</p>
+      </div>
+      <div class="pipeline-step reveal-el">
+        <h4>AI Synthesis</h4>
+        <p>Weather data + selected activities are composed into a structured prompt. OpenAI generates personalized,
+          activity-aware insights returned to the map UI.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== CHALLENGES ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Challenges</div>
+    <h2>Hurdles We Overcame</h2>
+    <p>
+      Building a real-time geospatial intelligence app in 48 hours pushed us across multiple engineering frontiers.
+    </p>
+
+    <ul class="challenge-list">
+      <li class="reveal-el">
+        <div class="challenge-icon"><i class="ph ph-map-trifold"></i></div>
+        <div class="challenge-text">
+          <h4>Map-UI Synchronization</h4>
+          <p>Keeping draggable weather widgets, satellite overlays, and AI recommendation panels in sync required
+            careful state management across Leaflet's event system and our custom TypeScript components.</p>
+        </div>
+      </li>
+      <li class="reveal-el">
+        <div class="challenge-icon"><i class="ph ph-database"></i></div>
+        <div class="challenge-text">
+          <h4>NASA API Data Normalization</h4>
+          <p>The POWER API returns parameters in varying units and temporal resolutions. We built a normalization layer
+            on the Flask backend to standardize values before passing them to the LLM.</p>
+        </div>
+      </li>
+      <li class="reveal-el">
+        <div class="challenge-icon"><i class="ph ph-chat-centered-text"></i></div>
+        <div class="challenge-text">
+          <h4>Prompt Engineering for Context</h4>
+          <p>Getting the AI to produce concise, actionable recommendations (not generic weather summaries) required
+            iterative prompt tuning with activity-specific context injection and output format constraints.</p>
+        </div>
+      </li>
+      <li class="reveal-el">
+        <div class="challenge-icon"><i class="ph ph-clock-countdown"></i></div>
+        <div class="challenge-text">
+          <h4>48-Hour Time Constraint</h4>
+          <p>Balancing feature ambition with hackathon reality. We scoped aggressively — prioritizing the
+            click-to-insight core flow over peripheral features.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== CREATIVITY ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Creativity</div>
+    <h2>What Makes It Different</h2>
+    <p>
+      WeatherWise wasn't about building another weather app — it was about reimagining how humans interact with Earth
+      observation data.
+    </p>
+
+    <div class="learnings-grid">
+      <div class="learning-card reveal-el">
+        <h4>Activity-First Design</h4>
+        <p>
+          Instead of dumping raw numbers, WeatherWise asks <span class="highlight">"What are you planning to do?"</span>
+          and adapts
+          the entire experience around the answer. Same weather, radically different advice for a jogger vs. a
+          photographer.
+        </p>
+      </div>
+      <div class="learning-card reveal-el">
+        <h4>Spatial UI Innovation</h4>
+        <p>
+          Weather data lives <span class="highlight">on the map itself</span> — not in sidebars or tables. Draggable
+          widgets
+          create a spatial relationship between location and conditions that feels intuitive and immediate.
+        </p>
+      </div>
+      <div class="learning-card reveal-el">
+        <h4>Accessible NASA Data</h4>
+        <p>
+          NASA's POWER API is powerful but complex. We wrapped it in a <span class="highlight">conversational
+            interface</span>
+          that makes satellite-grade weather intelligence accessible to anyone, no science degree required.
+        </p>
+      </div>
+      <div class="learning-card reveal-el">
+        <h4>Hackathon to Product Thinking</h4>
+        <p>
+          We designed with <span class="highlight">extensibility in mind</span> — the architecture supports adding new
+          data layers,
+          activities, and recommendation types without restructuring the core pipeline.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== TECH STACK ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Built With</div>
+    <h2>The Tech Stack</h2>
+
+    <div class="tech-grid">
+      <div class="tech-item reveal-el"><img src="logos/typescript.svg" alt="TypeScript" loading="lazy">TypeScript</div>
+      <div class="tech-item reveal-el"><img src="logos/vite.svg" alt="Vite" loading="lazy">Vite</div>
+      <div class="tech-item reveal-el"><img src="logos/javascript.svg" alt="Leaflet.js" loading="lazy">Leaflet.js</div>
+      <div class="tech-item reveal-el"><img src="logos/flask-light.svg" alt="Flask" loading="lazy">Flask</div>
+      <div class="tech-item reveal-el"><img src="logos/openai-light.svg" alt="OpenAI" loading="lazy">OpenAI API</div>
+      <div class="tech-item reveal-el"><img src="logos/nasa.svg" alt="NASA POWER" loading="lazy">NASA POWER</div>
+      <div class="tech-item reveal-el"><img src="logos/nominatim_logo.svg" alt="Nominatim" loading="lazy">Nominatim
+      </div>
+      <div class="tech-item reveal-el"><img src="logos/CSS3_logo.svg" alt="CSS3" loading="lazy">CSS3</div>
+      <div class="tech-item reveal-el"><img src="logos/nodejs.svg" alt="Node.js" loading="lazy">Node.js</div>
+      <div class="tech-item reveal-el"><img src="logos/python.svg" alt="Python" loading="lazy">Python</div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== CTA FOOTER ====== -->
+  <section class="cta-section reveal-el">
+    <h2>Explore the project</h2>
+    <p>View the source code, download the certificate, or check out other work.</p>
+    <div class="cta-btns">
+      <a href="https://github.com/vimanga-x64/NASA-Hackathon-Weather_APP" target="_blank" class="cta-btn primary">
+        <i class="ph ph-github-logo"></i> View on GitHub
+      </a>
+      <a href="images/NASA%20Space%20Apps%20Challenge.pdf" target="_blank" class="cta-btn secondary">
+        <i class="ph ph-file-pdf"></i> View Certificate
+      </a>
+      <a href="index.html#projects" class="cta-btn secondary">
+        <i class="ph ph-arrow-left"></i> Back to Portfolio
+      </a>
+      <a href="index.html#contact" class="cta-btn secondary">
+        <i class="ph ph-paper-plane-tilt"></i> Contact Me
+      </a>
+    </div>
+  </section>
+
+  <script>
+    // ====== SCROLL REVEAL ======
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal-el').forEach(el => revealObserver.observe(el));
+
+    // ====== NAV TITLE ON SCROLL ======
+    const navTitle = document.getElementById('navTitle');
+    const hero = document.querySelector('.hero');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > hero.offsetHeight * 0.6) {
+        navTitle.classList.add('visible');
+      } else {
+        navTitle.classList.remove('visible');
+      }
+    });
+
+    // ====== STAGGER CHILDREN ANIMATION ======
+    document.querySelectorAll('.overview-grid, .tech-grid, .pipeline, .feature-showcase, .learnings-grid').forEach(grid => {
+      const gridObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const children = entry.target.querySelectorAll('.reveal-el');
+            children.forEach((child, i) => {
+              child.style.transitionDelay = `${i * 100}ms`;
+              child.classList.add('visible');
+            });
+            gridObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      gridObserver.observe(grid);
+    });
+  </script>
+</body>
+
+</html>

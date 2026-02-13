@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitTrack Case Study | Vimanga Umange</title>
+  <meta name="description"
+    content="FitTrack — AI-powered wellness and recovery assistant. A deep-dive case study by Vimanga Umange.">
+  <link rel="icon" type="image/png" href="logos/favicon_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0c;
+      --bg-card: #111114;
+      --bg-card-hover: #18181c;
+      --text-primary: #f5f5f0;
+      --text-secondary: #a8a8a0;
+      --accent: #e74c3c;
+      --accent-soft: rgba(231, 76, 60, 0.15);
+      --accent-glow: rgba(231, 76, 60, 0.3);
+      --border: rgba(255, 255, 255, 0.08);
+      --font-hero: 'Playfair Display', serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ========== NOISE OVERLAY ========== */
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* ========== BACK NAV ========== */
+    .back-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 10, 12, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .back-link i {
+      font-size: 1.2rem;
+    }
+
+    .nav-title {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: all 0.4s ease;
+    }
+
+    .nav-title.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/LandingPage-winhacks.jpg') center/cover no-repeat;
+      filter: brightness(0.3) saturate(0.8);
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+
+    .hero:hover .hero-bg {
+      transform: scale(1.0);
+    }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+          rgba(10, 10, 12, 0.4) 0%,
+          rgba(10, 10, 12, 0.6) 40%,
+          rgba(10, 10, 12, 0.95) 85%,
+          var(--bg-primary) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 2rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(231, 76, 60, 0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero h1 {
+      font-family: var(--font-hero);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+
+    .hero h1 .accent {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+
+    .hero-tech {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.9s forwards;
+    }
+
+    .hero-tech-tag {
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .hero-tech-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.2s forwards;
+    }
+
+    .scroll-cue .line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scrollPulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: scaleY(0.6);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+    }
+
+    /* ========== SECTIONS ========== */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section h2 {
+      font-family: var(--font-hero);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .section p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 750px;
+      margin-bottom: 1.5rem;
+    }
+
+    .section p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ========== REVEAL ANIMATIONS ========== */
+    .reveal-el {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-el.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== OVERVIEW GRID ========== */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .overview-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .overview-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .overview-card:hover {
+      border-color: rgba(231, 76, 60, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .overview-card:hover::before {
+      opacity: 1;
+    }
+
+    .overview-card .icon {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .overview-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .overview-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ========== PIPELINE / ARCHITECTURE ========== */
+    .pipeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      counter-reset: step;
+    }
+
+    .pipeline-step {
+      flex: 1;
+      min-width: 250px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      transition: all 0.4s ease;
+    }
+
+    .pipeline-step:hover {
+      border-color: rgba(231, 76, 60, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .pipeline-step::before {
+      counter-increment: step;
+      content: counter(step, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: rgba(231, 76, 60, 0.15);
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+    }
+
+    .pipeline-step h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .pipeline-step p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ========== SCREENSHOT GALLERY ========== */
+    .gallery {
+      margin-top: 3rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gallery-item:hover {
+      border-color: rgba(231, 76, 60, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.02);
+    }
+
+    .gallery-caption {
+      padding: 1.5rem 2rem;
+    }
+
+    .gallery-caption h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .gallery-caption p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .gallery-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== CHALLENGES ========== */
+    .challenge-list {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .challenge-list li {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      padding: 1.5rem 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .challenge-list li:hover {
+      border-color: rgba(231, 76, 60, 0.15);
+      transform: translateX(6px);
+    }
+
+    .challenge-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.3rem;
+    }
+
+    .challenge-text h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .challenge-text p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ========== TECH STACK GRID ========== */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .tech-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 1.5rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      transition: all 0.4s ease;
+    }
+
+    .tech-item i {
+      font-size: 1.8rem;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    .tech-item img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      opacity: 0.85;
+      transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+    }
+
+    .tech-item:hover {
+      border-color: rgba(231, 76, 60, 0.2);
+      color: var(--text-primary);
+      transform: translateY(-3px);
+      background: var(--bg-card-hover);
+    }
+
+    .tech-item:hover i {
+      transform: scale(1.15);
+    }
+
+    .tech-item:hover img {
+      transform: scale(1.15);
+      opacity: 1;
+    }
+
+    /* ========== LEARNINGS ========== */
+    .learnings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .learnings-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .learning-card {
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .learning-card:hover {
+      border-color: rgba(231, 76, 60, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .learning-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      color: var(--text-primary);
+    }
+
+    .learning-card p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .learning-card .highlight {
+      display: inline;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ========== CTA FOOTER ========== */
+    .cta-section {
+      text-align: center;
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-hero);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .cta-btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .cta-btn.primary:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--accent-glow);
+    }
+
+    .cta-btn.secondary {
+      background: transparent;
+      color: var(--text-primary);
+    }
+
+    .cta-btn.secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ========== SEPARATOR ========== */
+    .sep {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 600px) {
+      .back-nav {
+        padding: 1rem;
+      }
+
+      .section {
+        padding: 4rem 1.2rem;
+      }
+
+      .pipeline {
+        flex-direction: column;
+      }
+
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <!-- ====== NAV ====== -->
+  <nav class="back-nav">
+    <a href="index.html#projects" class="back-link">
+      <i class="ph ph-arrow-left"></i> Back to Portfolio
+    </a>
+    <span class="nav-title" id="navTitle">FitTrack Case Study</span>
+  </nav>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><i class="ph ph-trophy"></i> Hackathon Finalist</div>
+      <h1>Fit<span class="accent">Track</span></h1>
+      <p class="hero-subtitle">
+        From bio-signals to daily action FitTrack is an AI wellness assistant that turns the noise of biometrics into
+        the clarity of a conversation.
+      </p>
+      <!-- <div class="hero-tech">
+        <span class="hero-tech-tag">React</span>
+        <span class="hero-tech-tag">TypeScript</span>
+        <span class="hero-tech-tag">FastAPI</span>
+        <span class="hero-tech-tag">OpenAI API</span>
+        <span class="hero-tech-tag">Tailwind CSS</span>
+        <span class="hero-tech-tag">Firebase</span>
+        <span class="hero-tech-tag">Vite</span>
+        <span class="hero-tech-tag">Render</span>
+        <span class="hero-tech-tag">Vercel</span>
+      </div> -->
+    </div>
+    <div class="scroll-cue">
+      <span>Scroll to explore</span>
+      <div class="line"></div>
+    </div>
+  </section>
+
+  <!-- ====== WINNER SHOWCASE ====== -->
+  <section class="section reveal-el" style="text-align: center;">
+    <div class="section-label" style="justify-content: center;">Recognition</div>
+    <h2 style="text-align: center;">Hackathon Finalist</h2>
+    <p style="text-align: center; max-width: 600px; margin: 0 auto 2.5rem;">
+      FitTrack was placed among the <strong>TOP 5 FINALISTS</strong> out of all competing teams, recognized for its
+      innovative approach to turning raw biometrics into actionable daily coaching.
+    </p>
+    <div
+      style="max-width: 420px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 1px solid rgba(231,76,60,0.2); box-shadow: 0 20px 60px rgba(231,76,60,0.15), 0 0 0 1px rgba(255,255,255,0.05);">
+      <img src="images/Thumbnail-Winner-tag.png" alt="FitTrack Winner Badge" style="width: 100%; display: block;">
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== OVERVIEW ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Overview</div>
+    <h2>Solving "Data Fatigue"</h2>
+    <p>
+      We are the most tracked generation in history, yet we are also the most confused. Existing apps collect massive
+      amounts of numbers but leave the
+      heavy burden of interpretation entirely on the user. FitTrack solves this <strong>"last mile" problem</strong> —
+      bridging raw biological signals
+      like HRV, sleep architecture, and stress loads with <strong>actual human behavior</strong>.
+    </p>
+    <p>
+      FitTrack is a wellness and recovery assistant that brings activity tracking, nutrition insights, and progress
+      reporting into a single,
+      user-friendly experience. Designed for students, employees, and anyone who wants a clear, actionable view of their
+      health data.
+    </p>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <i class="ph ph-heartbeat icon"></i>
+        <h4>Recovery Dashboard</h4>
+        <p>Personalized daily metrics including sleep debt, HRV, stress scores, and energy curves.</p>
+      </div>
+      <div class="overview-card">
+        <i class="ph ph-bowl-food icon"></i>
+        <h4>Nutrition Insights</h4>
+        <p>AI-powered calorie strategy with meal tracking, macro breakdowns, and 7-day trend analysis.</p>
+      </div>
+      <div class="overview-card">
+        <i class="ph ph-file-pdf icon"></i>
+        <h4>PDF Reports</h4>
+        <p>Downloadable progress reports for personal tracking or sharing with health professionals.</p>
+      </div>
+      <div class="overview-card">
+        <i class="ph ph-shield-check icon"></i>
+        <h4>Secure Auth Flow</h4>
+        <p>Firebase authentication with a clean onboarding experience and session management.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== SCREENSHOTS: DASHBOARD ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Product</div>
+    <h2>The Experience</h2>
+    <p>
+      A walkthrough of FitTrack's key interfaces — from the bold landing page to the intelligence-driven dashboards.
+    </p>
+
+    <div class="gallery">
+      <div class="gallery-grid">
+        <!-- Landing Page -->
+        <div class="gallery-item reveal-el">
+          <img src="images/LandingPage-winhacks.jpg" alt="FitTrack Landing Page">
+          <div class="gallery-caption">
+            <h4>Landing Page</h4>
+            <p>Bold, cinematic hero with clear call-to-action. "It's not fitness. It's a lifestyle."</p>
+          </div>
+        </div>
+
+        <div class="gallery-row">
+          <!-- Fitness Dashboard -->
+          <div class="gallery-item reveal-el">
+            <img src="images/Fitness_Dashbaord-Winhacks.jpg" alt="FitTrack Fitness Dashboard">
+            <div class="gallery-caption">
+              <h4>Fitness Dashboard</h4>
+              <p>Calorie strategy, daily targets, meal logging, and activity breakdown at a glance.</p>
+            </div>
+          </div>
+
+          <!-- Recovery Dashboard -->
+          <div class="gallery-item reveal-el">
+            <img src="images/Recovery-Dashboard_WInhacks.png" alt="FitTrack Recovery Dashboard">
+            <div class="gallery-caption">
+              <h4>Recovery Dashboard</h4>
+              <p>Sleep architecture, activity rings, stress scores — built on your Google Fit profile.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-row">
+          <!-- Energy & Stress -->
+          <div class="gallery-item reveal-el">
+            <img src="images/EnergyGraphs-Nutrition-Stress_Levels.png" alt="Energy Curve and Stress Load">
+            <div class="gallery-caption">
+              <h4>Energy Curve & Stress Load</h4>
+              <p>Predicted energy windows based on yesterday's sleep. 7-day stress trend with HRV and RHR data.</p>
+            </div>
+          </div>
+
+          <!-- AI Daily Analysis -->
+          <div class="gallery-item reveal-el">
+            <img src="images/DailyAnalysis-Winhacks.png" alt="AI Daily Analysis">
+            <div class="gallery-caption">
+              <h4>AI Daily Analysis</h4>
+              <p>AI-guided summary based on today's entries — with a coach avatar and audio replay.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recovery Tips -->
+        <div class="gallery-item reveal-el">
+          <img src="images/AI_guided_recovery_tips_advice.png" alt="AI Recovery Insights">
+          <div class="gallery-caption">
+            <h4>Recovery Insights</h4>
+            <p>AI-generated coaching tips across sleep, training, nutrition, and stress management categories.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== ARCHITECTURE ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Architecture</div>
+    <h2>The Deterministic–Generative Hybrid</h2>
+    <p>
+      The novelty of FitTrack is that we don't just "ask an AI" for generic advice. We <strong>compute hard metrics
+        first</strong>
+      to ensure the coaching is always grounded in real data.
+    </p>
+
+    <div class="pipeline">
+      <div class="pipeline-step reveal-el">
+        <h4>Data Ingestion</h4>
+        <p>Pull real-time health signals — sleep stages, resting heart rate, HRV — via Google Health integrations.</p>
+      </div>
+      <div class="pipeline-step reveal-el">
+        <h4>Deterministic Calculation</h4>
+        <p>Compute hard metrics locally on the backend: Sleep Debt, Energy Curves, Stress Loads, and caloric targets.
+        </p>
+      </div>
+      <div class="pipeline-step reveal-el">
+        <h4>LLM Synthesis</h4>
+        <p>Hard facts are passed to OpenAI via structured Pydantic schemas to generate categorized, narrative coaching
+          tips.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== CHALLENGES ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Challenges</div>
+    <h2>Hurdles We Overcame</h2>
+    <p>
+      Building a cross-platform health assistant that bridges multiple cloud services presented significant engineering
+      challenges.
+    </p>
+
+    <ul class="challenge-list">
+      <li class="reveal-el">
+        <div class="challenge-icon"><i class="ph ph-bridge"></i></div>
+        <div class="challenge-text">
+          <h4>The Deployment Bridge</h4>
+          <p>Connecting a Vercel frontend to a Render backend required precise CORS configuration for secure
+            cross-domain communication.</p>
+        </div>
+      </li>
+      <li class="reveal-el">
+        <div class="challenge-icon"><i class="ph ph-timer"></i></div>
+        <div class="challenge-text">
+          <h4>Cold Starts & Latency</h4>
+          <p>Render's free tier can "spin down" after inactivity. We designed the frontend to handle potential wake-up
+            delays gracefully with loading states.</p>
+        </div>
+      </li>
+      <li class="reveal-el">
+        <div class="challenge-icon"><i class="ph ph-shield-warning"></i></div>
+        <div class="challenge-text">
+          <h4>Output Reliability</h4>
+          <p>Ensuring the LLM returns consistent, structured advice instead of hallucinations. Solved with strict
+            Pydantic schemas so the AI outputs valid JSON the UI can reliably render.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== LEARNINGS ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Learnings</div>
+    <h2>What We Took Away</h2>
+
+    <div class="learnings-grid">
+      <div class="learning-card reveal-el">
+        <h4>Natural Language Is the New UI</h4>
+        <p>
+          By replacing rigid search bars with <span class="highlight">semantic intake</span> — where a user simply types
+          "burrito bowl and a 3-mile walk" — we reduced logging friction dramatically.
+        </p>
+      </div>
+      <div class="learning-card reveal-el">
+        <h4>Transparency Builds Trust</h4>
+        <p>
+          By showing the <span class="highlight">Energy Curve</span> — a visual of daily energy windows — we aren't just
+          giving orders.
+          We're teaching users how to interpret their own signals.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== TECH STACK ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Built With</div>
+    <h2>The Tech Stack</h2>
+
+    <div class="tech-grid">
+      <div class="tech-item reveal-el"><img src="logos/react_light.svg" alt="React" loading="lazy">React</div>
+      <div class="tech-item reveal-el"><img src="logos/typescript.svg" alt="TypeScript" loading="lazy">TypeScript</div>
+      <div class="tech-item reveal-el"><img src="logos/vite.svg" alt="Vite" loading="lazy">Vite</div>
+      <div class="tech-item reveal-el"><img src="logos/tailwindcss.svg" alt="Tailwind CSS" loading="lazy">Tailwind CSS
+      </div>
+      <div class="tech-item reveal-el"><img src="logos/fastapi.svg" alt="FastAPI" loading="lazy">FastAPI</div>
+      <div class="tech-item reveal-el"><img src="logos/openai-light.svg" alt="OpenAI" loading="lazy">OpenAI API</div>
+      <div class="tech-item reveal-el"><img src="logos/firebase.svg" alt="Firebase" loading="lazy">Firebase</div>
+      <div class="tech-item reveal-el"><img src="logos/Google_Health_logo.svg" alt="Google Health" loading="lazy">Google
+        Health</div>
+      <div class="tech-item reveal-el"><img src="logos/Render_logo.svg" alt="Render" loading="lazy">Render</div>
+      <div class="tech-item reveal-el"><img src="logos/vercel_light.svg" alt="Vercel" loading="lazy">Vercel</div>
+      <div class="tech-item reveal-el"><img src="logos/threejs-light.svg" alt="Three.js" loading="lazy">Three.js</div>
+      <div class="tech-item reveal-el"><img src="logos/nodejs.svg" alt="Node.js" loading="lazy">Node.js</div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ====== GETTING STARTED ====== -->
+  <section class="section reveal-el">
+    <div class="section-label">Setup</div>
+    <h2>Getting Started</h2>
+    <p>Prerequisites: <strong>Node.js 18+</strong> and <strong>Python 3.10+</strong></p>
+
+    <div class="overview-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="overview-card">
+        <h4 style="font-family: var(--font-mono); color: var(--accent);">Install</h4>
+        <p style="font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem;">
+          npm install<br>pip install -r requirements.txt
+        </p>
+      </div>
+      <div class="overview-card">
+        <h4 style="font-family: var(--font-mono); color: var(--accent);">Run Frontend</h4>
+        <p style="font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem;">npm run dev</p>
+      </div>
+      <div class="overview-card">
+        <h4 style="font-family: var(--font-mono); color: var(--accent);">Run Backend</h4>
+        <p style="font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem;">uvicorn main:app --reload</p>
+      </div>
+      <div class="overview-card">
+        <h4 style="font-family: var(--font-mono); color: var(--accent);">Build</h4>
+        <p style="font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem;">npm run build</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CTA FOOTER ====== -->
+  <section class="cta-section reveal-el">
+    <h2>Like what you see?</h2>
+    <p>Check out the code, explore other projects, or get in touch.</p>
+    <div class="cta-btns">
+      <a href="https://github.com/vimanga-x64/Winhacks-Project" target="_blank" class="cta-btn primary">
+        <i class="ph ph-github-logo"></i> View on GitHub
+      </a>
+      <a href="index.html#projects" class="cta-btn secondary">
+        <i class="ph ph-arrow-left"></i> Back to Portfolio
+      </a>
+      <a href="index.html#contact" class="cta-btn secondary">
+        <i class="ph ph-paper-plane-tilt"></i> Contact Me
+      </a>
+    </div>
+  </section>
+
+  <script>
+    // ====== SCROLL REVEAL ======
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal-el').forEach(el => revealObserver.observe(el));
+
+    // ====== NAV TITLE ON SCROLL ======
+    const navTitle = document.getElementById('navTitle');
+    const hero = document.querySelector('.hero');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > hero.offsetHeight * 0.6) {
+        navTitle.classList.add('visible');
+      } else {
+        navTitle.classList.remove('visible');
+      }
+    });
+
+    // ====== STAGGER CHILDREN ANIMATION ======
+    document.querySelectorAll('.overview-grid, .tech-grid, .pipeline').forEach(grid => {
+      const gridObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const children = entry.target.querySelectorAll('.reveal-el');
+            children.forEach((child, i) => {
+              child.style.transitionDelay = `${i * 100}ms`;
+              child.classList.add('visible');
+            });
+            gridObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      gridObserver.observe(grid);
+    });
+  </script>
+</body>
+
+</html>
