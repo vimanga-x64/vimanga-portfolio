@@ -639,39 +639,90 @@
       color: var(--accent);
     }
 
-    /* Theme Toggle in Menu */
+    /* Theme Toggle in Menu (Sliding Switch) */
     .menu-theme-toggle {
+      --switch-w: 70px;
+      --switch-h: 36px;
       position: absolute;
       bottom: 50px;
       right: 50px;
-      background: none;
-      border: 2px solid #ddd;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
+      width: var(--switch-w);
+      height: var(--switch-h);
+      background: #e5e7eb;
+      border-radius: 30px;
+      cursor: pointer;
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background 0.4s ease;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      border: none;
+      outline: none;
     }
 
     [data-theme="dark"] .menu-theme-toggle {
-      border-color: #444;
+      background: #2a2a35;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
-    .menu-theme-toggle:hover {
-      border-color: var(--accent);
-      transform: scale(1.1);
+    .theme-switch-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
     }
 
-    .menu-theme-toggle i {
-      font-size: 1.2rem;
-      color: #666;
+    .theme-switch-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s ease, box-shadow 0.4s ease;
+      z-index: 2;
     }
 
-    [data-theme="dark"] .menu-theme-toggle i {
-      color: #fff;
+    /* When dark mode is active, slide to the right and add the glow */
+    [data-theme="dark"] .theme-switch-thumb {
+      transform: translateX(34px);
+      background: #f1f5f9;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.2), 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-switch-icon {
+      font-size: 1.1rem;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.4s ease, opacity 0.4s ease;
+    }
+
+    .sun-icon {
+      color: #f59e0b;
+      /* Bright amber in light mode */
+    }
+
+    .moon-icon {
+      color: #9ca3af;
+      /* Muted in light mode */
+    }
+
+    [data-theme="dark"] .sun-icon {
+      color: #4b5563;
+      /* Muted in dark mode */
+    }
+
+    [data-theme="dark"] .moon-icon {
+      color: #e2e8f0;
+      /* Bright silver/white in dark mode */
+      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
     }
 
     /* Backdrop overlay */
@@ -1129,6 +1180,8 @@
 
     /* --- macOS Terminal Styles --- */
     .mac-terminal-container {
+      --terminal-scale: 1;
+      /* Default scale when launched */
       position: absolute;
       top: 55%;
       right: 5%;
@@ -1146,8 +1199,39 @@
       }
     }
 
+    @media (max-width: 1400px) and (min-width: 1024px) {
+      .mac-terminal-container {
+        --terminal-scale: 0.85;
+        right: 2%;
+      }
+    }
+
+    @media (max-width: 1200px) and (min-width: 1024px) {
+      .mac-terminal-container {
+        --terminal-scale: 0.75;
+      }
+    }
+
+    @media (max-height: 850px) and (min-width: 1024px) {
+      .mac-terminal-container {
+        --terminal-scale: 0.8;
+      }
+    }
+
+    @media (max-height: 750px) and (min-width: 1024px) {
+      .mac-terminal-container {
+        --terminal-scale: 0.7;
+      }
+    }
+
+    @media (max-height: 650px) and (min-width: 1024px) {
+      .mac-terminal-container {
+        --terminal-scale: 0.6;
+      }
+    }
+
     .mac-terminal-container.launched {
-      transform: translateY(-50%) scale(1);
+      transform: translateY(-50%) scale(var(--terminal-scale));
       opacity: 1;
     }
 
@@ -1155,21 +1239,21 @@
     @keyframes terminalBounceIn {
       0% {
         opacity: 0;
-        transform: translateY(-50%) scale(0.3) rotateX(20deg);
+        transform: translateY(-50%) scale(calc(var(--terminal-scale) * 0.3)) rotateX(20deg);
       }
 
       50% {
         opacity: 1;
-        transform: translateY(-50%) scale(1.05) rotateX(-3deg);
+        transform: translateY(-50%) scale(calc(var(--terminal-scale) * 1.05)) rotateX(-3deg);
       }
 
       70% {
-        transform: translateY(-50%) scale(0.97) rotateX(1deg);
+        transform: translateY(-50%) scale(calc(var(--terminal-scale) * 0.97)) rotateX(1deg);
       }
 
       100% {
         opacity: 1;
-        transform: translateY(-50%) scale(1) rotateX(0);
+        transform: translateY(-50%) scale(var(--terminal-scale)) rotateX(0);
       }
     }
 
@@ -2743,6 +2827,12 @@
       --poster-color: transparent;
       --progress-bar-color: transparent;
       --progress-bar-height: 0px;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    model-viewer.laptop-model.texture-applied {
+      opacity: 1;
     }
 
     /* Hide the default model-viewer progress bar (black line) */
@@ -5960,9 +6050,18 @@
       </div>
     </div>
 
-    <button class="menu-theme-toggle" id="menuThemeToggle" aria-label="Toggle theme">
-      <i class="ph ph-moon" id="menuThemeIcon"></i>
-    </button>
+    <div class="menu-theme-toggle theme-switch" id="menuThemeToggle" aria-label="Toggle theme" role="switch"
+      tabindex="0">
+      <div class="theme-switch-track">
+        <div class="theme-switch-thumb"></div>
+        <div class="theme-switch-icon sun-icon">
+          <i class="ph ph-sun"></i>
+        </div>
+        <div class="theme-switch-icon moon-icon">
+          <i class="ph ph-moon"></i>
+        </div>
+      </div>
+    </div>
   </nav>
 
   <main class="main-content" role="main">
@@ -6876,32 +6975,21 @@
   <script>
     // Theme Toggle
     const menuThemeToggle = document.getElementById('menuThemeToggle');
-    const menuThemeIcon = document.getElementById('menuThemeIcon');
     const html = document.documentElement;
 
     const currentTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
 
     menuThemeToggle.addEventListener('click', () => {
       const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
-      updateThemeIcon(theme);
 
       // Update particle color based on theme
       if (window.particleSystem) {
         window.particleSystem.updateColor(theme === 'dark' ? '#ffffff' : '#1e1e23');
       }
     });
-
-    function updateThemeIcon(theme) {
-      if (theme === 'dark') {
-        menuThemeIcon.className = 'ph ph-moon';
-      } else {
-        menuThemeIcon.className = 'ph ph-sun';
-      }
-    }
 
     // Particle System
     class ParticleSystem {
@@ -6930,6 +7018,10 @@
         this.handleResize = this.handleResize.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.animate = this.animate.bind(this);
+        this.handleIntersection = this.handleIntersection.bind(this);
+
+        this.isVisible = true;
+        this.observer = new IntersectionObserver(this.handleIntersection, { threshold: 0 });
 
         // Initialize
         this.init();
@@ -6951,7 +7043,18 @@
         this.resizeCanvas();
         window.addEventListener('resize', this.handleResize);
         window.addEventListener('mousemove', this.handleMouseMove);
+        this.observer.observe(this.canvas);
         this.animate();
+      }
+
+      handleIntersection(entries) {
+        entries.forEach(entry => {
+          this.isVisible = entry.isIntersecting;
+          if (this.isVisible && !this.animationFrame) {
+            this.lastTime = performance.now();
+            this.animate(this.lastTime);
+          }
+        });
       }
 
       handleResize() {
@@ -7077,7 +7180,11 @@
           }
         });
 
-        this.animationFrame = requestAnimationFrame(this.animate);
+        if (this.isVisible) {
+          this.animationFrame = requestAnimationFrame(this.animate);
+        } else {
+          this.animationFrame = null;
+        }
       }
 
       updateColor(newColor) {
@@ -7088,6 +7195,7 @@
       destroy() {
         window.removeEventListener('resize', this.handleResize);
         window.removeEventListener('mousemove', this.handleMouseMove);
+        this.observer.disconnect();
         if (this.animationFrame) {
           cancelAnimationFrame(this.animationFrame);
         }
@@ -8012,10 +8120,10 @@
           });
           ticking = true;
         }
-      });
+      }, { passive: true });
 
       // Update on resize
-      window.addEventListener('resize', updateTimelineProgress);
+      window.addEventListener('resize', updateTimelineProgress, { passive: true });
 
       // Initial update
       // Initial update
@@ -8346,7 +8454,16 @@
       }
     }
 
-    window.addEventListener('scroll', checkIfAfterHero);
+    let heroTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!heroTicking) {
+        window.requestAnimationFrame(() => {
+          checkIfAfterHero();
+          heroTicking = false;
+        });
+        heroTicking = true;
+      }
+    }, { passive: true });
     checkIfAfterHero();
 
     // OPTIMIZED: Use transform instead of left/top for GPU acceleration
@@ -8494,7 +8611,16 @@
     initScrollRevealText();
 
     // Update on scroll
-    window.addEventListener('scroll', updateScrollReveal, { passive: true });
+    let revealTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!revealTicking) {
+        window.requestAnimationFrame(() => {
+          updateScrollReveal();
+          revealTicking = false;
+        });
+        revealTicking = true;
+      }
+    }, { passive: true });
 
     // Initial check
     updateScrollReveal();
@@ -8543,7 +8669,16 @@
       projectsBorderWrapper.style.borderRadius = `${currentBorderRadius}px`;
     }
 
-    window.addEventListener('scroll', updateProjectsBorder, { passive: true });
+    let borderTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!borderTicking) {
+        window.requestAnimationFrame(() => {
+          updateProjectsBorder();
+          borderTicking = false;
+        });
+        borderTicking = true;
+      }
+    }, { passive: true });
     updateProjectsBorder();
 
     // ============================================
@@ -8915,8 +9050,13 @@
                 screenMat.setEmissiveFactor([1, 1, 1]);
               }
             } catch (_) { }
+
+            // Texture applied successfully, make the model visible
+            mv.classList.add('texture-applied');
           } catch (e) {
             console.warn('Failed to set screen texture:', e);
+            // Even if it fails, make the model visible so it's not permanently invisible
+            mv.classList.add('texture-applied');
           }
         });
       });
