@@ -77,8 +77,8 @@
       /* Dark forest green tint */
       --bg-projects: #2a1f1a;
       /* Deep warm brown tint */
-      --bg-experience: #161b22;
-      /* Midnight blue tint */
+      --bg-experience: #1c1a18;
+      /* Warm dark slate tint */
       --bg-contact: #201a24;
       /* Deep plum tint */
 
@@ -106,8 +106,8 @@
       /* Soft sage green */
       --bg-projects: #f5ebe6;
       /* Warm sand/peach */
-      --bg-experience: #e6ebf0;
-      /* Soft slate blue */
+      --bg-experience: #eaeae5;
+      /* Soft warm grey/beige */
       --bg-contact: #ebe6eb;
       /* Soft taupe/lavender */
 
@@ -756,7 +756,7 @@
     /* Glassmorphism Capsule Navigation */
     .capsule-nav {
       position: fixed;
-      bottom: 40px;
+      top: 30px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 100;
@@ -2465,7 +2465,7 @@
       z-index: 1;
       transform: scale(0.94);
       opacity: 0.7;
-      background: linear-gradient(135deg, rgba(20, 30, 48, 0.95), rgba(15, 23, 42, 0.95));
+      background: linear-gradient(135deg, rgba(32, 28, 25, 0.95), rgba(22, 18, 15, 0.95));
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     }
 
@@ -2474,9 +2474,9 @@
       top: 50px;
       z-index: 2;
       transform: scale(1);
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
-      border-color: rgba(139, 92, 246, 0.25);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 92, 246, 0.08);
+      background: linear-gradient(135deg, rgba(42, 38, 35, 0.98), rgba(28, 24, 20, 0.98));
+      border-color: rgba(139, 115, 85, 0.25);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 115, 85, 0.08);
     }
 
     /* Hover: Fan out the cards */
@@ -2493,14 +2493,14 @@
 
     /* Light mode */
     [data-theme="light"] .education-item:last-child {
-      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+      background: linear-gradient(135deg, #e8e3df, #d6d0c9);
       border-color: rgba(0, 0, 0, 0.08);
     }
 
     [data-theme="light"] .education-item:first-child {
-      background: linear-gradient(135deg, #ffffff, #f8fafc);
-      border-color: rgba(124, 58, 237, 0.2);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1), 0 0 40px rgba(124, 58, 237, 0.05);
+      background: linear-gradient(135deg, #ffffff, #fdfbf9);
+      border-color: rgba(107, 91, 79, 0.2);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1), 0 0 40px rgba(107, 91, 79, 0.05);
     }
 
     /* Mobile: Stack normally */
@@ -2515,7 +2515,7 @@
         top: auto !important;
         transform: none !important;
         opacity: 1 !important;
-        background: rgba(30, 41, 59, 0.95) !important;
+        background: rgba(42, 38, 35, 0.95) !important;
       }
 
       .education-timeline:hover .education-item:last-child,
