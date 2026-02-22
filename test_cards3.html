@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><style>
+  html, body { margin: 0; height: 100%; }
+  body { position: relative; background: linear-gradient(#e8e8e8, #e0e0e0); background-size: cover; }
+  .wrapper {
+    position: relative;
+    overflow-x: scroll;
+    left: 40px;
+    height: 100vh;
+    margin: 0 auto;
+    font-family: sans-serif;
+    display: flex;
+  }
+  .card {
+    overflow: hidden;
+    min-width: 50vw;
+    height: 60vh;
+    position: sticky;
+    left: 10vw;
+    top: 5vh;
+    border: 1px solid #ccc;
+    box-shadow: 5px -5px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    color: #333;
+    padding: 40px;
+    border-radius: 10px;
+    margin-bottom: 10vw;
+    margin-right: 20vw;
+  }
+  .card:nth-child(1) { left: 40px; top: 20px; transform: rotate(-2deg); }
+  .card:nth-child(2) { left: 80px; top: 40px; transform: rotate(1deg); }
+  .card:nth-child(3) { left: 120px; top: 60px; transform: rotate(-1deg); }
+</style></head>
+<body>
+  <div class="wrapper">
+    <div class="card">Card 1</div>
+    <div class="card">Card 2</div>
+    <div class="card">Card 3</div>
+  </div>
+</body></html>
