@@ -434,6 +434,44 @@
       color: var(--accent);
     }
 
+    /* Contact Section Logo */
+    .contact-logo {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      height: clamp(45px, 6vw, 65px);
+      width: auto;
+      z-index: 100;
+      transition: filter 0.4s var(--ease-spring), opacity 0.4s ease;
+      pointer-events: none;
+      /* Default to assuming light mode presentation initially unless dark mode is explicitly set */
+      filter: none;
+      mix-blend-mode: multiply;
+    }
+
+    /* Dark Mode (default behavior, but explicit for clarity) */
+    [data-theme="dark"] .contact-logo {
+      /* Invert so the black text becomes white, hue-rotate to restore original colors somewhat, without desaturating aggressively */
+      filter: invert(1) hue-rotate(180deg) brightness(1.3);
+      mix-blend-mode: screen;
+      /* hides black background if there's any */
+    }
+
+    /* Light Mode */
+    [data-theme="light"] .contact-logo {
+      filter: none;
+      mix-blend-mode: multiply;
+      /* hides white/cream background if there's any */
+    }
+
+    @media (max-width: 768px) {
+      .contact-logo {
+        top: 20px;
+        left: 20px;
+        height: 35px;
+      }
+    }
+
     /* Minimal Hamburger Menu */
     .menu-toggle {
       position: fixed;
@@ -482,18 +520,22 @@
       width: 100%;
       max-width: 450px;
       height: 100vh;
-      background: #fafafa;
+      background: rgba(250, 250, 250, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(0, 0, 0, 0.05);
       z-index: 1001;
       padding: 100px 50px 50px;
       transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
     }
 
     [data-theme="dark"] .menu-overlay {
-      background: #0f1624;
+      background: rgba(15, 15, 18, 0.85);
+      border-left: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .menu-overlay.active {
@@ -2451,12 +2493,13 @@
       display: flex;
       flex-direction: column;
       padding: 1.5rem 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border);
       border-radius: 20px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       transform-origin: center top;
+      background: var(--card-bg);
     }
 
     /* Bottom card (B.Sc. - second item) */
@@ -2464,9 +2507,8 @@
       top: 0;
       z-index: 1;
       transform: scale(0.94);
-      opacity: 0.7;
-      background: linear-gradient(135deg, rgba(32, 28, 25, 0.95), rgba(22, 18, 15, 0.95));
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      opacity: 0.8;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
 
     /* Top card (M.Sc. - first item) */
@@ -2474,9 +2516,7 @@
       top: 50px;
       z-index: 2;
       transform: scale(1);
-      background: linear-gradient(135deg, rgba(42, 38, 35, 0.98), rgba(28, 24, 20, 0.98));
-      border-color: rgba(139, 115, 85, 0.25);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 115, 85, 0.08);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
     }
 
     /* Hover: Fan out the cards */
@@ -2493,14 +2533,11 @@
 
     /* Light mode */
     [data-theme="light"] .education-item:last-child {
-      background: linear-gradient(135deg, #e8e3df, #d6d0c9);
-      border-color: rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
     }
 
     [data-theme="light"] .education-item:first-child {
-      background: linear-gradient(135deg, #ffffff, #fdfbf9);
-      border-color: rgba(107, 91, 79, 0.2);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1), 0 0 40px rgba(107, 91, 79, 0.05);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
     }
 
     /* Mobile: Stack normally */
@@ -2515,7 +2552,6 @@
         top: auto !important;
         transform: none !important;
         opacity: 1 !important;
-        background: rgba(42, 38, 35, 0.95) !important;
       }
 
       .education-timeline:hover .education-item:last-child,
@@ -7193,7 +7229,9 @@
       </div>
     </section>
 
-    <section id="contact" aria-label="Contact section" class="contact-section">
+    <section id="contact" aria-label="Contact section" class="contact-section" style="position: relative;">
+      <img src="website_logo.png" alt="Vimanga Umange Logo" class="contact-logo">
+
       <div class="section-container">
         <!-- Alert Message -->
         <div class="contact-alert" id="contactAlert" style="display: none;">
