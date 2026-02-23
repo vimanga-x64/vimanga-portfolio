@@ -436,23 +436,26 @@
 
     /* Contact Section Logo */
     .contact-logo {
-      position: absolute;
-      top: 40px;
-      left: 40px;
       height: clamp(45px, 6vw, 65px);
       width: auto;
       z-index: 100;
       transition: filter 0.4s var(--ease-spring), opacity 0.4s ease;
-      pointer-events: none;
       /* Default to assuming light mode presentation initially unless dark mode is explicitly set */
-      filter: none;
+      filter: drop-shadow(0 0 0.2px rgba(0, 0, 0, 0.1));
       mix-blend-mode: multiply;
+      /* Fix for pixelation when downscaling large PNG */
+      image-rendering: auto;
+      /* Fallback to standard smooth resampling */
+      transform: translate3d(0, 0, 0) scale(1.001);
+      backface-visibility: hidden;
+      will-change: transform, filter;
+      display: block;
     }
 
     /* Dark Mode (default behavior, but explicit for clarity) */
     [data-theme="dark"] .contact-logo {
-      /* Invert so the black text becomes white, hue-rotate to restore original colors somewhat, without desaturating aggressively */
-      filter: invert(1) hue-rotate(180deg) brightness(1.3);
+      /* Invert so the black text becomes white. A tiny drop-shadow acts as pseudo-antialiasing to soften the jagged downscaled edge without blowing out the brightness */
+      filter: invert(1) hue-rotate(180deg) drop-shadow(0 0 0.5px rgba(255, 255, 255, 0.4));
       mix-blend-mode: screen;
       /* hides black background if there's any */
     }
@@ -466,8 +469,6 @@
 
     @media (max-width: 768px) {
       .contact-logo {
-        top: 20px;
-        left: 20px;
         height: 35px;
       }
     }
@@ -4712,20 +4713,53 @@
 
     .contact-wrapper {
       max-width: 700px;
-      margin: 0 auto;
+      margin: 0;
       width: 100%;
     }
 
-    .contact-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--accent);
-      text-align: center;
-      margin-bottom: 1rem;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 2px;
-      display: inline-block;
+    .contact-layout {
+      display: flex;
+      flex-direction: row;
+      gap: 4rem;
+      align-items: flex-start;
       width: 100%;
+    }
+
+    .contact-left {
+      position: sticky;
+      top: 6rem;
+      flex-shrink: 0;
+    }
+
+    .contact-right {
+      flex: 1;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    @media (max-width: 768px) {
+      .contact-layout {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .contact-left {
+        position: relative;
+        top: 0;
+      }
+    }
+
+    .contact-title {
+      font-size: 3.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: left;
+      margin-bottom: 1.5rem;
+      font-family: var(--font-hero);
+      letter-spacing: normal;
+      display: block;
+      width: 100%;
+      line-height: 1.1;
     }
 
     .contact-title .letter {
@@ -4739,13 +4773,14 @@
     }
 
     .contact-subtitle {
-      text-align: center;
+      text-align: left;
       font-size: 1.1rem;
       color: var(--text-secondary);
       margin-bottom: 3rem;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      line-height: 1.6;
     }
 
     /* Minimal Form Styles */
@@ -4770,25 +4805,38 @@
     .form-field {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.25rem;
     }
 
     .field-label {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .required-asterisk {
+      color: #dc2626;
+      margin-left: 0.25rem;
     }
 
     .field-input-minimal {
       width: 100%;
-      padding: 0.75rem 0;
+      padding: 0.5rem 0;
       background: transparent;
       border: none;
       border-bottom: 1px solid var(--border);
       color: var(--text-primary);
-      font-size: 1rem;
+      font-family: var(--font-hero);
+      font-size: 2.5rem;
+      line-height: 1.2;
       transition: border-color 0.3s ease;
       outline: none;
+    }
+
+    @media (min-width: 768px) {
+      .field-input-minimal {
+        font-size: 3.5rem;
+      }
     }
 
     .field-input-minimal:focus {
@@ -4797,13 +4845,23 @@
 
     .field-input-minimal::placeholder {
       color: var(--text-secondary);
-      opacity: 0.5;
+      opacity: 0.4;
+      font-weight: 400;
     }
 
     textarea.field-input-minimal {
       resize: vertical;
       min-height: 80px;
-      font-family: inherit;
+    }
+
+    .required-field-text {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .required-field-text span {
+      color: #dc2626;
     }
 
     /* Shoot Button */
@@ -4848,54 +4906,119 @@
     }
 
     .shoot-btn:disabled {
-      opacity: 0.5;
+      opacity: 0.8;
       cursor: not-allowed;
     }
 
-    /* Sending Animation */
-    .shoot-btn.sending .btn-arrow {
-      animation: arrowSend 1.4s ease-in-out;
+    .box-animation-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
-    @keyframes arrowSend {
+    .box-icon {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      color: var(--accent);
+    }
+
+    .flaps-closed {
+      stroke-dasharray: 150;
+      stroke-dashoffset: 150;
+    }
+
+    .box-tape {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+    }
+
+    .box-check {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+    }
+
+    /* Sending State */
+    .shoot-btn.sending #btnText,
+    .shoot-btn.sending .btn-arrow {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .shoot-btn.sending .box-animation-wrap {
+      opacity: 1;
+    }
+
+    .shoot-btn.sending .box-group {
+      animation: boxDropIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .shoot-btn.sending .flaps-open {
+      animation: flapsHide 0.1s 0.4s forwards;
+    }
+
+    .shoot-btn.sending .flaps-closed {
+      animation: drawLine 0.4s 0.4s forwards ease-in-out;
+    }
+
+    .shoot-btn.sending .box-tape {
+      animation: drawLine 0.3s 0.8s forwards ease-out;
+    }
+
+    @keyframes boxDropIn {
       0% {
-        transform: translateX(0) scale(1);
-        opacity: 1;
-      }
-
-      20% {
-        transform: translateX(80px) scale(1.2);
+        transform: translateY(-40px) scale(0.8);
         opacity: 0;
-      }
-
-      21% {
-        transform: translateX(-60px) scale(0.5);
-        opacity: 0;
-      }
-
-      60% {
-        transform: translateX(10px) scale(1.1);
-        opacity: 1;
-      }
-
-      80% {
-        transform: translateX(-5px) scale(1);
-        opacity: 1;
       }
 
       100% {
-        transform: translateX(0) scale(1);
+        transform: translateY(0) scale(1);
         opacity: 1;
       }
+    }
+
+    @keyframes flapsHide {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Success state */
+    .shoot-btn.success #btnText,
+    .shoot-btn.success .btn-arrow {
+      opacity: 0;
+    }
+
+    .shoot-btn.success .box-animation-wrap {
+      opacity: 1;
+    }
+
+    .shoot-btn.success .box-group {
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.3s ease;
+    }
+
+    .shoot-btn.success .box-check {
+      animation: drawLine 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
     .shoot-btn.success {
       border-color: #10b981;
-      color: #10b981;
-    }
-
-    .shoot-btn.success .btn-arrow {
-      color: #10b981;
+      background: rgba(16, 185, 129, 0.05);
     }
 
     /* Contact Info Cards - Clean, Personal Style */
@@ -5070,34 +5193,45 @@
     /* Alert */
     .contact-alert {
       position: fixed;
-      top: 100px;
+      bottom: 2rem;
       right: 2rem;
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
+      top: auto;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 1.25rem 1.75rem;
+      border-radius: 8px;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+      gap: 1rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
       z-index: 1000;
-      animation: slideInRight 0.3s ease-out;
+      animation: alertSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
     }
 
-    @keyframes slideInRight {
+    [data-theme="light"] .contact-alert {
+      background: white;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes alertSlideUp {
       from {
-        transform: translateX(400px);
+        transform: translateY(100px);
         opacity: 0;
       }
 
       to {
-        transform: translateX(0);
+        transform: translateY(0);
         opacity: 1;
       }
     }
 
     .contact-alert i {
       font-size: 1.5rem;
+      color: var(--accent);
     }
 
     /* Form Container */
@@ -7230,7 +7364,6 @@
     </section>
 
     <section id="contact" aria-label="Contact section" class="contact-section" style="position: relative;">
-      <img src="website_logo.png" alt="Vimanga Umange Logo" class="contact-logo">
 
       <div class="section-container">
         <!-- Alert Message -->
@@ -7239,84 +7372,106 @@
           <span id="alertMessage">Your message has been sent!</span>
         </div>
 
-        <div class="contact-wrapper">
-          <!-- Minimal Form Header -->
-          <h2 class="contact-title section-title" style="text-align: center; display: block;">Send me a message!</h2>
-          <p class="contact-subtitle">I'm always interested in discussing new opportunities or collaborative projects.
-            Whether you have a question about my work or want to explore potential collaborations, feel free to reach
-            out.</p>
+        <div class="contact-layout">
+          <div class="contact-left">
+            <img src="website_logo.svg" alt="Vimanga Umange Logo" class="contact-logo">
+          </div>
 
-          <!-- Contact Form -->
-          <form class="minimal-contact-form" id="contactForm">
-            <div class="form-row">
-              <div class="form-field">
-                <label for="name" class="field-label">Your Name</label>
-                <input type="text" id="name" name="name" class="field-input-minimal" placeholder="Enter your name"
-                  autocomplete="name" required />
-              </div>
+          <div class="contact-right">
+            <div class="contact-wrapper">
+              <!-- Minimal Form Header -->
+              <h2 class="contact-title section-title">Send me a message!</h2>
+              <p class="contact-subtitle">I'm always interested in discussing new opportunities or collaborative
+                projects.
+                Whether you have a question about my work or want to explore potential collaborations, feel free to
+                reach
+                out.</p>
 
-              <div class="form-field">
-                <label for="email" class="field-label">Email Address</label>
-                <input type="email" id="email" name="email" class="field-input-minimal"
-                  placeholder="Enter your email address" autocomplete="email" required />
-              </div>
-            </div>
+              <!-- Contact Form -->
+              <form class="minimal-contact-form" id="contactForm" style="margin-top: 2rem;">
+                <div class="form-field">
+                  <label for="name" class="field-label">Name <span class="required-asterisk">*</span></label>
+                  <input type="text" id="name" name="name" class="field-input-minimal" placeholder="First Last"
+                    autocomplete="name" required />
+                </div>
 
-            <div class="form-field">
-              <label for="message" class="field-label">Your Message</label>
-              <textarea id="message" name="message" rows="3" class="field-input-minimal"
-                placeholder="Tell me about your project, opportunity, or just say hello!" required></textarea>
-              <div class="word-count-wrapper" id="wordCountWrapper">
-                <span class="word-count-text status-green" id="wordCountText">0/500</span>
-                <div class="word-count-pill">
-                  <div class="word-count-fill status-green" id="wordCountFill"></div>
+                <div class="form-field">
+                  <label for="email" class="field-label">Email Address <span class="required-asterisk">*</span></label>
+                  <input type="email" id="email" name="email" class="field-input-minimal" placeholder="Email Address"
+                    autocomplete="email" required />
+                </div>
+
+                <div class="form-field">
+                  <label for="message" class="field-label">Message <span class="required-asterisk">*</span></label>
+                  <textarea id="message" name="message" rows="1" class="field-input-minimal" placeholder="Message"
+                    maxlength="500" required></textarea>
+                  <div class="word-count-wrapper" id="wordCountWrapper"
+                    style="align-self: flex-end; margin-top: 0.5rem;">
+                    <span class="word-count-text status-green" id="wordCountText">0/500</span>
+                    <div class="word-count-pill">
+                      <div class="word-count-fill status-green" id="wordCountFill"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="required-field-text"><span>*</span> Required field</div>
+
+                <button type="submit" class="shoot-btn" id="submitBtn">
+                  <span id="btnText">SEND</span>
+                  <span class="btn-arrow">→</span>
+                  <div class="box-animation-wrap">
+                    <svg class="box-icon" viewBox="0 0 100 100" stroke="currentColor" stroke-width="4"
+                      stroke-linecap="round" stroke-linejoin="round" fill="none">
+                      <g class="box-group">
+                        <path class="box-body" d="M50,80 L20,65 L20,35 L50,50 L80,35 L80,65 Z M50,80 L50,50" />
+                        <path class="flaps-open"
+                          d="M20,35 L10,15 L40,30 L50,50 M80,35 L90,15 L60,30 L50,50 M20,35 L50,20 L80,35" />
+                        <path class="flaps-closed" d="M20,35 L50,20 L80,35 L50,50" />
+                        <path class="box-tape" d="M40,45 L60,35" stroke="var(--accent)" stroke-width="5" />
+                      </g>
+                      <path class="box-check" d="M30,55 L45,70 L75,40" stroke="#10b981" />
+                    </svg>
+                  </div>
+                </button>
+              </form>
+
+              <!-- Social Links -->
+              <div class="contact-social">
+                <p class="social-label">Find me on</p>
+                <div class="social-links">
+                  <a href="https://github.com/vimanga-x64" target="_blank" class="social-link" aria-label="GitHub">
+                    <svg class="social-icon" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
+                        transform="scale(64)" fill="currentColor" />
+                    </svg>
+                  </a>
+                  <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="social-link"
+                    aria-label="LinkedIn">
+                    <svg class="social-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"
+                      preserveAspectRatio="xMidYMid">
+                      <path
+                        d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"
+                        fill="#0A66C2" />
+                    </svg>
+                  </a>
+                  <a href="https://medium.com/@vishudha98" target="_blank" class="social-link" aria-label="Medium">
+                    <svg class="social-icon" viewBox="0 -55 256 256" xmlns="http://www.w3.org/2000/svg"
+                      preserveAspectRatio="xMidYMid">
+                      <path
+                        d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
+                        fill="currentColor" />
+                    </svg>
+                  </a>
+                  <a href="https://www.cloudskillsboost.google/public_profiles/c0bb8d2a-59e1-4a36-90e4-81a792ae00ba"
+                    target="_blank" class="social-link" aria-label="Google Cloud">
+                    <img src="logos/google-cloud.svg" alt="Google Cloud" class="social-img" />
+                  </a>
                 </div>
               </div>
             </div>
-
-            <button type="submit" class="shoot-btn" id="submitBtn">
-              <span id="btnText">SHOOT</span>
-              <span class="btn-arrow">→</span>
-            </button>
-          </form>
-
-          <!-- Social Links -->
-          <div class="contact-social">
-            <p class="social-label">Find me on</p>
-            <div class="social-links">
-              <a href="https://github.com/vimanga-x64" target="_blank" class="social-link" aria-label="GitHub">
-                <svg class="social-icon" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
-                    transform="scale(64)" fill="currentColor" />
-                </svg>
-              </a>
-              <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" class="social-link"
-                aria-label="LinkedIn">
-                <svg class="social-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="xMidYMid">
-                  <path
-                    d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"
-                    fill="#0A66C2" />
-                </svg>
-              </a>
-              <a href="https://medium.com/@vishudha98" target="_blank" class="social-link" aria-label="Medium">
-                <svg class="social-icon" viewBox="0 -55 256 256" xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="xMidYMid">
-                  <path
-                    d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
-                    fill="currentColor" />
-                </svg>
-              </a>
-              <a href="https://www.cloudskillsboost.google/public_profiles/c0bb8d2a-59e1-4a36-90e4-81a792ae00ba"
-                target="_blank" class="social-link" aria-label="Google Cloud">
-                <img src="logos/google-cloud.svg" alt="Google Cloud" class="social-img" />
-              </a>
-            </div>
           </div>
         </div>
-      </div>
-      </div>
     </section>
   </main>
 
@@ -8831,7 +8986,8 @@
             // Show success state
             submitBtn.classList.remove('sending');
             submitBtn.classList.add('success');
-            btnText.textContent = 'SENT!';
+            // Hide text entirely so it doesn't overlap with the checkmark SVG
+            btnText.style.display = 'none';
 
             // Show success alert
             showAlert('success', 'Your message has been sent successfully! I\'ll get back to you soon.');
@@ -8842,19 +8998,20 @@
             // Reset button after delay
             setTimeout(() => {
               submitBtn.classList.remove('success');
-              btnText.textContent = 'SHOOT';
+              btnText.style.display = '';
+              btnText.textContent = 'SEND';
               submitBtn.disabled = false;
-            }, 2000);
+            }, 2500);
           } else {
             submitBtn.classList.remove('sending');
-            btnText.textContent = 'SHOOT';
+            btnText.textContent = 'SEND';
             submitBtn.disabled = false;
             showAlert('error', 'Oops! Something went wrong. Please try again.');
           }
         } catch (error) {
           console.error('Form submission error:', error);
           submitBtn.classList.remove('sending');
-          btnText.textContent = 'SHOOT';
+          btnText.textContent = 'SEND';
           submitBtn.disabled = false;
           showAlert('error', 'Network error. Please check your connection and try again.');
         }
@@ -8875,11 +9032,11 @@
         alertIcon.className = type === 'success' ? 'ph-fill ph-check-circle' : 'ph-fill ph-warning-circle';
       }
 
-      // Set color based on type
+      // Set color via active class
       if (type === 'success') {
-        contactAlert.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        contactAlert.style.color = '#10b981';
       } else {
-        contactAlert.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+        contactAlert.style.color = '#dc2626';
       }
 
       // Show alert
@@ -8952,29 +9109,23 @@
 
 
 
-    // Word Count Indicator with Progress Bar
+    // Character Count Indicator with Progress Bar
     const messageTextarea = document.getElementById('message');
     const wordCountText = document.getElementById('wordCountText');
     const wordCountFill = document.getElementById('wordCountFill');
-    const WORD_LIMIT = 500;
-
-    function countWords(text) {
-      // Trim whitespace and split by whitespace, filter empty strings
-      const words = text.trim().split(/\s+/).filter(word => word.length > 0);
-      return words.length;
-    }
+    const CHAR_LIMIT = 500;
 
     function updateWordCount() {
       if (!messageTextarea || !wordCountText || !wordCountFill) return;
 
       const text = messageTextarea.value;
-      const wordCount = countWords(text);
+      const charCount = text.length;
 
       // Update the count display (current/limit format)
-      wordCountText.textContent = `${wordCount}/${WORD_LIMIT}`;
+      wordCountText.textContent = `${charCount}/${CHAR_LIMIT}`;
 
       // Calculate fill percentage (cap at 100%)
-      const fillPercent = Math.min((wordCount / WORD_LIMIT) * 100, 100);
+      const fillPercent = Math.min((charCount / CHAR_LIMIT) * 100, 100);
       wordCountFill.style.width = `${fillPercent}%`;
 
       // Remove all status classes
