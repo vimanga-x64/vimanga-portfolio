@@ -1,0 +1,122 @@
+[
+  {
+    "file": "fittrack.html",
+    "line": 9,
+    "text": "content=\"FitTrack [DASH] AI-powered wellness and recovery assistant. A deep-dive case study by Vimanga Umange.\">"
+  },
+  {
+    "file": "fittrack.html",
+    "line": 819,
+    "text": "heavy burden of interpretation entirely on the user. FitTrack solves this <strong>\"last mile\" problem</strong> [DASH]"
+  },
+  {
+    "file": "fittrack.html",
+    "line": 861,
+    "text": "A walkthrough of FitTrack's key interfaces [DASH] from the bold landing page to the intelligence-driven dashboards."
+  },
+  {
+    "file": "fittrack.html",
+    "line": 890,
+    "text": "<p>Sleep architecture, activity rings, stress scores [DASH] built on your Google Fit profile.</p>"
+  },
+  {
+    "file": "fittrack.html",
+    "line": 910,
+    "text": "<p>AI-guided summary based on today's entries [DASH] with a coach avatar and audio replay.</p>"
+  },
+  {
+    "file": "fittrack.html",
+    "line": 932,
+    "text": "<h2>The Deterministic[DASH]Generative Hybrid</h2>"
+  },
+  {
+    "file": "fittrack.html",
+    "line": 942,
+    "text": "<p>Pull real-time health signals [DASH] sleep stages, resting heart rate, HRV [DASH] via Google Health integrations.</p>"
+  },
+  {
+    "file": "fittrack.html",
+    "line": 1007,
+    "text": "By replacing rigid search bars with <span class=\"highlight\">semantic intake</span> [DASH] where a user simply types"
+  },
+  {
+    "file": "fittrack.html",
+    "line": 1008,
+    "text": "\"burrito bowl and a 3-mile walk\" [DASH] we reduced logging friction dramatically."
+  },
+  {
+    "file": "fittrack.html",
+    "line": 1014,
+    "text": "By showing the <span class=\"highlight\">Energy Curve</span> [DASH] a visual of daily energy windows [DASH] we aren't just"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 9,
+    "text": "content=\"WeatherWise [DASH] NASA Space Apps 2024 project. An interactive weather intelligence platform powered by NASA Earth observation data.\">"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 964,
+    "text": "activity-aware weather recommendations [DASH] powered by AI."
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 986,
+    "text": "Weather forecasts are everywhere [DASH] yet most still treat every user the same. A runner, a farmer, and a"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1008,
+    "text": "<p>Drag-and-drop weather widgets [DASH] temperature, humidity, wind speed, UV index [DASH] placed directly on the map.</p>"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1034,
+    "text": "Energy Resources)</strong> project [DASH] the same datasets used by researchers, climate scientists, and agricultural"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1042,
+    "text": "continuous satellite monitoring, reanalysis models, and ground-truth validation [DASH] going far beyond what"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1063,
+    "text": "From satellite imagery overlay to AI-generated activity briefs [DASH] a walkthrough of WeatherWise's core interfaces."
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1095,
+    "text": "<p>Choose from running, hiking, photography, gardening & more [DASH] the AI tailors recommendations to your"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1140,
+    "text": "UV [DASH] sunscreen recommended.\"</p>"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1169,
+    "text": "<p>Flask backend queries NASA's POWER API for meteorological parameters [DASH] temperature, humidity, wind, solar"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1219,
+    "text": "<p>Balancing feature ambition with hackathon reality. We scoped aggressively [DASH] prioritizing the"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1233,
+    "text": "WeatherWise wasn't about building another weather app [DASH] it was about reimagining how humans interact with Earth"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1250,
+    "text": "Weather data lives <span class=\"highlight\">on the map itself</span> [DASH] not in sidebars or tables. Draggable"
+  },
+  {
+    "file": "weatherwise.html",
+    "line": 1266,
+    "text": "We designed with <span class=\"highlight\">extensibility in mind</span> [DASH] the architecture supports adding new"
+  }
+]

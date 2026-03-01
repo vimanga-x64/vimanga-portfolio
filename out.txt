@@ -1,0 +1,23 @@
+fittrack.html:9: content="FitTrack — AI-powered wellness and recovery assistant. A deep-dive case study by Vimanga Umange.">
+fittrack.html:819: heavy burden of interpretation entirely on the user. FitTrack solves this <strong>"last mile" problem</strong> —
+fittrack.html:861: A walkthrough of FitTrack's key interfaces — from the bold landing page to the intelligence-driven dashboards.
+fittrack.html:890: <p>Sleep architecture, activity rings, stress scores — built on your Google Fit profile.</p>
+fittrack.html:910: <p>AI-guided summary based on today's entries — with a coach avatar and audio replay.</p>
+fittrack.html:942: <p>Pull real-time health signals — sleep stages, resting heart rate, HRV — via Google Health integrations.</p>
+fittrack.html:1007: By replacing rigid search bars with <span class="highlight">semantic intake</span> — where a user simply types
+fittrack.html:1008: "burrito bowl and a 3-mile walk" — we reduced logging friction dramatically.
+fittrack.html:1014: By showing the <span class="highlight">Energy Curve</span> — a visual of daily energy windows — we aren't just
+weatherwise.html:9: content="WeatherWise — NASA Space Apps 2024 project. An interactive weather intelligence platform powered by NASA Earth observation data.">
+weatherwise.html:964: activity-aware weather recommendations — powered by AI.
+weatherwise.html:986: Weather forecasts are everywhere — yet most still treat every user the same. A runner, a farmer, and a
+weatherwise.html:1008: <p>Drag-and-drop weather widgets — temperature, humidity, wind speed, UV index — placed directly on the map.</p>
+weatherwise.html:1034: Energy Resources)</strong> project — the same datasets used by researchers, climate scientists, and agricultural
+weatherwise.html:1042: continuous satellite monitoring, reanalysis models, and ground-truth validation — going far beyond what
+weatherwise.html:1063: From satellite imagery overlay to AI-generated activity briefs — a walkthrough of WeatherWise's core interfaces.
+weatherwise.html:1095: <p>Choose from running, hiking, photography, gardening & more — the AI tailors recommendations to your
+weatherwise.html:1140: UV — sunscreen recommended."</p>
+weatherwise.html:1169: <p>Flask backend queries NASA's POWER API for meteorological parameters — temperature, humidity, wind, solar
+weatherwise.html:1219: <p>Balancing feature ambition with hackathon reality. We scoped aggressively — prioritizing the
+weatherwise.html:1233: WeatherWise wasn't about building another weather app — it was about reimagining how humans interact with Earth
+weatherwise.html:1250: Weather data lives <span class="highlight">on the map itself</span> — not in sidebars or tables. Draggable
+weatherwise.html:1266: We designed with <span class="highlight">extensibility in mind</span> — the architecture supports adding new

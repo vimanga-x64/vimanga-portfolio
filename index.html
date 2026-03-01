@@ -7246,6 +7246,9 @@
                 and advanced machine learning applications at the University of Windsor. My work focuses on pushing the
                 boundaries of what's possible with neural architectures.</p>
 
+              <a href="papers/8720 Project_paper.pdf" target="_blank" class="research-cta">
+                Read the latest publication <i class="ph ph-arrow-right"></i>
+              </a>
 
               <div class="research-downloads">
                 <a href="papers/8720 Project_paper.pdf" target="_blank" class="research-download-item">
@@ -7853,7 +7856,8 @@
           const heroSocialLinks = document.querySelector('.hero-social-links');
           const heroButtons = document.querySelector('.hero-buttons');
 
-          if (window.scrollY > 100) {
+          // Only hide the hero text when it's substantially scrolled out of view.
+          if (window.scrollY > 400) {
             scrollIndicator.style.opacity = '0';
             scrollIndicator.style.pointerEvents = 'none';
             if (heroNameSection) heroNameSection.classList.add('hidden');
