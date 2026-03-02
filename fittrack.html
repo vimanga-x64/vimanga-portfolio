@@ -137,9 +137,9 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('images/LandingPage-winhacks.jpg') center/cover no-repeat;
+      background: url('images/Fitness_Dashbaord-Winhacks.jpg') center/cover no-repeat;
       filter: brightness(0.85) saturate(0.7);
-      opacity: 0.02;
+      opacity: 0.05;
       transform: scale(1.05);
       transition: transform 8s ease;
     }
@@ -1894,9 +1894,22 @@
           }
         });
 
-        requestAnimationFrame(updateBars);
+        // Removed infinite requestAnimationFrame(updateBars) here
       }
-      requestAnimationFrame(updateBars);
+
+      let impactBarsTicking = false;
+      window.addEventListener('scroll', () => {
+        if (!impactBarsTicking) {
+          window.requestAnimationFrame(() => {
+            updateBars();
+            impactBarsTicking = false;
+          });
+          impactBarsTicking = true;
+        }
+      }, { passive: true });
+
+      // Run exactly once on load
+      updateBars();
     })();
 
     // ====== NAV TITLE ON SCROLL ======

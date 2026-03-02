@@ -9319,10 +9319,23 @@
           }
         });
 
-        requestAnimationFrame(updateCards);
+        // Removed infinite requestAnimationFrame(updateCards) here
       }
 
-      requestAnimationFrame(updateCards);
+      // Instead of an infinite loop, attach the update function to the scroll event
+      let stackCardsTicking = false;
+      window.addEventListener('scroll', () => {
+        if (!stackCardsTicking) {
+          window.requestAnimationFrame(() => {
+            updateCards();
+            stackCardsTicking = false;
+          });
+          stackCardsTicking = true;
+        }
+      }, { passive: true });
+
+      // Run exactly once on load to set initial positions
+      updateCards();
     }
 
     // Initialize stacking cards

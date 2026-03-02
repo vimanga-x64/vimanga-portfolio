@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WeatherWise Case Study | Vimanga Umange</title>
   <meta name="description"
-    content="WeatherWise is a NASA Space Apps 2024 project. An interactive weather intelligence platform powered by NASA Earth observation data.">
+    content="WeatherWise is a NASA Space Apps 2025 project. An interactive weather intelligence platform powered by NASA Earth observation data.">
   <link rel="icon" type="image/png" href="logos/favicon_logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1582,7 +1582,7 @@
       <div class="section-label">Overview</div>
       <h2 class="editorial-heading">Reimagining Weather&nbsp;Data</h2>
       <p class="editorial-body">
-        Built during the <strong>NASA Space Apps Challenge 2024</strong>, WeatherWise is an interactive platform that
+        Built during the <strong>NASA Space Apps Challenge 2025</strong>, WeatherWise is an interactive platform that
         combines NASA's Earth observation datasets with an AI-powered recommendation engine through a beautiful
         map-based
         interface. Users select activities and locations, and the system synthesizes satellite data into
@@ -1730,10 +1730,10 @@
           <!-- Space Apps Overview -->
           <div class="gallery-item reveal-el">
             <div class="gallery-img-wrapper"><img src="images/Space_Apps_Screenshot.png"
-                alt="NASA Space Apps Challenge 2024"></div>
+                alt="NASA Space Apps Challenge 2025"></div>
             <div class="gallery-caption">
               <h4>NASA Space Apps Challenge</h4>
-              <p>WeatherWise was developed as part of the global NASA Space Apps Challenge 2024 hackathon.</p>
+              <p>WeatherWise was developed as part of the global NASA Space Apps Challenge 2025 hackathon.</p>
             </div>
           </div>
         </div>
@@ -2121,10 +2121,22 @@
             valueEl.textContent = prefix + current + suffix;
           }
         });
-
-        requestAnimationFrame(updateBars);
+        // Removed infinite requestAnimationFrame(updateBars) here
       }
-      requestAnimationFrame(updateBars);
+
+      let impactBarsTicking = false;
+      window.addEventListener('scroll', () => {
+        if (!impactBarsTicking) {
+          window.requestAnimationFrame(() => {
+            updateBars();
+            impactBarsTicking = false;
+          });
+          impactBarsTicking = true;
+        }
+      }, { passive: true });
+
+      // Run exactly once on load
+      updateBars();
     })();
 
     // ====== NAV TITLE ON SCROLL ======
