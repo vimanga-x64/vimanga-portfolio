@@ -1225,76 +1225,6 @@
       z-index: 1;
     }
 
-    /* ========== HOVER SPOTLIGHT ========== */
-    .spotlight-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .spotlight-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .section-cream .spotlight-card::before,
-    .section-cream-alt .spotlight-card::before {
-      background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(0, 0, 0, 0.03), transparent 40%);
-    }
-
-    .spotlight-card:hover::before {
-      opacity: 1;
-    }
-
-    /* Ensure content stays above the spotlight */
-    .spotlight-card>* {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ========== HOVER SPOTLIGHT ========== */
-    .spotlight-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .spotlight-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .section-cream .spotlight-card::before,
-    .section-cream-alt .spotlight-card::before {
-      background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(0, 0, 0, 0.03), transparent 40%);
-    }
-
-    .spotlight-card:hover::before {
-      opacity: 1;
-    }
-
-    /* Ensure content stays above the spotlight */
-    .spotlight-card>* {
-      position: relative;
-      z-index: 1;
-    }
-
     /* The hero also scrolls over gracefully */
     .hero {
       position: relative;
@@ -1379,6 +1309,18 @@
     </div>
 
   </section>
+
+  <!-- ====== INSPIRATIONAL VIDEO ====== -->
+  <div class="section-dark" id="gogginsSection"
+    style="padding: 8rem 2.5rem; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--bg-dark); min-height: 100vh;">
+    <div class="section-label reveal-el" style="justify-content: center; margin-bottom: 3rem;">Mindset</div>
+    <div id="gogginsWrapper"
+      style="width: 100%; max-width: 1200px; transform: scale(0.5); transform-origin: center center; will-change: transform; border-radius: 24px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.3);">
+      <video id="gogginsVideo" src="videos/David_Goggins.mp4"
+        style="width: 100%; height: auto; display: block; filter: grayscale(100%); object-fit: cover;" muted loop
+        playsinline preload="metadata"></video>
+    </div>
+  </div>
 
   <!-- ====== WINNER SHOWCASE ====== -->
   <div class="section-cream">
@@ -1487,7 +1429,8 @@
         <div class="gallery-grid">
           <!-- Landing Page -->
           <div class="gallery-item reveal-el">
-            <div class="gallery-img-wrapper"><img src="images/LandingPage-winhacks.jpg" alt="FitTrack Landing Page">
+            <div class="gallery-img-wrapper"><img src="images/LandingPage-winhacks.jpg" alt="FitTrack Landing Page"
+                loading="lazy">
             </div>
             <div class="gallery-caption">
               <h4>Landing Page</h4>
@@ -1499,7 +1442,7 @@
             <!-- Fitness Dashboard -->
             <div class="gallery-item reveal-el">
               <div class="gallery-img-wrapper"><img src="images/Fitness_Dashbaord-Winhacks.jpg"
-                  alt="FitTrack Fitness Dashboard"></div>
+                  alt="FitTrack Fitness Dashboard" loading="lazy"></div>
               <div class="gallery-caption">
                 <h4>Fitness Dashboard</h4>
                 <p>Calorie strategy, daily targets, meal logging, and activity breakdown at a glance.</p>
@@ -1509,7 +1452,7 @@
             <!-- Recovery Dashboard -->
             <div class="gallery-item reveal-el">
               <div class="gallery-img-wrapper"><img src="images/Recovery-Dashboard_WInhacks.png"
-                  alt="FitTrack Recovery Dashboard"></div>
+                  alt="FitTrack Recovery Dashboard" loading="lazy"></div>
               <div class="gallery-caption">
                 <h4>Recovery Dashboard</h4>
                 <p>Sleep architecture, activity rings, stress scores — all built on your Google Fit profile.</p>
@@ -1520,7 +1463,7 @@
           <div class="gallery-row">
             <!-- Energy & Stress -->
             <div class="gallery-item reveal-el">
-              <div class="gallery-img-wrapper"><img src="images/EnergyGraphs-Nutrition-Stress_Levels.png"
+              <div class="gallery-img-wrapper"><img loading="lazy" src="images/EnergyGraphs-Nutrition-Stress_Levels.png"
                   alt="Energy Curve and Stress Load"></div>
               <div class="gallery-caption">
                 <h4>Energy Curve & Stress Load</h4>
@@ -1530,7 +1473,8 @@
 
             <!-- AI Daily Analysis -->
             <div class="gallery-item reveal-el">
-              <div class="gallery-img-wrapper"><img src="images/DailyAnalysis-Winhacks.png" alt="AI Daily Analysis">
+              <div class="gallery-img-wrapper"><img src="images/DailyAnalysis-Winhacks.png" alt="AI Daily Analysis"
+                  loading="lazy">
               </div>
               <div class="gallery-caption">
                 <h4>AI Daily Analysis</h4>
@@ -1541,7 +1485,7 @@
 
           <!-- Recovery Tips -->
           <div class="gallery-item reveal-el">
-            <div class="gallery-img-wrapper"><img src="images/AI_guided_recovery_tips_advice.png"
+            <div class="gallery-img-wrapper"><img loading="lazy" src="images/AI_guided_recovery_tips_advice.png"
                 alt="AI Recovery Insights"></div>
             <div class="gallery-caption">
               <h4>Recovery Insights</h4>
@@ -1777,7 +1721,7 @@
   </div>
 
   <script>
-    // ====== SCROLL REVEAL ======
+    // ====== SCROLL REVEAL (IntersectionObserver — zero scroll cost) ======
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -1789,7 +1733,7 @@
 
     document.querySelectorAll('.reveal-el').forEach(el => revealObserver.observe(el));
 
-    // ====== SCROLL TEXT HIGHLIGHT ======
+    // ====== SCROLL TEXT HIGHLIGHT — DOM SETUP ======
     document.querySelectorAll('.editorial-statement .big-text').forEach(el => {
       const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
       const textNodes = [];
@@ -1817,121 +1761,7 @@
       });
     });
 
-    const statementSections = document.querySelectorAll('.editorial-statement');
-    let statementTicking = false;
-    window.addEventListener('scroll', () => {
-      if (!statementTicking) {
-        window.requestAnimationFrame(() => {
-          const windowH = window.innerHeight;
-          statementSections.forEach(section => {
-            const sectionRect = section.getBoundingClientRect();
-            // Trigger area based on the actual paragraph, not the padded wrapper
-            const bigText = section.querySelector('.big-text');
-            if (!bigText) return;
-
-            const rect = bigText.getBoundingClientRect();
-
-            // Start highlighting when the top of the text enters the bottom 85% of viewport
-            const startY = windowH * 0.95;
-            // Finish highlighting when the bottom of the text reaches the top 35% of viewport
-            const endY = windowH * 0.40;
-
-            // Total scroll distance is the height of the text block plus the scrolling range between trigger points
-            const totalDistance = rect.height + (startY - endY);
-            const distanceScrolled = startY - rect.top;
-
-            let progress = 0;
-            if (distanceScrolled > 0) {
-              progress = distanceScrolled / totalDistance;
-            }
-
-            // Add a 1.25x multiplier to ensure it reaches 100% just before the element leaves the optimal reading zone
-            progress = Math.max(0, Math.min(1, progress * 2.0)); // Aggressive multiplier so it finishes before pinning
-
-            const words = bigText.querySelectorAll('.reveal-word');
-            const activeCount = Math.floor(progress * words.length);
-
-            words.forEach((word, index) => {
-              if (index < activeCount) {
-                word.classList.add('active');
-              } else {
-                word.classList.remove('active');
-              }
-            });
-          });
-          statementTicking = false;
-        });
-        statementTicking = true;
-      }
-    }, { passive: true });
-
-    // ====== SCROLL-DRIVEN IMPACT BARS ======
-    (function () {
-      const section = document.getElementById('impactSection');
-      if (!section) return;
-      const bars = section.querySelectorAll('.impact-bar');
-
-      function updateBars() {
-        const rect = section.getBoundingClientRect();
-        const windowH = window.innerHeight;
-        const sectionMid = rect.top + rect.height * 0.5;
-        const progress = Math.max(0, Math.min(1, 1 - (sectionMid - windowH * 0.5) / (windowH * 0.8)));
-
-        bars.forEach(bar => {
-          const maxH = parseFloat(bar.dataset.maxHeight) || 300;
-          const mult = parseFloat(bar.dataset.progressMult) || 1;
-          const barProgress = Math.min(progress * mult * 1.3, 1);
-          const h = Math.round(maxH * barProgress);
-          bar.style.height = h + 'px';
-
-          // Counting number
-          const target = parseFloat(bar.dataset.target) || 0;
-          const suffix = bar.dataset.suffix || '';
-          const valueEl = bar.querySelector('.impact-bar-value');
-          if (valueEl) {
-            const current = Math.round(target * barProgress);
-            valueEl.textContent = current + suffix;
-          }
-        });
-
-        // Removed infinite requestAnimationFrame(updateBars) here
-      }
-
-      let impactBarsTicking = false;
-      window.addEventListener('scroll', () => {
-        if (!impactBarsTicking) {
-          window.requestAnimationFrame(() => {
-            updateBars();
-            impactBarsTicking = false;
-          });
-          impactBarsTicking = true;
-        }
-      }, { passive: true });
-
-      // Run exactly once on load
-      updateBars();
-    })();
-
-    // ====== NAV TITLE ON SCROLL ======
-    const navTitle = document.getElementById('navTitle');
-    const hero = document.querySelector('.hero');
-
-    let navTitleTicking = false;
-    window.addEventListener('scroll', () => {
-      if (!navTitleTicking) {
-        window.requestAnimationFrame(() => {
-          if (window.scrollY > hero.offsetHeight * 0.6) {
-            navTitle.classList.add('visible');
-          } else {
-            navTitle.classList.remove('visible');
-          }
-          navTitleTicking = false;
-        });
-        navTitleTicking = true;
-      }
-    }, { passive: true });
-
-    // ====== STAGGER CHILDREN ANIMATION ======
+    // ====== STAGGER CHILDREN ANIMATION (IntersectionObserver — zero scroll cost) ======
     document.querySelectorAll('.overview-grid, .tech-grid, .pipeline, .learnings-grid').forEach(grid => {
       const gridObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1948,7 +1778,7 @@
       gridObserver.observe(grid);
     });
 
-    // ====== MAGNETIC BUTTONS ======
+    // ====== MAGNETIC BUTTONS (mousemove only — no scroll cost) ======
     document.querySelectorAll('.cta-btn').forEach(btn => {
       btn.addEventListener('mousemove', (e) => {
         const rect = btn.getBoundingClientRect();
@@ -1966,7 +1796,7 @@
       });
     });
 
-    // ====== HOVER SPOTLIGHT OVERLAY ======
+    // ====== HOVER SPOTLIGHT OVERLAY (mousemove only — no scroll cost) ======
     document.querySelectorAll('.spotlight-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -1976,9 +1806,26 @@
         card.style.setProperty('--y', `${y}px`);
       });
     });
-    // ====== SMART STICKY SCROLL ======
-    // Only pin sections that fit within the viewport.
-    // Tall sections (gallery, etc.) get negative top so all content is visible.
+
+    // ====== GOGGINS VIDEO PLAY/PAUSE (IntersectionObserver — zero scroll cost) ======
+    (function () {
+      const video = document.getElementById('gogginsVideo');
+      const gogginsSection = document.getElementById('gogginsSection');
+      if (!video || !gogginsSection) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            video.play().catch(e => console.log('Video autoplay blocked:', e));
+          } else {
+            video.pause();
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(gogginsSection);
+    })();
+
+    // ====== SMART STICKY SCROLL (runs on load/resize, not on scroll) ======
     (function () {
       const allSections = document.querySelectorAll(
         'section.hero, .section-dark, .section-cream, .section-cream-alt, .section-dark-alt'
@@ -1989,40 +1836,144 @@
         let zCounter = 1;
 
         allSections.forEach(el => {
-          // Get the actual height including all loaded content
           const sectionH = el.getBoundingClientRect().height;
           el.classList.add('sticky-section');
-
-          // Short sections pin at top immediately (top: 0)
-          // Tall sections get negative top so content scrolls through before pinning
-          // We add a little buffer (e.g. 50px) to ensure the very bottom isn't covered by shadows
           const stickyTop = Math.min(0, viewportH - sectionH - 50);
           el.style.top = stickyTop + 'px';
           el.style.zIndex = zCounter++;
         });
       }
 
-      // Run initially
       updateStickyTops();
-
-      // Run again after all resources (especially images) have fully loaded
       window.addEventListener('load', updateStickyTops);
-
-      // Run on resize to handle viewport changes
       window.addEventListener('resize', () => {
         requestAnimationFrame(updateStickyTops);
       });
 
-      // Failsafe: Run periodically for the first few seconds just in case custom fonts/images reflow
       let attempts = 0;
       const interval = setInterval(() => {
         updateStickyTops();
         attempts++;
-        if (attempts > 10) clearInterval(interval); // Stop after ~5 seconds
+        if (attempts > 10) clearInterval(interval);
       }, 500);
 
+      // Recalculate when lazy-loaded images finish loading (they change section height)
+      document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        img.addEventListener('load', updateStickyTops, { once: true });
+      });
     })();
 
+    // ============================================================
+    // UNIFIED SCROLL HANDLER — single listener, single rAF
+    // Replaces 5 separate scroll listeners with 1 for much
+    // better performance (fewer layout thrashes per frame).
+    // ============================================================
+    (function () {
+      // Cache DOM references once
+      const navTitle = document.getElementById('navTitle');
+      const heroEl = document.querySelector('.hero');
+      const statementSections = document.querySelectorAll('.editorial-statement');
+      const impactSection = document.getElementById('impactSection');
+      const impactBars = impactSection ? impactSection.querySelectorAll('.impact-bar') : [];
+      const gogginsWrapper = document.getElementById('gogginsWrapper');
+      const gogginsSection = document.getElementById('gogginsSection');
+
+      // Pre-cache word lists for each editorial statement
+      const statementData = [];
+      statementSections.forEach(section => {
+        const bigText = section.querySelector('.big-text');
+        if (bigText) {
+          statementData.push({
+            section,
+            bigText,
+            words: bigText.querySelectorAll('.reveal-word')
+          });
+        }
+      });
+
+      // Run impact bars once on load
+      if (impactSection) updateImpactBars(0);
+
+      function updateImpactBars(progress) {
+        impactBars.forEach(bar => {
+          const maxH = parseFloat(bar.dataset.maxHeight) || 300;
+          const mult = parseFloat(bar.dataset.progressMult) || 1;
+          const barProgress = Math.min(progress * mult * 1.3, 1);
+          bar.style.height = Math.round(maxH * barProgress) + 'px';
+
+          const target = parseFloat(bar.dataset.target) || 0;
+          const suffix = bar.dataset.suffix || '';
+          const valueEl = bar.querySelector('.impact-bar-value');
+          if (valueEl) {
+            valueEl.textContent = Math.round(target * barProgress) + suffix;
+          }
+        });
+      }
+
+      let ticking = false;
+
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+
+        window.requestAnimationFrame(() => {
+          const windowH = window.innerHeight;
+          const scrollY = window.scrollY;
+
+          // --- Nav title ---
+          if (navTitle && heroEl) {
+            if (scrollY > heroEl.offsetHeight * 0.6) {
+              navTitle.classList.add('visible');
+            } else {
+              navTitle.classList.remove('visible');
+            }
+          }
+
+          // --- Editorial text highlight ---
+          statementData.forEach(({ bigText, words }) => {
+            const rect = bigText.getBoundingClientRect();
+            const startY = windowH * 0.95;
+            const endY = windowH * 0.40;
+            const totalDistance = rect.height + (startY - endY);
+            const distanceScrolled = startY - rect.top;
+
+            let progress = 0;
+            if (distanceScrolled > 0) {
+              progress = distanceScrolled / totalDistance;
+            }
+            progress = Math.max(0, Math.min(1, progress * 2.0));
+
+            const activeCount = Math.floor(progress * words.length);
+            words.forEach((word, index) => {
+              if (index < activeCount) {
+                word.classList.add('active');
+              } else {
+                word.classList.remove('active');
+              }
+            });
+          });
+
+          // --- Impact bars ---
+          if (impactSection) {
+            const rect = impactSection.getBoundingClientRect();
+            const sectionMid = rect.top + rect.height * 0.5;
+            const progress = Math.max(0, Math.min(1, 1 - (sectionMid - windowH * 0.5) / (windowH * 0.8)));
+            updateImpactBars(progress);
+          }
+
+          // --- Goggins video scale ---
+          if (gogginsWrapper && gogginsSection) {
+            const rect = gogginsSection.getBoundingClientRect();
+            let progress = 1 - (rect.top / windowH);
+            progress = Math.max(0, Math.min(1, progress));
+            const scale = 0.5 + (0.5 * progress);
+            gogginsWrapper.style.transform = `scale(${scale})`;
+          }
+
+          ticking = false;
+        });
+      }, { passive: true });
+    })();
 
   </script>
 
