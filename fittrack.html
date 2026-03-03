@@ -1316,7 +1316,7 @@
     <div class="section-label reveal-el" style="justify-content: center; margin-bottom: 3rem;">Mindset</div>
     <div id="gogginsWrapper"
       style="width: 100%; max-width: 1200px; transform: scale(0.5); transform-origin: center center; will-change: transform; border-radius: 24px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.3);">
-      <video id="gogginsVideo" src="videos/David_Goggins.mp4"
+      <video id="gogginsVideo" src="videos/David_Goggins.mp4" poster="images/goggins-poster.jpg"
         style="width: 100%; height: auto; display: block; filter: grayscale(100%); object-fit: cover;" muted autoplay
         loop playsinline preload="auto"></video>
     </div>
@@ -1807,15 +1807,18 @@
       });
     });
 
-    // ====== GOGGINS VIDEO PLAY/PAUSE (IntersectionObserver — zero scroll cost) ======
+    // ====== GOGGINS VIDEO PLAY/PAUSE & UNLOCK ======
     (function () {
       const video = document.getElementById('gogginsVideo');
       const gogginsSection = document.getElementById('gogginsSection');
       if (!video || !gogginsSection) return;
 
+      let isIntersecting = false;
+
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          isIntersecting = entry.isIntersecting;
+          if (isIntersecting) {
             video.play().catch(e => console.log('Video autoplay blocked:', e));
           } else {
             video.pause();
@@ -1823,6 +1826,19 @@
         });
       }, { threshold: 0.1 });
       observer.observe(gogginsSection);
+
+      // Hack for strict browsers (Edge / Safari): 
+      // Unlock the media engine on the first user interaction anywhere on the page
+      const unlockMedia = () => {
+        if (isIntersecting && video.paused) {
+          video.play().catch(e => console.log('Unlock failed:', e));
+        }
+        document.removeEventListener('click', unlockMedia);
+        document.removeEventListener('touchstart', unlockMedia);
+      };
+
+      document.addEventListener('click', unlockMedia, { once: true });
+      document.addEventListener('touchstart', unlockMedia, { once: true });
     })();
 
     // ====== SMART STICKY SCROLL (runs on load/resize, not on scroll) ======
