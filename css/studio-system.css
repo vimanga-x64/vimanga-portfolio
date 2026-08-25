@@ -1028,6 +1028,18 @@ html:not([data-theme="light"]) #research {
   overflow: clip;
 }
 
+@media (min-width: 769px) {
+  #research .stack-cards-wrapper {
+    /* The final GSAP stack position moves card four down by 48px. The old
+       80vh wrapper left less than that beneath the fixed-height card on short
+       displays, so the wrapper's clip cut through its lower edge. Give the
+       stack an explicit 5rem landing area instead of relying on spare vh. */
+    height: calc(min(580px, 68vh) + 5rem);
+    height: calc(min(580px, 68svh) + 5rem);
+    align-items: flex-start;
+  }
+}
+
 #research .stack-card,
 #research .stack-card-1 {
   color: #221a15;
@@ -1581,7 +1593,12 @@ body::selection {
 
   #projects .projects-border-wrapper {
     width: 100vw;
-    height: clamp(700px, 90vh, 780px);
+    /* Project copy grows significantly on scaled/short laptop displays. A
+       content-safe floor keeps multi-row CTA groups (notably NASA's third
+       certificate action) inside the rounded card while remaining bounded on
+       tall screens. */
+    height: clamp(880px, 92vh, 920px);
+    height: clamp(880px, 92svh, 920px);
     padding: 0;
     overflow-x: auto;
     overflow-y: hidden;
@@ -2704,6 +2721,43 @@ html:not([data-theme="light"]) #about .info-card {
 #about .education-location,
 #about .education-date {
   color: var(--editorial-muted);
+}
+
+/* Wide but vertically constrained displays (small laptops, browser zoom, and
+   split-screen windows) otherwise select the desktop research stack while
+   also shrinking its 68vh card. Compact the typography instead of hiding or
+   internally scrolling publication content. */
+@media (min-width: 769px) and (max-height: 700px) {
+  #research .stack-card {
+    padding: 1.5rem 1.75rem;
+  }
+
+  #research .stack-card-header {
+    margin-bottom: 0.55rem;
+  }
+
+  #research .stack-card-header h3 {
+    font-size: clamp(1.35rem, 1.75vw, 1.75rem);
+    line-height: 1.06;
+  }
+
+  #research .stack-card-meta {
+    margin-bottom: 0.45rem;
+  }
+
+  #research .stack-card-desc {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  #research .stack-card-tags {
+    gap: 0.35rem;
+    padding-top: 0.65rem;
+  }
+
+  #research .stack-card-source {
+    margin-top: 0.55rem;
+  }
 }
 
 @media (max-width: 899px) {
