@@ -1025,18 +1025,27 @@ html:not([data-theme="light"]) #research {
 
 #research .research-right,
 #research .stack-cards-wrapper {
-  overflow: clip;
+  /* Clip parked cards to this column. Do not use right padding as a gutter:
+     overflow clips at the padding box, so a right gutter lets the waiting
+     stack peek into the viewport. */
+  overflow: hidden;
 }
 
 @media (min-width: 769px) {
   #research .stack-cards-wrapper {
-    /* The final GSAP stack position moves card four down by 48px. The old
-       80vh wrapper left less than that beneath the fixed-height card on short
-       displays, so the wrapper's clip cut through its lower edge. Give the
-       stack an explicit 5rem landing area instead of relying on spare vh. */
-    height: calc(min(580px, 68vh) + 5rem);
-    height: calc(min(580px, 68svh) + 5rem);
+    /* Card four lands ~42px right and 48px down. Shrink the card box so that
+       rest pose stays inside the clip, and keep top/bottom room for rotation. */
+    height: calc(min(580px, 68vh) + 7.5rem);
+    height: calc(min(580px, 68svh) + 7.5rem);
+    padding: 2.25rem 0 5.25rem;
+    box-sizing: border-box;
     align-items: flex-start;
+    justify-content: center;
+  }
+
+  #research .stack-cards-container {
+    width: min(420px, calc(100% - 4.5rem));
+    max-width: 100%;
   }
 }
 
@@ -1839,6 +1848,9 @@ body::selection {
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.035em;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 #research .stack-card-tags span {

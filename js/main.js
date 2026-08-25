@@ -1596,12 +1596,13 @@
         return;
       }
 
-      // Begin with a genuinely empty right column. Cards stay fully opaque and
-      // wait beyond its clipped edge until scroll pulls them into the stack.
+      // Park every card a full viewport to the right of the column. A modest
+      // xPercent offset is not enough on short/narrow laptops: the last card
+      // (highest z-index) peeks in from the viewport edge before the pin.
       gsap.set(cards, {
-        x: 0,
+        x: () => window.innerWidth,
         y: 0,
-        xPercent: 135,
+        xPercent: 100,
         rotation: 8,
         autoAlpha: 1,
         visibility: "visible",
@@ -1623,7 +1624,7 @@
       // Animate the lead card into the blank column, then build the stack.
       cards.forEach((card, index) => {
         const i = index;
-        const stackOffsetX = i * 20;
+        const stackOffsetX = i * 12;
         const stackOffsetY = i * 16;
         const stackRot = (i % 2 === 0 ? -1 : 1) * (i * 0.8);
 
