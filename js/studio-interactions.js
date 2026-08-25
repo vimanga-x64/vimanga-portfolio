@@ -916,7 +916,19 @@
     const hydrateModel = () => {
       if (modelHydrated || !model.dataset.src) return;
       modelHydrated = true;
+      // Begin the real Earth download before the user reaches this section.
+      // `loading="lazy"` previously kept the request paused even after `src`
+      // was assigned, which made cold-cache visitors wait beside the globe.
+      model.setAttribute('loading', 'eager');
       model.setAttribute('src', model.dataset.src);
+    };
+
+    const warmGlobeModel = () => {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(hydrateModel, { timeout: 900 });
+      } else {
+        window.setTimeout(hydrateModel, 180);
+      }
     };
 
     const scheduleGlobeRender = () => {
@@ -1013,6 +1025,7 @@
     figure?.addEventListener('pointerleave', resetPointerTarget, { passive: true });
     window.addEventListener('scroll', updateScrollTarget, { passive: true });
     window.addEventListener('resize', updateScrollTarget, { passive: true });
+    warmGlobeModel();
     new IntersectionObserver(([entry]) => {
       visible = Boolean(entry?.isIntersecting);
       if (visible) hydrateModel();
