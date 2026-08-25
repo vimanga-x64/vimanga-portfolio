@@ -1,0 +1,192 @@
+/* Final palette roles: brass for action, blue-teal for status, blue-grey for atmosphere. */
+:root {
+  --studio-lime: #c7a06a;
+  --studio-gold: #c7a06a;
+  --studio-cyan: #7fa7a7;
+  --accent: #a98258;
+  --accent-hover: #c09a6d;
+  --accent-glow: rgba(169, 130, 88, .24);
+  --status-positive: #78a8a5;
+}
+
+#about {
+  --studio-lime: #7fa7a7;
+  --studio-cyan: #7fa7a7;
+  --accent: #6f9696;
+}
+
+#projects {
+  --studio-lime: #c58472;
+  --studio-gold: #c58472;
+  --accent: #ad6e60;
+}
+
+#experience {
+  --studio-lime: #8399b7;
+  --studio-cyan: #8399b7;
+  --accent: #6e83a0;
+}
+
+#research {
+  --studio-lime: #a58bad;
+  --studio-gold: #a58bad;
+  --accent: #8e7497;
+}
+
+#contact {
+  --studio-lime: #78a29e;
+  --studio-cyan: #78a29e;
+  --accent: #658d89;
+}
+
+html[data-theme="light"],
+body.light-theme {
+  --studio-lime: #7a5938;
+  --studio-gold: #8b663f;
+  --studio-cyan: #527c80;
+  --light-accent: #7a5938;
+  --accent: #725238;
+  --accent-hover: #5f432e;
+  --accent-glow: rgba(114, 82, 56, .16);
+  --status-positive: #47777a;
+}
+
+html[data-theme="light"] #about,
+body.light-theme #about {
+  --studio-lime: #4f7779;
+  --studio-cyan: #4f7779;
+  --light-accent: #4f7779;
+  --accent: #4f7779;
+}
+
+html[data-theme="light"] #projects,
+body.light-theme #projects {
+  --studio-lime: #925b4f;
+  --studio-gold: #925b4f;
+  --light-accent: #925b4f;
+  --accent: #925b4f;
+}
+
+html[data-theme="light"] #experience,
+body.light-theme #experience {
+  --studio-lime: #596f8d;
+  --studio-cyan: #596f8d;
+  --light-accent: #596f8d;
+  --accent: #596f8d;
+}
+
+html[data-theme="light"] #research,
+body.light-theme #research {
+  --studio-lime: #755f7d;
+  --studio-gold: #755f7d;
+  --light-accent: #755f7d;
+  --accent: #755f7d;
+}
+
+html[data-theme="light"] #contact,
+body.light-theme #contact {
+  --studio-lime: #4e7773;
+  --studio-cyan: #4e7773;
+  --light-accent: #4e7773;
+  --accent: #4e7773;
+}
+
+.word-count-text.status-green,
+.contact-alert i,
+.contact-alert .ph-check-circle {
+  color: var(--status-positive) !important;
+}
+
+.word-count-fill.status-green {
+  background: var(--status-positive) !important;
+}
+
+.shoot-btn .box-check {
+  stroke: var(--status-positive) !important;
+}
+
+/* Keep the contact action within one teal family. Earlier layers styled the
+   resting state teal but still supplied the old lime-on-glass hover. */
+#contact .shoot-btn {
+  color: #0d1716;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--studio-lime) 84%, white 16%),
+    var(--studio-lime));
+  border-color: color-mix(in srgb, var(--studio-lime) 76%, white 24%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .28),
+    0 14px 34px rgba(28, 65, 62, .16);
+}
+
+#contact .shoot-btn .btn-arrow {
+  color: #0d1716;
+  background: color-mix(in srgb, var(--studio-lime) 82%, white 18%);
+  border-color: rgba(255, 255, 255, .52);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .36);
+}
+
+#contact .shoot-btn:hover {
+  color: #f4f1e8;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--studio-lime) 76%, #17211f 24%),
+    color-mix(in srgb, var(--studio-lime) 58%, #101715 42%));
+  border-color: color-mix(in srgb, var(--studio-lime) 68%, white 32%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .18),
+    0 18px 42px rgba(18, 52, 49, .24),
+    0 0 26px color-mix(in srgb, var(--studio-lime) 16%, transparent);
+}
+
+#contact .shoot-btn:hover .btn-arrow {
+  color: #18302d;
+  background: #f1eee5;
+  border-color: rgba(255, 255, 255, .72);
+}
+
+html[data-theme="light"] #about .scroll-reveal-text a.reveal-word,
+html[data-theme="light"] #about .scroll-reveal-text .reveal-word a,
+html[data-theme="light"] #about .inline-link:hover,
+html[data-theme="light"] #about .scroll-reveal-text a.reveal-word.highlighted,
+html[data-theme="light"] #about .scroll-reveal-text .reveal-word.highlighted a,
+html[data-theme="light"] #experience .exp-card-company,
+html[data-theme="light"] #research .stack-card-status,
+html[data-theme="light"] .site-footer .footer-link {
+  color: var(--light-accent) !important;
+}
+
+html[data-theme="light"] #experience .experience-timeline::after,
+html[data-theme="light"] #experience .exp-card-summary li::before {
+  background: var(--light-accent) !important;
+}
+
+html[data-theme="light"] #projects .project-badge.winner,
+html[data-theme="light"] #projects .project-badge.honorable {
+  color: var(--light-accent);
+  background: color-mix(in srgb, var(--light-accent) 8%, transparent);
+  border-color: color-mix(in srgb, var(--light-accent) 34%, transparent);
+}
+
+html[data-theme="light"] #contact.contact-section::after {
+  background:
+    radial-gradient(circle at 78% 35%, color-mix(in srgb, var(--studio-cyan) 9%, transparent), transparent 30%),
+    linear-gradient(180deg, rgba(250, 247, 239, .34), transparent 42%);
+}
+
+html[data-theme="light"] #contact .social-link:hover,
+html[data-theme="light"] #contact .social-link:focus-visible {
+  border-color: color-mix(in srgb, var(--light-accent) 42%, transparent);
+}
+
+html[data-theme="light"] #contact .legacy-model-glow {
+  background: color-mix(in srgb, var(--studio-cyan) 12%, transparent);
+}
+
+html[data-theme="light"] #research .stack-card-status {
+  background: color-mix(in srgb, var(--light-accent) 10%, transparent);
+}
+
+.site-footer {
+  position: relative;
+  isolation: isolate;
+  border-top: 0 !important;
+}

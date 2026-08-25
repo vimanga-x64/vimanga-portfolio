@@ -1,0 +1,85 @@
+# Dependencies
+node_modules/
+
+# Environment variables and local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+credentials*.json
+secrets.json
+secrets*.json
+
+# Private, job-specific resume variants
+# The public web resume lives in /resume and is intentionally not ignored.
+Resumes/
+
+# Generated output
+# Keep the canonical PDF because resume/index.html links to it directly.
+output/*
+!output/pdf/
+output/pdf/*
+!output/pdf/Vimanga_Umange_Resume.pdf
+
+# High-resolution local artwork sources
+# Optimized WebP versions in images/hero remain versioned for the website.
+images/hero/masters/
+
+# Python caches and local virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Package-manager logs and caches
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.yarn/cache/
+.pnpm-store/
+
+# Build-tool caches
+.cache/
+.parcel-cache/
+.turbo/
+
+# Editor and IDE state
+.vscode/
+.idea/
+.cursor/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary and backup files
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*~
+*.swp
+*.swo
+
+# OS metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
