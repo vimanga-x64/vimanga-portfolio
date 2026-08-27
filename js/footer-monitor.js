@@ -69,7 +69,7 @@
     const matchaDays = Number.isNaN(matchaStartedAt.getTime())
       ? 0
       : Math.max(0, dayIndex(now) - dayIndex(matchaStartedAt));
-    matcha.textContent = `${matchaBase + matchaDays} AND COUNTING`;
+    matcha.textContent = String(matchaBase + matchaDays);
     const windsorHour = Number(new Intl.DateTimeFormat('en-CA', {
       timeZone: 'America/Toronto',
       hour: '2-digit',
