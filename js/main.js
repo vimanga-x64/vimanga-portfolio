@@ -20,10 +20,10 @@
 
   const startedAt = performance.now();
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const introDelay = reducedMotion ? 0 : 440;
-  const minimumDisplayTime = reducedMotion ? 280 : 1450;
+  const introDelay = reducedMotion ? 0 : 100;
+  const minimumDisplayTime = reducedMotion ? 120 : 650;
   let displayedProgress = 0;
-  let pageLoaded = document.readyState === 'complete';
+  let pageLoaded = document.readyState !== 'loading';
   let isDismissed = false;
 
   const updateClock = () => {
@@ -73,12 +73,12 @@
       });
     }
 
-    window.setTimeout(() => loadingScreen.classList.add('is-complete'), reducedMotion ? 0 : 180);
-    window.setTimeout(() => loadingScreen.classList.add('hidden'), reducedMotion ? 0 : 980);
-    window.setTimeout(() => { loadingScreen.style.display = 'none'; }, reducedMotion ? 250 : 1900);
+    window.setTimeout(() => loadingScreen.classList.add('is-complete'), reducedMotion ? 0 : 40);
+    window.setTimeout(() => loadingScreen.classList.add('hidden'), reducedMotion ? 0 : 220);
+    window.setTimeout(() => { loadingScreen.style.display = 'none'; }, reducedMotion ? 140 : 680);
     // Keep the settled rule in place until the matching hero divider has
     // finished appearing beneath it; removing it earlier creates a blink.
-    window.setTimeout(() => handoffRule?.remove(), reducedMotion ? 280 : 2600);
+    window.setTimeout(() => handoffRule?.remove(), reducedMotion ? 160 : 900);
   };
 
   const renderProgress = (now) => {
@@ -88,7 +88,7 @@
     const simulatedProgress = Math.min(92, (1 - Math.exp(-activeElapsed / 520)) * 100);
     const canComplete = pageLoaded && elapsed >= minimumDisplayTime;
     const target = canComplete ? 100 : simulatedProgress;
-    displayedProgress += (target - displayedProgress) * (canComplete ? .26 : .075);
+    displayedProgress += (target - displayedProgress) * (canComplete ? .58 : .09);
 
     const roundedProgress = Math.min(100, Math.floor(displayedProgress));
     percentage.value = String(roundedProgress);
@@ -107,8 +107,8 @@
     window.requestAnimationFrame(() => loadingScreen.classList.add('is-intro'));
   });
   const clockTimer = window.setInterval(updateClock, 1000);
-  window.addEventListener('load', () => { pageLoaded = true; }, { once: true });
-  window.setTimeout(() => { pageLoaded = true; }, 2500);
+  document.addEventListener('DOMContentLoaded', () => { pageLoaded = true; }, { once: true });
+  window.setTimeout(() => { pageLoaded = true; }, 1800);
   window.requestAnimationFrame(renderProgress);
   loadingScreen.addEventListener('transitionend', () => window.clearInterval(clockTimer), { once: true });
 })();
@@ -775,30 +775,6 @@
       });
       }
 
-      // 3D Model Scroll-Scrubbed Rotation
-      const laptopModels = document.querySelectorAll('model-viewer.laptop-model');
-      laptopModels.forEach((model, i) => {
-        // The default orbit is "0deg 75deg 2.2m"
-        // Let's rotate it smoothly from -35deg to +35deg as it scrolls through the viewport
-        const dummy = { angle: -35 };
-        const modelDistance = '95%';
-        
-        gsap.to(dummy, {
-          angle: 35,
-          ease: "none",
-          scrollTrigger: {
-            trigger: model.closest('.project-card'),
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1 // 1 second smoothing for that fluid Apple feel
-          },
-          onUpdate: () => {
-            if (model.hasAttribute('camera-orbit')) {
-              model.setAttribute('camera-orbit', `${dummy.angle}deg 75deg ${modelDistance}`);
-            }
-          }
-        });
-      });
     }
 
     // Call on DOM ready or slightly after if script is deferred
@@ -2359,10 +2335,8 @@
       startSpotlight();
     })();
 
-    // Laptop 3D: spin reveal, subtle parallax, and crisp screen textures
+    // Laptop 3D: one-time turn-around reveal and crisp screen textures
     function initLaptop3D() {
-      let mouseX = 0;
-      let mouseY = 0;
       const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
       const lightweight = document.documentElement.classList.contains('studio-lightweight-3d')
         || window.matchMedia('(max-width: 820px)').matches
@@ -2370,17 +2344,9 @@
         || /(^|-)2g$/.test(connection?.effectiveType || '')
         || Boolean(navigator.deviceMemory && navigator.deviceMemory <= 2)
         || Boolean(navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
-      if (!lightweight && window.matchMedia('(pointer: fine)').matches) {
-        window.addEventListener('mousemove', (e) => {
-          mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-          mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        }, { passive: true });
-      }
-
       document.querySelectorAll('model-viewer.laptop-model').forEach(mv => {
         let currentTheta = 100;
         let currentPhi = 75;
-        let isRevealed = false;
         let revealComplete = false;
         const baseTheta = 0;
         const basePhi = 75;
@@ -2395,28 +2361,22 @@
         }
 
         const updateOrbit = () => {
-          // Phase 1: turn-around reveal to face the user.
-          // Phase 2: subtle parallax only after reveal is complete.
-          const targetTheta = isRevealed
-            ? (revealComplete ? (baseTheta - (mouseX * 15)) : baseTheta)
-            : 100;
-          const targetPhi = isRevealed
-            ? (revealComplete ? (basePhi - (mouseY * 10)) : basePhi)
-            : 75;
-
-          currentTheta += (targetTheta - currentTheta) * 0.05;
-          currentPhi += (targetPhi - currentPhi) * 0.05;
+          animFrameId = null;
+          currentTheta += (baseTheta - currentTheta) * 0.05;
+          currentPhi += (basePhi - currentPhi) * 0.05;
 
           mv.cameraOrbit = `${currentTheta}deg ${currentPhi}deg ${modelDistance}`;
 
-          if (isRevealed && !revealComplete) {
-            if (Math.abs(currentTheta - baseTheta) < 2.5 && Math.abs(currentPhi - basePhi) < 2.5) {
-              revealComplete = true;
-              if (wrap) wrap.classList.add('is-ready');
-            }
+          if (Math.abs(currentTheta - baseTheta) < 2.5 && Math.abs(currentPhi - basePhi) < 2.5) {
+            currentTheta = baseTheta;
+            currentPhi = basePhi;
+            mv.cameraOrbit = `${baseTheta}deg ${basePhi}deg ${modelDistance}`;
+            revealComplete = true;
+            if (wrap) wrap.classList.add('is-ready');
+            return;
           }
 
-          if (isModelVisible) {
+          if (isModelVisible && !revealComplete) {
             animFrameId = requestAnimationFrame(updateOrbit);
           }
         };
@@ -2427,9 +2387,10 @@
           isModelVisible = entries[0].isIntersecting;
           if (isModelVisible) {
             if (mv.dataset.src && !mv.getAttribute('src')) mv.setAttribute('src', mv.dataset.src);
-            isRevealed = true;
-            if (animFrameId) cancelAnimationFrame(animFrameId);
-            updateOrbit(); // restart the loop when it comes back into view
+            if (!revealComplete && !animFrameId) updateOrbit();
+          } else if (animFrameId) {
+            cancelAnimationFrame(animFrameId);
+            animFrameId = null;
           }
         }, { threshold: 0.05, rootMargin: '300px 0px' });
         observer.observe(mv);

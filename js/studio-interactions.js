@@ -1025,7 +1025,16 @@
     figure?.addEventListener('pointerleave', resetPointerTarget, { passive: true });
     window.addEventListener('scroll', updateScrollTarget, { passive: true });
     window.addEventListener('resize', updateScrollTarget, { passive: true });
-    warmGlobeModel();
+    if ('IntersectionObserver' in window) {
+      const preloadObserver = new IntersectionObserver(([entry]) => {
+        if (!entry?.isIntersecting) return;
+        preloadObserver.disconnect();
+        warmGlobeModel();
+      }, { threshold: 0, rootMargin: '700px 0px' });
+      preloadObserver.observe(figure || model);
+    } else {
+      warmGlobeModel();
+    }
     new IntersectionObserver(([entry]) => {
       visible = Boolean(entry?.isIntersecting);
       if (visible) hydrateModel();

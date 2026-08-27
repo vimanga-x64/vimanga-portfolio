@@ -3,6 +3,56 @@
   if (!host || host.querySelector('.signal-garden')) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const butterflyVideo = host.querySelector('.footer-butterflies');
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  let butterfliesLoaded = false;
+
+  const butterfliesAllowed = () => !reducedMotion.matches
+    && !document.documentElement.classList.contains('studio-performance-lite')
+    && !connection?.saveData
+    && !/(^|-)2g$/.test(connection?.effectiveType || '');
+
+  const loadButterflies = () => {
+    if (!butterflyVideo || butterfliesLoaded || !butterfliesAllowed()) return;
+    const source = butterflyVideo.dataset.src;
+    if (!source) return;
+    butterfliesLoaded = true;
+    butterflyVideo.muted = true;
+    butterflyVideo.src = source;
+    butterflyVideo.load();
+  };
+
+  const playButterflies = () => {
+    if (!butterflyVideo || !butterfliesAllowed() || document.hidden) return;
+    loadButterflies();
+    if (!butterfliesLoaded) return;
+    butterflyVideo.classList.add('is-visible');
+    butterflyVideo.play().catch(() => {
+      butterflyVideo.classList.remove('is-visible');
+    });
+  };
+
+  const pauseButterflies = () => {
+    if (!butterflyVideo) return;
+    butterflyVideo.classList.remove('is-visible');
+    butterflyVideo.pause();
+  };
+
+  if (butterflyVideo) {
+    butterflyVideo.addEventListener('loadeddata', () => {
+      butterflyVideo.classList.add('is-ready');
+    }, { once: true });
+
+    /* Attach the 3.4 MB source shortly before it is needed, but leave decoding
+       and playback to the tighter visibility observer below. */
+    const preloadObserver = new IntersectionObserver(([entry], observer) => {
+      if (!entry?.isIntersecting || !butterfliesAllowed()) return;
+      loadButterflies();
+      observer.disconnect();
+    }, { threshold: 0, rootMargin: '700px 0px' });
+    preloadObserver.observe(host);
+  }
+
   const garden = document.createElement('div');
   garden.className = 'signal-garden';
   garden.setAttribute('aria-hidden', 'true');
@@ -74,27 +124,34 @@
     flower.style.setProperty('--flower-x', `${specimen.x}%`);
     flower.style.setProperty('--flower-width', `${specimen.width}px`);
     flower.style.setProperty('--flower-height', `${specimen.height}px`);
-    flower.style.setProperty('--breeze-duration', `${4.8 + specimenIndex * .37}s`);
-    flower.style.setProperty('--breeze-delay', `${-specimenIndex * .54}s`);
-    flower.style.setProperty('--breeze-range', `${.45 + (specimenIndex % 3) * .2}deg`);
-
-    specimen.stalks.forEach((data) => {
+    specimen.stalks.forEach((data, stalkIndex) => {
       const stalk = document.createElement('span');
       const stem = document.createElement('span');
+      const branchA = document.createElement('span');
+      const branchB = document.createElement('span');
       const leafA = document.createElement('span');
       const leafB = document.createElement('span');
       stalk.className = 'signal-stalk';
       stem.className = 'signal-stem';
+      branchA.className = 'signal-branch is-left';
+      branchB.className = 'signal-branch is-right';
       leafA.className = 'signal-leaf';
-      leafB.className = 'signal-leaf is-right';
+      leafB.className = 'signal-leaf';
       stalk.dataset.depth = String(data.depth);
+      stalk.dataset.spring = String(.028 * (1 + ((specimenIndex + stalkIndex) % 3 - 1) * .14));
       stalk.style.setProperty('--stalk-x', `${data.x}px`);
       stalk.style.setProperty('--stalk-height', `${data.h}px`);
       stalk.style.setProperty('--stalk-rest', `${data.tilt}deg`);
       stalk.style.setProperty('--bloom-scale', data.size);
-      leafA.style.setProperty('--leaf-y', `${Math.max(10, Math.round(data.h * .34))}px`);
-      leafB.style.setProperty('--leaf-y', `${Math.max(17, Math.round(data.h * .56))}px`);
-      stalk.append(stem, leafA, leafB);
+      branchA.style.setProperty('--branch-y', `${Math.max(10, Math.round(data.h * .34))}px`);
+      branchA.style.setProperty('--branch-length', `${8 + ((specimenIndex + stalkIndex) % 3) * 1.5}px`);
+      branchA.style.setProperty('--branch-angle', `${24 + ((specimenIndex + stalkIndex) % 2) * 5}deg`);
+      branchB.style.setProperty('--branch-y', `${Math.max(17, Math.round(data.h * .56))}px`);
+      branchB.style.setProperty('--branch-length', `${9 + ((specimenIndex * 2 + stalkIndex) % 3) * 1.5}px`);
+      branchB.style.setProperty('--branch-angle', `${27 + ((specimenIndex + stalkIndex + 1) % 2) * 5}deg`);
+      branchA.append(leafA);
+      branchB.append(leafB);
+      stalk.append(stem, branchA, branchB);
       addBloom(stalk, data.kind);
       body.append(stalk);
     });
@@ -114,29 +171,18 @@
   const clamp = (value, minimum, maximum) => Math.min(maximum, Math.max(minimum, value));
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 
-  /* Keep every DOM lookup and depth conversion out of the animation loop.
-     Current values deliberately live separately from targets: the loop can
-     keep catching up between pointer events instead of asking CSS transitions
-     to interpolate each discrete event. */
+  /* Blake's flowers deform from the head down while their soil-line points
+     remain fixed. These DOM flowers mirror that feel by springing each stalk
+     around its bottom edge; the flower wrapper itself never translates. */
   const states = flowers.map((flower) => ({
     flower,
-    lean: 0,
-    shiftX: 0,
-    lift: 0,
-    presence: 0,
-    targetLean: 0,
-    targetShiftX: 0,
-    targetLift: 0,
-    targetPresence: 0,
     stalks: [...flower.querySelectorAll('.signal-stalk')].map((stalk) => ({
       stalk,
       depth: Number(stalk.dataset.depth || 1),
+      stiffness: Number(stalk.dataset.spring || .028),
       react: 0,
-      headX: 0,
-      headY: 0,
+      velocity: 0,
       targetReact: 0,
-      targetHeadX: 0,
-      targetHeadY: 0
     }))
   }));
 
@@ -158,14 +204,8 @@
 
   const clearTargets = () => {
     states.forEach((state) => {
-      state.targetLean = 0;
-      state.targetShiftX = 0;
-      state.targetLift = 0;
-      state.targetPresence = 0;
       state.stalks.forEach((stalkState) => {
         stalkState.targetReact = 0;
-        stalkState.targetHeadX = 0;
-        stalkState.targetHeadY = 0;
       });
     });
   };
@@ -176,18 +216,12 @@
       return;
     }
 
-    const radius = 270;
+    const radius = 150;
     states.forEach((state, flowerIndex) => {
       const center = bounds[flowerIndex];
       if (!center?.visible) {
-        state.targetLean = 0;
-        state.targetShiftX = 0;
-        state.targetLift = 0;
-        state.targetPresence = 0;
         state.stalks.forEach((stalkState) => {
           stalkState.targetReact = 0;
-          stalkState.targetHeadX = 0;
-          stalkState.targetHeadY = 0;
         });
         return;
       }
@@ -197,23 +231,15 @@
       const distance = Math.hypot(dx, dy);
       const linear = clamp(1 - distance / radius, 0, 1);
       const presence = linear * linear * (3 - 2 * linear);
-      const direction = clamp(dx / 110, -1, 1);
-      const lean = direction * presence * 10.5;
-
-      state.targetLean = lean;
-      state.targetShiftX = direction * presence * 3.5;
-      state.targetLift = -presence * 2.5;
-      state.targetPresence = presence;
+      /* Direction is binary while proximity controls the bend: plants yield
+         away from the pointer instead of following it or lifting upward. */
+      const direction = Math.sign(center.x - pointer.x) || 1;
       state.stalks.forEach((stalkState) => {
-        const { depth } = stalkState;
-        stalkState.targetReact = lean * depth * .42;
-        stalkState.targetHeadX = clamp(dx * presence * depth * .026, -4.5, 4.5);
-        stalkState.targetHeadY = clamp(dy * presence * depth * .014, -2.5, 2.5);
+        stalkState.targetReact = direction * presence * 5.2 * stalkState.depth;
       });
     });
   };
 
-  const lerp = (current, target, amount) => current + (target - current) * amount;
   const differs = (current, target, epsilon) => Math.abs(target - current) > epsilon;
 
   const render = (now) => {
@@ -225,41 +251,20 @@
     const delta = lastFrameTime ? clamp(now - lastFrameTime, 1, 50) : 16.667;
     lastFrameTime = now;
 
-    /* Equivalent to 0.075-per-frame tracking and 0.05-per-frame return at
-       60fps, but time-corrected so 120Hz and a temporarily busy tab feel the
-       same. The softer return gives the plants a natural trailing settle. */
-    const response = pointer ? .075 : .05;
-    const amount = 1 - Math.pow(1 - response, delta / 16.667);
+    const timeScale = delta / 16.667;
+    const damping = Math.pow(.88, timeScale);
     let moving = false;
 
     states.forEach((state) => {
-      state.lean = lerp(state.lean, state.targetLean, amount);
-      state.shiftX = lerp(state.shiftX, state.targetShiftX, amount);
-      state.lift = lerp(state.lift, state.targetLift, amount);
-      state.presence = lerp(state.presence, state.targetPresence, amount);
-
-      state.flower.style.setProperty('--flower-lean', `${state.lean.toFixed(3)}deg`);
-      state.flower.style.setProperty('--flower-shift-x', `${state.shiftX.toFixed(3)}px`);
-      state.flower.style.setProperty('--flower-lift', `${state.lift.toFixed(3)}px`);
-      state.flower.style.setProperty('--flower-presence', state.presence.toFixed(4));
-
-      moving ||= differs(state.lean, state.targetLean, .008)
-        || differs(state.shiftX, state.targetShiftX, .008)
-        || differs(state.lift, state.targetLift, .008)
-        || differs(state.presence, state.targetPresence, .0008);
-
       state.stalks.forEach((stalkState) => {
-        stalkState.react = lerp(stalkState.react, stalkState.targetReact, amount);
-        stalkState.headX = lerp(stalkState.headX, stalkState.targetHeadX, amount);
-        stalkState.headY = lerp(stalkState.headY, stalkState.targetHeadY, amount);
+        stalkState.velocity += (stalkState.targetReact - stalkState.react) * stalkState.stiffness * timeScale;
+        stalkState.velocity *= damping;
+        stalkState.react += stalkState.velocity * timeScale;
 
         stalkState.stalk.style.setProperty('--stalk-react', `${stalkState.react.toFixed(3)}deg`);
-        stalkState.stalk.style.setProperty('--head-x', `${stalkState.headX.toFixed(3)}px`);
-        stalkState.stalk.style.setProperty('--head-y', `${stalkState.headY.toFixed(3)}px`);
 
         moving ||= differs(stalkState.react, stalkState.targetReact, .008)
-          || differs(stalkState.headX, stalkState.targetHeadX, .008)
-          || differs(stalkState.headY, stalkState.targetHeadY, .008);
+          || Math.abs(stalkState.velocity) > .008;
       });
     });
 
@@ -302,9 +307,11 @@
     active = Boolean(entry?.isIntersecting);
     garden.classList.toggle('is-paused', !active);
     if (active) {
+      playButterflies();
       requestBoundsUpdate();
       schedule();
     } else {
+      pauseButterflies();
       pointer = null;
       clearTargets();
       if (frame) cancelAnimationFrame(frame);
@@ -319,32 +326,36 @@
   }, { passive: true });
   window.addEventListener('resize', requestBoundsUpdate, { passive: true });
   window.addEventListener('load', requestBoundsUpdate, { once: true });
+  document.addEventListener('visibilitychange', () => {
+    if (active && !document.hidden) playButterflies();
+    else pauseButterflies();
+  });
+  window.addEventListener('pagehide', pauseButterflies, { once: true });
+  connection?.addEventListener?.('change', () => {
+    if (active && butterfliesAllowed()) playButterflies();
+    else pauseButterflies();
+  });
 
   reducedMotion.addEventListener('change', () => {
     pointer = null;
     clearTargets();
     if (reducedMotion.matches) {
+      pauseButterflies();
+      butterflyVideo?.classList.remove('is-ready');
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
       states.forEach((state) => {
-        state.lean = 0;
-        state.shiftX = 0;
-        state.lift = 0;
-        state.presence = 0;
-        state.flower.style.removeProperty('--flower-lean');
-        state.flower.style.removeProperty('--flower-shift-x');
-        state.flower.style.removeProperty('--flower-lift');
-        state.flower.style.removeProperty('--flower-presence');
         state.stalks.forEach((stalkState) => {
           stalkState.react = 0;
-          stalkState.headX = 0;
-          stalkState.headY = 0;
+          stalkState.velocity = 0;
           stalkState.stalk.style.removeProperty('--stalk-react');
-          stalkState.stalk.style.removeProperty('--head-x');
-          stalkState.stalk.style.removeProperty('--head-y');
         });
       });
     } else {
+      if (butterflyVideo?.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        butterflyVideo.classList.add('is-ready');
+      }
+      if (active) playButterflies();
       schedule();
     }
   });

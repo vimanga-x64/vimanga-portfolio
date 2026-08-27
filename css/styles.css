@@ -3301,10 +3301,6 @@ section {
   justify-content: center;
 }
 
-.project-card:hover .project-3d-scene {
-  transform: rotateY(-8deg) rotateX(5deg);
-}
-
 .laptop-model-wrap {
   position: relative;
   width: 100%;
@@ -3674,10 +3670,14 @@ model-viewer.laptop-model::part(default-progress-bar) {
   position: relative;
   width: 240px;
   height: 490px;
-  background: #1a1a1a;
-  border-radius: 50px;
-  padding: 12px;
-  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, #343537 0%, #111214 34%, #050506 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 52px;
+  padding: 10px;
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    inset 0 0 5px rgba(255, 255, 255, 0.14);
   transform: translateZ(50px);
   transition: all 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
   flex-shrink: 0;
@@ -3735,23 +3735,40 @@ model-viewer.laptop-model::part(default-progress-bar) {
   left: 85%;
 }
 
-.mobile-notch {
+.mobile-dynamic-island {
   position: absolute;
-  top: 12px;
+  top: 18px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 20px;
-  background: #1a1a1a;
-  border-radius: 0 0 15px 15px;
+  width: 72px;
+  height: 21px;
+  background: #020203;
+  border: 1px solid rgba(255, 255, 255, 0.035);
+  border-radius: 999px;
+  box-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.06),
+    inset 0 0 2px rgba(255, 255, 255, 0.04);
   z-index: 10;
+}
+
+.mobile-dynamic-island::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  width: 6px;
+  height: 6px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #17334a 0 18%, #07121e 38%, #010204 72%);
+  box-shadow: 0 0 2px rgba(44, 111, 160, 0.45);
 }
 
 .mobile-screen {
   width: 100%;
   height: 100%;
   background: #000;
-  border-radius: 42px;
+  border-radius: 43px;
   overflow: hidden;
   position: relative;
 }

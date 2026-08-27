@@ -1,40 +1,24 @@
 /* ==========================================================================
-   Hero showcase
-   Project thumbnails sit below the name as a horizontally overlapping fan.
-   The hero itself never moves: its pane is pinned for one screen of scrolling
-   while #about rides up over the top of it.
-
-   Loaded last: this layer is authoritative over the stacked hero rules in
-   hero-redesign.css.
+   Hero presentation
+   The opening pane remains pinned for one viewport while #about covers it.
+   This file also owns the social-icon brand swap used inside the hero.
    ========================================================================== */
 
 :root {
-  /* How far #about travels over the stationary hero. */
   --hero-cover: 100svh;
 }
 
-/* styles.css sets `overflow-x: hidden` on the root and body, which makes them
-   scroll containers and silently stops the pinned pane from ever sticking to
-   the viewport. `clip` suppresses the same horizontal overflow without
-   creating a scroll container. */
+/* `clip` prevents horizontal overflow without creating the scroll container
+   that would disable the sticky hero pane. */
 html,
 body {
   overflow-x: clip;
 }
 
 #home.hero-section {
-  /* The pane plus the distance #about needs to cover it. Because #about pulls
-     itself back up by exactly --hero-cover, the hero still contributes only
-     one screen to the document, so no other section shifts. */
   height: calc(100svh + var(--hero-cover));
   min-height: 0;
-
-  /* `clip` rather than `hidden`, for the same scroll-container reason. */
   overflow: clip;
-
-  /* The legacy `.hero-section` block in styles.css parks the hero at z-index 20
-     -- a leftover from the old spotlight overlay, not deliberate layering. It
-     would paint the hero over the section meant to cover it. */
   z-index: 0;
 }
 
@@ -45,8 +29,6 @@ body {
   overflow: clip;
 }
 
-/* #about slides up over the stationary hero instead of pushing it away. Its
-   own background is fully opaque, so the hero is hidden once it is covered. */
 #about {
   position: relative;
   z-index: 1;
@@ -60,242 +42,12 @@ body {
   min-height: 0;
 }
 
-/* Any leftover 3D scaffolding stays gone even if markup is restored. */
 #home .hero-objects-layer,
 #home .hero-floor-light {
   display: none !important;
 }
 
-/* --------------------------------------------------------------------------
-   The fan
-   Cards step sideways by (1 - overlap) of their own width, so the cluster
-   stays centred and its width scales with the card size alone.
-   -------------------------------------------------------------------------- */
-
-#home .hero-showcase {
-  /* Height is capped as well as width: the fan is in normal flow now, so an
-     over-tall card would push the buttons past the bottom of the pane. */
-  --card: clamp(84px, min(13vw, 19svh), 190px);
-  --thumb-radius: clamp(11px, 1.3vw, 18px);
-
-  /* Each card must keep its own centre uncovered or the card on top of it
-     steals the tap. Anything at or above .5 buries the centre exactly. */
-  --overlap: .4;
-
-  position: relative;
-  z-index: 6;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  width: 100%;
-  margin: clamp(1.9rem, 3.6vh, 3.1rem) 0 0;
-
-  /* --arc pushes the outer cards down by transform, which flow cannot see, so
-     the dip is reserved here to keep the cards clear of the buttons. */
-  padding: 0 0 calc(var(--card) * .1);
-  list-style: none;
-
-  /* Only the cards themselves are interactive; gaps fall through. */
-  pointer-events: none;
-}
-
-#home .hero-thumb {
-  position: relative;
-  flex: 0 0 auto;
-  width: var(--card);
-  aspect-ratio: 1;
-  margin: 0;
-
-  /* --pull-* comes from the magnetic pointer in js/hero-showcase.js. */
-  transform:
-    translate3d(var(--pull-x, 0px), calc(var(--arc, 0px) + var(--pull-y, 0px)), 0)
-    rotate(var(--rot, 0deg))
-    scale(calc(1 + var(--pull, 0) * .04));
-  will-change: transform;
-}
-
-#home .hero-thumb + .hero-thumb {
-  margin-left: calc(var(--card) * var(--overlap) * -1);
-}
-
-/* Subtle tilts and a shallow arc, with the leftmost card dropped furthest.
-   Stacking runs left to right so the fan reads as a dealt hand. The arc is a
-   fraction of the card so the silhouette holds its shape at every size. */
-#home .hero-thumb:nth-child(1) { --rot: -5.5deg; --arc: calc(var(--card) * .09); z-index: 1; }
-#home .hero-thumb:nth-child(2) { --rot: -2.5deg; --arc: calc(var(--card) * .027); z-index: 2; }
-#home .hero-thumb:nth-child(3) { --rot: .5deg; --arc: 0px; z-index: 3; }
-#home .hero-thumb:nth-child(4) { --rot: 3.5deg; --arc: calc(var(--card) * .032); z-index: 4; }
-#home .hero-thumb:nth-child(5) { --rot: 6.5deg; --arc: calc(var(--card) * .085); z-index: 5; }
-
-/* A hovered card must clear the ones stacked on top of it. */
-#home .hero-thumb:hover,
-#home .hero-thumb:focus-within {
-  z-index: 10;
-}
-
-/* The lift lives on the link, not the artwork, so the caption inside scales
-   with the card instead of drifting away from it. */
-#home .hero-thumb-link {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: var(--thumb-radius);
-  pointer-events: auto;
-  text-decoration: none;
-  transition: transform .5s cubic-bezier(.16, 1, .3, 1);
-}
-
-#home .hero-thumb-art {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: 1px solid rgba(242, 239, 231, .26);
-  border-radius: inherit;
-  background: #0b0d0c;
-
-  /* The artwork is dark, so the fan would read as one mass without a lit edge
-     and a leftward cast onto the card behind. */
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .08),
-    -18px 12px 30px rgba(0, 0, 0, .62),
-    0 18px 40px rgba(0, 0, 0, .42);
-  transition: border-color .3s ease, box-shadow .4s ease;
-}
-
-/* A contact shadow under each card keeps the overlap reading as depth. */
-#home .hero-thumb-shadow {
-  position: absolute;
-  z-index: -1;
-  inset: auto 10% -7%;
-  height: 20%;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, .6);
-  filter: blur(13px);
-  opacity: .62;
-  transition: opacity .4s ease, transform .5s cubic-bezier(.16, 1, .3, 1);
-}
-
-/* Caption sits inside the card so it can never collide with the buttons
-   underneath the fan. Sized from --card so it holds up at every breakpoint. */
-#home .hero-thumb-label {
-  position: absolute;
-  inset: auto 1px 1px;
-  display: flex;
-  flex-direction: column;
-  gap: .15em;
-  padding: 1.8em .5em .62em;
-  background: linear-gradient(to top,
-    rgba(4, 6, 5, .97) 0%,
-    rgba(4, 6, 5, .94) 42%,
-    rgba(4, 6, 5, .72) 72%,
-    rgba(4, 6, 5, 0) 100%);
-  border-radius: 0 0 calc(var(--thumb-radius) - 1px) calc(var(--thumb-radius) - 1px);
-  font-size: max(9px, calc(var(--card) * .072));
-  opacity: 0;
-  text-align: center;
-  transition: opacity .26s ease;
-}
-
-#home .hero-thumb-label strong {
-  color: var(--studio-ivory, #f2efe7);
-  font-family: var(--font-body), Inter, sans-serif;
-  font-size: 1em;
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -.01em;
-}
-
-#home .hero-thumb-label > span {
-  color: rgba(242, 239, 231, .62);
-  font-family: var(--font-mono), "IBM Plex Mono", monospace;
-  font-size: .74em;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  #home .hero-thumb-link:hover {
-    transform: translate3d(0, -10px, 0) scale(1.06);
-  }
-
-  #home .hero-thumb-link:hover .hero-thumb-art {
-    border-color: rgba(220, 235, 121, .62);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, .12),
-      -18px 14px 34px rgba(0, 0, 0, .5),
-      0 30px 62px rgba(0, 0, 0, .58);
-  }
-
-  #home .hero-thumb-link:hover .hero-thumb-shadow {
-    opacity: .88;
-    transform: translate3d(0, 7px, 0) scale(1.12);
-  }
-}
-
-#home .hero-thumb-link:focus-visible {
-  outline: 2px solid var(--studio-lime, #dceb79);
-  outline-offset: 5px;
-}
-
-#home .hero-thumb-link:hover .hero-thumb-label,
-#home .hero-thumb-link:focus-visible .hero-thumb-label {
-  opacity: 1;
-}
-
-/* Captions only exist to reward a hover, so drop them where there is none. */
-@media (hover: none) {
-  #home .hero-thumb-label {
-    display: none;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Staggered entrance, gated on the loader handover like the rest of the hero
-   -------------------------------------------------------------------------- */
-
-#home:not(.hero-scene-ready) .hero-thumb-link {
-  opacity: 0;
-}
-
-/* The entrance and the hover lift both drive the link's transform, so the fill
-   mode matters: `both` or `forwards` would keep asserting the animation's end
-   state and permanently outrank the hover. `backwards` still honours the delay
-   but hands transform and opacity back once the entrance finishes. */
-#home.hero-scene-ready .hero-thumb-link {
-  animation: hero-thumb-enter .9s cubic-bezier(.16, 1, .3, 1) backwards;
-  animation-delay: calc(.24s + var(--delay, 0) * .08s);
-}
-
-#home .hero-thumb:nth-child(1) .hero-thumb-link { --delay: 0; }
-#home .hero-thumb:nth-child(2) .hero-thumb-link { --delay: 1; }
-#home .hero-thumb:nth-child(3) .hero-thumb-link { --delay: 2; }
-#home .hero-thumb:nth-child(4) .hero-thumb-link { --delay: 3; }
-#home .hero-thumb:nth-child(5) .hero-thumb-link { --delay: 4; }
-
-@keyframes hero-thumb-enter {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 1.9rem, 0) scale(.86);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Social links: real brand marks on hover
-   Each link stacks two icons in the same grid cell: a dim outline glyph at
-   rest, and a filled, brand-coloured glyph that swaps in on hover/focus.
-   GitHub and Medium have no official brand hue (their marks are monochrome),
-   so they resolve to the page ink colour instead of an invented accent.
-   -------------------------------------------------------------------------- */
-
+/* Social links stack an outline and brand mark in the same grid cell. */
 #home .hero-social-link {
   display: grid;
 }
@@ -323,7 +75,6 @@ body {
 }
 
 #home .hero-social-link--linkedin .hero-social-icon--brand {
-  /* LinkedIn's actual brand blue -- the one mark here with a real brand hue. */
   color: #0a66c2;
 }
 
@@ -339,122 +90,10 @@ body {
   transform: scale(1) rotate(0deg);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  #home .hero-social-icon {
-    transition: opacity .15s linear;
-    transform: none !important;
-  }
-}
-
 html[data-theme="light"] #home .hero-social-link--github .hero-social-icon--brand,
 html[data-theme="light"] #home .hero-social-link--medium .hero-social-icon--brand {
   color: var(--light-ink, #20221f);
 }
-
-/* --------------------------------------------------------------------------
-   Light theme
-   -------------------------------------------------------------------------- */
-
-html[data-theme="light"] #home .hero-thumb-art {
-  border-color: rgba(32, 38, 44, .16);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .06),
-    -16px 12px 26px rgba(60, 49, 33, .2),
-    0 18px 42px rgba(60, 49, 33, .24);
-}
-
-html[data-theme="light"] #home .hero-thumb-shadow {
-  background: rgba(60, 49, 33, .34);
-}
-
-/* The caption scrim sits on the artwork, which is dark in both themes, so its
-   colours are intentionally left alone here. */
-
-/* --------------------------------------------------------------------------
-   Responsive
-   The fan is in flow, so on short panes the headline and the cards compete
-   for the same vertical budget. Cards shrink first, then the headline.
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 1100px) {
-  #home .hero-showcase {
-    --card: clamp(84px, min(14vw, 18svh), 158px);
-  }
-}
-
-@media (max-width: 820px) {
-  #home .hero-showcase {
-    --card: clamp(80px, min(19vw, 16svh), 132px);
-
-    margin-top: clamp(1.4rem, 2.6vh, 2.1rem);
-  }
-}
-
-@media (max-width: 560px) {
-  #home .hero-showcase {
-    --card: clamp(62px, min(21vw, 14svh), 104px);
-  }
-
-  /* Flatten the fan so the cards still fit the width without clipping. */
-  #home .hero-thumb:nth-child(1) { --rot: -4deg; }
-  #home .hero-thumb:nth-child(2) { --rot: -2deg; }
-  #home .hero-thumb:nth-child(3) { --rot: .5deg; }
-  #home .hero-thumb:nth-child(4) { --rot: 2.5deg; }
-  #home .hero-thumb:nth-child(5) { --rot: 4.5deg; }
-}
-
-/* Small phones in landscape-ish heights: the fan now occupies real flow space,
-   so the headline and padding have to give some of it back or the social row
-   runs into the hero footer. */
-@media (max-width: 560px) and (max-height: 700px) {
-  #home .hero-content {
-    padding-top: clamp(4.5rem, 12vh, 5.75rem) !important;
-  }
-
-  #home .hero-showcase {
-    --card: clamp(56px, min(19vw, 11.5svh), 84px);
-
-    margin-top: clamp(.7rem, 1.5vh, 1.05rem);
-  }
-
-  #home .hero-name-section h1 {
-    font-size: clamp(2.5rem, 12vw, 3.3rem);
-  }
-
-  #home .hero-buttons {
-    margin-top: clamp(.85rem, 1.8vh, 1.25rem);
-  }
-
-  #home .hero-social-links {
-    margin-top: clamp(.5rem, 1.2vh, .8rem);
-  }
-}
-
-/* Short panes: reclaim vertical space from the hero's generous padding and
-   headline so the fan, buttons, and social row all stay on screen. */
-@media (max-height: 780px) and (min-width: 821px) {
-  #home .hero-content {
-    padding-top: clamp(5.25rem, 9vh, 6.75rem) !important;
-  }
-
-  #home .hero-name-section h1 {
-    font-size: clamp(3.4rem, 8.6vw, 6rem);
-  }
-
-  #home .hero-showcase {
-    --card: clamp(78px, min(11vw, 15svh), 132px);
-
-    margin-top: clamp(1rem, 2vh, 1.5rem);
-  }
-
-  #home .hero-buttons {
-    margin-top: clamp(1.1rem, 2.2vh, 1.6rem);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Reduced motion and lite-performance devices
-   -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   #home.hero-section {
@@ -470,24 +109,8 @@ html[data-theme="light"] #home .hero-thumb-shadow {
     margin-top: 0;
   }
 
-  #home:not(.hero-scene-ready) .hero-thumb-link,
-  #home.hero-scene-ready .hero-thumb-link {
-    opacity: 1;
-    animation: none;
+  #home .hero-social-icon {
+    transition: opacity .15s linear;
+    transform: none !important;
   }
-
-  #home .hero-thumb {
-    transform: rotate(var(--rot, 0deg));
-    will-change: auto;
-  }
-
-  #home .hero-thumb-art,
-  #home .hero-thumb-shadow,
-  #home .hero-thumb-label {
-    transition: none;
-  }
-}
-
-.studio-performance-lite #home .hero-thumb {
-  will-change: auto;
 }

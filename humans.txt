@@ -49,3 +49,10 @@ Formspree (Contact Form)
 Google Analytics
 Custom 3D Globe Visualization (Canvas API)
 Custom Particle System (Canvas API)
+
+_______________________________________________________________________________
+
+GRAPHIC ASSETS
+
+Butterfly loop provided by Abdulmumin Yaqeen and used with permission
+github.com/Abdulmumin1/yaqeen.me

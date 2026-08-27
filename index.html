@@ -36,6 +36,7 @@
   <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="logos/apple-touch-icon.png">
+  <link rel="preload" as="image" href="images/hero-creation-hand.webp" type="image/webp" fetchpriority="high">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,15 +45,18 @@
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
     rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  <link href="css/styles.css?v=20260826r" rel="stylesheet">
   <link href="css/studio-system.css?v=20260824f" rel="stylesheet">
   <link href="css/color-depth.css?v=20260824c" rel="stylesheet">
   <link href="css/hero-redesign.css?v=20260825c" rel="stylesheet">
-  <link href="css/nds-palette.css?v=20260824i" rel="stylesheet">
+  <link href="css/nds-palette.css?v=20260827k" rel="stylesheet">
   <link href="css/theme-switch.css?v=20260824a" rel="stylesheet">
-  <link href="css/signal-garden.css?v=20260824h" rel="stylesheet">
+  <link href="css/signal-garden.css?v=20260827q" rel="stylesheet">
+  <link href="css/tech-keyboard-spline.css?v=20260826k" rel="stylesheet">
   <link href="css/palette-refinement.css?v=20260824c" rel="stylesheet">
-  <link href="css/hero-showcase.css?v=20260824k" rel="stylesheet">
+  <link href="css/hero-showcase.css?v=20260826m" rel="stylesheet">
+  <link href="css/hero-name-artifacts.css?v=20260826g" rel="stylesheet">
+  <link href="css/hero-creation.css?v=20260827n" rel="stylesheet">
   <script>
     if (/^#project-(nasa|movie-search|free-games)$/.test(window.location.hash)) {
       document.documentElement.dataset.skipLoader = 'true';
@@ -60,7 +64,7 @@
     }
   </script>
   <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="js/model-viewer-loader.js?v=20260826b" defer></script>
 
   <!-- Google Analytics: loaded after the critical rendering path. -->
   <script>
@@ -201,64 +205,22 @@
     <section id="home" class="hero-section" aria-label="Hero section">
       <div class="hero-viewport">
         <div class="hero-content">
+          <div class="hero-creation" aria-hidden="true">
+            <img class="hero-creation-hand" src="images/hero-creation-hand.webp" width="1279" height="720"
+              alt="" decoding="async" fetchpriority="high">
+            <img class="hero-creation-cursor" src="images/pixel-hand-cursor.svg?v=20260827a" width="550" height="400" alt=""
+              decoding="async" fetchpriority="high">
+          </div>
           <div class="hero-editorial-grid">
             <div class="hero-name-section">
               <h1 id="hero-title" aria-label="Vimanga Umange">
-                <span class="hero-headline-line">VIMANGA</span>
-                <span class="hero-headline-line hero-headline-accent">UMANGE.</span>
+                <span class="hero-headline-line hero-headline-primary" aria-hidden="true">
+                  <span class="hero-name-letter has-v-echo"><span class="hero-name-letterform">V</span><span class="hero-name-art art-v-echo"><i></i><i></i></span></span><span class="hero-name-letter"><span class="hero-name-letterform">I</span></span><span class="hero-name-letter has-m-rhythm"><span class="hero-name-letterform">M</span><span class="hero-name-art art-m-rhythm"><i></i><i></i><i></i></span></span><span class="hero-name-letter has-a-apex"><span class="hero-name-letterform">A</span><span class="hero-name-art art-a-apex"></span></span><span class="hero-name-letter"><span class="hero-name-letterform">N</span></span><span class="hero-name-letter"><span class="hero-name-letterform">G</span></span><span class="hero-name-letter"><span class="hero-name-letterform">A</span></span>
+                </span>
+                <span class="hero-headline-line hero-headline-accent" aria-hidden="true">
+                  <span class="hero-name-letter has-u-curve"><span class="hero-name-letterform">U</span><span class="hero-name-art art-u-curve"><i></i></span></span><span class="hero-name-letter"><span class="hero-name-letterform">M</span></span><span class="hero-name-letter"><span class="hero-name-letterform">A</span></span><span class="hero-name-letter"><span class="hero-name-letterform">N</span></span><span class="hero-name-letter"><span class="hero-name-letterform">G</span></span><span class="hero-name-letter"><span class="hero-name-letterform">E</span></span><span class="hero-name-letter hero-name-period"><span class="hero-name-letterform">.</span></span>
+                </span>
               </h1>
-              <ul class="hero-showcase" aria-label="Featured projects">
-                <li class="hero-thumb">
-                  <a class="hero-thumb-link" href="fittrack.html" aria-label="FitTrack, AI wellness assistant - view case study">
-                    <span class="hero-thumb-shadow" aria-hidden="true"></span>
-                    <img class="hero-thumb-art" src="images/hero/thumb-fittrack-400.webp"
-                      srcset="images/hero/thumb-fittrack-400.webp 400w, images/hero/thumb-fittrack-800.webp 800w"
-                      sizes="(max-width: 560px) 96px, (max-width: 820px) 124px, (max-width: 1100px) 152px, 190px"
-                      width="400" height="400" alt="" draggable="false" decoding="async">
-                    <span class="hero-thumb-label"><strong>FitTrack</strong><span>AI Wellness Assistant</span></span>
-                  </a>
-                </li>
-                <li class="hero-thumb">
-                  <a class="hero-thumb-link" href="weatherwise.html" aria-label="NASA Weather activity recommender - view case study">
-                    <span class="hero-thumb-shadow" aria-hidden="true"></span>
-                    <img class="hero-thumb-art" src="images/hero/thumb-nasa-400.webp"
-                      srcset="images/hero/thumb-nasa-400.webp 400w, images/hero/thumb-nasa-800.webp 800w"
-                      sizes="(max-width: 560px) 96px, (max-width: 820px) 124px, (max-width: 1100px) 152px, 190px"
-                      width="400" height="400" alt="" draggable="false" decoding="async">
-                    <span class="hero-thumb-label"><strong>NASA Weather</strong><span>Activity Recommender</span></span>
-                  </a>
-                </li>
-                <li class="hero-thumb">
-                  <a class="hero-thumb-link" href="#project-dhammapada" aria-label="Dhammapada scripture app - jump to project">
-                    <span class="hero-thumb-shadow" aria-hidden="true"></span>
-                    <img class="hero-thumb-art" src="images/hero/thumb-dhammapada-400.webp"
-                      srcset="images/hero/thumb-dhammapada-400.webp 400w, images/hero/thumb-dhammapada-800.webp 800w"
-                      sizes="(max-width: 560px) 96px, (max-width: 820px) 124px, (max-width: 1100px) 152px, 190px"
-                      width="400" height="400" alt="" draggable="false" decoding="async">
-                    <span class="hero-thumb-label"><strong>Dhammapada</strong><span>Scripture App</span></span>
-                  </a>
-                </li>
-                <li class="hero-thumb">
-                  <a class="hero-thumb-link" href="#project-etutor" aria-label="E-Tutor adaptive learning app - jump to project">
-                    <span class="hero-thumb-shadow" aria-hidden="true"></span>
-                    <img class="hero-thumb-art" src="images/hero/thumb-etutor-400.webp"
-                      srcset="images/hero/thumb-etutor-400.webp 400w, images/hero/thumb-etutor-800.webp 800w"
-                      sizes="(max-width: 560px) 96px, (max-width: 820px) 124px, (max-width: 1100px) 152px, 190px"
-                      width="400" height="400" alt="" draggable="false" decoding="async">
-                    <span class="hero-thumb-label"><strong>E-Tutor</strong><span>Adaptive Learning</span></span>
-                  </a>
-                </li>
-                <li class="hero-thumb">
-                  <a class="hero-thumb-link" href="#project-movie-search" aria-label="AI Movie Search, semantic search app - jump to project">
-                    <span class="hero-thumb-shadow" aria-hidden="true"></span>
-                    <img class="hero-thumb-art" src="images/hero/thumb-movie-search-400.webp"
-                      srcset="images/hero/thumb-movie-search-400.webp 400w, images/hero/thumb-movie-search-800.webp 800w"
-                      sizes="(max-width: 560px) 96px, (max-width: 820px) 124px, (max-width: 1100px) 152px, 190px"
-                      width="400" height="400" alt="" draggable="false" decoding="async">
-                    <span class="hero-thumb-label"><strong>AI Movie Search</strong><span>Semantic Search</span></span>
-                  </a>
-                </li>
-              </ul>
 
               <div class="hero-buttons">
                 <a href="#contact" class="btn btn-primary btn-flow-text">
@@ -373,106 +335,26 @@
               </div>
             </div>
 
-            <div class="info-card" style="margin-top: 2rem;">
-              <h4><i class="ph ph-stack"></i> Tech Stack</h4>
+            <div class="tech-keyboard-card">
+              <div class="tech-keyboard-card-heading">
+                <h4><i class="ph ph-keyboard"></i> Tech Stack</h4>
+                <p class="tech-keyboard-hint">(hint: press a key)</p>
+              </div>
 
-              <!-- Orbiting Tech Icons -->
-              <div class="orbit-container">
-                <!-- Orbit rings -->
-                <div class="orbit-ring orbit-ring-1"></div>
-                <div class="orbit-ring orbit-ring-2"></div>
-
-                <!-- Center icon -->
-                <div class="orbit-center">
-                  <i class="ph-bold ph-code"></i>
+              <div class="tech-keyboard-stage" id="tech-keyboard-stage">
+                <canvas id="tech-keyboard-canvas" aria-label="Interactive three-dimensional keyboard showing development technologies"></canvas>
+                <div class="tech-keyboard-loader" id="tech-keyboard-loader" role="status">Loading keyboard…</div>
+                <div class="tech-keyboard-fallback" id="tech-keyboard-fallback" hidden>
+                  <p>The interactive keyboard could not load.</p>
                 </div>
 
-                <!-- Inner orbit - Main technologies -->
-                <div class="orbit-item" style="--orbit-radius: 80px; --orbit-duration: 20s; animation-delay: 0s;">
-                  <div class="orbit-icon" data-tech="python">
-                    <img src="logos/python.svg" alt="Python" loading="lazy">
-                    <span class="orbit-icon-text">Python</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 80px; --orbit-duration: 20s; animation-delay: -5s;">
-                  <div class="orbit-icon" data-tech="javascript">
-                    <img src="logos/javascript.svg" alt="JavaScript" loading="lazy">
-                    <span class="orbit-icon-text">JavaScript</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 80px; --orbit-duration: 20s; animation-delay: -10s;">
-                  <div class="orbit-icon" data-tech="sql">
-                    <img src="logos/sql.svg" alt="SQL" loading="lazy">
-                    <span class="orbit-icon-text">SQL</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 80px; --orbit-duration: 20s; animation-delay: -15s;">
-                  <div class="orbit-icon" data-tech="java">
-                    <img src="logos/java.svg" alt="Java" loading="lazy">
-                    <span class="orbit-icon-text">Java</span>
-                  </div>
-                </div>
-
-                <!-- Outer orbit - Frameworks & Tools (8 items evenly distributed) -->
-                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: 0s;">
-                  <div class="orbit-icon" data-tech="react">
-                    <img src="logos/react_light.svg" alt="React" loading="lazy">
-                    <span class="orbit-icon-text">React</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -3.75s;">
-                  <div class="orbit-icon" data-tech="nodejs">
-                    <img src="logos/nodejs.svg" alt="Node.js" loading="lazy">
-                    <span class="orbit-icon-text">Node.js</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -7.5s;">
-                  <div class="orbit-icon" data-tech="pytorch">
-                    <img src="logos/pytorch.svg" alt="PyTorch" loading="lazy">
-                    <span class="orbit-icon-text">PyTorch</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -11.25s;">
-                  <div class="orbit-icon" data-tech="docker">
-                    <img src="logos/docker.svg" alt="Docker" loading="lazy">
-                    <span class="orbit-icon-text">Docker</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -15s;">
-                  <div class="orbit-icon" data-tech="gcp">
-                    <img src="logos/google-cloud.svg" alt="Google Cloud" loading="lazy">
-                    <span class="orbit-icon-text">GCP</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -18.75s;">
-                  <div class="orbit-icon" data-tech="git">
-                    <img src="logos/git.svg" alt="Git" loading="lazy">
-                    <span class="orbit-icon-text">Git</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -22.5s;">
-                  <div class="orbit-icon" data-tech="mongodb">
-                    <img src="logos/mongodb.svg" alt="MongoDB" loading="lazy">
-                    <span class="orbit-icon-text">MongoDB</span>
-                  </div>
-                </div>
-
-                <div class="orbit-item" style="--orbit-radius: 120px; --orbit-duration: 30s; animation-delay: -26.25s;">
-                  <div class="orbit-icon" data-tech="dart">
-                    <img src="logos/dart.svg" alt="Dart" loading="lazy">
-                    <span class="orbit-icon-text">Dart</span>
-                  </div>
+                <div class="tech-keyboard-readout" aria-live="polite">
+                  <span class="tech-keyboard-key" id="tech-keyboard-key">READY</span>
+                  <strong id="tech-keyboard-label">Choose a key</strong>
+                  <p id="tech-keyboard-description">Hover or press a keycap to explore my toolkit.</p>
                 </div>
               </div>
+
             </div>
 
             <figure class="education-globe" aria-label="Interactive Earth showing Windsor and Wichita">
@@ -499,6 +381,7 @@
             </figure>
           </div>
         </div>
+
       </div>
     </section>
 
@@ -725,13 +608,13 @@
                   <div class="mobile-3d-scene">
                     <div class="mobile-bg-layer"></div>
                     <div class="mobile-device">
-                      <div class="mobile-notch"></div>
+                      <div class="mobile-dynamic-island" aria-hidden="true"></div>
                       <div class="mobile-screen">
                         <img src="images/etutor-screenshot.png" alt="E-Tutor App Main Screen" loading="lazy" decoding="async">
                       </div>
                     </div>
                     <div class="mobile-device">
-                      <div class="mobile-notch"></div>
+                      <div class="mobile-dynamic-island" aria-hidden="true"></div>
                       <div class="mobile-screen">
                         <img src="images/e-tutor_lockscreen.png" alt="E-Tutor App Login Screen" loading="lazy" decoding="async">
                       </div>
@@ -770,13 +653,13 @@
                   <div class="mobile-3d-scene">
                     <div class="mobile-bg-layer"></div>
                     <div class="mobile-device">
-                      <div class="mobile-notch"></div>
+                      <div class="mobile-dynamic-island" aria-hidden="true"></div>
                       <div class="mobile-screen">
                         <img src="images/Dhammapada_Lockscreen.png" alt="Dhammapada App Lock Screen" loading="lazy" decoding="async">
                       </div>
                     </div>
                     <div class="mobile-device">
-                      <div class="mobile-notch"></div>
+                      <div class="mobile-dynamic-island" aria-hidden="true"></div>
                       <div class="mobile-screen">
                         <img src="images/Dhammapada_Homescreen.png" alt="Dhammapada App Home Screen" loading="lazy" decoding="async">
                       </div>
@@ -1178,17 +1061,37 @@
 
   <!-- Footer -->
   <footer class="site-footer">
+    <video class="footer-butterflies" data-src="videos/butterflies-loop.webm" muted loop playsinline
+      preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture></video>
     <div class="footer-content">
+      <div class="footer-monitor" role="group" aria-label="Portfolio system status"
+        data-last-updated="2026-08-25T12:32:32-04:00"
+        data-matcha-base="847" data-matcha-start="2026-08-27T00:00:00-04:00">
+        <div class="footer-monitor-heading">
+          <span>SYSTEM / PORTFOLIO</span>
+        </div>
+        <dl class="footer-monitor-readout">
+          <div><dt>STATUS</dt><dd>ONLINE</dd></div>
+          <div><dt>UPTIME</dt><dd data-monitor-uptime>000D 00:00:00</dd></div>
+          <div><dt>LOCAL TIME</dt><dd data-monitor-time>--:--:-- EDT</dd></div>
+          <div><dt>MODE</dt><dd data-monitor-state>CHECKING</dd></div>
+          <div><dt>UPDATED</dt><dd data-monitor-deploy>CHECKING</dd></div>
+          <div class="footer-monitor-matcha"><dt>MATCHA</dt><dd data-monitor-matcha>847 AND COUNTING</dd></div>
+        </dl>
+      </div>
       <p>© 2026 Vimanga Umange. <a href="humans.txt" class="footer-link">Crafted by yours truly</a>.</p>
     </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
-  <script src="js/main.js?v=20260824q" defer></script>
-  <script src="js/studio-interactions.js?v=20260825a" defer></script>
-  <script src="js/hero-showcase.js?v=20260824j" defer></script>
-  <script src="js/signal-garden.js?v=20260824h" defer></script>
+  <script src="js/main.js?v=20260827t" defer></script>
+  <script src="js/studio-interactions.js?v=20260826b" defer></script>
+  <script src="js/hero-name-artifacts.js?v=20260826d" defer></script>
+  <script src="js/hero-creation.js?v=20260827b" defer></script>
+  <script src="js/signal-garden.js?v=20260826g" defer></script>
+  <script src="js/footer-monitor.js?v=20260827c" defer></script>
+    <script type="module" src="js/tech-keyboard-spline.js?v=20260826am"></script>
 </body>
 
 </html>

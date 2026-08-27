@@ -1,0 +1,122 @@
+/* A digital Creation gesture behind the wordmark. The hand and cursor begin
+   at one contact point, then separate using compositor-only scroll transforms. */
+
+#home .hero-creation {
+  --creation-presence: 1;
+  --hand-x: 0px;
+  --hand-y: 0px;
+  --hand-rotate: 0deg;
+  --cursor-x: 0px;
+  --cursor-y: 0px;
+  --cursor-rotate: 0deg;
+  --creation-contact-x: clamp(170px, 13vw, 220px);
+  --creation-contact-y: clamp(305px, 44vh, 410px);
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: clip;
+  opacity: 0;
+  pointer-events: none;
+  contain: layout paint style;
+  transition: opacity .5s ease;
+}
+
+#home .hero-creation.is-ready {
+  opacity: var(--creation-presence);
+}
+
+#home .hero-editorial-grid,
+#home .hero-footer {
+  position: relative;
+  z-index: 2;
+}
+
+#home .hero-creation-hand {
+  position: absolute;
+  top: var(--creation-contact-y);
+  left: var(--creation-contact-x);
+  display: block;
+  width: clamp(1050px, 96vw, 1500px);
+  max-width: none;
+  height: auto;
+  opacity: .15;
+  filter: grayscale(1) contrast(1.12);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 76%, rgba(0, 0, 0, .76) 88%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 76%, rgba(0, 0, 0, .76) 88%, transparent 100%);
+  transform:
+    translate3d(calc(-23.06% + var(--hand-x)), calc(-54.56% + var(--hand-y)), 0)
+    rotate(var(--hand-rotate));
+  transform-origin: 23.06% 54.56%;
+  will-change: transform;
+}
+
+#home .hero-creation-cursor {
+  position: absolute;
+  top: var(--creation-contact-y);
+  left: var(--creation-contact-x);
+  width: clamp(170px, 14vw, 220px);
+  height: auto;
+  opacity: .86;
+  filter: grayscale(1) contrast(1.12) drop-shadow(-7px 8px 0 rgba(0, 0, 0, .32));
+  transform:
+    translate3d(calc(-50% + 5px + var(--cursor-x)), calc(-8% + 14px + var(--cursor-y)), 0)
+    rotate(calc(98deg + var(--cursor-rotate)));
+  transform-origin: 50% 8%;
+  will-change: transform;
+}
+
+html[data-theme="light"] #home .hero-creation-hand {
+  opacity: .11;
+  filter: grayscale(1) invert(1) contrast(1.18);
+}
+
+html[data-theme="light"] #home .hero-creation-cursor {
+  opacity: .58;
+  filter: grayscale(1) contrast(1.12) drop-shadow(-4px 5px 0 rgba(255, 255, 255, .46));
+}
+
+@media (max-width: 560px) {
+  #home .hero-creation {
+    --creation-contact-x: 62%;
+    --creation-contact-y: 50%;
+  }
+
+  #home .hero-creation-hand {
+    width: 680px;
+    opacity: .15;
+  }
+
+  #home .hero-creation-cursor {
+    width: 132px;
+    opacity: .76;
+  }
+
+  html[data-theme="light"] #home .hero-creation-hand {
+    opacity: .1;
+  }
+
+  html[data-theme="light"] #home .hero-creation-cursor {
+    opacity: .17;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #home .hero-creation {
+    --creation-presence: 1 !important;
+    --hand-x: 0px !important;
+    --hand-y: 0px !important;
+    --hand-rotate: 0deg !important;
+    --cursor-x: 0px !important;
+    --cursor-y: 0px !important;
+    --cursor-rotate: 0deg !important;
+  }
+
+  #home .hero-creation-hand,
+  #home .hero-creation-cursor {
+    will-change: auto;
+  }
+}
+
+.studio-performance-lite #home .hero-creation {
+  display: none;
+}

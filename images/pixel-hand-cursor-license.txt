@@ -1,0 +1,4 @@
+Pointing hand cursor vector by Manuel Campagnoli.
+Source: https://commons.wikimedia.org/wiki/File:Pointing_hand_cursor_vector.svg
+License: Creative Commons Zero (CC0 1.0 Universal).
+The original asset is used as an image and rotated in CSS for the composition.
