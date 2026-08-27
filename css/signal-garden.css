@@ -186,7 +186,7 @@ html[data-theme="light"] .site-footer .footer-monitor-matcha {
      on the top/sides so blooms can still sway freely, but cut it exactly at
      the soil line. */
   clip-path: inset(-1.5rem -2rem 0 -2rem);
-  contain: layout paint style;
+  contain: layout style;
   animation: signal-garden-enter 900ms cubic-bezier(.2, .75, .25, 1) 650ms forwards;
 }
 
