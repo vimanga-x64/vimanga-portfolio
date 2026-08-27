@@ -45,10 +45,10 @@
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
     rel="stylesheet">
-  <link href="css/styles.css?v=20260826r" rel="stylesheet">
+  <link href="css/styles.css?v=20260827x" rel="stylesheet">
   <link href="css/studio-system.css?v=20260824f" rel="stylesheet">
-  <link href="css/color-depth.css?v=20260824c" rel="stylesheet">
-  <link href="css/hero-redesign.css?v=20260825c" rel="stylesheet">
+  <link href="css/color-depth.css?v=20260827d" rel="stylesheet">
+  <link href="css/hero-redesign.css?v=20260827e" rel="stylesheet">
   <link href="css/nds-palette.css?v=20260827k" rel="stylesheet">
   <link href="css/theme-switch.css?v=20260824a" rel="stylesheet">
   <link href="css/signal-garden.css?v=20260827v" rel="stylesheet">
@@ -56,7 +56,7 @@
   <link href="css/palette-refinement.css?v=20260824c" rel="stylesheet">
   <link href="css/hero-showcase.css?v=20260826m" rel="stylesheet">
   <link href="css/hero-name-artifacts.css?v=20260826g" rel="stylesheet">
-  <link href="css/hero-creation.css?v=20260827n" rel="stylesheet">
+  <link href="css/hero-creation.css?v=20260827p" rel="stylesheet">
   <script>
     if (/^#project-(nasa|movie-search|free-games)$/.test(window.location.hash)) {
       document.documentElement.dataset.skipLoader = 'true';
@@ -64,7 +64,7 @@
     }
   </script>
   <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
-  <script src="js/model-viewer-loader.js?v=20260826b" defer></script>
+  <script src="js/model-viewer-loader.js?v=20260827c" defer></script>
 
   <!-- Google Analytics: loaded after the critical rendering path. -->
   <script>
@@ -276,7 +276,7 @@
               I've worked as an <a href="#experience" class="inline-link">IT Specialist in the aerospace industry</a>
               and currently serve as a <a href="#experience" class="inline-link">Graduate Assistant</a> at the
               <a href="https://www.uwindsor.ca/" target="_blank" rel="noopener noreferrer" class="inline-link">University of Windsor</a>,
-              where I'm pursuing my Master's in Computer Science with a specialization in Artifical Intelligence. I'm
+              where I'm pursuing my Master's in Computer Science with a specialization in Artificial Intelligence. I'm
               comfortable with the whole pipeline:
               from PyTorch experiments to production infrastructure.
             </p>
@@ -403,15 +403,20 @@
                     <div class="laptop-model-wrap">
                       <model-viewer class="laptop-model" data-src="laptop-model/source/macbook_pro_14_inch_M5.glb"
                         alt="Laptop model" data-thumbnail="images/LandingPage-winhacks.jpg"
+                        data-demo-src="videos/fittrack-demo-loop-hq.mp4?v=20260827d"
                         camera-orbit="0deg 75deg 95%" camera-target="0m 0.06m 0m" field-of-view="24deg" exposure="0.85"
                         shadow-intensity="0.8" shadow-softness="0.6" disable-zoom interaction-prompt="none"
                         loading="lazy">
                       </model-viewer>
-                      <div class="laptop-preview-hotspot" aria-hidden="true"></div>
+                      <button class="laptop-preview-hotspot" type="button"
+                        aria-label="Enlarge the FitTrack demo"></button>
                       <div class="laptop-hover-hint" aria-hidden="true">
                         <i class="ph ph-hand-pointing"></i> Hover screen for clearer view
                       </div>
-                      <img class="laptop-hover-preview" alt="" aria-hidden="true">
+                      <video class="laptop-hover-preview laptop-hover-preview-video" muted loop playsinline
+                        preload="metadata" aria-hidden="true">
+                        <source src="videos/fittrack-demo-loop-hq.mp4?v=20260827d" type="video/mp4">
+                      </video>
                     </div>
                     <div class="project-spotlight"></div>
                   </div>
@@ -1066,11 +1071,12 @@
     <div class="footer-content">
       <div class="footer-monitor" role="group" aria-label="Portfolio system status"
         data-last-updated="2026-08-25T12:32:32-04:00"
+        data-launched="2025-05-15T22:24:14-04:00"
         data-matcha-base="155" data-matcha-start="2026-08-27T00:00:00-04:00">
         <p class="footer-monitor-location">© 2026 Vimanga Umange · <a href="humans.txt" class="footer-link">Made in Windsor, Canada</a></p>
         <p class="footer-monitor-system">
           <span>Online</span>
-          <span class="footer-monitor-secondary">Up <span data-monitor-uptime>000D 00:00:00</span></span>
+          <span class="footer-monitor-secondary">Live for <span data-monitor-age>000D 00:00:00</span></span>
           <span data-monitor-time>--:--:-- EDT</span>
           <span data-monitor-state>Checking</span>
           <span class="footer-monitor-secondary">Updated <span data-monitor-deploy>checking</span></span>
@@ -1082,12 +1088,12 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
-  <script src="js/main.js?v=20260827t" defer></script>
-  <script src="js/studio-interactions.js?v=20260826b" defer></script>
+  <script src="js/main.js?v=20260827ac" defer></script>
+  <script src="js/studio-interactions.js?v=20260827c" defer></script>
   <script src="js/hero-name-artifacts.js?v=20260826d" defer></script>
   <script src="js/hero-creation.js?v=20260827b" defer></script>
   <script src="js/signal-garden.js?v=20260826g" defer></script>
-  <script src="js/footer-monitor.js?v=20260827d" defer></script>
+  <script src="js/footer-monitor.js?v=20260827e" defer></script>
     <script type="module" src="js/tech-keyboard-spline.js?v=20260826am"></script>
 </body>
 

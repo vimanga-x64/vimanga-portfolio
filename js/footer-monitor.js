@@ -2,14 +2,14 @@
   'use strict';
 
   const monitor = document.querySelector('.footer-monitor');
-  const uptime = monitor?.querySelector('[data-monitor-uptime]');
+  const portfolioAge = monitor?.querySelector('[data-monitor-age]');
   const localTime = monitor?.querySelector('[data-monitor-time]');
   const state = monitor?.querySelector('[data-monitor-state]');
   const deploy = monitor?.querySelector('[data-monitor-deploy]');
   const matcha = monitor?.querySelector('[data-monitor-matcha]');
-  if (!monitor || !uptime || !localTime || !state || !deploy || !matcha) return;
+  if (!monitor || !portfolioAge || !localTime || !state || !deploy || !matcha) return;
 
-  const sessionStarted = Date.now();
+  const launchedAt = new Date(monitor.dataset.launched);
   const pad = (value) => String(value).padStart(2, '0');
   const clock = new Intl.DateTimeFormat('en-CA', {
     timeZone: 'America/Toronto',
@@ -58,12 +58,14 @@
   };
 
   const render = () => {
-    const totalSeconds = Math.floor((Date.now() - sessionStarted) / 1000);
+    const totalSeconds = Number.isNaN(launchedAt.getTime())
+      ? 0
+      : Math.max(0, Math.floor((Date.now() - launchedAt.getTime()) / 1000));
     const days = Math.floor(totalSeconds / 86400);
     const hours = Math.floor(totalSeconds / 3600) % 24;
     const minutes = Math.floor(totalSeconds / 60) % 60;
     const seconds = totalSeconds % 60;
-    uptime.textContent = `${String(days).padStart(3, '0')}D ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    portfolioAge.textContent = `${String(days).padStart(3, '0')}D ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
     const now = new Date();
     localTime.textContent = clock.format(now).replace(',', '');
     const matchaDays = Number.isNaN(matchaStartedAt.getTime())

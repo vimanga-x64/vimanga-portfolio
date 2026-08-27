@@ -54,7 +54,7 @@
   position: absolute;
   top: var(--creation-contact-y);
   left: var(--creation-contact-x);
-  width: clamp(170px, 14vw, 220px);
+  width: clamp(210px, 18vw, 290px);
   height: auto;
   opacity: .86;
   filter: grayscale(1) contrast(1.12) drop-shadow(-7px 8px 0 rgba(0, 0, 0, .32));
@@ -87,7 +87,7 @@ html[data-theme="light"] #home .hero-creation-cursor {
   }
 
   #home .hero-creation-cursor {
-    width: 132px;
+    width: 144px;
     opacity: .76;
   }
 

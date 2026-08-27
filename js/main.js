@@ -755,24 +755,6 @@
         );
       });
       
-      // Timeline items animation
-      const timelineItems = document.querySelectorAll('.exp-timeline-item');
-      timelineItems.forEach((item, i) => {
-        gsap.fromTo(item,
-          { x: -50, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.6,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
       }
 
     }
@@ -2352,10 +2334,71 @@
         const basePhi = 75;
         const modelDistance = '95%';
         const wrap = mv.closest('.laptop-model-wrap');
+        const demoSrc = mv.dataset.demoSrc;
+        const preview = wrap?.querySelector('.laptop-hover-preview');
+        const previewVideo = wrap?.querySelector('.laptop-hover-preview-video');
+        const previewHotspot = wrap?.querySelector('.laptop-preview-hotspot');
+        let screenMaterial = null;
+        let demoTexture = null;
+        let demoVideo = null;
+
+        const pauseDemo = (reset = false) => {
+          if (!demoVideo) return;
+          demoVideo.pause();
+          if (reset) demoVideo.currentTime = 0;
+        };
+
+        const playDemo = async () => {
+          if (!demoSrc || !screenMaterial || !revealComplete || !isModelVisible || document.hidden) return;
+          if (!demoTexture) {
+            if (typeof mv.createVideoTexture !== 'function') return;
+            demoTexture = mv.createVideoTexture(demoSrc);
+            demoVideo = demoTexture?.source?.element || null;
+            if (!demoVideo) return;
+            const videoThreeTexture = demoTexture.source?.texture;
+            if (videoThreeTexture) {
+              videoThreeTexture.generateMipmaps = false;
+              videoThreeTexture.minFilter = 1006; // THREE.LinearFilter
+              videoThreeTexture.magFilter = 1006;
+              videoThreeTexture.anisotropy = 16;
+              videoThreeTexture.needsUpdate = true;
+            }
+            demoVideo.muted = true;
+            demoVideo.loop = true;
+            demoVideo.playsInline = true;
+            demoVideo.setAttribute('playsinline', '');
+            screenMaterial.emissiveTexture?.setTexture(demoTexture);
+          }
+          try {
+            await demoVideo.play();
+          } catch (_) { }
+        };
+
+        const showExpandedPreview = () => {
+          if (!previewVideo || !revealComplete) return;
+          previewVideo.currentTime = demoVideo?.currentTime || previewVideo.currentTime || 0;
+          previewVideo.play().catch(() => { });
+        };
+
+        const hideExpandedPreview = () => {
+          previewVideo?.pause();
+          wrap?.classList.remove('is-previewing');
+        };
+
+        if (previewHotspot && previewVideo) {
+          previewHotspot.addEventListener('pointerenter', showExpandedPreview);
+          previewHotspot.addEventListener('pointerleave', hideExpandedPreview);
+          previewHotspot.addEventListener('focus', showExpandedPreview);
+          previewHotspot.addEventListener('blur', hideExpandedPreview);
+          previewHotspot.addEventListener('click', () => {
+            const isOpen = wrap?.classList.toggle('is-previewing');
+            if (isOpen) showExpandedPreview();
+            else hideExpandedPreview();
+          });
+        }
 
         if (lightweight) {
-          const previewImg = wrap?.querySelector('.laptop-hover-preview');
-          if (previewImg && mv.dataset.thumbnail) previewImg.src = mv.dataset.thumbnail;
+          if (preview instanceof HTMLImageElement && mv.dataset.thumbnail) preview.src = mv.dataset.thumbnail;
           wrap?.classList.add('is-static-preview');
           return;
         }
@@ -2373,6 +2416,7 @@
             mv.cameraOrbit = `${baseTheta}deg ${basePhi}deg ${modelDistance}`;
             revealComplete = true;
             if (wrap) wrap.classList.add('is-ready');
+            playDemo();
             return;
           }
 
@@ -2388,12 +2432,23 @@
           if (isModelVisible) {
             if (mv.dataset.src && !mv.getAttribute('src')) mv.setAttribute('src', mv.dataset.src);
             if (!revealComplete && !animFrameId) updateOrbit();
-          } else if (animFrameId) {
-            cancelAnimationFrame(animFrameId);
-            animFrameId = null;
+            if (revealComplete) playDemo();
+          } else {
+            if (animFrameId) {
+              cancelAnimationFrame(animFrameId);
+              animFrameId = null;
+            }
+            pauseDemo(true);
           }
         }, { threshold: 0.05, rootMargin: '300px 0px' });
         observer.observe(mv);
+
+        if (demoSrc) {
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) pauseDemo();
+            else playDemo();
+          });
+        }
 
         mv?.addEventListener('load', async () => {
           const thumbnailSrc = mv.getAttribute('data-thumbnail');
@@ -2401,12 +2456,19 @@
           const wrap = mv.closest('.laptop-model-wrap');
           if (wrap) {
             const previewImg = wrap.querySelector('.laptop-hover-preview');
-            if (previewImg && !previewImg.src) {
+            if (previewImg instanceof HTMLImageElement && !previewImg.src) {
               previewImg.src = thumbnailSrc;
             }
           }
           const model = mv.model;
           if (!model) return;
+
+          // Suppress the glossy lid-edge highlight above FitTrack's display.
+          if (demoSrc) {
+            const displayShell = model.materials[26]?.pbrMetallicRoughness;
+            displayShell?.setRoughnessFactor(1);
+            displayShell?.setMetallicFactor(0);
+          }
 
           const materialNames = model.materials.map(m => m.name);
           let screenMat = null;
@@ -2433,6 +2495,7 @@
             console.warn('Could not find screen material. Available:', materialNames);
             return;
           }
+          screenMaterial = screenMat;
 
           try {
             const texture = await mv.createTexture(thumbnailSrc);
@@ -2479,6 +2542,7 @@
 
             // Texture applied successfully, make the model visible
             mv.classList.add('texture-applied');
+            playDemo();
           } catch (e) {
             console.warn('Failed to set screen texture:', e);
             // Even if it fails, make the model visible so it's not permanently invisible

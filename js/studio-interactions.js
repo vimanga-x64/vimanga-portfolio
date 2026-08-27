@@ -30,8 +30,8 @@
     });
 
     document.querySelectorAll('#experience .exp-timeline-item').forEach((item, index) => {
-      item.setAttribute('data-studio-reveal', 'panel');
-      item.style.setProperty('--studio-reveal-delay', `${Math.min(index, 3) * 70}ms`);
+      item.setAttribute('data-studio-reveal', 'experience');
+      item.style.setProperty('--studio-reveal-delay', `${Math.min(index, 3) * 90}ms`);
     });
 
     const items = [...document.querySelectorAll('[data-studio-reveal]')];

@@ -54,5 +54,4 @@ _______________________________________________________________________________
 
 GRAPHIC ASSETS
 
-Butterfly loop provided by Abdulmumin Yaqeen and used with permission
-github.com/Abdulmumin1/yaqeen.me
+Butterfly loop from github.com/Abdulmumin1/yaqeen.me

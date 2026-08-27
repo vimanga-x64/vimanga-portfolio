@@ -750,6 +750,16 @@ html:not([data-theme="light"]) #experience .exp-timeline-item.active .exp-card:h
   transform: translate3d(0, 34px, 0) scale(.985);
 }
 
+/* Each role rises into place once as its timeline entry reaches the reader. */
+.studio-motion-ready #experience .exp-timeline-item[data-studio-reveal="experience"] {
+  transform: translate3d(0, 56px, 0) scale(.985);
+  transition-duration: .68s, .92s, .92s;
+}
+
+.studio-motion-ready #experience .exp-timeline-item[data-studio-reveal="experience"].is-visible {
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
 .studio-motion-ready [data-studio-reveal].is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
