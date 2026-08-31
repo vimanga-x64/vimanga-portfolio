@@ -1,1100 +1,691 @@
-<!DOCTYPE html>
-<html lang="en" data-studio-system="true" data-hero-redesign="true">
-
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vimanga Umange | Portfolio</title>
-
-  <!-- SEO Meta Tags -->
-  <meta name="description"
-    content="Vimanga Umange - Computer Science Graduate Student specializing in AI/ML, Neural Networks, and Full-Stack Development. University of Windsor M.Sc. candidate with research in Hypergraph Neural Networks and NLP.">
-  <meta name="keywords"
-    content="Vimanga Umange, Computer Science, Machine Learning, AI, Neural Networks, Deep Learning, NLP, Full-Stack Developer, PyTorch, TensorFlow, React, Flask, Python, JavaScript, University of Windsor, Graduate Student, Software Engineer">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#8ec8ee">
+  <title>Vimanga Umange — Software, AI & Research</title>
+  <meta name="description" content="Vimanga Umange designs and engineers useful software at the intersection of artificial intelligence, research, and real-world systems.">
   <meta name="author" content="Vimanga Umange">
   <meta name="robots" content="index, follow">
-
-  <!-- Open Graph Meta Tags (for social media sharing) -->
-  <meta property="og:title" content="Vimanga Umange | AI/ML Engineer & Full-Stack Developer">
-  <meta property="og:description"
-    content="Computer Science Graduate Student specializing in AI/ML, Neural Networks, and Full-Stack Development. M.Sc. candidate at University of Windsor with research publications in Deep Learning.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://vimanga-x64.github.io/vimanga-portfolio/">
-  <meta property="og:image" content="https://vimanga-x64.github.io/vimanga-portfolio/images/portfolio-social-card.png">
-
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Vimanga Umange | AI/ML Engineer Portfolio">
-  <meta name="twitter:description"
-    content="CS Graduate Student specializing in AI/ML, Neural Networks, and Full-Stack Development">
-  <meta name="twitter:image" content="https://vimanga-x64.github.io/vimanga-portfolio/images/portfolio-social-card.png">
-
-  <!-- Canonical URL -->
   <link rel="canonical" href="https://vimanga-x64.github.io/vimanga-portfolio/">
-
-  <!-- Favicon -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Vimanga Umange — Software, AI & Research">
+  <meta property="og:description" content="Engineering useful intelligence: selected software, research, and systems work.">
+  <meta property="og:image" content="https://vimanga-x64.github.io/vimanga-portfolio/images/portfolio-social-card.png">
+  <meta property="og:url" content="https://vimanga-x64.github.io/vimanga-portfolio/">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="logos/apple-touch-icon.png">
-  <link rel="preload" as="image" href="images/hero-creation-hand.webp" type="image/webp" fetchpriority="high">
-
+  <link rel="apple-touch-icon" href="logos/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://unpkg.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
-    rel="stylesheet">
-  <link href="css/styles.css?v=20260827x" rel="stylesheet">
-  <link href="css/studio-system.css?v=20260824f" rel="stylesheet">
-  <link href="css/color-depth.css?v=20260827d" rel="stylesheet">
-  <link href="css/hero-redesign.css?v=20260827e" rel="stylesheet">
-  <link href="css/nds-palette.css?v=20260827k" rel="stylesheet">
-  <link href="css/theme-switch.css?v=20260824a" rel="stylesheet">
-  <link href="css/signal-garden.css?v=20260827v" rel="stylesheet">
-  <link href="css/tech-keyboard-spline.css?v=20260826k" rel="stylesheet">
-  <link href="css/palette-refinement.css?v=20260824c" rel="stylesheet">
-  <link href="css/hero-showcase.css?v=20260826m" rel="stylesheet">
-  <link href="css/hero-name-artifacts.css?v=20260826g" rel="stylesheet">
-  <link href="css/hero-creation.css?v=20260827p" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="css/revision-2026.css?v=147">
+  <link rel="stylesheet" href="css/case-transitions.css?v=2">
   <script>
-    if (/^#project-(nasa|movie-search|free-games)$/.test(window.location.hash)) {
-      document.documentElement.dataset.skipLoader = 'true';
-      history.scrollRestoration = 'manual';
+    document.documentElement.classList.add('js');
+    try {
+      const savedTheme = localStorage.getItem('vu-theme');
+      document.documentElement.dataset.theme = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    } catch (error) {
+      document.documentElement.dataset.theme = 'light';
     }
+    const heroPreload = document.createElement('link');
+    heroPreload.rel = 'preload';
+    heroPreload.as = 'image';
+    heroPreload.href = document.documentElement.dataset.theme === 'dark'
+      ? 'images/hero-night-collage-v3.webp'
+      : 'images/hero-sky-collage-v2.webp';
+    heroPreload.fetchPriority = 'high';
+    document.head.appendChild(heroPreload);
   </script>
-  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
-  <script src="js/model-viewer-loader.js?v=20260827c" defer></script>
-
-  <!-- Google Analytics: loaded after the critical rendering path. -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    function loadAnalytics() {
-      if (window.__portfolioAnalyticsLoaded) return;
-      window.__portfolioAnalyticsLoaded = true;
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-EPL5BQGBMF';
-      document.head.appendChild(script);
-      gtag('js', new Date());
-      gtag('config', 'G-EPL5BQGBMF', { transport_type: 'beacon' });
-    }
-    window.addEventListener('load', () => {
-      if ('requestIdleCallback' in window) requestIdleCallback(loadAnalytics, { timeout: 4500 });
-      else setTimeout(loadAnalytics, 2500);
-    }, { once: true });
-  </script>
-
-
 </head>
-
 <body>
-
-
-  <!-- Noise Texture Overlay -->
-  <div class="noise-overlay"></div>
-
-  <!-- Cursor Follower Removed -->
-
-  <!-- Particle Background Canvas -->
-  <div id="particles-container" class="particles-container">
-    <canvas id="particles-canvas"></canvas>
-  </div>
-
-  <!-- Loading Screen -->
-  <div id="loading-screen" role="status" aria-label="Loading portfolio">
-    <div class="editorial-loader">
-      <div class="editorial-loader-meta">
-        <span class="editorial-loader-meta-mask">
-          <span class="editorial-loader-role">FULL-STACK DEVELOPER</span>
-        </span>
-        <span class="editorial-loader-meta-mask">
-          <span class="editorial-loader-clock"><span>TORONTO</span> <time id="loadingClock">--:--:--</time></span>
-        </span>
-      </div>
-      <div class="editorial-loader-progress" aria-hidden="true">
-        <span class="editorial-loader-rule"><span id="loadingRuleFill"></span></span>
-        <span class="editorial-loader-number-mask"><output id="loadingPercent">0</output></span>
-        <span class="editorial-loader-symbol-mask"><span class="editorial-loader-symbol">%</span></span>
-      </div>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading, 0 percent">
+    <p class="loader__label">Loading...</p>
+    <div class="loader__footer">
+      <div class="loader__counter" id="loaderCounter" aria-hidden="true">0%</div>
+      <p class="loader__year">©2026</p>
     </div>
   </div>
 
-  <!-- Scroll Shape Indicator -->
-  <!-- Glassmorphism Capsule Navigation -->
-  <nav class="capsule-nav" id="capsuleNav">
-    <a href="#home" class="capsule-item active" data-section="home" aria-label="Home">
-      <span class="capsule-dot"></span>
-      <span class="capsule-text" data-text="Home">Home</span>
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#top" aria-label="Vimanga Umange, home">
+      <svg class="brand__mark" viewBox="0 0 44 30" aria-hidden="true"><path d="M2 3h8l7 19L24 3h8L20 29h-7L2 3Z"/><path d="M28 3h7v17c0 2 1 3 3 3 1.5 0 2.8-.4 4-1.2v6A13 13 0 0 1 36.5 29C31 29 28 26 28 20V3Z"/></svg>
+      <span>Vimanga<br>Umange</span>
     </a>
-    <a href="#about" class="capsule-item" data-section="about" aria-label="About">
-      <span class="capsule-dot"></span>
-      <span class="capsule-text" data-text="About">About</span>
-    </a>
-    <a href="#projects" class="capsule-item" data-section="projects" aria-label="Projects">
-      <span class="capsule-dot"></span>
-      <span class="capsule-text" data-text="Projects">Projects</span>
-    </a>
-    <a href="#experience" class="capsule-item" data-section="experience" aria-label="Experience">
-      <span class="capsule-dot"></span>
-      <span class="capsule-text" data-text="Experience">Experience</span>
-    </a>
-    <a href="#stackSection" class="capsule-item" data-section="stackSection" aria-label="Research">
-      <span class="capsule-dot"></span>
-      <span class="capsule-text" data-text="Research">Research</span>
-    </a>
-    <a href="#contact" class="capsule-item" data-section="contact" aria-label="Contact">
-      <span class="capsule-dot"></span>
-      <span class="capsule-text" data-text="Contact">Contact</span>
-    </a>
-  </nav>
-
-  <!-- Menu Backdrop -->
-  <div class="menu-backdrop" id="menuBackdrop"></div>
-
-  <!-- Hamburger Menu Toggle -->
-  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-  </button>
-
-  <!-- Menu Overlay -->
-  <nav class="menu-overlay" id="menuOverlay" role="navigation" aria-label="Main navigation">
-    <div class="menu-content">
-      <div class="menu-nav">
-        <a href="#home" class="menu-nav-item">Home</a>
-        <a href="#about" class="menu-nav-item">About</a>
-        <a href="#projects" class="menu-nav-item">Projects</a>
-        <a href="#experience" class="menu-nav-item">Experience</a>
-        <a href="#contact" class="menu-nav-item">Contact</a>
-      </div>
-
-      <div class="menu-contact">
-        <div class="menu-contact-label">Say Hello</div>
-        <a href="mailto:vimangau@gmail.com" class="menu-contact-link">vimangau@gmail.com</a>
-        <a href="tel:519-816-9683" class="menu-contact-link">519-816-9683</a>
-      </div>
-
-      <div class="menu-social">
-        <a href="https://github.com/vimanga-x64" target="_blank" rel="noopener noreferrer" class="menu-social-link">GH</a>
-        <a href="https://linkedin.com/in/vimanga-umange" target="_blank" rel="noopener noreferrer" class="menu-social-link">LN</a>
-        <a href="https://medium.com/@vishudha98" target="_blank" rel="noopener noreferrer" class="menu-social-link">MD</a>
-      </div>
+    <nav class="desktop-nav" aria-label="Primary navigation"><a href="#about">About</a><a href="#work">Work</a><a href="#research">Research</a><a href="#experience">Experience</a></nav>
+    <div class="header-actions">
+      <a class="header-cta" href="#contact">Contact <span aria-hidden="true">↗</span></a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.3v2.2M12 19.5v2.2M2.3 12h2.2M19.5 12h2.2M5.15 5.15l1.55 1.55M17.3 17.3l1.55 1.55M18.85 5.15 17.3 6.7M6.7 17.3l-1.55 1.55"/></svg>
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.2 15.4A8.2 8.2 0 0 1 8.6 4.8 8.25 8.25 0 1 0 19.2 15.4Z"/></svg>
+      </button>
     </div>
-
-    <button class="menu-theme-toggle theme-switch" id="menuThemeToggle" type="button"
-      aria-label="Switch to light theme" aria-checked="true" role="switch">
-      <span class="theme-switch-track" aria-hidden="true">
-        <span class="theme-switch-stars">
-          <span></span><span></span><span></span><span></span><span></span>
-        </span>
-        <span class="theme-switch-clouds">
-          <span></span><span></span><span></span>
-        </span>
-        <span class="theme-switch-thumb">
-          <span class="theme-switch-crater crater-one"></span>
-          <span class="theme-switch-crater crater-two"></span>
-          <span class="theme-switch-crater crater-three"></span>
-        </span>
-      </span>
-    </button>
+    <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu"><span>Menu</span><i></i><i></i></button>
+  </header>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="#about"><span>01</span> About</a><a href="#work"><span>02</span> Work</a><a href="#research"><span>03</span> Research</a><a href="#experience"><span>04</span> Experience</a><a href="#contact"><span>05</span> Contact</a>
+    <div class="mobile-menu__meta"><a href="https://github.com/vimanga-x64" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div>
   </nav>
 
-  <main class="main-content" role="main">
-    <section id="home" class="hero-section" aria-label="Hero section">
-      <div class="hero-viewport">
-        <div class="hero-content">
-          <div class="hero-creation" aria-hidden="true">
-            <img class="hero-creation-hand" src="images/hero-creation-hand.webp" width="1279" height="720"
-              alt="" decoding="async" fetchpriority="high">
-            <img class="hero-creation-cursor" src="images/pixel-hand-cursor.svg?v=20260827a" width="550" height="400" alt=""
-              decoding="async" fetchpriority="high">
-          </div>
-          <div class="hero-editorial-grid">
-            <div class="hero-name-section">
-              <h1 id="hero-title" aria-label="Vimanga Umange">
-                <span class="hero-headline-line hero-headline-primary" aria-hidden="true">
-                  <span class="hero-name-letter has-v-echo"><span class="hero-name-letterform">V</span><span class="hero-name-art art-v-echo"><i></i><i></i></span></span><span class="hero-name-letter"><span class="hero-name-letterform">I</span></span><span class="hero-name-letter has-m-rhythm"><span class="hero-name-letterform">M</span><span class="hero-name-art art-m-rhythm"><i></i><i></i><i></i></span></span><span class="hero-name-letter has-a-apex"><span class="hero-name-letterform">A</span><span class="hero-name-art art-a-apex"></span></span><span class="hero-name-letter"><span class="hero-name-letterform">N</span></span><span class="hero-name-letter"><span class="hero-name-letterform">G</span></span><span class="hero-name-letter"><span class="hero-name-letterform">A</span></span>
-                </span>
-                <span class="hero-headline-line hero-headline-accent" aria-hidden="true">
-                  <span class="hero-name-letter has-u-curve"><span class="hero-name-letterform">U</span><span class="hero-name-art art-u-curve"><i></i></span></span><span class="hero-name-letter"><span class="hero-name-letterform">M</span></span><span class="hero-name-letter"><span class="hero-name-letterform">A</span></span><span class="hero-name-letter"><span class="hero-name-letterform">N</span></span><span class="hero-name-letter"><span class="hero-name-letterform">G</span></span><span class="hero-name-letter"><span class="hero-name-letterform">E</span></span><span class="hero-name-letter hero-name-period"><span class="hero-name-letterform">.</span></span>
-                </span>
-              </h1>
-
-              <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary btn-flow-text">
-                  <span class="btn-text-wrap" data-text="Start a conversation"><span class="btn-text-inner">Start a conversation</span></span>
-                  <i class="ph ph-arrow-up-right"></i>
-                </a>
-                <a href="resume/" class="btn btn-secondary btn-download">
-                  <span>View Resume</span><i class="ph ph-arrow-up-right"></i>
-                </a>
-              </div>
-              <div class="hero-social-links" aria-label="Social profiles">
-                <a href="https://github.com/vimanga-x64" target="_blank" rel="noopener" class="hero-social-link hero-social-link--github" aria-label="GitHub">
-                  <i class="ph ph-github-logo hero-social-icon hero-social-icon--outline" aria-hidden="true"></i>
-                  <i class="ph-fill ph-github-logo hero-social-icon hero-social-icon--brand" aria-hidden="true"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" rel="noopener" class="hero-social-link hero-social-link--linkedin" aria-label="LinkedIn">
-                  <i class="ph ph-linkedin-logo hero-social-icon hero-social-icon--outline" aria-hidden="true"></i>
-                  <i class="ph-fill ph-linkedin-logo hero-social-icon hero-social-icon--brand" aria-hidden="true"></i>
-                </a>
-                <a href="https://medium.com/@vishudha98" target="_blank" rel="noopener" class="hero-social-link hero-social-link--medium" aria-label="Medium">
-                  <i class="ph ph-medium-logo hero-social-icon hero-social-icon--outline" aria-hidden="true"></i>
-                  <i class="ph-fill ph-medium-logo hero-social-icon hero-social-icon--brand" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-footer">
-            <span class="hero-location">WINDSOR, CANADA · 42.3149° N</span>
-            <a class="hero-scroll-cue" href="#about">SCROLL TO EXPLORE <span>↓</span></a>
-          </div>
-        </div>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__art" aria-hidden="true">
+        <div class="hero__shooting-star" id="shootingStar"></div>
+        <div class="hero__stripe-orb"></div>
+        <svg class="hero__cloud hero__cloud--one" viewBox="0 0 460 104" preserveAspectRatio="none" focusable="false"><path d="M0 104C5 80 24 65 49 65C64 65 78 69 90 78C106 52 132 41 159 46C177 49 192 58 202 69C216 41 244 26 274 30C307 34 331 57 338 81C349 68 366 62 384 63C418 66 441 81 460 104Z"/></svg>
+        <svg class="hero__cloud hero__cloud--two" viewBox="0 0 460 104" preserveAspectRatio="none" focusable="false"><path d="M0 104C5 80 24 65 49 65C64 65 78 69 90 78C106 52 132 41 159 46C177 49 192 58 202 69C216 41 244 26 274 30C307 34 331 57 338 81C349 68 366 62 384 63C418 66 441 81 460 104Z"/></svg>
+        <div class="hero__paper-cloud-bank"></div>
       </div>
+      <div class="hero__grid shell">
+        <h1 id="hero-title" class="hero__title" aria-label="Hey, I’m Vimanga. Software developer, M.Sc. candidate, graduate researcher, and full-stack builder.">
+          <span class="hero__greeting">HEY, I’M VIMANGA.</span>
+          <span class="hero__role" id="heroRoleWrap" style="--role-color:#f3d83f" aria-hidden="true">
+            <span id="heroRole">SOFTWARE DEVELOPER</span>
+            <i class="hero__role-wipe" aria-hidden="true"></i>
+          </span>
+        </h1>
+        <p class="hero__sr-copy">I turn ambitious ideas, research, and unruly data into software people can actually use.</p>
+      </div>
+      <figure class="hero-tv" id="heroTv">
+        <model-viewer class="hero-tv__model" id="heroTvModel"
+          src="assets/old_tv.glb"
+          data-video-src="videos/gertie-dinosaur-tv-loop.webm"
+          alt="Vintage television playing the public-domain 1914 cartoon Gertie the Dinosaur"
+          camera-orbit="0deg 90deg 112%"
+          field-of-view="28deg"
+          environment-image="neutral"
+          exposure="1.08"
+          shadow-intensity=".7"
+          shadow-softness=".9"
+          interaction-prompt="none"
+          loading="eager">
+          <span slot="progress-bar" class="hero-tv__progress" aria-hidden="true"></span>
+        </model-viewer>
+      </figure>
+      <div class="pastel-sun" id="pastelSun" aria-hidden="true"></div>
     </section>
 
-    <section id="about" aria-label="About section">
-      <div class="section-container">
-        <div class="section-heading-row">
-          <h2 class="section-title text-mask-cinematic">About Me</h2>
-          <p class="section-deck">Research, software, and systems thinking—brought together through practical work.</p>
+    <section class="about-me" id="about" aria-labelledby="about-title">
+      <div class="portal-marquee" aria-hidden="true">
+          <img class="portal-marquee__arch portal-marquee__arch--back" src="images/portal-arch-generated-v2.webp" width="1000" height="1050" alt="" decoding="async" loading="lazy">
+
+      <div class="portal-marquee__ribbon portal-marquee__ribbon--one">
+        <div class="portal-marquee__track">
+          <span>USEFUL SOFTWARE • AI RESEARCH • FULL-STACK SYSTEMS • HUMAN-CENTRED ENGINEERING • </span>
+          <span>USEFUL SOFTWARE • AI RESEARCH • FULL-STACK SYSTEMS • HUMAN-CENTRED ENGINEERING • </span>
         </div>
-        <div class="about-content">
-          <!-- LEFT COLUMN: Bio Text + Tech List -->
-          <div class="about-text-column">
-            <p class="about-paragraph scroll-reveal-text" id="scrollReveal1">
-              Hello! I'm <strong>Vimanga Umange</strong>. I build things at the intersection of research and product:
-              model-focused experiments, prototypes, and full-stack apps that ship. With <strong>4+ years of coding
-                experience</strong>,
-              <strong>10+ projects</strong>, and <strong>2 research projects</strong>, I like moving quickly from idea
-              to working demo.
-            </p>
-            <p class="about-paragraph scroll-reveal-text" id="scrollReveal2">
-              I've worked as an <a href="#experience" class="inline-link">IT Specialist in the aerospace industry</a>
-              and currently serve as a <a href="#experience" class="inline-link">Graduate Assistant</a> at the
-              <a href="https://www.uwindsor.ca/" target="_blank" rel="noopener noreferrer" class="inline-link">University of Windsor</a>,
-              where I'm pursuing my Master's in Computer Science with a specialization in Artificial Intelligence. I'm
-              comfortable with the whole pipeline:
-              from PyTorch experiments to production infrastructure.
-            </p>
-            <p class="about-paragraph scroll-reveal-text" id="scrollReveal3">
-              My focus areas include <strong>Neural Networks & Deep Learning</strong>, <strong>Full-Stack Web
-                Development</strong>,
-              <strong>Scalable Infrastructure</strong>, and <strong>NLP & Language Models</strong>. Recently I worked on
-              research in
-              <a href="#experience" class="inline-link">hypergraph neural networks</a> and
-              <a href="#experience" class="inline-link">transformer-based NLP models</a> for low-resource languages.
-            </p>
-            <p class="about-index-label">Selected tools</p>
-            <ul class="tech-list-minimal">
-              <li>JavaScript (ES6+)</li>
-              <li>TypeScript</li>
-              <li>React</li>
-              <li>PyTorch</li>
-              <li>Node.js</li>
-              <li>PostgreSQL</li>
+      </div>
+
+      <div class="portal-marquee__ribbon portal-marquee__ribbon--two">
+        <div class="portal-marquee__track">
+          <span>ASK BETTER QUESTIONS • DESIGN WITH INTENT • BUILD WITH RIGOUR • SHIP WHAT WORKS • </span>
+          <span>ASK BETTER QUESTIONS • DESIGN WITH INTENT • BUILD WITH RIGOUR • SHIP WHAT WORKS • </span>
+        </div>
+      </div>
+
+          <img class="portal-marquee__arch portal-marquee__arch--front" src="images/portal-arch-generated-v2.webp" width="1000" height="1050" alt="" decoding="async" loading="lazy">
+      </div>
+
+      <div class="about-me__heading shell reveal">
+        <div class="about-heading-object about-heading-object--burst" aria-hidden="true">
+          <svg viewBox="0 0 140 140" focusable="false">
+            <path d="M70 7 80 33 99 13 101 41 127 29 112 53 140 57 114 69 137 85 109 84 118 111 95 94 91 123 76 99 62 125 58 96 34 114 44 87 15 90 39 72 11 61 40 56 25 31 52 43 53 14 67 38Z"/>
+            <circle cx="70" cy="69" r="13"/>
+          </svg>
+        </div>
+        <div class="about-heading-object about-heading-object--cloud" aria-hidden="true">
+          <svg viewBox="0 0 250 120" focusable="false">
+            <path class="about-cloud__body" d="M29 94C15 94 7 84 7 72S17 50 30 50c2-18 16-31 34-31 9 0 18 4 24 10C96 13 112 3 131 3c24 0 44 15 52 37 5-2 11-3 17-3 21 0 38 15 40 35 7 3 11 10 11 18 0 15-12 27-27 27H30Z"/>
+            <path class="about-cloud__wind" d="M17 111h90M153 111h61M0 103h45"/>
+            <circle class="about-cloud__dot" cx="221" cy="18" r="5"/>
+            <path class="about-cloud__spark" d="M23 17v16M15 25h16"/>
+          </svg>
+        </div>
+        <p class="eyebrow">Behind the work / 01</p>
+        <h2 id="about-title">About me</h2>
+      </div>
+
+      <div class="about-collage shell reveal" id="aboutCollage">
+        <svg class="about-collage__grid" viewBox="0 0 1200 620" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1200V620H0Z"/><path d="M0 52H1200M0 104H1200M0 156H1200M0 208H1200M0 260H1200M0 312H1200M0 364H1200M0 416H1200M0 468H1200M0 520H1200M0 572H1200M60 0V620M120 0V620M180 0V620M240 0V620M300 0V620M360 0V620M420 0V620M480 0V620M540 0V620M600 0V620M660 0V620M720 0V620M780 0V620M840 0V620M900 0V620M960 0V620M1020 0V620M1080 0V620M1140 0V620"/></svg>
+
+        <figure class="about-card about-card--portrait" data-about-tilt>
+          <img src="images/Profile_Pic.webp" alt="Vimanga Umange outdoors at golden hour" width="900" height="1600" loading="lazy" decoding="async">
+          <figcaption>Vimanga / briefly away from the terminal</figcaption>
+        </figure>
+
+        <article class="about-card about-card--book" data-about-tilt>
+          <span>OFF-SCREEN INTERESTS</span>
+          <strong>Matcha<br>Science Fiction<br>Long Walks</strong>
+          <small>The machinery still needs a human operator.</small>
+        </article>
+
+        <figure class="about-card about-card--weather" data-about-tilt>
+          <img src="images/Matcha.webp" alt="A matcha drink held on a Toronto street" width="900" height="1600" loading="lazy" decoding="async">
+          <figcaption>fuel, but make it green ↗</figcaption>
+        </figure>
+
+        <figure class="about-card about-card--object" data-about-tilt>
+          <img src="images/Hail_Mary.webp" alt="Project Hail Mary by Andy Weir held in a bookstore" width="1400" height="1867" loading="lazy" decoding="async">
+          <figcaption>current rabbit hole: deep space</figcaption>
+        </figure>
+
+        <div class="about-scribble about-scribble--read" aria-hidden="true"><span>the current rabbit hole</span><svg viewBox="0 0 120 70"><path d="M12 8C45 15 69 34 93 63M93 63l-18-4M93 63l-6-17"/></svg></div>
+        <div class="about-scribble about-scribble--data" aria-hidden="true"><span>matcha, then code</span><svg viewBox="0 0 110 70"><path d="M8 8C39 16 66 35 94 62M94 62l-18-3M94 62l-7-17"/></svg></div>
+
+        <article class="about-detail" id="aboutDetail">
+          <p id="aboutDetailEyebrow">What I like making</p>
+          <h3 id="aboutDetailTitle">Useful things with difficult machinery underneath.</h3>
+          <p id="aboutDetailCopy">I enjoy turning messy constraints, unfamiliar domains, and ambitious ideas into products that feel direct and dependable.</p>
+        </article>
+      </div>
+
+      <div class="about-story shell" id="aboutStory">
+        <p class="about-story__scroll" id="aboutStoryText">I’m Vimanga, a software engineer who likes turning difficult ideas into useful things. Whether I’m building an AI model, shaping an interface, or working on the systems underneath, I’m happiest when the result feels simple and dependable. Curiosity gets me started. Usefulness keeps me going.</p>
+      </div>
+
+      <section class="education-snapshot shell reveal" id="education" aria-labelledby="education-snapshot-title">
+        <header class="education-snapshot__intro">
+          <p class="eyebrow">Academic foundation / 02</p>
+          <h3 id="education-snapshot-title">Education</h3>
+          <p>Two chapters that shaped how I approach software, artificial intelligence, and research.</p>
+        </header>
+
+        <div class="education-cards">
+          <article class="education-card education-card--graduate">
+            <div class="education-card__topline">
+              <span>Graduate study</span>
+              <time datetime="2026-10">Expected October 2026</time>
+            </div>
+            <h4>M.Sc.<br>Computer Science</h4>
+            <p class="education-card__school">University of Windsor</p>
+            <p class="education-card__detail">Specialization in Artificial Intelligence · Thesis research in adaptive mobile intelligent tutoring systems.</p>
+            <span class="education-card__seal" aria-hidden="true">MSc</span>
+          </article>
+
+          <article class="education-card education-card--undergraduate">
+            <div class="education-card__topline">
+              <span>Undergraduate study</span>
+              <time>2016 — 2021</time>
+            </div>
+            <h4>B.Sc.<br>Computer Science</h4>
+            <p class="education-card__school">Wichita State University</p>
+            <p class="education-card__detail">Wichita, Kansas · The technical foundation behind my work in software and intelligent systems.</p>
+            <span class="education-card__seal" aria-hidden="true">BSc</span>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section class="tech-stack" aria-labelledby="tech-stack-title">
+      <div class="tech-stack__intro shell reveal">
+        <p class="eyebrow">Tools I reach for</p>
+        <h2 id="tech-stack-title">My tech stack</h2>
+        <p>Languages, frameworks, and infrastructure I use to move ideas from research to reliable products.</p>
+      </div>
+
+      <div class="tech-marquee" aria-label="Technologies I work with">
+        <div class="tech-marquee__row">
+          <div class="tech-marquee__track">
+            <ul class="tech-marquee__group">
+              <li><span class="tech-logo"><img src="logos/react_light.svg" alt="" loading="lazy"></span><span>React</span></li>
+              <li><span class="tech-logo"><img src="logos/typescript.svg" alt="" loading="lazy"></span><span>TypeScript</span></li>
+              <li><span class="tech-logo"><img src="logos/python.svg" alt="" loading="lazy"></span><span>Python</span></li>
+              <li><span class="tech-logo"><img src="logos/pytorch.svg" alt="" loading="lazy"></span><span>PyTorch</span></li>
+              <li><span class="tech-logo"><img src="logos/openai.svg" alt="" loading="lazy"></span><span>OpenAI</span></li>
+              <li><span class="tech-logo"><img src="logos/fastapi.svg" alt="" loading="lazy"></span><span>FastAPI</span></li>
             </ul>
-
-            <!-- Education Timeline -->
-            <p class="about-index-label education-label" id="education">Education</p>
-            <div class="education-record">
-              <div class="education-timeline">
-                <div class="education-item">
-                  <div class="education-dot"></div>
-                  <div class="education-content">
-                    <span class="education-degree">M.Sc. Computer Science (Specialization in Artificial
-                      Intelligence)</span>
-                    <span class="education-school">University of Windsor</span>
-                    <span class="education-meta"><span class="education-location"><i class="ph ph-map-pin"></i> Windsor,
-                        ON, Canada</span> · <span class="education-date">Expected Dec 2026</span></span>
-                  </div>
-                </div>
-                <div class="education-item">
-                  <div class="education-dot"></div>
-                  <div class="education-content">
-                    <span class="education-degree">B.Sc. Computer Science</span>
-                    <span class="education-school">Wichita State University</span>
-                    <span class="education-meta"><span class="education-location"><i class="ph ph-map-pin"></i> Wichita,
-                        KS, USA</span> · <span class="education-date">2016 — 2021</span></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- RIGHT COLUMN: Profile Picture + Tech Stack -->
-          <div class="about-right-column">
-            <div class="profile-container">
-              <div class="profile-glow"></div>
-              <div class="profile-frame">
-                <div class="profile-frame-inner"></div>
-                <img src="images/profile_pic.png" alt="Vimanga Umange" class="profile-pic" loading="lazy" decoding="async">
-              </div>
-            </div>
-
-            <div class="tech-keyboard-card">
-              <div class="tech-keyboard-card-heading">
-                <h4><i class="ph ph-keyboard"></i> Tech Stack</h4>
-                <p class="tech-keyboard-hint">(hint: press a key)</p>
-              </div>
-
-              <div class="tech-keyboard-stage" id="tech-keyboard-stage">
-                <canvas id="tech-keyboard-canvas" aria-label="Interactive three-dimensional keyboard showing development technologies"></canvas>
-                <div class="tech-keyboard-loader" id="tech-keyboard-loader" role="status">Loading keyboard…</div>
-                <div class="tech-keyboard-fallback" id="tech-keyboard-fallback" hidden>
-                  <p>The interactive keyboard could not load.</p>
-                </div>
-
-                <div class="tech-keyboard-readout" aria-live="polite">
-                  <span class="tech-keyboard-key" id="tech-keyboard-key">READY</span>
-                  <strong id="tech-keyboard-label">Choose a key</strong>
-                  <p id="tech-keyboard-description">Hover or press a keycap to explore my toolkit.</p>
-                </div>
-              </div>
-
-            </div>
-
-            <figure class="education-globe" aria-label="Interactive Earth showing Windsor and Wichita">
-              <div class="education-globe-atmosphere" aria-hidden="true"></div>
-              <canvas id="education-globe-canvas" aria-hidden="true"></canvas>
-              <model-viewer id="education-globe-model" data-src="assets/globe/earth-nasa.glb"
-                alt="A rotating three-dimensional view of Earth" camera-orbit="-40deg 76deg 104%"
-                field-of-view="30deg" exposure=".82" environment-image="neutral" shadow-intensity="0"
-                disable-zoom interaction-prompt="none" loading="lazy" reveal="auto">
-                <button class="education-globe-hotspot" slot="hotspot-windsor" data-location="windsor"
-                  data-position="0m 0m 0m" data-normal="0m 1m 0m" data-visibility-attribute
-                  aria-label="Windsor, Ontario">
-                  <span class="education-globe-hotspot-dot"></span>
-                  <span class="education-globe-hotspot-label">Windsor</span>
-                </button>
-                <button class="education-globe-hotspot" slot="hotspot-wichita" data-location="wichita"
-                  data-position="0m 0m 0m" data-normal="0m 1m 0m" data-visibility-attribute
-                  aria-label="Wichita, Kansas">
-                  <span class="education-globe-hotspot-dot"></span>
-                  <span class="education-globe-hotspot-label">Wichita</span>
-                </button>
-              </model-viewer>
-              <div class="education-globe-shade" aria-hidden="true"></div>
-            </figure>
+            <ul class="tech-marquee__group" aria-hidden="true">
+              <li><span class="tech-logo"><img src="logos/react_light.svg" alt=""></span><span>React</span></li>
+              <li><span class="tech-logo"><img src="logos/typescript.svg" alt=""></span><span>TypeScript</span></li>
+              <li><span class="tech-logo"><img src="logos/python.svg" alt=""></span><span>Python</span></li>
+              <li><span class="tech-logo"><img src="logos/pytorch.svg" alt=""></span><span>PyTorch</span></li>
+              <li><span class="tech-logo"><img src="logos/openai.svg" alt=""></span><span>OpenAI</span></li>
+              <li><span class="tech-logo"><img src="logos/fastapi.svg" alt=""></span><span>FastAPI</span></li>
+            </ul>
           </div>
         </div>
 
-      </div>
-    </section>
-
-    <section id="projects" aria-label="Projects showcase">
-      <div class="projects-header-pinned section-heading-row">
-        <h2 class="section-title text-mask-cinematic">Projects</h2>
-        <p class="section-deck">Selected systems designed, built, and shipped.</p>
-      </div>
-
-      <div class="projects-border-wrapper" id="projectsBorderWrapper">
-        <div class="section-container">
-          <div class="project-grid" id="projectGridTrack">
-            <!-- FitTrack Project Card -->
-            <div class="project-card" id="project-fittrack" data-project-label="AI WELLNESS SYSTEM">
-              <div class="project-visual">
-                <div class="project-3d-container">
-                  <div class="project-3d-scene">
-                    <div class="project-bg-layer"></div>
-                    <div class="laptop-model-wrap">
-                      <model-viewer class="laptop-model" data-src="laptop-model/source/macbook_pro_14_inch_M5.glb"
-                        alt="Laptop model" data-thumbnail="images/LandingPage-winhacks.jpg"
-                        data-demo-src="videos/fittrack-demo-loop-hq.mp4?v=20260827d"
-                        camera-orbit="0deg 75deg 95%" camera-target="0m 0.06m 0m" field-of-view="24deg" exposure="0.85"
-                        shadow-intensity="0.8" shadow-softness="0.6" disable-zoom interaction-prompt="none"
-                        loading="lazy">
-                      </model-viewer>
-                      <button class="laptop-preview-hotspot" type="button"
-                        aria-label="Enlarge the FitTrack demo"></button>
-                      <div class="laptop-hover-hint" aria-hidden="true">
-                        <i class="ph ph-hand-pointing"></i> Hover screen for clearer view
-                      </div>
-                      <video class="laptop-hover-preview laptop-hover-preview-video" muted loop playsinline
-                        preload="metadata" aria-hidden="true">
-                        <source src="videos/fittrack-demo-loop-hq.mp4?v=20260827d" type="video/mp4">
-                      </video>
-                    </div>
-                    <div class="project-spotlight"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="project-info">
-                <div class="project-badge-row">
-                  <span class="project-badge winner"><i class="ph ph-trophy"></i> Finalist</span>
-                  <span class="project-event-chip" title="WinHacks 2026">
-                    <img src="logos/winhacks_logo.png" alt="WinHacks" loading="lazy">
-                    WinHacks 2026
-                  </span>
-                </div>
-                <h3 class="project-title">
-                  FitTrack: AI Wellness Assistant
-                </h3>
-                <p class="project-description">
-                  A wellness and recovery assistant that brings activity tracking, nutrition insights, and AI-powered
-                  coaching into a single experience.
-                  Uses a Deterministic–Generative Hybrid pipeline to turn raw biometrics (HRV, sleep stages, stress
-                  loads) into actionable daily guidance.
-                </p>
-                <div class="tech-stack">
-                  <span class="tech-tag">React</span>
-                  <span class="tech-tag">TypeScript</span>
-                  <span class="tech-tag">FastAPI</span>
-                  <span class="tech-tag">OpenAI</span>
-                  <span class="tech-tag">Tailwind CSS</span>
-                  <span class="tech-tag">Firebase</span>
-                </div>
-                <div class="project-cta-row">
-                  <a href="fittrack.html" class="btn btn-case-study">
-                    View case study <i class="ph ph-arrow-up-right"></i>
-                  </a>
-                  <a href="https://github.com/vimanga-x64/Winhacks-Project" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <i class="ph ph-github-logo"></i> View Code
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card reverse" id="project-nasa" data-project-label="CLIMATE INTELLIGENCE">
-              <div class="project-visual">
-                <div class="project-3d-container">
-                  <div class="project-3d-scene">
-                    <div class="project-bg-layer"></div>
-                    <div class="laptop-model-wrap weather-laptop-wrap">
-                      <model-viewer class="laptop-model weather-laptop"
-                        data-src="laptop-model/source/macbook_pro_14_inch_M5.glb" alt="Laptop model"
-                        data-thumbnail="images/Space_Apps_Screenshot.png" camera-orbit="0deg 75deg 95%"
-                        camera-target="0m 0.06m 0m" field-of-view="24deg" exposure="0.85" shadow-intensity="0.8"
-                        shadow-softness="0.6" disable-zoom interaction-prompt="none" loading="lazy">
-                      </model-viewer>
-                      <div class="laptop-preview-hotspot" aria-hidden="true"></div>
-                      <div class="laptop-hover-hint" aria-hidden="true">
-                        <i class="ph ph-hand-pointing"></i> Hover screen for clearer view
-                      </div>
-                      <img class="laptop-hover-preview" alt="" aria-hidden="true">
-                    </div>
-                    <div class="project-spotlight"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="project-info">
-                <div class="project-badge-row">
-                  <span class="project-badge honorable"><i class="ph ph-medal"></i> Honorable Mention</span>
-                  <span class="project-event-chip" title="NASA International Space Apps Challenge 2025">
-                    <img src="logos/Nasa_space_apps%20logo.png" alt="NASA Space Apps Challenge" loading="lazy">
-                    NASA Space Apps Challenge 2025
-                  </span>
-                </div>
-                <h3 class="project-title">
-                  <img class="project-title-logo" src="logos/nasa.svg" alt="NASA" loading="lazy"
-                    onerror="this.remove()">
-                  NASA Weather Activity Recommender
-                </h3>
-                <p class="project-description">
-                  Web app providing personalized weather-based recommendations for outdoor activities (hiking, running,
-                  surfing, kayaking, etc.).
-                  Uses NASA satellite imagery and weather data APIs, powered by an LLM and statistical prediction to
-                  generate suitability ratings, explanations, and alternative activity suggestions.
-                </p>
-                <div class="tech-stack">
-                  <span class="tech-tag">NASA APIs</span>
-                  <span class="tech-tag">Satellite Imagery</span>
-                  <span class="tech-tag">Interactive Map</span>
-                  <span class="tech-tag">LLM</span>
-                  <span class="tech-tag">Weather Forecasting</span>
-                </div>
-                <div class="project-cta-row">
-                  <a href="weatherwise.html" class="btn btn-case-study">
-                    View case study <i class="ph ph-arrow-up-right"></i>
-                  </a>
-                  <a href="https://github.com/vimanga-x64/NASA-Hackathon-Weather_APP" target="_blank" rel="noopener noreferrer"
-                    class="btn btn-secondary">
-                    <i class="ph ph-github-logo"></i> View Code
-                  </a>
-                  <a href="images/NASA%20Space%20Apps%20Challenge.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <i class="ph ph-file-pdf"></i> View Certificate
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card" id="project-movie-search" data-project-label="SEMANTIC SEARCH">
-              <div class="project-visual">
-                <div class="project-3d-container">
-                  <div class="project-3d-scene">
-                    <div class="project-bg-layer"></div>
-                    <div class="laptop-model-wrap">
-                      <model-viewer class="laptop-model" data-src="laptop-model/source/macbook_pro_14_inch_M5.glb"
-                        alt="Laptop model" data-thumbnail="images/movie-app.png" camera-orbit="0deg 75deg 95%"
-                        camera-target="0m 0.06m 0m" field-of-view="24deg" exposure="0.85" shadow-intensity="0.8"
-                        shadow-softness="0.6" disable-zoom interaction-prompt="none" loading="lazy">
-                      </model-viewer>
-                      <div class="laptop-preview-hotspot" aria-hidden="true"></div>
-                      <div class="laptop-hover-hint" aria-hidden="true">
-                        <i class="ph ph-hand-pointing"></i> Hover screen for clearer view
-                      </div>
-                      <img class="laptop-hover-preview" alt="" aria-hidden="true">
-                    </div>
-                    <div class="project-spotlight"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="project-info">
-                <h3 class="project-title">
-                  AI Movie Search App
-                </h3>
-                <p class="project-description">
-                  A semantic movie search application powered by React and Hugging Face NLP models.
-                  Integrates with TMDB API to provide intelligent movie recommendations with 95% query accuracy.
-                </p>
-                <div class="tech-stack">
-                  <span class="tech-tag">React</span>
-                  <span class="tech-tag">NLP</span>
-                  <span class="tech-tag">Hugging Face</span>
-                  <span class="tech-tag">TMDB API</span>
-                </div>
-                <div class="project-cta-row project-cta-row--single">
-                  <a href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <i class="ph ph-github-logo"></i> View Code
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card reverse" id="project-free-games" data-project-label="DATA PRODUCT">
-              <div class="project-visual">
-                <div class="project-3d-container">
-                  <div class="project-3d-scene">
-                    <div class="project-bg-layer"></div>
-                    <div class="laptop-model-wrap">
-                      <model-viewer class="laptop-model" data-src="laptop-model/source/macbook_pro_14_inch_M5.glb"
-                        alt="Laptop model" data-thumbnail="images/free-games.png" camera-orbit="0deg 75deg 95%"
-                        camera-target="0m 0.06m 0m" field-of-view="24deg" exposure="0.85" shadow-intensity="0.8"
-                        shadow-softness="0.6" disable-zoom interaction-prompt="none" loading="lazy">
-                      </model-viewer>
-                      <div class="laptop-preview-hotspot" aria-hidden="true"></div>
-                      <div class="laptop-hover-hint" aria-hidden="true">
-                        <i class="ph ph-hand-pointing"></i> Hover screen for clearer view
-                      </div>
-                      <img class="laptop-hover-preview" alt="" aria-hidden="true">
-                    </div>
-                    <div class="project-spotlight"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="project-info">
-                <h3 class="project-title">
-                  Free Game Scraper
-                </h3>
-                <p class="project-description">
-                  Full-stack web scraping application that aggregates free game deals from 6+ platforms.
-                  Built with Flask backend and React frontend, featuring intelligent caching to reduce API calls by 30%.
-                </p>
-                <div class="tech-stack">
-                  <span class="tech-tag">Flask</span>
-                  <span class="tech-tag">React</span>
-                  <span class="tech-tag">Web Scraping</span>
-                  <span class="tech-tag">Redis</span>
-                </div>
-                <div class="project-cta-row project-cta-row--single">
-                  <a href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <i class="ph ph-github-logo"></i> View Code
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card" id="project-etutor" data-project-label="ADAPTIVE LEARNING">
-              <div class="project-visual">
-                <div class="mobile-3d-container">
-                  <div class="mobile-3d-scene">
-                    <div class="mobile-bg-layer"></div>
-                    <div class="mobile-device">
-                      <div class="mobile-dynamic-island" aria-hidden="true"></div>
-                      <div class="mobile-screen">
-                        <img src="images/etutor-screenshot.png" alt="E-Tutor App Main Screen" loading="lazy" decoding="async">
-                      </div>
-                    </div>
-                    <div class="mobile-device">
-                      <div class="mobile-dynamic-island" aria-hidden="true"></div>
-                      <div class="mobile-screen">
-                        <img src="images/e-tutor_lockscreen.png" alt="E-Tutor App Login Screen" loading="lazy" decoding="async">
-                      </div>
-                    </div>
-                    <div class="project-spotlight"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="project-info">
-                <h3 class="project-title">
-                  E-Tutor: Adaptive Learning App
-                </h3>
-                <p class="project-description">
-                  Mobile learning platform with mood-responsive avatars using Lottie animations.
-                  Features gamified lessons, real-time performance feedback, and intelligent tutor matching system with
-                  secure authentication.
-                </p>
-                <div class="tech-stack">
-                  <span class="tech-tag">Flutter</span>
-                  <span class="tech-tag">Firebase</span>
-                  <span class="tech-tag">Dart</span>
-                  <span class="tech-tag">Lottie</span>
-                </div>
-                <div class="project-cta-row project-cta-row--single">
-                  <a href="https://github.com/vimanga-x64/ResearchProject-Prototype" target="_blank" rel="noopener noreferrer"
-                    class="btn btn-secondary">
-                    <i class="ph ph-github-logo"></i> View Code
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card reverse" id="project-dhammapada" data-project-label="MOBILE EXPERIENCE">
-              <div class="project-visual">
-                <div class="mobile-3d-container">
-                  <div class="mobile-3d-scene">
-                    <div class="mobile-bg-layer"></div>
-                    <div class="mobile-device">
-                      <div class="mobile-dynamic-island" aria-hidden="true"></div>
-                      <div class="mobile-screen">
-                        <img src="images/Dhammapada_Lockscreen.png" alt="Dhammapada App Lock Screen" loading="lazy" decoding="async">
-                      </div>
-                    </div>
-                    <div class="mobile-device">
-                      <div class="mobile-dynamic-island" aria-hidden="true"></div>
-                      <div class="mobile-screen">
-                        <img src="images/Dhammapada_Homescreen.png" alt="Dhammapada App Home Screen" loading="lazy" decoding="async">
-                      </div>
-                    </div>
-                    <div class="project-spotlight"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="project-info">
-                <h3 class="project-title">
-                  Dhammapada: Buddhist Scripture App
-                </h3>
-                <p class="project-description">
-                  Mobile application bringing Buddha's teachings to daily life. Features verse of the day notifications,
-                  complete Dhammapada text, Buddhist literature library, and mindfulness resources. Built with Flutter
-                  for cross-platform accessibility and spiritual growth.
-                </p>
-                <div class="tech-stack">
-                  <span class="tech-tag">Flutter</span>
-                  <span class="tech-tag">Dart</span>
-                  <span class="tech-tag">Push Notifications</span>
-                  <span class="tech-tag">Local Storage</span>
-                </div>
-                <div class="project-cta-row project-cta-row--single">
-                  <a href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <i class="ph ph-github-logo"></i> View Code
-                  </a>
-                </div>
-              </div>
-            </div>
-
+        <div class="tech-marquee__row tech-marquee__row--reverse">
+          <div class="tech-marquee__track">
+            <ul class="tech-marquee__group">
+              <li><span class="tech-logo"><img src="logos/nodejs.svg" alt="" loading="lazy"></span><span>Node.js</span></li>
+              <li><span class="tech-logo"><img src="logos/mongodb.svg" alt="" loading="lazy"></span><span>MongoDB</span></li>
+              <li><span class="tech-logo"><img src="logos/docker.svg" alt="" loading="lazy"></span><span>Docker</span></li>
+              <li><span class="tech-logo"><img src="logos/firebase.svg" alt="" loading="lazy"></span><span>Firebase</span></li>
+              <li><span class="tech-logo"><img src="logos/google-cloud.svg" alt="" loading="lazy"></span><span>Google Cloud</span></li>
+              <li><span class="tech-logo"><img src="logos/git.svg" alt="" loading="lazy"></span><span>Git</span></li>
+            </ul>
+            <ul class="tech-marquee__group" aria-hidden="true">
+              <li><span class="tech-logo"><img src="logos/nodejs.svg" alt=""></span><span>Node.js</span></li>
+              <li><span class="tech-logo"><img src="logos/mongodb.svg" alt=""></span><span>MongoDB</span></li>
+              <li><span class="tech-logo"><img src="logos/docker.svg" alt=""></span><span>Docker</span></li>
+              <li><span class="tech-logo"><img src="logos/firebase.svg" alt=""></span><span>Firebase</span></li>
+              <li><span class="tech-logo"><img src="logos/google-cloud.svg" alt=""></span><span>Google Cloud</span></li>
+              <li><span class="tech-logo"><img src="logos/git.svg" alt=""></span><span>Git</span></li>
+            </ul>
           </div>
         </div>
-      </div>
 
-      <div class="projects-nav-controls">
-        <button class="nav-btn prev-btn" id="projectNavPrev" aria-label="Previous project">
-          <i class="ph ph-caret-left"></i>
-        </button>
-        <div class="project-carousel-status" aria-label="Project carousel progress">
-          <span class="project-progress-number" id="projectProgressCurrent">01</span>
-          <div class="project-progress-dots" id="projectProgressDots" role="group" aria-label="Choose a project"></div>
-          <span class="project-progress-number project-progress-total" id="projectProgressTotal">06</span>
-        </div>
-        <button class="nav-btn next-btn" id="projectNavNext" aria-label="Next project">
-          <i class="ph ph-caret-right"></i>
-        </button>
-      </div>
-    </section>
-
-    <section id="experience" aria-label="Work experience">
-      <div class="section-container">
-        <div class="section-heading-row">
-          <h2 class="section-title text-mask-cinematic">My Work Experience</h2>
-          <p class="section-deck">Roles where technology had to work reliably for real people.</p>
-        </div>
-        <div class="experience-timeline" id="experienceTimeline">
-
-          <!-- Timeline Item 1 -->
-          <div class="exp-timeline-item">
-            <div class="exp-timeline-dot"></div>
-            <div class="exp-card">
-              <div class="exp-card-header">
-                <h3 class="exp-card-role">Graduate Assistant</h3>
-                <span class="exp-card-company">University of Windsor</span>
-                <span class="exp-card-location">Windsor, ON, Canada</span>
-              </div>
-              <div class="exp-card-year" aria-label="2025 to present">
-                <span>NOW</span>
-                <small>2025—PRESENT</small>
-              </div>
-              <div class="exp-card-body">
-                <ul class="exp-card-summary" aria-label="Graduate Assistant responsibilities">
-                  <li>Support 100+ Computer Networks students through assessments and office hours.</li>
-                  <li>Lead practical labs using Wireshark and Cisco Packet Tracer.</li>
-                  <li>Teach routing, TCP/IP, and network-security fundamentals.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Timeline Item 2 -->
-          <div class="exp-timeline-item">
-            <div class="exp-timeline-dot"></div>
-            <div class="exp-card">
-              <div class="exp-card-header">
-                <h3 class="exp-card-role">IT Specialist</h3>
-                <span class="exp-card-company">Etezazi Industries</span>
-                <span class="exp-card-location">Wichita, KS, USA</span>
-              </div>
-              <div class="exp-card-year" aria-label="2021 to 2024">
-                <span>2021</span>
-                <small>TO 2024</small>
-              </div>
-              <div class="exp-card-body">
-                <ul class="exp-card-summary" aria-label="IT Specialist responsibilities">
-                  <li>Migrated 100+ users to a new domain with zero downtime.</li>
-                  <li>Managed identity, VPN, firewall, and server infrastructure.</li>
-                  <li>Built a Python inventory workflow that reduced scrap parts by 40%.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Timeline Item 3 -->
-          <div class="exp-timeline-item">
-            <div class="exp-timeline-dot"></div>
-            <div class="exp-card">
-              <div class="exp-card-header">
-                <h3 class="exp-card-role">IT Intern</h3>
-                <span class="exp-card-company">Etezazi Industries</span>
-                <span class="exp-card-location">Wichita, KS, USA</span>
-              </div>
-              <div class="exp-card-year" aria-label="2021 internship">
-                <span>2021</span>
-                <small>INTERNSHIP</small>
-              </div>
-              <div class="exp-card-body">
-                <ul class="exp-card-summary" aria-label="IT Intern responsibilities">
-                  <li>Resolved 200+ IT requests through centralized monitoring.</li>
-                  <li>Supported company databases and wrote SQL queries for operational reporting.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Research Section -->
-    <section id="research" aria-label="Research section">
-      <div class="section-container">
-        <div class="section-heading-row">
-          <h2 class="section-title text-mask-cinematic">Research</h2>
-          <p class="section-deck">Graph learning, language technology, and applied machine-learning research.</p>
-        </div>
-        <div class="research-split" id="stackSection">
-          <!-- LEFT COLUMN — Editorial Panel (sticky) -->
-          <div class="research-left">
-            <div class="research-intro">
-              <p class="research-intro-desc">Investigating graph-based deep learning, NLP for low-resource languages,
-                and advanced machine learning applications at the University of Windsor. My work focuses on pushing the
-                boundaries of what's possible with neural architectures.</p>
-
-              <a href="papers/8720 Project_paper.pdf" target="_blank" rel="noopener noreferrer" class="research-cta">
-                Read the latest publication <i class="ph ph-arrow-right"></i>
-              </a>
-
-              <div class="research-downloads">
-                <a href="papers/8720 Project_paper.pdf" target="_blank" rel="noopener noreferrer" class="research-download-item">
-                  <span>Download HGNN Research Paper</span>
-                  <div class="download-arrow"><i class="ph ph-arrow-right"></i></div>
-                </a>
-                <a href="https://github.com/vimanga-x64/COMP8730_Project" target="_blank" rel="noopener noreferrer"
-                  class="research-download-item">
-                  <span>View Glossing Models Project Github</span>
-                  <div class="download-arrow"><i class="ph ph-arrow-right"></i></div>
-                </a>
-                <a href="papers/COMP8740_FinalProject.pdf" target="_blank" rel="noopener noreferrer" class="research-download-item">
-                  <span>View Advanced ML Research Paper</span>
-                  <div class="download-arrow"><i class="ph ph-arrow-right"></i></div>
-                </a>
-              </div>
-
-              <p class="research-footnote">Links above give access to early drafts and project repositories. Full thesis
-                document will be available upon defense.</p>
-            </div>
-          </div>
-
-          <!-- RIGHT COLUMN — Stacking Cards -->
-          <div class="research-right">
-            <div class="stack-cards-wrapper">
-              <div class="stack-cards-container" id="stackCards">
-                <!-- Card 1 — Cream/Beige -->
-                <div class="stack-card stack-card-1" data-card-index="0">
-                  <div class="stack-card-inner">
-                    <div class="stack-card-header">
-                      <h3>Top-k Densest Subgraph Augmentation for Hypergraph Neural Networks</h3>
-                      <div class="stack-card-actions">
-                        <a href="papers/8720 Project_paper.pdf" target="_blank" rel="noopener noreferrer" title="View Paper"><i
-                            class="ph ph-arrow-square-out"></i></a>
-                      </div>
-                    </div>
-                    <p class="stack-card-desc">Investigating graph augmentation techniques for hypergraph neural
-                      networks, applying top-k densest subgraph methods to improve prediction accuracy in movie
-                      profitability analysis.</p>
-                    <div class="stack-card-tags">
-                      <span>Hypergraphs</span>
-                      <span>Deep Learning</span>
-                      <span>PyTorch</span>
-                    </div>
-                    <span class="stack-card-source">uwindsor.ca</span>
-                  </div>
-                </div>
-                <!-- Card 2 — Dark/Black -->
-                <div class="stack-card stack-card-2" data-card-index="1">
-                  <div class="stack-card-inner">
-                    <div class="stack-card-header">
-                      <h3>Transformer-Based Automated Interlinear Glossing for Low-Resource Languages</h3>
-                      <div class="stack-card-actions">
-                        <a href="https://github.com/vimanga-x64/COMP8730_Project" target="_blank" rel="noopener noreferrer" title="GitHub"><i
-                            class="ph ph-github-logo"></i></a>
-                        <a href="papers/COMP8730_Proposal-1.pdf" target="_blank" rel="noopener noreferrer" title="View Paper"><i
-                            class="ph ph-arrow-square-out"></i></a>
-                      </div>
-                    </div>
-                    <p class="stack-card-desc">Developed transformer-based models for automated morphological analysis
-                      of Arapaho and Ancient Greek. Explored transfer learning to handle limited training data.</p>
-                    <div class="stack-card-tags">
-                      <span>NLP</span>
-                      <span>Transformers</span>
-                      <span>Python</span>
-                    </div>
-                    <span class="stack-card-source">uwindsor.ca</span>
-                  </div>
-                </div>
-                <!-- Card 3 — Dark Green -->
-                <div class="stack-card stack-card-3" data-card-index="2">
-                  <div class="stack-card-inner">
-                    <div class="stack-card-header">
-                      <h3>Advanced Machine Learning Applications</h3>
-                      <div class="stack-card-actions">
-                        <a href="papers/COMP8740_FinalProject.pdf" target="_blank" rel="noopener noreferrer" title="View Paper"><i
-                            class="ph ph-arrow-square-out"></i></a>
-                      </div>
-                    </div>
-                    <p class="stack-card-desc">Comprehensive exploration of advanced machine learning techniques and
-                      their practical applications covering state-of-the-art methods in deep learning.</p>
-                    <div class="stack-card-tags">
-                      <span>Machine Learning</span>
-                      <span>Deep Learning</span>
-                      <span>Python</span>
-                    </div>
-                    <span class="stack-card-source">uwindsor.ca</span>
-                  </div>
-                </div>
-                <!-- Card 4 — Master's Thesis -->
-                <div class="stack-card stack-card-4" data-card-index="3">
-                  <div class="stack-card-inner">
-                    <div class="stack-card-header">
-                      <h3>Hybrid POMDP for Mobile ITS with Co-optimized Pedagogical Effectiveness and Mobile Performance</h3>
-                    </div>
-                    <div class="stack-card-meta">
-                      <span class="stack-card-status">Coming soon · Pending defence</span>
-                    </div>
-                    <p class="stack-card-desc">A reinforcement-learning framework that jointly adapts tutoring strategy,
-                      compute placement, and avatar fidelity to improve learning outcomes while meeting mobile latency
-                      and energy constraints.</p>
-                    <div class="stack-card-tags">
-                      <span>Mobile ITS</span>
-                      <span>Reinforcement Learning</span>
-                      <span>POMDP</span>
-                    </div>
-                    <span class="stack-card-source">University of Windsor · 2026</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="tech-marquee__row">
+          <div class="tech-marquee__track">
+            <ul class="tech-marquee__group">
+              <li><span class="tech-logo"><img src="logos/tailwindcss.svg" alt="" loading="lazy"></span><span>Tailwind CSS</span></li>
+              <li><span class="tech-logo"><img src="logos/Threejs-logo.svg" alt="" loading="lazy"></span><span>Three.js</span></li>
+              <li><span class="tech-logo"><img src="logos/javascript.svg" alt="" loading="lazy"></span><span>JavaScript</span></li>
+              <li><span class="tech-logo"><img src="logos/java.svg" alt="" loading="lazy"></span><span>Java</span></li>
+              <li><span class="tech-logo"><img src="logos/sql.svg" alt="" loading="lazy"></span><span>SQL</span></li>
+              <li><span class="tech-logo"><img src="logos/flask-light.svg" alt="" loading="lazy"></span><span>Flask</span></li>
+            </ul>
+            <ul class="tech-marquee__group" aria-hidden="true">
+              <li><span class="tech-logo"><img src="logos/tailwindcss.svg" alt=""></span><span>Tailwind CSS</span></li>
+              <li><span class="tech-logo"><img src="logos/Threejs-logo.svg" alt=""></span><span>Three.js</span></li>
+              <li><span class="tech-logo"><img src="logos/javascript.svg" alt=""></span><span>JavaScript</span></li>
+              <li><span class="tech-logo"><img src="logos/java.svg" alt=""></span><span>Java</span></li>
+              <li><span class="tech-logo"><img src="logos/sql.svg" alt=""></span><span>SQL</span></li>
+              <li><span class="tech-logo"><img src="logos/flask-light.svg" alt=""></span><span>Flask</span></li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="contact" aria-label="Contact section" class="contact-section" style="position: relative;">
+    <section class="work" id="work" aria-labelledby="work-title">
+      <header class="work-index shell">
+        <div class="work-index__bar">
+          <p>Work index / 02</p>
+          <p>Software · Artificial intelligence · Research</p>
+          <a href="https://github.com/vimanga-x64" target="_blank" rel="noopener noreferrer">GitHub archive ↗</a>
+        </div>
+        <div class="work-index__lead">
+          <h2 id="work-title">Selected<br>projects.</h2>
+          <p>Products, experiments, and research translated into useful systems—with a bias toward clarity, evidence, and things that actually ship.</p>
+        </div>
+        <div class="work-index__filters" aria-label="Project collection summary"><span>Featured / 06</span><span>Case studies / 02</span><span>Open source / 06</span></div>
+      </header>
+      <div class="project-showcase-grid project-atlas shell" aria-label="Selected projects">
+        <article class="project-showcase-card project-showcase-card--fittrack" id="project-fittrack" data-case-transition="fittrack">
+          <a class="project-showcase-card__visual" href="fittrack.html" aria-label="Read the FitTrack case study"><div class="project-device project-device--model project-device--laptop"><model-viewer class="project-screen-model project-laptop-model" src="laptop-model/source/macbook_pro_14_inch_M5.glb" data-project-screen="images/LandingPage-winhacks.webp" data-screen-saturation="0.48" alt="MacBook displaying the FitTrack wellness dashboard" camera-orbit="0deg 75deg 72%" field-of-view="21deg" environment-image="neutral" exposure=".9" shadow-intensity=".75" shadow-softness="1" interaction-prompt="none" loading="lazy"><span slot="progress-bar" class="project-model-progress" aria-hidden="true"></span></model-viewer><img class="project-model-fallback project-laptop-fallback" src="images/LandingPage-winhacks.webp" loading="lazy" decoding="async" alt="" aria-hidden="true"></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">01 / WinHacks finalist</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link project-showcase-card__availability-link--case-study" href="fittrack.html">Case study</a><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/Winhacks-Project" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>FitTrack</h3><a class="project-showcase-card__launch" href="fittrack.html" aria-label="Read the FitTrack case study"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A recovery assistant that turns biometrics, nutrition, and activity signals into practical daily guidance.</p><div class="project-showcase-card__meta"><span>React</span><span>FastAPI</span><span>OpenAI</span></div></div></div>
+        </article>
+        <article class="project-showcase-card project-showcase-card--weather" id="project-weatherwise" data-case-transition="weatherwise">
+          <a class="project-showcase-card__visual" href="weatherwise.html" aria-label="Read the WeatherWise case study"><div class="project-tablet-scene project-tablet-scene--weather"><div class="project-tablet project-tablet--landscape project-tablet--weather-primary"><span class="project-tablet__camera" aria-hidden="true"></span><div class="project-tablet__screen"><img src="images/Space_Apps_Screenshot.webp" alt="WeatherWise geospatial interface" loading="lazy" decoding="async"></div></div><div class="project-tablet project-tablet--landscape project-tablet--weather-secondary" aria-hidden="true"><span class="project-tablet__camera"></span><div class="project-tablet__screen"><img src="images/Nasa-Weathewise_Weather_Recommendation.jpg" alt="" loading="lazy" decoding="async"></div></div></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">02 / NASA Space Apps</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link project-showcase-card__availability-link--case-study" href="weatherwise.html">Case study</a><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/NASA-Hackathon-Weather_APP" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>WeatherWise</h3><a class="project-showcase-card__launch" href="weatherwise.html" aria-label="Read the WeatherWise case study"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A geospatial recommender combining satellite imagery, forecasts, statistical scoring, and language models.</p><div class="project-showcase-card__meta"><span>NASA APIs</span><span>Geospatial</span><span>LLM</span></div></div></div>
+        </article>
+        <article class="project-showcase-card project-showcase-card--movie">
+          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" rel="noopener noreferrer" aria-label="View AI Movie Search source"><div class="project-tablet-scene project-tablet-scene--movie"><div class="project-tablet project-tablet--landscape"><span class="project-tablet__camera" aria-hidden="true"></span><div class="project-tablet__screen"><img src="images/movie-app.webp" alt="AI Movie Search interface" loading="lazy" decoding="async"></div></div></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">03 / NLP product</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>AI Movie Search</h3><a class="project-showcase-card__launch" href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" rel="noopener noreferrer" aria-label="View AI Movie Search source"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>Natural-language movie discovery using React, Hugging Face NLP, and the TMDB API.</p><div class="project-showcase-card__meta"><span>React</span><span>Hugging Face</span><span>TMDB</span></div></div></div>
+        </article>
+        <article class="project-showcase-card project-showcase-card--games">
+          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" rel="noopener noreferrer" aria-label="View Free Game Scraper source"><div class="project-device project-device--model project-device--imac"><model-viewer class="project-screen-model project-imac-model" src="assets/imac_2021.glb" data-project-screen="images/free-games.webp" data-screen-material="Screen" data-screen-flip-y="true" data-screen-inset-x="0" data-screen-inset-y="0.18" alt="Front-facing 2021 iMac displaying the complete Free Game Scraper interface" camera-orbit="90deg 90deg 72%" field-of-view="24deg" environment-image="neutral" exposure="1" shadow-intensity=".7" shadow-softness="1" interaction-prompt="none" loading="lazy"><span slot="progress-bar" class="project-model-progress" aria-hidden="true"></span></model-viewer><img class="project-model-fallback project-imac-fallback" src="images/free-games.webp" loading="lazy" decoding="async" alt="" aria-hidden="true"></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">04 / Full-stack</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>Free Game Scraper</h3><a class="project-showcase-card__launch" href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" rel="noopener noreferrer" aria-label="View Free Game Scraper source"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A full-stack aggregator monitoring six-plus platforms with intelligent caching to reduce API calls.</p><div class="project-showcase-card__meta"><span>Python</span><span>APIs</span><span>Caching</span></div></div></div>
+        </article>
+        <article class="project-showcase-card project-showcase-card--etutor">
+          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/ResearchProject-Prototype" target="_blank" rel="noopener noreferrer" aria-label="View E-Tutor source"><div class="project-handheld"><img class="project-handheld__render" src="images/etutor-hand-phone-v1.webp" loading="lazy" decoding="async" alt="A soft blue 3D hand holding an iPhone"><div class="project-device project-device--phone project-iphone project-handheld__iphone"><div class="project-iphone__screen"><img src="images/etutor-screenshot.png" alt="E-Tutor adaptive learning interface" loading="lazy"><span class="project-iphone__dynamic-island" aria-hidden="true"><i></i></span></div><span class="project-iphone__button project-iphone__button--action" aria-hidden="true"></span><span class="project-iphone__button project-iphone__button--volume" aria-hidden="true"></span><span class="project-iphone__button project-iphone__button--power" aria-hidden="true"></span></div></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">05 / Mobile learning</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/ResearchProject-Prototype" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>E-Tutor</h3><a class="project-showcase-card__launch" href="https://github.com/vimanga-x64/ResearchProject-Prototype" target="_blank" rel="noopener noreferrer" aria-label="View E-Tutor source"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A mobile learning platform with mood-responsive avatars, gamified lessons, and real-time feedback.</p><div class="project-showcase-card__meta"><span>Flutter</span><span>AI</span><span>Research</span></div></div></div>
+        </article>
+        <article class="project-showcase-card project-showcase-card--dhamma">
+          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank" rel="noopener noreferrer" aria-label="View Dhammapada source"><div class="project-dhamma-phones"><div class="project-device project-device--phone project-iphone project-dhamma-phone project-dhamma-phone--primary"><div class="project-iphone__screen"><img src="images/Dhammapada_Homescreen.png" alt="Dhammapada reading application" loading="lazy"><span class="project-iphone__dynamic-island" aria-hidden="true"><i></i></span></div><span class="project-iphone__button project-iphone__button--action" aria-hidden="true"></span><span class="project-iphone__button project-iphone__button--volume" aria-hidden="true"></span><span class="project-iphone__button project-iphone__button--power" aria-hidden="true"></span></div><div class="project-device project-device--phone project-iphone project-dhamma-phone project-dhamma-phone--secondary" aria-hidden="true"><div class="project-iphone__screen"><img src="images/Dhammapada_Lockscreen.png" alt="" loading="lazy"><span class="project-iphone__dynamic-island"><i></i></span></div><span class="project-iphone__button project-iphone__button--action"></span><span class="project-iphone__button project-iphone__button--volume"></span><span class="project-iphone__button project-iphone__button--power"></span></div></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">06 / Cross-platform</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>Dhammapada</h3><a class="project-showcase-card__launch" href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank" rel="noopener noreferrer" aria-label="View Dhammapada source"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A quiet cross-platform reading experience that brings Buddhist teachings into daily life.</p><div class="project-showcase-card__meta"><span>Flutter</span><span>Mobile</span><span>UX</span></div></div></div>
+        </article>
+      </div>
+    </section>
 
-      <canvas id="contact-particles-canvas" aria-hidden="true"></canvas>
+    <section class="research" id="research" aria-labelledby="research-title">
+      <div class="research-paper shell">
+        <header class="research-masthead reveal">
+          <div class="research-masthead__bar">
+            <span>Applied AI / Systems / Research</span>
+            <strong>Vimanga Umange</strong>
+            <span>Windsor, Canada</span>
+          </div>
+          <div class="research-masthead__lead">
+            <p class="research-masthead__kicker">The Independent Research Journal</p>
+            <h2 id="research-title">Ideas made<br>operational.</h2>
+            <p class="research-masthead__deck">Research at the intersection of machine intelligence, language, learning systems, and the people they serve.</p>
+          </div>
+          <div class="research-masthead__dateline" aria-label="Publication details">
+            <span>Research edition</span>
+            <span>Vol. 04 · 2025—2026</span>
+            <span>Four selected papers</span>
+          </div>
+        </header>
 
-      <div class="section-container">
-        <!-- Alert Message -->
-        <div class="contact-alert" id="contactAlert" style="display: none;">
-          <i class="ph-fill ph-check-circle"></i>
-          <span id="alertMessage">Your message has been sent!</span>
+        <div class="research-desk reveal">
+          <p>The Research Desk</p>
+          <p>Selected papers, studies &amp; working systems</p>
         </div>
 
-        <div class="contact-layout">
-          <div class="contact-left">
-            <img src="website_logo.svg" alt="Vimanga Umange Logo" class="contact-logo" loading="lazy" decoding="async">
-          </div>
-
-          <div class="contact-right">
-            <div class="contact-wrapper">
-              <!-- Minimal Form Header -->
-              <h2 class="contact-title section-title">Send me a message!</h2>
-              <p class="contact-subtitle">I'm always interested in discussing new opportunities or collaborative
-                projects.
-                Whether you have a question about my work or want to explore potential collaborations, feel free to
-                reach
-                out.</p>
-
-              <!-- Contact Form -->
-              <form class="minimal-contact-form" id="contactForm" style="margin-top: 2rem;">
-                <div class="form-field">
-                  <label for="name" class="field-label">Name <span class="required-asterisk">*</span></label>
-                  <input type="text" id="name" name="name" class="field-input-minimal" placeholder="First Last"
-                    autocomplete="name" required />
+        <div class="research-list research-news-grid">
+          <a class="research-article research-article--lead reveal" href="papers/8720 Project_paper.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="research-article__meta"><span>Lead story / Graph learning</span><span>No. 01 · 2026</span></div>
+            <h3>Top-k Densest Subgraph Augmentation for Hypergraph Neural Networks</h3>
+            <div class="research-article__lead-layout">
+              <figure class="research-story-photo" aria-labelledby="research-photo-caption">
+                <div class="research-story-photo__frame">
+                  <img src="images/research-archive-lab-v1.webp" alt="Generated archival-style black-and-white scene of researchers working in a 1960s university computing laboratory" loading="lazy" decoding="async">
                 </div>
-
-                <div class="form-field">
-                  <label for="email" class="field-label">Email Address <span class="required-asterisk">*</span></label>
-                  <input type="email" id="email" name="email" class="field-input-minimal" placeholder="Email Address"
-                    autocomplete="email" required />
-                </div>
-
-                <div class="form-field">
-                  <label for="message" class="field-label">Message <span class="required-asterisk">*</span></label>
-                  <textarea id="message" name="message" rows="1" class="field-input-minimal" placeholder="Message"
-                    maxlength="500" required></textarea>
-                  <div class="word-count-wrapper" id="wordCountWrapper"
-                    style="align-self: flex-end; margin-top: 0.5rem;">
-                    <span class="word-count-text status-green" id="wordCountText">0/500</span>
-                    <div class="word-count-pill">
-                      <div class="word-count-fill status-green" id="wordCountFill"></div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Invisible Honeypot CAPTCHA -->
-                <input type="text" name="_gotcha" style="display:none" />
-
-                <div class="required-field-text"><span>*</span> Required field</div>
-
-                <button type="submit" class="shoot-btn" id="submitBtn">
-                  <span id="btnText">SEND</span>
-                  <span class="btn-arrow">→</span>
-                  <div class="box-animation-wrap">
-                    <svg class="box-icon" viewBox="0 0 100 100" stroke="currentColor" stroke-width="4"
-                      stroke-linecap="round" stroke-linejoin="round" fill="none">
-                      <g class="box-group">
-                        <path class="box-body" d="M50,80 L20,65 L20,35 L50,50 L80,35 L80,65 Z M50,80 L50,50" />
-                        <path class="flaps-open"
-                          d="M20,35 L10,15 L40,30 L50,50 M80,35 L90,15 L60,30 L50,50 M20,35 L50,20 L80,35" />
-                        <path class="flaps-closed" d="M20,35 L50,20 L80,35 L50,50" />
-                        <path class="box-tape" d="M40,45 L60,35" stroke="var(--accent)" stroke-width="5" />
-                      </g>
-                      <path class="box-check" d="M30,55 L45,70 L75,40" stroke="var(--status-positive)" />
-                    </svg>
-                  </div>
-                </button>
-              </form>
-
-              <!-- Social Links -->
-              <div class="contact-social">
-                <p class="social-label">Find me on</p>
-                <div class="social-links">
-                  <a href="https://github.com/vimanga-x64" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
-                    <svg class="social-icon" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
-                        transform="scale(64)" fill="currentColor" />
-                    </svg>
-                  </a>
-                  <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" rel="noopener noreferrer" class="social-link"
-                    aria-label="LinkedIn">
-                    <svg class="social-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"
-                      preserveAspectRatio="xMidYMid">
-                      <path
-                        d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"
-                        fill="#0A66C2" />
-                    </svg>
-                  </a>
-                  <a href="https://medium.com/@vishudha98" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Medium">
-                    <svg class="social-icon" viewBox="0 -55 256 256" xmlns="http://www.w3.org/2000/svg"
-                      preserveAspectRatio="xMidYMid">
-                      <path
-                        d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
-                        fill="currentColor" />
-                    </svg>
-                  </a>
-                  <a href="https://www.cloudskillsboost.google/public_profiles/c0bb8d2a-59e1-4a36-90e4-81a792ae00ba"
-                    target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Google Cloud">
-                    <img src="logos/google-cloud.svg" alt="Google Cloud" class="social-img" loading="lazy" decoding="async" />
-                  </a>
-                </div>
-              </div>
+                <figcaption id="research-photo-caption"><span>Fig. 01</span> Editorial reconstruction of a mid-century research laboratory · Generated study, 2026</figcaption>
+              </figure>
+              <p class="research-article__standfirst">Density-based augmentation can strengthen natural clusters in hypergraphs—but the same strategy may erase useful sparse signals. A cross-domain study finds gains of up to four percent on movie-profit prediction and sharply different outcomes on benchmark networks.</p>
             </div>
-          </div>
-        </div>
+            <div class="research-article__footer"><span>By Rustem Izmailov, Nishant Gowthaman, Gauthami Shirodkar &amp; Vimanga Umange</span><strong>Read paper <b aria-hidden="true">↗</b></strong></div>
+          </a>
 
-        <div class="legacy-portal-wrap" data-studio-reveal="panel">
-          <a href="older-portfolio/" class="legacy-portal" aria-label="Open the older portfolio">
-            <span class="legacy-portal-label">
-              <strong>Older portfolios</strong>
-              <span>Visit the archive&nbsp; ↗</span>
-            </span>
-            <span class="legacy-model-stage" aria-hidden="true">
-              <span class="legacy-model-glow"></span>
-              <model-viewer class="legacy-telephone-model" data-src="models_for_hero/telephone_booth.glb?v=20260821" alt=""
-                camera-orbit="28deg 72deg 112%" field-of-view="28deg" exposure="1.05"
-                environment-image="neutral" shadow-intensity="1" shadow-softness=".85"
-                auto-rotate auto-rotate-delay="0" rotation-per-second="9deg" disable-zoom
-                interaction-prompt="none" loading="lazy" reveal="auto">
-              </model-viewer>
-            </span>
+          <a class="research-article research-article--language reveal" href="papers/COMP8730_Evaluation-4.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="research-article__meta"><span>Language desk / NLP</span><span>No. 02 · 2026</span></div>
+            <h3>Transformer-Based Automated Interlinear Glossing for Low-Resource Languages</h3>
+            <p class="research-article__standfirst">A character-level Transformer combines unsupervised morpheme segmentation, relative positional encoding, and translation cues to generate linguistic glosses for languages with limited annotated data.</p>
+            <div class="research-article__footer"><span>By George Kaceli &amp; Vimanga Umange</span><strong>Read paper <b aria-hidden="true">↗</b></strong></div>
+          </a>
+
+          <a class="research-article research-article--health reveal" href="papers/COMP8740_FinalProject.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="research-article__meta"><span>Data desk / Health AI</span><span>No. 03 · 2025</span></div>
+            <h3>Comparing Machine Learning Approaches for Heart Disease Indicators</h3>
+            <p class="research-article__standfirst">From logistic regression to TabNet, this comparative study asks which machine-learning models most reliably detect heart-disease indicators—and how systematic tuning changes their performance.</p>
+            <div class="research-article__footer"><span>By Vimanga Umange &amp; Saumya Buch</span><strong>Read paper <b aria-hidden="true">↗</b></strong></div>
+          </a>
+
+          <a class="research-article research-article--tutoring reveal" href="resume/index.html#research">
+            <div class="research-article__meta"><span>Systems desk / Adaptive learning</span><span>No. 04 · 2026</span></div>
+            <h3>Hybrid POMDP for Mobile Intelligent Tutoring Systems</h3>
+            <p class="research-article__standfirst">A Deep Q-Network controller jointly selects pedagogical actions, compute placement, and avatar fidelity across changing mobile conditions. Simulations produced a 44 percent relative improvement in normalized learning gain while keeping 98.68 percent of tutoring steps within a 500 ms threshold.</p>
+            <div class="research-article__footer"><span>By Vimanga Umange · Master's thesis</span><strong>View thesis brief <b aria-hidden="true">↗</b></strong></div>
           </a>
         </div>
+
+        <footer class="research-colophon reveal">
+          <span>Read the complete papers ↗</span>
+          <span>Research / Artificial Intelligence / Human-centred Systems</span>
+          <span>VU © 2026</span>
+        </footer>
+      </div>
+    </section>
+
+    <section class="experience experience-studio" id="experience" aria-labelledby="experience-title">
+      <div class="experience__grid-lines" aria-hidden="true"></div>
+      <header class="experience__masthead shell">
+        <p class="eyebrow reveal">Experience / 05</p>
+        <div class="experience__headline reveal">
+          <h2 id="experience-title">Work shaped by<br><em>real systems.</em></h2>
+          <div class="experience__intro">
+            <div class="experience__resume-actions">
+              <a class="experience__resume" href="output/pdf/Vimanga_Umange_Resume.pdf" target="_blank" rel="noopener noreferrer">View Resume <span aria-hidden="true">↗</span></a>
+              <a class="experience__resume experience__resume--download" href="output/pdf/Vimanga_Umange_Resume.pdf" download="Vimanga_Umange_Resume.pdf">Download Resume <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
         </div>
+      </header>
+      <div class="roles shell" aria-label="Professional experience timeline">
+        <article class="role role--left role--graduate reveal" style="--role-order:0;--role-accent:#75e6c7">
+          <img class="role__cloud" src="images/experience-cloud-card-v1.webp" loading="lazy" decoding="async" alt="" aria-hidden="true">
+          <div class="role__top"><time datetime="2025">2025—Now</time></div>
+          <h3>Graduate Assistant</h3><p class="role__company">University of Windsor · Canada</p>
+          <ul><li>Support 100+ Computer Networks students through labs, assessments, and office hours.</li><li>Teach practical routing, TCP/IP, Wireshark, Cisco Packet Tracer, and network security.</li></ul>
+        </article>
+        <figure class="experience-art experience-art--ladder" aria-hidden="true"><img src="images/experience-ladder-reference.svg" alt=""></figure>
+        <article class="role role--right role--specialist reveal" style="--role-order:1;--role-accent:#ff9b72">
+          <img class="role__cloud" src="images/experience-cloud-card-v1.webp" loading="lazy" decoding="async" alt="" aria-hidden="true">
+          <div class="role__top"><time>2021—2024</time></div>
+          <h3>IT Specialist</h3><p class="role__company">Etezazi Industries · USA</p>
+          <ul><li>Migrated more than 100 users to a new domain with zero downtime.</li><li>Managed identity, VPN, firewall, server, and database infrastructure.</li><li>Built a Python inventory workflow that reduced scrap parts by 40%.</li></ul>
+        </article>
+        <figure class="experience-art experience-art--conduit" aria-hidden="true"><img src="images/experience-column-reference.svg" alt=""></figure>
+        <article class="role role--left role--intern reveal" style="--role-order:2;--role-accent:#f3d83f">
+          <img class="role__cloud" src="images/experience-cloud-card-v1.webp" loading="lazy" decoding="async" alt="" aria-hidden="true">
+          <div class="role__top"><time datetime="2021">2021</time></div>
+          <h3>IT Intern</h3><p class="role__company">Etezazi Industries · USA</p>
+          <ul><li>Resolved more than 200 IT requests through centralized monitoring.</li><li>Supported operational databases and wrote SQL reporting queries.</li></ul>
+        </article>
+        <figure class="experience-art experience-art--portal" aria-hidden="true">
+          <div class="experience-portal-composite">
+            <img class="experience-portal__door" src="images/experience-door-reference.svg" alt="">
+            <div class="experience-portal__clouds">
+              <img class="experience-portal__cloud experience-portal__cloud--one" src="images/experience-cloud-left-reference.svg" alt="">
+              <img class="experience-portal__cloud experience-portal__cloud--two" src="images/experience-cloud-right-reference.svg" alt="">
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact__orb" aria-hidden="true"></div>
+      <div class="shell contact__inner">
+        <p class="eyebrow reveal">Contact / 06</p>
+        <h2 id="contact-title" class="reveal">Have a difficult<br>problem? Good.</h2>
+        <div class="contact__bottom reveal">
+          <div class="contact__intro">
+            <p>I’m interested in software engineering, applied AI, research, and teams building ambitious things with real utility.</p>
+            <a class="contact__email" href="mailto:vimangau@gmail.com"><span>Prefer email?</span><strong>vimangau@gmail.com</strong><b aria-hidden="true">↗</b></a>
+          </div>
+
+          <form class="contact-form" data-contact-form action="https://formspree.io/f/xvgwddda" method="post">
+            <div class="contact-form__heading"><div><span>Start a conversation</span><strong>Tell me what you’re working on.</strong></div><b>01—03</b></div>
+            <div class="contact-form__row">
+              <label class="contact-field"><span>Name</span><input type="text" name="name" autocomplete="name" maxlength="80" placeholder="Your name" required></label>
+              <label class="contact-field"><span>Email address</span><input type="email" name="email" autocomplete="email" maxlength="160" placeholder="you@example.com" required></label>
+            </div>
+            <label class="contact-field contact-field--message"><span>Message</span><textarea name="message" rows="5" maxlength="2500" placeholder="A quick outline of the idea, problem, or opportunity…" required></textarea></label>
+            <div class="contact-form__footer">
+              <button type="submit" data-contact-submit><i class="cta-bloom" aria-hidden="true"></i><span class="cta-label-swap" data-contact-submit-label><span data-contact-submit-label-default>Send message</span><span aria-hidden="true">Let’s connect</span></span><b aria-hidden="true">↗</b></button>
+            </div>
+            <p class="contact-form__status" data-contact-status aria-live="polite"></p>
+          </form>
+        </div>
+
+        <button class="archive-callbox reveal" id="archiveCallbox" type="button" aria-label="Open the portfolio archive" aria-haspopup="dialog" aria-controls="portfolioArchive" aria-expanded="false">
+          <span class="archive-callbox__stage" aria-hidden="true">
+            <model-viewer class="archive-callbox__model"
+              src="models_for_hero/telephone_booth.glb?v=20260821"
+              alt=""
+              camera-orbit="28deg 72deg 112%"
+              field-of-view="28deg"
+              exposure="1.08"
+              environment-image="neutral"
+              shadow-intensity="1"
+              shadow-softness=".85"
+              auto-rotate
+              auto-rotate-delay="0"
+              rotation-per-second="8deg"
+              disable-zoom
+              interaction-prompt="none"
+              loading="lazy">
+            </model-viewer>
+          </span>
+        </button>
+      </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <video class="footer-butterflies" data-src="videos/butterflies-loop.webm" muted loop playsinline
-      preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture></video>
-    <div class="footer-content">
-      <div class="footer-monitor" role="group" aria-label="Portfolio system status"
-        data-last-updated="2026-08-25T12:32:32-04:00"
-        data-launched="2025-05-15T22:24:14-04:00"
-        data-matcha-base="155" data-matcha-start="2026-08-27T00:00:00-04:00">
-        <p class="footer-monitor-location">© 2026 Vimanga Umange · <a href="humans.txt" class="footer-link">Made in Windsor, Canada</a></p>
-        <p class="footer-monitor-system">
-          <span>Online</span>
-          <span class="footer-monitor-secondary">Live for <span data-monitor-age>000D 00:00:00</span></span>
-          <span data-monitor-time>--:--:-- EDT</span>
-          <span data-monitor-state>Checking</span>
-          <span class="footer-monitor-secondary">Updated <span data-monitor-deploy>checking</span></span>
-        </p>
-        <p class="footer-monitor-matcha"><span data-monitor-matcha>155</span> matchas in, no plans to stop</p>
+  <div class="case-navigation-curtain" id="caseNavigationCurtain" aria-hidden="true">
+    <div class="case-navigation-curtain__orb"></div>
+    <div class="case-navigation-curtain__content">
+      <span>Selected work / Case study</span>
+      <strong id="caseNavigationTitle">Project</strong>
+      <i></i>
+      <small>Opening the case study</small>
+    </div>
+  </div>
+
+  <footer class="footer garden-footer" aria-labelledby="garden-title">
+    <video class="garden-footer__butterflies" src="videos/butterflies-loop-sm.webm?v=2" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture></video>
+    <div class="garden-footer__copy shell">
+      <p>Useful software starts with a good conversation.</p>
+      <h2 id="garden-title">Let’s grow your next idea</h2>
+      <div class="garden-footer__actions">
+        <a class="garden-footer__email" href="mailto:vimangau@gmail.com"><i class="cta-bloom" aria-hidden="true"></i><span class="garden-footer__email-label cta-label-swap"><span>Start a conversation</span><span aria-hidden="true">What’s up?</span></span><span class="garden-footer__email-arrow" aria-hidden="true">↗</span></a>
+        <a class="garden-footer__resume" href="output/pdf/Vimanga_Umange_Resume.pdf" download="Vimanga_Umange_Resume.pdf" aria-label="Download Vimanga Umange’s resume as a PDF"><span>Download resume</span><b aria-hidden="true">↓</b></a>
       </div>
+    </div>
+
+    <svg class="garden-footer__scene" viewBox="0 0 1800 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs>
+        <filter id="gardenRough" x="-8%" y="-8%" width="116%" height="116%">
+          <feTurbulence type="fractalNoise" baseFrequency=".018 .08" numOctaves="2" seed="9" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4"/>
+        </filter>
+        <filter id="gardenGrain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".32" numOctaves="3" seed="21" result="grain"/>
+          <feBlend in="SourceGraphic" in2="grain" mode="soft-light"/>
+        </filter>
+        <g id="gardenDaisy">
+          <path d="M1 15C-4 74 7 118 0 176" fill="none" stroke="#aa583b" stroke-width="5" stroke-linecap="round"/>
+          <g fill="#f9f2de" stroke="#eee4cb" stroke-width="1.2">
+            <ellipse cx="0" cy="-21" rx="8" ry="24"/>
+            <ellipse cx="0" cy="21" rx="8" ry="24"/>
+            <ellipse cx="-21" cy="0" rx="24" ry="8"/>
+            <ellipse cx="21" cy="0" rx="24" ry="8"/>
+            <ellipse cx="-15" cy="-15" rx="8" ry="23" transform="rotate(-45 -15 -15)"/>
+            <ellipse cx="15" cy="-15" rx="8" ry="23" transform="rotate(45 15 -15)"/>
+            <ellipse cx="-15" cy="15" rx="8" ry="23" transform="rotate(45 -15 15)"/>
+            <ellipse cx="15" cy="15" rx="8" ry="23" transform="rotate(-45 15 15)"/>
+          </g>
+          <circle r="11" fill="#efa70d" stroke="#d78608" stroke-width="2"/>
+          <path d="M-5-5l10 10M5-5L-5 5M0-8v16M-8 0H8" stroke="#c47705" stroke-width="1.2" opacity=".72"/>
+        </g>
+        <g id="gardenGrass" fill="#48501f">
+          <path d="M0 105C-1 63-10 30-28 0C-19 43-19 75-18 110Z"/>
+          <path d="M-13 111C-28 70-48 43-72 22C-47 64-40 90-35 118Z"/>
+          <path d="M9 111C18 64 37 30 62 7C38 52 31 83 29 116Z"/>
+          <path d="M-1 110C5 61 3 28-5-8C14 33 18 72 18 113Z"/>
+          <path d="M-30 116C-48 91-70 75-96 66C-65 93-57 110-54 126Z"/>
+          <path d="M28 116C46 82 64 66 88 55C64 88 57 109 53 124Z"/>
+        </g>
+        <g id="gardenLavender">
+          <path d="M0 8C-3 62 5 112 0 165" fill="none" stroke="#63813a" stroke-width="4"/>
+          <g fill="#9568bf">
+            <circle cx="-4" cy="0" r="7"/><circle cx="5" cy="9" r="7"/><circle cx="-5" cy="18" r="7"/><circle cx="5" cy="27" r="7"/><circle cx="-4" cy="36" r="7"/><circle cx="4" cy="45" r="6"/><circle cx="-2" cy="54" r="6"/>
+          </g>
+          <path d="M0 85l-20-17M1 105l24-21M0 125l-18-13" fill="none" stroke="#63813a" stroke-width="4" stroke-linecap="round"/>
+        </g>
+      </defs>
+
+      <path d="M0 331C144 312 272 350 402 342C563 332 689 291 842 302C1014 315 1128 275 1277 296C1412 316 1518 273 1800 237V500H0Z" fill="var(--garden-back-earth)" filter="url(#gardenRough)"/>
+
+      <path d="M0 335C147 317 278 348 404 368C540 389 633 350 777 342C927 333 1078 335 1218 374C1377 418 1482 325 1641 309C1711 302 1765 307 1800 320V500H0Z" fill="var(--garden-front-earth)" stroke="var(--garden-ridge)" stroke-width="5" filter="url(#gardenRough)"/>
+      <path d="M0 409C187 382 327 429 493 424C617 420 693 373 841 386C990 399 1100 452 1238 435C1392 416 1499 342 1800 342" fill="none" stroke="var(--garden-ridge)" stroke-width="5"/>
+      <path d="M14 457C90 439 147 444 218 463M344 448C421 432 482 447 541 463M705 421C792 405 886 409 975 430M1218 457C1308 437 1379 444 1452 467M1516 389C1602 367 1672 365 1765 374" fill="none" stroke="var(--garden-furrow)" stroke-width="12" stroke-linecap="round" filter="url(#gardenRough)"/>
+      <path d="M62 438l35-8M403 463l49-7M893 438l63-5M1316 468l54-9M1667 402l50-8" fill="none" stroke="var(--garden-highlight)" stroke-width="3" opacity=".38"/>
+      <rect y="330" width="1800" height="170" fill="var(--garden-grain)" opacity="var(--garden-grain-opacity)" filter="url(#gardenGrain)"/>
+
+      <g class="garden-plants">
+        <!-- Foliage is painted as one back layer so it frames the flowers
+             without covering their stems or blooms. -->
+        <g class="garden-foliage">
+          <g class="garden-leaves" transform="translate(126 258) scale(.73)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(190 272) scale(.62)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(470 249) scale(.88)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(555 264) scale(.76)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(930 258) scale(.72)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(1012 252) scale(.78)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(1210 272) scale(.74)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(1282 254) scale(.88)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(1640 212) scale(.94)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(1720 239) scale(.76)"><use href="#gardenGrass"/></g>
+        </g>
+
+        <g class="garden-blooms">
+          <g class="garden-flower" transform="translate(38 213) scale(.78)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(116 248) scale(.58)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(174 192) scale(.9)"><use href="#gardenDaisy"/></g>
+
+          <g class="garden-flower" transform="translate(535 202) scale(.9)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(585 258) scale(.62)"><use href="#gardenLavender"/></g>
+
+          <!-- Zainab-inspired trio: tall lavender, a single daisy, and a
+               close daisy/lavender pairing growing from shared foliage. -->
+          <g class="garden-flower" transform="translate(700 165) scale(.96)"><use href="#gardenLavender"/></g>
+          <g class="garden-flower" transform="translate(842 222) scale(.68)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(916 210) scale(.72)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(934 177) scale(.86)"><use href="#gardenLavender"/></g>
+
+          <g class="garden-flower" transform="translate(1045 243) scale(.61)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(1078 244) scale(.64)"><use href="#gardenLavender"/></g>
+
+          <g class="garden-flower" transform="translate(1218 232) scale(.67)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(1278 188) scale(.92)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(1320 206) scale(.82)"><use href="#gardenDaisy"/></g>
+
+          <g class="garden-flower" transform="translate(1655 186) scale(.82)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(1724 212) scale(.7)"><use href="#gardenDaisy"/></g>
+        </g>
+      </g>
+    </svg>
+
+    <div class="garden-footer__bar" data-matcha-base="155" data-matcha-start="2026-08-27T00:00:00-04:00">
+      <p class="garden-footer__activity" data-mode="building">
+        <span class="garden-footer__pulse" aria-hidden="true"></span>
+        <span data-garden-state aria-live="polite">building things</span>
+        <time data-garden-time datetime="">--:--</time>
+      </p>
+      <p class="garden-footer__matcha">
+        <svg class="garden-footer__matcha-mark" viewBox="0 0 28 20" aria-hidden="true" focusable="false">
+          <path fill="#e28a2a" d="M13.2 10.2C8.4 2.4 1.2 3.6.8 8.8c-.3 4.2 4.2 6.4 8.8 5.4 1.8-.4 3-1.6 3.6-4z"/>
+          <path fill="#c96b18" d="M14.8 10.2C19.6 2.4 26.8 3.6 27.2 8.8c.3 4.2-4.2 6.4-8.8 5.4-1.8-.4-3-1.6-3.6-4z"/>
+          <path fill="#1c140c" d="M13.2 4.2c.4 2.2.6 5 .6 8.2 0 1.2.1 2.4.3 3.4h-.2c-.4.8-1.1 1.3-1.9 1.3-.6 0-1-.3-1-.8 0-.4.3-.7.7-.8.2 0 .3.1.4.3.2-.8.3-1.8.3-3.1 0-2.8-.2-5.5-.6-7.6.5-.4 1.1-.7 1.4-.9z"/>
+          <path fill="#f3d27a" d="M5.4 8.1c1.6-.7 3.3-.4 4.2.8.2.3 0 .6-.3.5-1.2-.3-2.5-.1-3.6.5-.3.2-.6 0-.3-.4z"/>
+        </svg>
+        <span><b data-garden-matcha>159</b> matchas in, no plans to stop</span>
+      </p>
+      <p class="garden-footer__credit">Designed &amp; built by Vimanga Umange · Canada @<span id="year">2026</span></p>
+      <nav aria-label="Social links">
+        <a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/vimanga-x64" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://medium.com/@vishudha98" target="_blank" rel="noopener noreferrer">Medium</a>
+        <a href="#top">Top ↑</a>
+      </nav>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
-  <script src="js/main.js?v=20260827ac" defer></script>
-  <script src="js/studio-interactions.js?v=20260827c" defer></script>
-  <script src="js/hero-name-artifacts.js?v=20260826d" defer></script>
-  <script src="js/hero-creation.js?v=20260827b" defer></script>
-  <script src="js/signal-garden.js?v=20260826g" defer></script>
-  <script src="js/footer-monitor.js?v=20260827e" defer></script>
-    <script type="module" src="js/tech-keyboard-spline.js?v=20260826am"></script>
+  <dialog class="portfolio-archive" id="portfolioArchive" aria-labelledby="portfolioArchiveTitle">
+    <button class="portfolio-archive__close" type="button" data-archive-close aria-label="Close portfolio archive">×</button>
+    <div class="portfolio-archive__orb">
+      <span class="archive-blob archive-blob--a" aria-hidden="true"></span>
+      <span class="archive-blob archive-blob--b" aria-hidden="true"></span>
+      <span class="archive-blob archive-blob--c" aria-hidden="true"></span>
+      <span class="archive-blob archive-blob--d" aria-hidden="true"></span>
+      <span class="archive-blob archive-blob--e" aria-hidden="true"></span>
+      <span class="archive-blob archive-blob--corelight" aria-hidden="true"></span>
+      <div class="portfolio-archive__core">
+        <div class="portfolio-archive__content">
+          <h2 id="portfolioArchiveTitle">Looking for a different site? Go back in time...</h2>
+          <div class="portfolio-archive__versions">
+            <a class="archive-version archive-version--v1" href="older-portfolio/">
+              <span class="archive-version__preview"><img src="images/archive-v1.png" loading="lazy" decoding="async" alt="Homepage of Vimanga Umange's original portfolio, with Playfair display type and a 3D workstation"></span>
+              <span class="archive-version__meta">
+                <small>v1 · Original</small>
+                <strong>Vimanga Umange.</strong>
+                <span>Playfair headline, rotating titles, floating 3D hardware, and a macOS terminal.</span>
+              </span>
+            </a>
+            <a class="archive-version archive-version--v2" href="v2/">
+              <span class="archive-version__preview"><img src="images/archive-v2.png" loading="lazy" decoding="async" alt="Homepage of the studio portfolio, with constructed letterforms and a creation-hand hero"></span>
+              <span class="archive-version__meta">
+                <small>v2 · Studio</small>
+                <strong>Vimanga Umange.</strong>
+                <span>Dark studio system, constructed letterforms, and the creation-hand hero.</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <script src="js/model-viewer-loader.js?v=20260831p" defer></script>
+  <script src="js/hero-tv.js?v=4" defer></script>
+  <script src="js/about-me.js?v=3" defer></script>
+  <script src="js/project-devices.js?v=13" defer></script>
+  <script src="js/project-cursor.js?v=3" defer></script>
+  <script src="js/contact-form.js?v=3" defer></script>
+  <script src="js/portfolio-archive.js?v=2" defer></script>
+  <script src="js/pastel-sun.js?v=3" defer></script>
+  <script src="js/revision-2026.js?v=37" defer></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.addEventListener('load',()=>{const a=document.createElement('script');a.async=true;a.src='https://www.googletagmanager.com/gtag/js?id=G-EPL5BQGBMF';document.head.appendChild(a);gtag('js',new Date());gtag('config','G-EPL5BQGBMF')},{once:true});</script>
 </body>
-
 </html>

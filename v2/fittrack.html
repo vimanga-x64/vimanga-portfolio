@@ -2,7 +2,20 @@
 <html lang="en">
 
 <head>
+  <base href="../">
   <meta charset="UTF-8" />
+  <script>
+    (function () {
+      const root = new URL('../', window.location.href);
+      const orig = window.fetch.bind(window);
+      window.fetch = function (input, init) {
+        if (typeof input === 'string' && !/^(?:[a-z]+:)?\/\//i.test(input) && input.charAt(0) !== '/' && input.slice(0, 3) !== '../') {
+          input = new URL(input, root).href;
+        }
+        return orig(input, init);
+      };
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FitTrack Case Study | Vimanga Umange</title>
   <meta name="description"
@@ -25,7 +38,7 @@
 
   <!-- ====== NAV ====== -->
   <nav class="back-nav" id="backNav">
-    <a href="index.html#work" class="back-link">
+    <a href="v2/#projects" class="back-link">
       <i class="ph ph-arrow-left"></i> Back to Portfolio
     </a>
     <span class="nav-title" id="navTitle">FitTrack Case Study</span>
@@ -452,10 +465,10 @@
             class="cta-btn-inner">
             <i class="ph ph-github-logo"></i> View on GitHub
           </span></a>
-        <a href="index.html#work" class="cta-btn secondary"><span class="cta-btn-inner">
+        <a href="v2/#projects" class="cta-btn secondary"><span class="cta-btn-inner">
             <i class="ph ph-arrow-left"></i> Back to Portfolio
           </span></a>
-        <a href="index.html#contact" class="cta-btn secondary"><span class="cta-btn-inner">
+        <a href="v2/#contact" class="cta-btn secondary"><span class="cta-btn-inner">
             <i class="ph ph-paper-plane-tilt"></i> Contact Me
           </span></a>
       </div>
