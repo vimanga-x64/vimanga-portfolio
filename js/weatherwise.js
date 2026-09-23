@@ -197,48 +197,61 @@
       });
     });
     // ====== SMART STICKY SCROLL ======
-    // Only pin sections that fit within the viewport.
-    // Tall sections (gallery, etc.) get negative top so all content is visible.
+    // Keep sticky stacking, but size tall boards from real height so
+    // the full Product desk can scroll through before the next pin covers it.
     (function () {
-      const allSections = document.querySelectorAll(
+      const allSections = [...document.querySelectorAll(
         'section.hero, .section-dark, .section-cream, .section-cream-alt, .section-dark-alt'
-      );
+      )];
+
+      function sectionBuffer(el, viewportH) {
+        if (el.querySelector('.ww-desk')) {
+          // Extra runway so Mission clears before the next section slides over
+          return Math.max(320, Math.round(viewportH * 0.4));
+        }
+        return Math.max(80, Math.round(viewportH * 0.08));
+      }
 
       function updateStickyTops() {
         const viewportH = window.innerHeight;
         let zCounter = 1;
 
-        allSections.forEach(el => {
-          // Get the actual height including all loaded content
-          const sectionH = el.getBoundingClientRect().height;
-          el.classList.add('sticky-section');
+        allSections.forEach((el) => {
+          const sectionH = Math.max(el.offsetHeight, el.scrollHeight);
+          const buffer = sectionBuffer(el, viewportH);
 
-          // Short sections pin at top immediately (top: 0)
-          // Tall sections get negative top so content scrolls through before pinning
-          // We add a little buffer (e.g. 50px) to ensure the very bottom isn't covered by shadows
-          const stickyTop = Math.min(0, viewportH - sectionH - 50);
-          el.style.top = stickyTop + 'px';
-          el.style.zIndex = zCounter++;
+          el.classList.add('sticky-section');
+          el.style.position = '';
+          // Negative top on tall sections = scroll through full content, then pin
+          el.style.top = Math.min(0, viewportH - sectionH - buffer) + 'px';
+          el.style.zIndex = String(zCounter++);
         });
       }
 
-      // Run initially
       updateStickyTops();
-
-      // Run again after all resources (especially images) have fully loaded
       window.addEventListener('load', updateStickyTops);
-
-      // Run on resize to handle viewport changes
       window.addEventListener('resize', () => {
         requestAnimationFrame(updateStickyTops);
       });
 
-      // Failsafe: Run periodically for the first few seconds just in case custom fonts/images reflow
       let attempts = 0;
       const interval = setInterval(() => {
         updateStickyTops();
-        attempts++;
-        if (attempts > 10) clearInterval(interval); // Stop after ~5 seconds
-      }, 500);
+        attempts += 1;
+        if (attempts > 16) clearInterval(interval);
+      }, 400);
 
+      document.querySelectorAll('img').forEach((img) => {
+        if (img.complete) return;
+        img.addEventListener('load', updateStickyTops, { once: true });
+      });
+
+      if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(() => {
+          requestAnimationFrame(updateStickyTops);
+        });
+        allSections.forEach((el) => ro.observe(el));
+        const desk = document.querySelector('.ww-desk');
+        if (desk) ro.observe(desk);
+      }
     })();

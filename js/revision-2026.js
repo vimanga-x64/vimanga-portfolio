@@ -29,17 +29,35 @@
       return;
     }
 
-    const toggleRect = themeToggle.getBoundingClientRect();
-    const originX = toggleRect.left + toggleRect.width / 2;
-    const originY = toggleRect.top + toggleRect.height / 2;
-    const radius = Math.hypot(
-      Math.max(originX, innerWidth - originX),
-      Math.max(originY, innerHeight - originY)
-    );
-
     themeTransitioning = true;
+    // The floating header may still be sliding back into view, and .theme-transitioning
+    // freezes that slide mid-flight. Park the header first so the toggle is measured
+    // where it will actually sit while the ripple expands.
+    themeToggle.closest('.site-header')?.classList.remove('is-hidden');
     document.documentElement.classList.add('theme-transitioning');
     themeToggle.classList.add('is-transitioning');
+
+    const toggleRect = themeToggle.getBoundingClientRect();
+    const originX = Math.min(Math.max(toggleRect.left + toggleRect.width / 2, 0), innerWidth);
+    const originY = Math.min(Math.max(toggleRect.top + toggleRect.height / 2, 0), innerHeight);
+
+    // The reveal is described in percentages of the transition snapshot rather than in
+    // pixels: on displays whose scaling makes the snapshot's pixel space differ from CSS
+    // pixels, pixel coordinates land somewhere else entirely, but ratios always hold.
+    const revealShapes = () => {
+      const snapshot = getComputedStyle(document.documentElement, '::view-transition-group(root)');
+      const boxWidth = parseFloat(snapshot.width) || innerWidth;
+      const boxHeight = parseFloat(snapshot.height) || innerHeight;
+      const u = originX / boxWidth * 100;
+      const v = originY / boxHeight * 100;
+      const reach = Math.hypot(
+        Math.max(originX, boxWidth - originX),
+        Math.max(originY, boxHeight - originY)
+      );
+      // A percentage circle radius resolves against the box diagonal over root two.
+      const radius = reach * Math.SQRT2 / Math.hypot(boxWidth, boxHeight) * 100;
+      return [`circle(0% at ${u}% ${v}%)`, `circle(${radius}% at ${u}% ${v}%)`];
+    };
 
     const transition = document.startViewTransition(() => applyTheme(theme, true));
     const cleanup = () => {
@@ -51,12 +69,7 @@
     try {
       await transition.ready;
       const reveal = document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${originX}px ${originY}px)`,
-            `circle(${radius}px at ${originX}px ${originY}px)`
-          ]
-        },
+        { clipPath: revealShapes() },
         {
           duration: 860,
           easing: 'cubic-bezier(.76,0,.24,1)',
@@ -78,16 +91,24 @@
     transitionTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
   });
 
-  const systemTheme = matchMedia('(prefers-color-scheme: dark)');
-  systemTheme.addEventListener?.('change', event => {
-    try {
-      if (!localStorage.getItem('vu-theme')) applyTheme(event.matches ? 'dark' : 'light');
-    } catch (error) {
-      applyTheme(event.matches ? 'dark' : 'light');
-    }
-  });
-
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const brewStage = document.querySelector('.loader__brew');
+  const loaderCup = document.getElementById('loaderCup');
+  const loaderBagel = document.getElementById('loaderBagel');
+  if (brewStage && !reducedMotion) {
+    const revealBrew = () => brewStage.classList.add('is-ready');
+    let pending = 0;
+    [loaderCup, loaderBagel].forEach(model => {
+      if (!model) return;
+      pending += 1;
+      model.addEventListener('load', () => {
+        pending -= 1;
+        if (pending <= 0) revealBrew();
+      }, { once: true });
+    });
+    window.setTimeout(revealBrew, 1800);
+  }
+
   const loaderWheels = [];
   const loaderReels = [];
   let announcedPercent = -1;
@@ -132,7 +153,9 @@
 
   const setLoaderPercent = value => {
     const next = Math.max(0, Math.min(100, value));
-    if (!loader || !loaderReels.length) return;
+    if (!loader) return;
+    loader.style.setProperty('--loader-progress', String(next / 100));
+    if (!loaderReels.length) return;
     const rounded = Math.floor(next);
     if (rounded !== announcedPercent) {
       announcedPercent = rounded;
@@ -169,7 +192,7 @@
       const dt = Math.min(0.05, (now - lastTime) / 1000);
       lastTime = now;
       const simulated = Math.min(92, (1 - Math.exp(-elapsed / 720)) * 100);
-      const canComplete = pageLoaded && elapsed >= 1100;
+      const canComplete = pageLoaded && elapsed >= 1700;
       const target = canComplete ? 100 : simulated;
       visual += (target - visual) * (1 - Math.exp(-(canComplete ? 9 : 3.2) * dt));
       setLoaderPercent(visual);
@@ -472,32 +495,6 @@
     }
   }
 
-  // A deterministic editorial curtain avoids blank cross-document snapshots
-  // while still giving the two case studies a deliberate hand-off.
-  const caseCurtain = document.getElementById('caseNavigationCurtain');
-  const caseCurtainTitle = document.getElementById('caseNavigationTitle');
-  document.querySelectorAll('[data-case-transition]').forEach(card => {
-    const caseName = card.dataset.caseTransition;
-    card.querySelectorAll('a[href$=".html"]').forEach(link => {
-      link.addEventListener('click', event => {
-        if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        if (!caseCurtain || reducedMotion) return;
-        event.preventDefault();
-        if (document.body.classList.contains('is-navigating-case')) return;
-        caseCurtain.dataset.case = caseName;
-        if (caseCurtainTitle) caseCurtainTitle.textContent = card.querySelector('h3')?.textContent || 'Case study';
-        document.body.classList.add('is-navigating-case');
-        caseCurtain.classList.add('is-active');
-        window.setTimeout(() => window.location.assign(link.href), 580);
-      });
-    });
-  });
-
-  window.addEventListener('pageshow', () => {
-    document.body.classList.remove('is-navigating-case');
-    caseCurtain?.classList.remove('is-active');
-  });
-
   const projectCards = [...document.querySelectorAll('.project-atlas .project-showcase-card')];
   if (projectCards.length && !reducedMotion && 'IntersectionObserver' in window) {
     const rows = [];
@@ -610,7 +607,8 @@
   let lastY = window.scrollY;
   window.addEventListener('scroll', () => {
     const currentY = window.scrollY;
-    if (header && currentY > 240 && currentY > lastY && !document.body.classList.contains('menu-open')) {
+    if (header && currentY > 240 && currentY > lastY && !themeTransitioning
+      && !document.body.classList.contains('menu-open')) {
       header.classList.add('is-hidden');
     } else if (header) {
       header.classList.remove('is-hidden');

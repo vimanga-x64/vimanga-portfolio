@@ -1,0 +1,329 @@
+/* FitTrack showcase — original Ryan Walter cascading overlap, full uncropped shots */
+
+.ft-board {
+  --ft-ink: #1a1714;
+  --ft-muted: #5a544c;
+  --ft-accent: #c62828;
+  position: relative;
+  margin-top: 2.75rem;
+  padding: clamp(1.5rem, 3.4vw, 2.85rem);
+  border-radius: 28px;
+  overflow: visible;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.18)),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 23px,
+      rgba(26, 23, 20, 0.045) 23px,
+      rgba(26, 23, 20, 0.045) 24px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 23px,
+      rgba(26, 23, 20, 0.045) 23px,
+      rgba(26, 23, 20, 0.045) 24px
+    ),
+    #ebe4d8;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 20px 48px rgba(26, 23, 20, 0.08);
+}
+
+.ft-board::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(26, 23, 20, 0.08);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+.ft-board__swatches {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  margin-bottom: 1.5rem;
+}
+
+.ft-board__swatches span {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.ft-board__swatches span:nth-child(1) { background: #f5f0e8; }
+.ft-board__swatches span:nth-child(2) { background: #1a1714; }
+.ft-board__swatches span:nth-child(3) { background: #c62828; }
+.ft-board__swatches span:nth-child(4) { background: #f2b705; }
+.ft-board__swatches span:nth-child(5) { background: #2bbbad; }
+.ft-board__swatches span:nth-child(6) { background: #6c63ff; }
+
+.ft-scene {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.ft-scene:last-child {
+  margin-bottom: 0.5rem;
+}
+
+.ft-scene__meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: clamp(1.1rem, 2.4vw, 1.75rem);
+}
+
+.ft-scene__index {
+  margin: 0;
+  font-family: var(--font-mono, "Fira Code", monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ft-accent);
+}
+
+.ft-scene__title {
+  margin: 0.25rem 0 0;
+  max-width: 16ch;
+  font-size: clamp(1.3rem, 2.3vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--ft-ink);
+}
+
+.ft-scene__note {
+  margin: 0;
+  max-width: 26ch;
+  text-align: right;
+  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--ft-muted);
+}
+
+.ft-collage {
+  position: relative;
+  overflow: visible;
+}
+
+.ft-float {
+  margin: 0;
+  position: relative;
+  border-radius: 18px;
+  background: #111;
+  box-shadow:
+    0 2px 4px rgba(26, 23, 20, 0.05),
+    0 18px 40px rgba(26, 23, 20, 0.16),
+    0 40px 80px rgba(26, 23, 20, 0.1);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
+}
+
+.ft-float img {
+  display: block;
+  width: 100%;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  border-radius: 18px;
+}
+
+.ft-tag {
+  position: absolute;
+  left: 0.85rem;
+  bottom: 0.85rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #1a1714;
+  font-size: 0.68rem;
+  font-weight: 740;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+}
+
+.ft-tag i {
+  color: var(--ft-accent);
+  font-size: 0.85rem;
+}
+
+/* —— Hero —— */
+.ft-collage--hero {
+  padding: 0.5rem 0.75rem 1rem;
+}
+
+.ft-float--hero {
+  transform: rotate(-1.4deg);
+}
+
+.ft-float--hero:hover {
+  transform: rotate(-1.4deg) translateY(-8px);
+}
+
+/* —— Dashboard pair —— */
+.ft-collage--pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  padding: 1.5rem 0.5rem 1rem;
+}
+
+.ft-float--back,
+.ft-float--front {
+  width: 108%;
+}
+
+.ft-float--back {
+  z-index: 1;
+  justify-self: start;
+  margin-top: 2rem;
+  margin-right: -18%;
+  transform: rotate(-3.2deg);
+}
+
+.ft-float--front {
+  z-index: 2;
+  justify-self: end;
+  margin-left: -18%;
+  transform: rotate(2.8deg);
+}
+
+.ft-float--back:hover {
+  z-index: 3;
+  transform: rotate(-3.2deg) translateY(-10px) scale(1.02);
+}
+
+.ft-float--front:hover {
+  transform: rotate(2.8deg) translateY(-12px) scale(1.02);
+}
+
+/* —— Intelligence cascade (original Ryan Walter board) —— */
+.ft-collage--cascade {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr 1.05fr;
+  grid-template-rows: auto auto;
+  align-items: start;
+  padding: 0.75rem 0.2rem 1.25rem;
+}
+
+.ft-float--tips,
+.ft-float--energy,
+.ft-float--analysis {
+  position: relative;
+}
+
+.ft-float--tips {
+  grid-column: 1 / -1;
+  grid-row: 1 / 3;
+  width: 86%;
+  justify-self: center;
+  align-self: end;
+  z-index: 1;
+  margin-top: 22%;
+  transform: rotate(-0.8deg);
+}
+
+.ft-float--energy {
+  grid-column: 1;
+  grid-row: 1;
+  width: 112%;
+  justify-self: start;
+  z-index: 2;
+  margin-right: -20%;
+  transform: rotate(-2.2deg);
+}
+
+.ft-float--analysis {
+  grid-column: 2;
+  grid-row: 1;
+  width: 110%;
+  justify-self: end;
+  z-index: 3;
+  margin-left: -18%;
+  margin-top: 1.25rem;
+  transform: rotate(2.8deg);
+}
+
+.ft-float--energy:hover {
+  z-index: 4;
+  transform: rotate(-2.2deg) translateY(-10px) scale(1.02);
+}
+
+.ft-float--analysis:hover {
+  transform: rotate(2.8deg) translateY(-12px) scale(1.02);
+}
+
+.ft-float--tips:hover {
+  z-index: 4;
+  transform: rotate(-0.8deg) translateY(-8px);
+}
+
+@media (max-width: 820px) {
+  .ft-board {
+    padding: 1.1rem 0.9rem 1.4rem;
+    border-radius: 22px;
+  }
+
+  .ft-scene__meta {
+    flex-direction: column;
+  }
+
+  .ft-scene__note {
+    text-align: left;
+    max-width: 40ch;
+  }
+
+  .ft-collage--pair,
+  .ft-collage--cascade {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 0;
+  }
+
+  .ft-float--tips,
+  .ft-float--energy,
+  .ft-float--analysis,
+  .ft-float--back,
+  .ft-float--front,
+  .ft-float--hero {
+    position: relative;
+    inset: auto;
+    width: 100% !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    justify-self: stretch;
+    align-self: stretch;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  .ft-float--tips { order: 3; }
+  .ft-float--energy { order: 1; }
+  .ft-float--analysis { order: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ft-float,
+  .ft-float:hover {
+    transition: none;
+  }
+}

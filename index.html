@@ -1,35 +1,53 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#8ec8ee">
   <title>Vimanga Umange — Software, AI & Research</title>
-  <meta name="description" content="Vimanga Umange designs and engineers useful software at the intersection of artificial intelligence, research, and real-world systems.">
+  <meta name="description"
+    content="Vimanga Umange designs and engineers useful software at the intersection of artificial intelligence, research, and real-world systems.">
   <meta name="author" content="Vimanga Umange">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://vimanga-x64.github.io/vimanga-portfolio/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Vimanga Umange — Software, AI & Research">
-  <meta property="og:description" content="Engineering useful intelligence: selected software, research, and systems work.">
-  <meta property="og:image" content="https://vimanga-x64.github.io/vimanga-portfolio/images/portfolio-social-card.png">
+  <meta property="og:description"
+    content="Engineering useful intelligence: selected software, research, and systems work.">
+  <meta property="og:image" content="https://vimanga-x64.github.io/vimanga-portfolio/images/portfolio-social-card.webp">
   <meta property="og:url" content="https://vimanga-x64.github.io/vimanga-portfolio/">
   <meta name="twitter:card" content="summary_large_image">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EPL5BQGBMF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-EPL5BQGBMF');
+  </script>
   <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png">
   <link rel="apple-touch-icon" href="logos/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="css/revision-2026.css?v=147">
-  <link rel="stylesheet" href="css/case-transitions.css?v=2">
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=Caveat:wght@500&family=DM+Mono:wght@500&family=DM+Serif+Display&family=Inter:wght@400;600;700&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=Caveat:wght@500&family=DM+Mono:wght@500&family=DM+Serif+Display&family=Inter:wght@400;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="assets/starbucks_grande_coffee_cup_caution_hot.glb?v=20260923" as="fetch" type="model/gltf-binary"
+    crossorigin>
+  <link rel="preload" href="assets/everything_bagel-loader.glb?v=20260923" as="fetch" type="model/gltf-binary" crossorigin>
+  <link rel="stylesheet" href="css/revision-2026.css?v=205">
   <script>
     document.documentElement.classList.add('js');
     try {
       const savedTheme = localStorage.getItem('vu-theme');
-      document.documentElement.dataset.theme = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
     } catch (error) {
       document.documentElement.dataset.theme = 'light';
     }
@@ -43,10 +61,34 @@
     document.head.appendChild(heroPreload);
   </script>
 </head>
+
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading, 0 percent">
     <p class="loader__label">Loading...</p>
+    <div class="loader__brew" aria-hidden="true">
+      <div class="loader__brew-pair">
+        <div class="loader__brew-stage loader__brew-stage--bagel">
+          <model-viewer class="loader__brew-model loader__brew-model--bagel" id="loaderBagel"
+            src="assets/everything_bagel-loader.glb?v=20260923" alt="" auto-rotate auto-rotate-delay="0"
+            rotation-per-second="14deg" camera-orbit="-18deg 62deg 105%" field-of-view="26deg"
+            environment-image="neutral" tone-mapping="neutral" exposure="1.05" shadow-intensity=".35" shadow-softness="1"
+            interpolation-decay="200" interaction-prompt="none" disable-zoom disable-pan disable-tap loading="eager" reveal="auto"></model-viewer>
+          <span class="loader__brew-shadow loader__brew-shadow--bagel"></span>
+        </div>
+        <div class="loader__brew-stage loader__brew-stage--cup">
+          <model-viewer class="loader__brew-model loader__brew-model--cup" id="loaderCup"
+            src="assets/starbucks_grande_coffee_cup_caution_hot.glb?v=20260923" alt="" auto-rotate auto-rotate-delay="0"
+            rotation-per-second="22deg" camera-orbit="32deg 70deg 108%" min-camera-orbit="auto 55deg auto"
+            max-camera-orbit="auto 85deg auto" field-of-view="26deg" environment-image="neutral" tone-mapping="neutral" exposure="1.12"
+            shadow-intensity=".4" shadow-softness="1" interpolation-decay="200" interaction-prompt="none" disable-zoom disable-pan disable-tap
+            loading="eager" reveal="auto"></model-viewer>
+          <span class="loader__brew-shadow"></span>
+          <span class="loader__brew-steam"></span>
+        </div>
+      </div>
+      <p>Coffee and a bagel</p>
+    </div>
     <div class="loader__footer">
       <div class="loader__counter" id="loaderCounter" aria-hidden="true">0%</div>
       <p class="loader__year">©2026</p>
@@ -55,22 +97,38 @@
 
   <header class="site-header" id="siteHeader">
     <a class="brand" href="#top" aria-label="Vimanga Umange, home">
-      <svg class="brand__mark" viewBox="0 0 44 30" aria-hidden="true"><path d="M2 3h8l7 19L24 3h8L20 29h-7L2 3Z"/><path d="M28 3h7v17c0 2 1 3 3 3 1.5 0 2.8-.4 4-1.2v6A13 13 0 0 1 36.5 29C31 29 28 26 28 20V3Z"/></svg>
+      <svg class="brand__mark" viewBox="0 0 44 30" aria-hidden="true">
+        <path d="M2 3h8l7 19L24 3h8L20 29h-7L2 3Z" />
+        <path d="M28 3h7v17c0 2 1 3 3 3 1.5 0 2.8-.4 4-1.2v6A13 13 0 0 1 36.5 29C31 29 28 26 28 20V3Z" />
+      </svg>
       <span>Vimanga<br>Umange</span>
     </a>
-    <nav class="desktop-nav" aria-label="Primary navigation"><a href="#about">About</a><a href="#work">Work</a><a href="#research">Research</a><a href="#experience">Experience</a></nav>
+    <nav class="desktop-nav" aria-label="Primary navigation"><a href="#about">About</a><a href="#work">Work</a><a
+        href="#research">Research</a><a href="#experience">Experience</a></nav>
     <div class="header-actions">
       <a class="header-cta" href="#contact">Contact <span aria-hidden="true">↗</span></a>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
-        <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.3v2.2M12 19.5v2.2M2.3 12h2.2M19.5 12h2.2M5.15 5.15l1.55 1.55M17.3 17.3l1.55 1.55M18.85 5.15 17.3 6.7M6.7 17.3l-1.55 1.55"/></svg>
-        <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.2 15.4A8.2 8.2 0 0 1 8.6 4.8 8.25 8.25 0 1 0 19.2 15.4Z"/></svg>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme"
+        aria-pressed="false">
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.2" />
+          <path
+            d="M12 2.3v2.2M12 19.5v2.2M2.3 12h2.2M19.5 12h2.2M5.15 5.15l1.55 1.55M17.3 17.3l1.55 1.55M18.85 5.15 17.3 6.7M6.7 17.3l-1.55 1.55" />
+        </svg>
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19.2 15.4A8.2 8.2 0 0 1 8.6 4.8 8.25 8.25 0 1 0 19.2 15.4Z" />
+        </svg>
       </button>
     </div>
-    <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu"><span>Menu</span><i></i><i></i></button>
+    <button class="menu-button" id="menuButton" type="button" aria-expanded="false"
+      aria-controls="mobileMenu"><span>Menu</span><i></i><i></i></button>
   </header>
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-    <a href="#about"><span>01</span> About</a><a href="#work"><span>02</span> Work</a><a href="#research"><span>03</span> Research</a><a href="#experience"><span>04</span> Experience</a><a href="#contact"><span>05</span> Contact</a>
-    <div class="mobile-menu__meta"><a href="https://github.com/vimanga-x64" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/vimanga-umange" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div>
+    <a href="#about"><span>01</span> About</a><a href="#work"><span>02</span> Work</a><a
+      href="#research"><span>03</span> Research</a><a href="#experience"><span>04</span> Experience</a><a
+      href="#contact"><span>05</span> Contact</a>
+    <div class="mobile-menu__meta"><a href="https://github.com/vimanga-x64" target="_blank"
+        rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/vimanga-umange" target="_blank"
+        rel="noopener noreferrer">LinkedIn ↗</a></div>
   </nav>
 
   <main id="main">
@@ -78,33 +136,34 @@
       <div class="hero__art" aria-hidden="true">
         <div class="hero__shooting-star" id="shootingStar"></div>
         <div class="hero__stripe-orb"></div>
-        <svg class="hero__cloud hero__cloud--one" viewBox="0 0 460 104" preserveAspectRatio="none" focusable="false"><path d="M0 104C5 80 24 65 49 65C64 65 78 69 90 78C106 52 132 41 159 46C177 49 192 58 202 69C216 41 244 26 274 30C307 34 331 57 338 81C349 68 366 62 384 63C418 66 441 81 460 104Z"/></svg>
-        <svg class="hero__cloud hero__cloud--two" viewBox="0 0 460 104" preserveAspectRatio="none" focusable="false"><path d="M0 104C5 80 24 65 49 65C64 65 78 69 90 78C106 52 132 41 159 46C177 49 192 58 202 69C216 41 244 26 274 30C307 34 331 57 338 81C349 68 366 62 384 63C418 66 441 81 460 104Z"/></svg>
+        <svg class="hero__cloud hero__cloud--one" viewBox="0 0 460 104" preserveAspectRatio="none" focusable="false">
+          <path
+            d="M0 104C5 80 24 65 49 65C64 65 78 69 90 78C106 52 132 41 159 46C177 49 192 58 202 69C216 41 244 26 274 30C307 34 331 57 338 81C349 68 366 62 384 63C418 66 441 81 460 104Z" />
+        </svg>
+        <svg class="hero__cloud hero__cloud--two" viewBox="0 0 460 104" preserveAspectRatio="none" focusable="false">
+          <path
+            d="M0 104C5 80 24 65 49 65C64 65 78 69 90 78C106 52 132 41 159 46C177 49 192 58 202 69C216 41 244 26 274 30C307 34 331 57 338 81C349 68 366 62 384 63C418 66 441 81 460 104Z" />
+        </svg>
         <div class="hero__paper-cloud-bank"></div>
       </div>
       <div class="hero__grid shell">
-        <h1 id="hero-title" class="hero__title" aria-label="Hey, I’m Vimanga. Software developer, M.Sc. candidate, graduate researcher, and full-stack builder.">
+        <h1 id="hero-title" class="hero__title"
+          aria-label="Hey, I’m Vimanga. Software developer, M.Sc. candidate, graduate researcher, and full-stack builder.">
           <span class="hero__greeting">HEY, I’M VIMANGA.</span>
           <span class="hero__role" id="heroRoleWrap" style="--role-color:#f3d83f" aria-hidden="true">
             <span id="heroRole">SOFTWARE DEVELOPER</span>
             <i class="hero__role-wipe" aria-hidden="true"></i>
           </span>
         </h1>
-        <p class="hero__sr-copy">I turn ambitious ideas, research, and unruly data into software people can actually use.</p>
+        <p class="hero__sr-copy">I turn ambitious ideas, research, and unruly data into software people can actually
+          use.</p>
       </div>
       <figure class="hero-tv" id="heroTv">
-        <model-viewer class="hero-tv__model" id="heroTvModel"
-          src="assets/old_tv.glb"
-          data-video-src="videos/gertie-dinosaur-tv-loop.webm"
-          alt="Vintage television playing the public-domain 1914 cartoon Gertie the Dinosaur"
-          camera-orbit="0deg 90deg 112%"
-          field-of-view="28deg"
-          environment-image="neutral"
-          exposure="1.08"
-          shadow-intensity=".7"
-          shadow-softness=".9"
-          interaction-prompt="none"
-          loading="eager">
+        <model-viewer class="hero-tv__model" id="heroTvModel" src="assets/old_tv.glb?v=2"
+          data-video-src="videos/pixel-face-tv-loop.webm"
+          alt="Vintage television showing a pixel-art face that blinks, glances around and grins"
+          camera-orbit="0deg 90deg 112%" field-of-view="28deg" environment-image="neutral" tone-mapping="neutral" exposure="1.08"
+          shadow-intensity=".7" shadow-softness=".9" interpolation-decay="200" interaction-prompt="none" loading="eager">
           <span slot="progress-bar" class="hero-tv__progress" aria-hidden="true"></span>
         </model-viewer>
       </figure>
@@ -113,38 +172,54 @@
 
     <section class="about-me" id="about" aria-labelledby="about-title">
       <div class="portal-marquee" aria-hidden="true">
-          <img class="portal-marquee__arch portal-marquee__arch--back" src="images/portal-arch-generated-v2.webp" width="1000" height="1050" alt="" decoding="async" loading="lazy">
+        <img class="portal-marquee__arch portal-marquee__arch--back" src="images/portal-arch-generated-v2.webp"
+          width="1000" height="1050" alt="" decoding="async" loading="lazy">
 
-      <div class="portal-marquee__ribbon portal-marquee__ribbon--one">
-        <div class="portal-marquee__track">
-          <span>USEFUL SOFTWARE • AI RESEARCH • FULL-STACK SYSTEMS • HUMAN-CENTRED ENGINEERING • </span>
-          <span>USEFUL SOFTWARE • AI RESEARCH • FULL-STACK SYSTEMS • HUMAN-CENTRED ENGINEERING • </span>
+        <div class="portal-marquee__ribbon portal-marquee__ribbon--one">
+          <div class="portal-marquee__track">
+            <span>USEFUL SOFTWARE <b>✦</b> AI RESEARCH <b>✦</b> FULL-STACK SYSTEMS <b>✦</b> HUMAN-CENTRED ENGINEERING
+              <b>✦</b></span>
+            <span>USEFUL SOFTWARE <b>✦</b> AI RESEARCH <b>✦</b> FULL-STACK SYSTEMS <b>✦</b> HUMAN-CENTRED ENGINEERING
+              <b>✦</b></span>
+            <span>USEFUL SOFTWARE <b>✦</b> AI RESEARCH <b>✦</b> FULL-STACK SYSTEMS <b>✦</b> HUMAN-CENTRED ENGINEERING
+              <b>✦</b></span>
+            <span>USEFUL SOFTWARE <b>✦</b> AI RESEARCH <b>✦</b> FULL-STACK SYSTEMS <b>✦</b> HUMAN-CENTRED ENGINEERING
+              <b>✦</b></span>
+          </div>
         </div>
-      </div>
 
-      <div class="portal-marquee__ribbon portal-marquee__ribbon--two">
-        <div class="portal-marquee__track">
-          <span>ASK BETTER QUESTIONS • DESIGN WITH INTENT • BUILD WITH RIGOUR • SHIP WHAT WORKS • </span>
-          <span>ASK BETTER QUESTIONS • DESIGN WITH INTENT • BUILD WITH RIGOUR • SHIP WHAT WORKS • </span>
+        <div class="portal-marquee__ribbon portal-marquee__ribbon--two">
+          <div class="portal-marquee__track">
+            <span>ASK BETTER QUESTIONS <b>•</b> DESIGN WITH INTENT <b>•</b> BUILD WITH RIGOUR <b>•</b> SHIP WHAT WORKS
+              <b>•</b></span>
+            <span>ASK BETTER QUESTIONS <b>•</b> DESIGN WITH INTENT <b>•</b> BUILD WITH RIGOUR <b>•</b> SHIP WHAT WORKS
+              <b>•</b></span>
+            <span>ASK BETTER QUESTIONS <b>•</b> DESIGN WITH INTENT <b>•</b> BUILD WITH RIGOUR <b>•</b> SHIP WHAT WORKS
+              <b>•</b></span>
+            <span>ASK BETTER QUESTIONS <b>•</b> DESIGN WITH INTENT <b>•</b> BUILD WITH RIGOUR <b>•</b> SHIP WHAT WORKS
+              <b>•</b></span>
+          </div>
         </div>
-      </div>
 
-          <img class="portal-marquee__arch portal-marquee__arch--front" src="images/portal-arch-generated-v2.webp" width="1000" height="1050" alt="" decoding="async" loading="lazy">
+        <img class="portal-marquee__arch portal-marquee__arch--front" src="images/portal-arch-generated-v2.webp"
+          width="1000" height="1050" alt="" decoding="async" loading="lazy">
       </div>
 
       <div class="about-me__heading shell reveal">
         <div class="about-heading-object about-heading-object--burst" aria-hidden="true">
           <svg viewBox="0 0 140 140" focusable="false">
-            <path d="M70 7 80 33 99 13 101 41 127 29 112 53 140 57 114 69 137 85 109 84 118 111 95 94 91 123 76 99 62 125 58 96 34 114 44 87 15 90 39 72 11 61 40 56 25 31 52 43 53 14 67 38Z"/>
-            <circle cx="70" cy="69" r="13"/>
+            <path
+              d="M70 7 80 33 99 13 101 41 127 29 112 53 140 57 114 69 137 85 109 84 118 111 95 94 91 123 76 99 62 125 58 96 34 114 44 87 15 90 39 72 11 61 40 56 25 31 52 43 53 14 67 38Z" />
+            <circle cx="70" cy="69" r="13" />
           </svg>
         </div>
         <div class="about-heading-object about-heading-object--cloud" aria-hidden="true">
           <svg viewBox="0 0 250 120" focusable="false">
-            <path class="about-cloud__body" d="M29 94C15 94 7 84 7 72S17 50 30 50c2-18 16-31 34-31 9 0 18 4 24 10C96 13 112 3 131 3c24 0 44 15 52 37 5-2 11-3 17-3 21 0 38 15 40 35 7 3 11 10 11 18 0 15-12 27-27 27H30Z"/>
-            <path class="about-cloud__wind" d="M17 111h90M153 111h61M0 103h45"/>
-            <circle class="about-cloud__dot" cx="221" cy="18" r="5"/>
-            <path class="about-cloud__spark" d="M23 17v16M15 25h16"/>
+            <path class="about-cloud__body"
+              d="M29 94C15 94 7 84 7 72S17 50 30 50c2-18 16-31 34-31 9 0 18 4 24 10C96 13 112 3 131 3c24 0 44 15 52 37 5-2 11-3 17-3 21 0 38 15 40 35 7 3 11 10 11 18 0 15-12 27-27 27H30Z" />
+            <path class="about-cloud__wind" d="M17 111h90M153 111h61M0 103h45" />
+            <circle class="about-cloud__dot" cx="221" cy="18" r="5" />
+            <path class="about-cloud__spark" d="M23 17v16M15 25h16" />
           </svg>
         </div>
         <p class="eyebrow">Behind the work / 01</p>
@@ -152,10 +227,19 @@
       </div>
 
       <div class="about-collage shell reveal" id="aboutCollage">
-        <svg class="about-collage__grid" viewBox="0 0 1200 620" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1200V620H0Z"/><path d="M0 52H1200M0 104H1200M0 156H1200M0 208H1200M0 260H1200M0 312H1200M0 364H1200M0 416H1200M0 468H1200M0 520H1200M0 572H1200M60 0V620M120 0V620M180 0V620M240 0V620M300 0V620M360 0V620M420 0V620M480 0V620M540 0V620M600 0V620M660 0V620M720 0V620M780 0V620M840 0V620M900 0V620M960 0V620M1020 0V620M1080 0V620M1140 0V620"/></svg>
+        <svg class="about-collage__grid" viewBox="0 0 1200 620" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 0H1200V620H0Z" />
+          <path
+            d="M0 52H1200M0 104H1200M0 156H1200M0 208H1200M0 260H1200M0 312H1200M0 364H1200M0 416H1200M0 468H1200M0 520H1200M0 572H1200M60 0V620M120 0V620M180 0V620M240 0V620M300 0V620M360 0V620M420 0V620M480 0V620M540 0V620M600 0V620M660 0V620M720 0V620M780 0V620M840 0V620M900 0V620M960 0V620M1020 0V620M1080 0V620M1140 0V620" />
+        </svg>
 
         <figure class="about-card about-card--portrait" data-about-tilt>
-          <img src="images/Profile_Pic.webp" alt="Vimanga Umange outdoors at golden hour" width="900" height="1600" loading="lazy" decoding="async">
+          <span class="about-stamp__edge about-stamp__edge--top" aria-hidden="true"></span>
+          <span class="about-stamp__edge about-stamp__edge--right" aria-hidden="true"></span>
+          <span class="about-stamp__edge about-stamp__edge--bottom" aria-hidden="true"></span>
+          <span class="about-stamp__edge about-stamp__edge--left" aria-hidden="true"></span>
+          <img src="images/Profile_Pic.webp" alt="Vimanga Umange outdoors at golden hour" width="900" height="1600"
+            loading="lazy" decoding="async">
           <figcaption>Vimanga / briefly away from the terminal</figcaption>
         </figure>
 
@@ -166,27 +250,39 @@
         </article>
 
         <figure class="about-card about-card--weather" data-about-tilt>
-          <img src="images/Matcha.webp" alt="A matcha drink held on a Toronto street" width="900" height="1600" loading="lazy" decoding="async">
+          <img src="images/Matcha.webp" alt="A matcha drink held on a Toronto street" width="900" height="1600"
+            loading="lazy" decoding="async">
           <figcaption>fuel, but make it green ↗</figcaption>
         </figure>
 
         <figure class="about-card about-card--object" data-about-tilt>
-          <img src="images/Hail_Mary.webp" alt="Project Hail Mary by Andy Weir held in a bookstore" width="1400" height="1867" loading="lazy" decoding="async">
+          <img src="images/Hail_Mary.webp" alt="Project Hail Mary by Andy Weir held in a bookstore" width="1400"
+            height="1867" loading="lazy" decoding="async">
           <figcaption>current rabbit hole: deep space</figcaption>
         </figure>
 
-        <div class="about-scribble about-scribble--read" aria-hidden="true"><span>the current rabbit hole</span><svg viewBox="0 0 120 70"><path d="M12 8C45 15 69 34 93 63M93 63l-18-4M93 63l-6-17"/></svg></div>
-        <div class="about-scribble about-scribble--data" aria-hidden="true"><span>matcha, then code</span><svg viewBox="0 0 110 70"><path d="M8 8C39 16 66 35 94 62M94 62l-18-3M94 62l-7-17"/></svg></div>
+        <div class="about-scribble about-scribble--read" aria-hidden="true"><span>the current rabbit hole</span><svg
+            viewBox="0 0 120 70">
+            <path d="M12 8C45 15 69 34 93 63M93 63l-18-4M93 63l-6-17" />
+          </svg></div>
+        <div class="about-scribble about-scribble--data" aria-hidden="true"><span>matcha, then code</span><svg
+            viewBox="0 0 110 70">
+            <path d="M8 8C39 16 66 35 94 62M94 62l-18-3M94 62l-7-17" />
+          </svg></div>
 
         <article class="about-detail" id="aboutDetail">
           <p id="aboutDetailEyebrow">What I like making</p>
           <h3 id="aboutDetailTitle">Useful things with difficult machinery underneath.</h3>
-          <p id="aboutDetailCopy">I enjoy turning messy constraints, unfamiliar domains, and ambitious ideas into products that feel direct and dependable.</p>
+          <p id="aboutDetailCopy">I enjoy turning messy constraints, unfamiliar domains, and ambitious ideas into
+            products that feel direct and dependable.</p>
         </article>
       </div>
 
       <div class="about-story shell" id="aboutStory">
-        <p class="about-story__scroll" id="aboutStoryText">I’m Vimanga, a software engineer who likes turning difficult ideas into useful things. Whether I’m building an AI model, shaping an interface, or working on the systems underneath, I’m happiest when the result feels simple and dependable. Curiosity gets me started. Usefulness keeps me going.</p>
+        <p class="about-story__scroll" id="aboutStoryText">I’m Vimanga, a software engineer who likes turning difficult
+          ideas into useful things. Whether I’m building an AI model, shaping an interface, or working on the systems
+          underneath, I’m happiest when the result feels simple and dependable. Curiosity gets me started. Usefulness
+          keeps me going.</p>
       </div>
 
       <section class="education-snapshot shell reveal" id="education" aria-labelledby="education-snapshot-title">
@@ -198,24 +294,28 @@
 
         <div class="education-cards">
           <article class="education-card education-card--graduate">
+            <i class="paper-tape paper-tape--yellow" aria-hidden="true"></i>
             <div class="education-card__topline">
               <span>Graduate study</span>
-              <time datetime="2026-10">Expected October 2026</time>
+              <time datetime="2026-10">Graduation · October 2026</time>
             </div>
             <h4>M.Sc.<br>Computer Science</h4>
             <p class="education-card__school">University of Windsor</p>
-            <p class="education-card__detail">Specialization in Artificial Intelligence · Thesis research in adaptive mobile intelligent tutoring systems.</p>
+            <p class="education-card__detail">Specialization in Artificial Intelligence · Thesis research in adaptive
+              mobile intelligent tutoring systems.</p>
             <span class="education-card__seal" aria-hidden="true">MSc</span>
           </article>
 
           <article class="education-card education-card--undergraduate">
+            <i class="paper-tape paper-tape--violet" aria-hidden="true"></i>
             <div class="education-card__topline">
               <span>Undergraduate study</span>
               <time>2016 — 2021</time>
             </div>
             <h4>B.Sc.<br>Computer Science</h4>
             <p class="education-card__school">Wichita State University</p>
-            <p class="education-card__detail">Wichita, Kansas · The technical foundation behind my work in software and intelligent systems.</p>
+            <p class="education-card__detail">Wichita, Kansas · The technical foundation behind my work in software and
+              intelligent systems.</p>
             <span class="education-card__seal" aria-hidden="true">BSc</span>
           </article>
         </div>
@@ -233,12 +333,18 @@
         <div class="tech-marquee__row">
           <div class="tech-marquee__track">
             <ul class="tech-marquee__group">
-              <li><span class="tech-logo"><img src="logos/react_light.svg" alt="" loading="lazy"></span><span>React</span></li>
-              <li><span class="tech-logo"><img src="logos/typescript.svg" alt="" loading="lazy"></span><span>TypeScript</span></li>
-              <li><span class="tech-logo"><img src="logos/python.svg" alt="" loading="lazy"></span><span>Python</span></li>
-              <li><span class="tech-logo"><img src="logos/pytorch.svg" alt="" loading="lazy"></span><span>PyTorch</span></li>
-              <li><span class="tech-logo"><img src="logos/openai.svg" alt="" loading="lazy"></span><span>OpenAI</span></li>
-              <li><span class="tech-logo"><img src="logos/fastapi.svg" alt="" loading="lazy"></span><span>FastAPI</span></li>
+              <li><span class="tech-logo"><img src="logos/react_light.svg" alt=""
+                    loading="lazy"></span><span>React</span></li>
+              <li><span class="tech-logo"><img src="logos/typescript.svg" alt=""
+                    loading="lazy"></span><span>TypeScript</span></li>
+              <li><span class="tech-logo"><img src="logos/python.svg" alt="" loading="lazy"></span><span>Python</span>
+              </li>
+              <li><span class="tech-logo"><img src="logos/pytorch.svg" alt="" loading="lazy"></span><span>PyTorch</span>
+              </li>
+              <li><span class="tech-logo"><img src="logos/openai.svg" alt="" loading="lazy"></span><span>OpenAI</span>
+              </li>
+              <li><span class="tech-logo"><img src="logos/fastapi.svg" alt="" loading="lazy"></span><span>FastAPI</span>
+              </li>
             </ul>
             <ul class="tech-marquee__group" aria-hidden="true">
               <li><span class="tech-logo"><img src="logos/react_light.svg" alt=""></span><span>React</span></li>
@@ -254,11 +360,16 @@
         <div class="tech-marquee__row tech-marquee__row--reverse">
           <div class="tech-marquee__track">
             <ul class="tech-marquee__group">
-              <li><span class="tech-logo"><img src="logos/nodejs.svg" alt="" loading="lazy"></span><span>Node.js</span></li>
-              <li><span class="tech-logo"><img src="logos/mongodb.svg" alt="" loading="lazy"></span><span>MongoDB</span></li>
-              <li><span class="tech-logo"><img src="logos/docker.svg" alt="" loading="lazy"></span><span>Docker</span></li>
-              <li><span class="tech-logo"><img src="logos/firebase.svg" alt="" loading="lazy"></span><span>Firebase</span></li>
-              <li><span class="tech-logo"><img src="logos/google-cloud.svg" alt="" loading="lazy"></span><span>Google Cloud</span></li>
+              <li><span class="tech-logo"><img src="logos/nodejs.svg" alt="" loading="lazy"></span><span>Node.js</span>
+              </li>
+              <li><span class="tech-logo"><img src="logos/mongodb.svg" alt="" loading="lazy"></span><span>MongoDB</span>
+              </li>
+              <li><span class="tech-logo"><img src="logos/docker.svg" alt="" loading="lazy"></span><span>Docker</span>
+              </li>
+              <li><span class="tech-logo"><img src="logos/firebase.svg" alt=""
+                    loading="lazy"></span><span>Firebase</span></li>
+              <li><span class="tech-logo"><img src="logos/google-cloud.svg" alt="" loading="lazy"></span><span>Google
+                  Cloud</span></li>
               <li><span class="tech-logo"><img src="logos/git.svg" alt="" loading="lazy"></span><span>Git</span></li>
             </ul>
             <ul class="tech-marquee__group" aria-hidden="true">
@@ -275,12 +386,16 @@
         <div class="tech-marquee__row">
           <div class="tech-marquee__track">
             <ul class="tech-marquee__group">
-              <li><span class="tech-logo"><img src="logos/tailwindcss.svg" alt="" loading="lazy"></span><span>Tailwind CSS</span></li>
-              <li><span class="tech-logo"><img src="logos/Threejs-logo.svg" alt="" loading="lazy"></span><span>Three.js</span></li>
-              <li><span class="tech-logo"><img src="logos/javascript.svg" alt="" loading="lazy"></span><span>JavaScript</span></li>
+              <li><span class="tech-logo"><img src="logos/tailwindcss.svg" alt="" loading="lazy"></span><span>Tailwind
+                  CSS</span></li>
+              <li><span class="tech-logo"><img src="logos/Threejs-logo.svg" alt=""
+                    loading="lazy"></span><span>Three.js</span></li>
+              <li><span class="tech-logo"><img src="logos/javascript.svg" alt=""
+                    loading="lazy"></span><span>JavaScript</span></li>
               <li><span class="tech-logo"><img src="logos/java.svg" alt="" loading="lazy"></span><span>Java</span></li>
               <li><span class="tech-logo"><img src="logos/sql.svg" alt="" loading="lazy"></span><span>SQL</span></li>
-              <li><span class="tech-logo"><img src="logos/flask-light.svg" alt="" loading="lazy"></span><span>Flask</span></li>
+              <li><span class="tech-logo"><img src="logos/flask-light.svg" alt=""
+                    loading="lazy"></span><span>Flask</span></li>
             </ul>
             <ul class="tech-marquee__group" aria-hidden="true">
               <li><span class="tech-logo"><img src="logos/tailwindcss.svg" alt=""></span><span>Tailwind CSS</span></li>
@@ -304,34 +419,223 @@
         </div>
         <div class="work-index__lead">
           <h2 id="work-title">Selected<br>projects.</h2>
-          <p>Products, experiments, and research translated into useful systems—with a bias toward clarity, evidence, and things that actually ship.</p>
+          <p>Products, experiments, and research translated into useful systems—with a bias toward clarity, evidence,
+            and things that actually ship.</p>
         </div>
-        <div class="work-index__filters" aria-label="Project collection summary"><span>Featured / 06</span><span>Case studies / 02</span><span>Open source / 06</span></div>
+        <div class="work-index__filters" aria-label="Project collection summary"><span>Featured / 06</span><span>Case
+            studies / 02</span><span>Open source / 06</span></div>
       </header>
       <div class="project-showcase-grid project-atlas shell" aria-label="Selected projects">
-        <article class="project-showcase-card project-showcase-card--fittrack" id="project-fittrack" data-case-transition="fittrack">
-          <a class="project-showcase-card__visual" href="fittrack.html" aria-label="Read the FitTrack case study"><div class="project-device project-device--model project-device--laptop"><model-viewer class="project-screen-model project-laptop-model" src="laptop-model/source/macbook_pro_14_inch_M5.glb" data-project-screen="images/LandingPage-winhacks.webp" data-screen-saturation="0.48" alt="MacBook displaying the FitTrack wellness dashboard" camera-orbit="0deg 75deg 72%" field-of-view="21deg" environment-image="neutral" exposure=".9" shadow-intensity=".75" shadow-softness="1" interaction-prompt="none" loading="lazy"><span slot="progress-bar" class="project-model-progress" aria-hidden="true"></span></model-viewer><img class="project-model-fallback project-laptop-fallback" src="images/LandingPage-winhacks.webp" loading="lazy" decoding="async" alt="" aria-hidden="true"></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
-          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">01 / WinHacks finalist</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link project-showcase-card__availability-link--case-study" href="fittrack.html">Case study</a><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/Winhacks-Project" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>FitTrack</h3><a class="project-showcase-card__launch" href="fittrack.html" aria-label="Read the FitTrack case study"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A recovery assistant that turns biometrics, nutrition, and activity signals into practical daily guidance.</p><div class="project-showcase-card__meta"><span>React</span><span>FastAPI</span><span>OpenAI</span></div></div></div>
+        <article class="project-showcase-card project-showcase-card--fittrack" id="project-fittrack">
+          <a class="project-showcase-card__visual" href="fittrack.html" aria-label="Read the FitTrack case study">
+            <div class="project-device project-device--model project-device--laptop"><model-viewer
+                class="project-screen-model project-laptop-model" src="laptop-model/source/macbook_pro_14_inch_M5.glb"
+                data-project-screen="images/LandingPage-winhacks.webp" data-screen-saturation="0.48"
+                alt="MacBook displaying the FitTrack wellness dashboard" camera-orbit="0deg 76deg 64%"
+                field-of-view="19deg" environment-image="neutral" tone-mapping="neutral" exposure=".9" shadow-intensity=".75"
+                shadow-softness="1" interpolation-decay="200" interaction-prompt="none" loading="lazy"><span slot="progress-bar"
+                  class="project-model-progress" aria-hidden="true"></span></model-viewer><img
+                class="project-model-fallback project-laptop-fallback" src="images/LandingPage-winhacks.webp"
+                loading="lazy" decoding="async" alt="" aria-hidden="true"></div>
+          </a>
+          <div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content">
+            <div class="project-showcase-card__eyebrow">
+              <p class="project-showcase-card__index">01 / WinHacks finalist</p>
+              <div class="project-showcase-card__availability"><a
+                  class="project-showcase-card__availability-link project-showcase-card__availability-link--case-study"
+                  href="fittrack.html">Case study</a><a class="project-showcase-card__availability-link"
+                  href="https://github.com/vimanga-x64/Winhacks-Project" target="_blank"
+                  rel="noopener noreferrer">GitHub repo</a></div>
+            </div>
+            <div class="project-showcase-card__title">
+              <h3>FitTrack</h3><a class="project-showcase-card__launch" href="fittrack.html"
+                aria-label="Read the FitTrack case study"><span></span><span></span></a>
+            </div>
+            <div class="project-showcase-card__details">
+              <p>A recovery assistant that turns biometrics, nutrition, and activity signals into practical daily
+                guidance.</p>
+              <div class="project-showcase-card__meta"><span>React</span><span>FastAPI</span><span>OpenAI</span></div>
+            </div>
+          </div>
         </article>
-        <article class="project-showcase-card project-showcase-card--weather" id="project-weatherwise" data-case-transition="weatherwise">
-          <a class="project-showcase-card__visual" href="weatherwise.html" aria-label="Read the WeatherWise case study"><div class="project-tablet-scene project-tablet-scene--weather"><div class="project-tablet project-tablet--landscape project-tablet--weather-primary"><span class="project-tablet__camera" aria-hidden="true"></span><div class="project-tablet__screen"><img src="images/Space_Apps_Screenshot.webp" alt="WeatherWise geospatial interface" loading="lazy" decoding="async"></div></div><div class="project-tablet project-tablet--landscape project-tablet--weather-secondary" aria-hidden="true"><span class="project-tablet__camera"></span><div class="project-tablet__screen"><img src="images/Nasa-Weathewise_Weather_Recommendation.jpg" alt="" loading="lazy" decoding="async"></div></div></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
-          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">02 / NASA Space Apps</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link project-showcase-card__availability-link--case-study" href="weatherwise.html">Case study</a><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/NASA-Hackathon-Weather_APP" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>WeatherWise</h3><a class="project-showcase-card__launch" href="weatherwise.html" aria-label="Read the WeatherWise case study"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A geospatial recommender combining satellite imagery, forecasts, statistical scoring, and language models.</p><div class="project-showcase-card__meta"><span>NASA APIs</span><span>Geospatial</span><span>LLM</span></div></div></div>
+        <article class="project-showcase-card project-showcase-card--weather" id="project-weatherwise">
+          <a class="project-showcase-card__visual" href="weatherwise.html" aria-label="Read the WeatherWise case study">
+            <div class="project-tablet-scene project-tablet-scene--weather">
+              <div class="project-tablet project-tablet--landscape project-tablet--weather-primary"><span
+                  class="project-tablet__camera" aria-hidden="true"></span>
+                <div class="project-tablet__screen"><img src="images/Space_Apps_Screenshot.webp"
+                    alt="WeatherWise geospatial interface" loading="lazy" decoding="async"></div>
+              </div>
+              <div class="project-tablet project-tablet--landscape project-tablet--weather-secondary"
+                aria-hidden="true"><span class="project-tablet__camera"></span>
+                <div class="project-tablet__screen"><img src="images/Nasa-Weathewise_Weather_Recommendation.jpg" alt=""
+                    loading="lazy" decoding="async"></div>
+              </div>
+            </div>
+          </a>
+          <div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content">
+            <div class="project-showcase-card__eyebrow">
+              <p class="project-showcase-card__index">02 / NASA Space Apps</p>
+              <div class="project-showcase-card__availability"><a
+                  class="project-showcase-card__availability-link project-showcase-card__availability-link--case-study"
+                  href="weatherwise.html">Case study</a><a class="project-showcase-card__availability-link"
+                  href="https://github.com/vimanga-x64/NASA-Hackathon-Weather_APP" target="_blank"
+                  rel="noopener noreferrer">GitHub repo</a></div>
+            </div>
+            <div class="project-showcase-card__title">
+              <h3>WeatherWise</h3><a class="project-showcase-card__launch" href="weatherwise.html"
+                aria-label="Read the WeatherWise case study"><span></span><span></span></a>
+            </div>
+            <div class="project-showcase-card__details">
+              <p>A geospatial recommender combining satellite imagery, forecasts, statistical scoring, and language
+                models.</p>
+              <div class="project-showcase-card__meta"><span>NASA APIs</span><span>Geospatial</span><span>LLM</span>
+              </div>
+            </div>
+          </div>
         </article>
         <article class="project-showcase-card project-showcase-card--movie">
-          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" rel="noopener noreferrer" aria-label="View AI Movie Search source"><div class="project-tablet-scene project-tablet-scene--movie"><div class="project-tablet project-tablet--landscape"><span class="project-tablet__camera" aria-hidden="true"></span><div class="project-tablet__screen"><img src="images/movie-app.webp" alt="AI Movie Search interface" loading="lazy" decoding="async"></div></div></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
-          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">03 / NLP product</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>AI Movie Search</h3><a class="project-showcase-card__launch" href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" rel="noopener noreferrer" aria-label="View AI Movie Search source"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>Natural-language movie discovery using React, Hugging Face NLP, and the TMDB API.</p><div class="project-showcase-card__meta"><span>React</span><span>Hugging Face</span><span>TMDB</span></div></div></div>
+          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank"
+            rel="noopener noreferrer" aria-label="View AI Movie Search source">
+            <div class="project-tablet-scene project-tablet-scene--movie">
+              <div class="project-tablet project-tablet--landscape"><span class="project-tablet__camera"
+                  aria-hidden="true"></span>
+                <div class="project-tablet__screen"><img src="images/movie-app.webp" alt="AI Movie Search interface"
+                    loading="lazy" decoding="async"></div>
+              </div>
+            </div>
+          </a>
+          <div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content">
+            <div class="project-showcase-card__eyebrow">
+              <p class="project-showcase-card__index">03 / NLP product</p>
+              <div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link"
+                  href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" rel="noopener noreferrer">GitHub
+                  repo</a></div>
+            </div>
+            <div class="project-showcase-card__title">
+              <h3>AI Movie Search</h3><a class="project-showcase-card__launch"
+                href="https://github.com/vimanga-x64/AI-Movie-Search" target="_blank" rel="noopener noreferrer"
+                aria-label="View AI Movie Search source"><span></span><span></span></a>
+            </div>
+            <div class="project-showcase-card__details">
+              <p>Natural-language movie discovery using React, Hugging Face NLP, and the TMDB API.</p>
+              <div class="project-showcase-card__meta"><span>React</span><span>Hugging Face</span><span>TMDB</span>
+              </div>
+            </div>
+          </div>
         </article>
         <article class="project-showcase-card project-showcase-card--games">
-          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" rel="noopener noreferrer" aria-label="View Free Game Scraper source"><div class="project-device project-device--model project-device--imac"><model-viewer class="project-screen-model project-imac-model" src="assets/imac_2021.glb" data-project-screen="images/free-games.webp" data-screen-material="Screen" data-screen-flip-y="true" data-screen-inset-x="0" data-screen-inset-y="0.18" alt="Front-facing 2021 iMac displaying the complete Free Game Scraper interface" camera-orbit="90deg 90deg 72%" field-of-view="24deg" environment-image="neutral" exposure="1" shadow-intensity=".7" shadow-softness="1" interaction-prompt="none" loading="lazy"><span slot="progress-bar" class="project-model-progress" aria-hidden="true"></span></model-viewer><img class="project-model-fallback project-imac-fallback" src="images/free-games.webp" loading="lazy" decoding="async" alt="" aria-hidden="true"></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
-          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">04 / Full-stack</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>Free Game Scraper</h3><a class="project-showcase-card__launch" href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" rel="noopener noreferrer" aria-label="View Free Game Scraper source"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A full-stack aggregator monitoring six-plus platforms with intelligent caching to reduce API calls.</p><div class="project-showcase-card__meta"><span>Python</span><span>APIs</span><span>Caching</span></div></div></div>
+          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/Free-Game-Scraper"
+            target="_blank" rel="noopener noreferrer" aria-label="View Free Game Scraper source">
+            <div class="project-device project-device--model project-device--imac"><model-viewer
+                class="project-screen-model project-imac-model" src="assets/imac_2021.glb"
+                data-project-screen="images/free-games.webp" data-screen-material="Screen" data-screen-flip-y="true"
+                data-screen-inset-x="0" data-screen-inset-y="0.18"
+                alt="Front-facing 2021 iMac displaying the complete Free Game Scraper interface"
+                camera-orbit="90deg 90deg 72%" field-of-view="24deg" environment-image="neutral" tone-mapping="neutral" exposure="1"
+                shadow-intensity=".7" shadow-softness="1" interpolation-decay="200" interaction-prompt="none" loading="lazy"><span
+                  slot="progress-bar" class="project-model-progress" aria-hidden="true"></span></model-viewer><img
+                class="project-model-fallback project-imac-fallback" src="images/free-games.webp" loading="lazy"
+                decoding="async" alt="" aria-hidden="true"></div>
+          </a>
+          <div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content">
+            <div class="project-showcase-card__eyebrow">
+              <p class="project-showcase-card__index">04 / Full-stack</p>
+              <div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link"
+                  href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank"
+                  rel="noopener noreferrer">GitHub repo</a></div>
+            </div>
+            <div class="project-showcase-card__title">
+              <h3>Free Game Scraper</h3><a class="project-showcase-card__launch"
+                href="https://github.com/vimanga-x64/Free-Game-Scraper" target="_blank" rel="noopener noreferrer"
+                aria-label="View Free Game Scraper source"><span></span><span></span></a>
+            </div>
+            <div class="project-showcase-card__details">
+              <p>A full-stack aggregator monitoring six-plus platforms with intelligent caching to reduce API calls.</p>
+              <div class="project-showcase-card__meta"><span>Python</span><span>APIs</span><span>Caching</span></div>
+            </div>
+          </div>
         </article>
         <article class="project-showcase-card project-showcase-card--etutor">
-          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/ResearchProject-Prototype" target="_blank" rel="noopener noreferrer" aria-label="View E-Tutor source"><div class="project-handheld"><img class="project-handheld__render" src="images/etutor-hand-phone-v1.webp" loading="lazy" decoding="async" alt="A soft blue 3D hand holding an iPhone"><div class="project-device project-device--phone project-iphone project-handheld__iphone"><div class="project-iphone__screen"><img src="images/etutor-screenshot.png" alt="E-Tutor adaptive learning interface" loading="lazy"><span class="project-iphone__dynamic-island" aria-hidden="true"><i></i></span></div><span class="project-iphone__button project-iphone__button--action" aria-hidden="true"></span><span class="project-iphone__button project-iphone__button--volume" aria-hidden="true"></span><span class="project-iphone__button project-iphone__button--power" aria-hidden="true"></span></div></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
-          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">05 / Mobile learning</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/ResearchProject-Prototype" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>E-Tutor</h3><a class="project-showcase-card__launch" href="https://github.com/vimanga-x64/ResearchProject-Prototype" target="_blank" rel="noopener noreferrer" aria-label="View E-Tutor source"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A mobile learning platform with mood-responsive avatars, gamified lessons, and real-time feedback.</p><div class="project-showcase-card__meta"><span>Flutter</span><span>AI</span><span>Research</span></div></div></div>
+          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/ResearchProject-Prototype"
+            target="_blank" rel="noopener noreferrer" aria-label="View E-Tutor source">
+            <div class="project-handheld"><img class="project-handheld__render" src="images/etutor-hand-phone-v1.webp"
+                loading="lazy" decoding="async" alt="A soft blue 3D hand holding an iPhone">
+              <div class="project-device project-device--phone project-iphone project-handheld__iphone">
+                <div class="project-iphone__screen"><img src="images/etutor-screenshot.png"
+                    alt="E-Tutor adaptive learning interface" loading="lazy"><span
+                    class="project-iphone__dynamic-island" aria-hidden="true"><i></i></span></div><span
+                  class="project-iphone__button project-iphone__button--action" aria-hidden="true"></span><span
+                  class="project-iphone__button project-iphone__button--volume" aria-hidden="true"></span><span
+                  class="project-iphone__button project-iphone__button--power" aria-hidden="true"></span>
+              </div>
+            </div>
+          </a>
+          <div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content">
+            <div class="project-showcase-card__eyebrow">
+              <p class="project-showcase-card__index">05 / Mobile learning</p>
+              <div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link"
+                  href="https://github.com/vimanga-x64/ResearchProject-Prototype" target="_blank"
+                  rel="noopener noreferrer">GitHub repo</a></div>
+            </div>
+            <div class="project-showcase-card__title">
+              <h3>E-Tutor</h3><a class="project-showcase-card__launch"
+                href="https://github.com/vimanga-x64/ResearchProject-Prototype" target="_blank"
+                rel="noopener noreferrer" aria-label="View E-Tutor source"><span></span><span></span></a>
+            </div>
+            <div class="project-showcase-card__details">
+              <p>A mobile learning platform with mood-responsive avatars, gamified lessons, and real-time feedback.</p>
+              <div class="project-showcase-card__meta"><span>Flutter</span><span>AI</span><span>Research</span></div>
+            </div>
+          </div>
         </article>
         <article class="project-showcase-card project-showcase-card--dhamma">
-          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank" rel="noopener noreferrer" aria-label="View Dhammapada source"><div class="project-dhamma-phones"><div class="project-device project-device--phone project-iphone project-dhamma-phone project-dhamma-phone--primary"><div class="project-iphone__screen"><img src="images/Dhammapada_Homescreen.png" alt="Dhammapada reading application" loading="lazy"><span class="project-iphone__dynamic-island" aria-hidden="true"><i></i></span></div><span class="project-iphone__button project-iphone__button--action" aria-hidden="true"></span><span class="project-iphone__button project-iphone__button--volume" aria-hidden="true"></span><span class="project-iphone__button project-iphone__button--power" aria-hidden="true"></span></div><div class="project-device project-device--phone project-iphone project-dhamma-phone project-dhamma-phone--secondary" aria-hidden="true"><div class="project-iphone__screen"><img src="images/Dhammapada_Lockscreen.png" alt="" loading="lazy"><span class="project-iphone__dynamic-island"><i></i></span></div><span class="project-iphone__button project-iphone__button--action"></span><span class="project-iphone__button project-iphone__button--volume"></span><span class="project-iphone__button project-iphone__button--power"></span></div></div></a><div class="project-showcase-card__shade" aria-hidden="true"></div>
-          <div class="project-showcase-card__content"><div class="project-showcase-card__eyebrow"><p class="project-showcase-card__index">06 / Cross-platform</p><div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link" href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank" rel="noopener noreferrer">GitHub repo</a></div></div><div class="project-showcase-card__title"><h3>Dhammapada</h3><a class="project-showcase-card__launch" href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank" rel="noopener noreferrer" aria-label="View Dhammapada source"><span></span><span></span></a></div><div class="project-showcase-card__details"><p>A quiet cross-platform reading experience that brings Buddhist teachings into daily life.</p><div class="project-showcase-card__meta"><span>Flutter</span><span>Mobile</span><span>UX</span></div></div></div>
+          <a class="project-showcase-card__visual" href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank"
+            rel="noopener noreferrer" aria-label="View Dhammapada source">
+            <div class="project-dhamma-phones">
+              <div
+                class="project-device project-device--phone project-iphone project-dhamma-phone project-dhamma-phone--primary">
+                <div class="project-iphone__screen"><img src="images/Dhammapada_Homescreen.png"
+                    alt="Dhammapada reading application" loading="lazy"><span class="project-iphone__dynamic-island"
+                    aria-hidden="true"><i></i></span></div><span
+                  class="project-iphone__button project-iphone__button--action" aria-hidden="true"></span><span
+                  class="project-iphone__button project-iphone__button--volume" aria-hidden="true"></span><span
+                  class="project-iphone__button project-iphone__button--power" aria-hidden="true"></span>
+              </div>
+              <div
+                class="project-device project-device--phone project-iphone project-dhamma-phone project-dhamma-phone--secondary"
+                aria-hidden="true">
+                <div class="project-iphone__screen"><img src="images/Dhammapada_Lockscreen.png" alt=""
+                    loading="lazy"><span class="project-iphone__dynamic-island"><i></i></span></div><span
+                  class="project-iphone__button project-iphone__button--action"></span><span
+                  class="project-iphone__button project-iphone__button--volume"></span><span
+                  class="project-iphone__button project-iphone__button--power"></span>
+              </div>
+            </div>
+          </a>
+          <div class="project-showcase-card__shade" aria-hidden="true"></div>
+          <div class="project-showcase-card__content">
+            <div class="project-showcase-card__eyebrow">
+              <p class="project-showcase-card__index">06 / Cross-platform</p>
+              <div class="project-showcase-card__availability"><a class="project-showcase-card__availability-link"
+                  href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank" rel="noopener noreferrer">GitHub
+                  repo</a></div>
+            </div>
+            <div class="project-showcase-card__title">
+              <h3>Dhammapada</h3><a class="project-showcase-card__launch"
+                href="https://github.com/vimanga-x64/Dhammapada_App" target="_blank" rel="noopener noreferrer"
+                aria-label="View Dhammapada source"><span></span><span></span></a>
+            </div>
+            <div class="project-showcase-card__details">
+              <p>A quiet cross-platform reading experience that brings Buddhist teachings into daily life.</p>
+              <div class="project-showcase-card__meta"><span>Flutter</span><span>Mobile</span><span>UX</span></div>
+            </div>
+          </div>
         </article>
       </div>
     </section>
@@ -347,7 +651,8 @@
           <div class="research-masthead__lead">
             <p class="research-masthead__kicker">The Independent Research Journal</p>
             <h2 id="research-title">Ideas made<br>operational.</h2>
-            <p class="research-masthead__deck">Research at the intersection of machine intelligence, language, learning systems, and the people they serve.</p>
+            <p class="research-masthead__deck">Research at the intersection of machine intelligence, language, learning
+              systems, and the people they serve.</p>
           </div>
           <div class="research-masthead__dateline" aria-label="Publication details">
             <span>Research edition</span>
@@ -362,40 +667,60 @@
         </div>
 
         <div class="research-list research-news-grid">
-          <a class="research-article research-article--lead reveal" href="papers/8720 Project_paper.pdf" target="_blank" rel="noopener noreferrer">
+          <a class="research-article research-article--lead reveal" href="papers/8720 Project_paper.pdf" target="_blank"
+            rel="noopener noreferrer">
             <div class="research-article__meta"><span>Lead story / Graph learning</span><span>No. 01 · 2026</span></div>
             <h3>Top-k Densest Subgraph Augmentation for Hypergraph Neural Networks</h3>
             <div class="research-article__lead-layout">
               <figure class="research-story-photo" aria-labelledby="research-photo-caption">
                 <div class="research-story-photo__frame">
-                  <img src="images/research-archive-lab-v1.webp" alt="Generated archival-style black-and-white scene of researchers working in a 1960s university computing laboratory" loading="lazy" decoding="async">
+                  <img src="images/research-archive-lab-v1.webp"
+                    alt="Generated archival-style black-and-white scene of researchers working in a 1960s university computing laboratory"
+                    loading="lazy" decoding="async">
                 </div>
-                <figcaption id="research-photo-caption"><span>Fig. 01</span> Editorial reconstruction of a mid-century research laboratory · Generated study, 2026</figcaption>
+                <figcaption id="research-photo-caption"><span>Fig. 01</span> Editorial reconstruction of a mid-century
+                  research laboratory · Generated study, 2026</figcaption>
               </figure>
-              <p class="research-article__standfirst">Density-based augmentation can strengthen natural clusters in hypergraphs—but the same strategy may erase useful sparse signals. A cross-domain study finds gains of up to four percent on movie-profit prediction and sharply different outcomes on benchmark networks.</p>
+              <p class="research-article__standfirst">Density-based augmentation can strengthen natural clusters in
+                hypergraphs—but the same strategy may erase useful sparse signals. A cross-domain study finds gains of
+                up to four percent on movie-profit prediction and sharply different outcomes on benchmark networks.</p>
             </div>
-            <div class="research-article__footer"><span>By Rustem Izmailov, Nishant Gowthaman, Gauthami Shirodkar &amp; Vimanga Umange</span><strong>Read paper <b aria-hidden="true">↗</b></strong></div>
+            <div class="research-article__footer"><span>By Rustem Izmailov, Nishant Gowthaman, Gauthami Shirodkar &amp;
+                Vimanga Umange</span><strong>Read paper <b aria-hidden="true">↗</b></strong></div>
           </a>
 
-          <a class="research-article research-article--language reveal" href="papers/COMP8730_Evaluation-4.pdf" target="_blank" rel="noopener noreferrer">
+          <a class="research-article research-article--language reveal" href="papers/COMP8730_Evaluation-4.pdf"
+            target="_blank" rel="noopener noreferrer">
             <div class="research-article__meta"><span>Language desk / NLP</span><span>No. 02 · 2026</span></div>
             <h3>Transformer-Based Automated Interlinear Glossing for Low-Resource Languages</h3>
-            <p class="research-article__standfirst">A character-level Transformer combines unsupervised morpheme segmentation, relative positional encoding, and translation cues to generate linguistic glosses for languages with limited annotated data.</p>
-            <div class="research-article__footer"><span>By George Kaceli &amp; Vimanga Umange</span><strong>Read paper <b aria-hidden="true">↗</b></strong></div>
+            <p class="research-article__standfirst">A character-level Transformer combines unsupervised morpheme
+              segmentation, relative positional encoding, and translation cues to generate linguistic glosses for
+              languages with limited annotated data.</p>
+            <div class="research-article__footer"><span>By George Kaceli &amp; Vimanga Umange</span><strong>Read paper
+                <b aria-hidden="true">↗</b></strong></div>
           </a>
 
-          <a class="research-article research-article--health reveal" href="papers/COMP8740_FinalProject.pdf" target="_blank" rel="noopener noreferrer">
+          <a class="research-article research-article--health reveal" href="papers/COMP8740_FinalProject.pdf"
+            target="_blank" rel="noopener noreferrer">
             <div class="research-article__meta"><span>Data desk / Health AI</span><span>No. 03 · 2025</span></div>
             <h3>Comparing Machine Learning Approaches for Heart Disease Indicators</h3>
-            <p class="research-article__standfirst">From logistic regression to TabNet, this comparative study asks which machine-learning models most reliably detect heart-disease indicators—and how systematic tuning changes their performance.</p>
-            <div class="research-article__footer"><span>By Vimanga Umange &amp; Saumya Buch</span><strong>Read paper <b aria-hidden="true">↗</b></strong></div>
+            <p class="research-article__standfirst">From logistic regression to TabNet, this comparative study asks
+              which machine-learning models most reliably detect heart-disease indicators—and how systematic tuning
+              changes their performance.</p>
+            <div class="research-article__footer"><span>By Vimanga Umange &amp; Saumya Buch</span><strong>Read paper <b
+                  aria-hidden="true">↗</b></strong></div>
           </a>
 
           <a class="research-article research-article--tutoring reveal" href="resume/index.html#research">
-            <div class="research-article__meta"><span>Systems desk / Adaptive learning</span><span>No. 04 · 2026</span></div>
+            <div class="research-article__meta"><span>Systems desk / Adaptive learning</span><span>No. 04 · 2026</span>
+            </div>
             <h3>Hybrid POMDP for Mobile Intelligent Tutoring Systems</h3>
-            <p class="research-article__standfirst">A Deep Q-Network controller jointly selects pedagogical actions, compute placement, and avatar fidelity across changing mobile conditions. Simulations produced a 44 percent relative improvement in normalized learning gain while keeping 98.68 percent of tutoring steps within a 500 ms threshold.</p>
-            <div class="research-article__footer"><span>By Vimanga Umange · Master's thesis</span><strong>View thesis brief <b aria-hidden="true">↗</b></strong></div>
+            <p class="research-article__standfirst">A Deep Q-Network controller jointly selects pedagogical actions,
+              compute placement, and avatar fidelity across changing mobile conditions. Simulations produced a 44
+              percent relative improvement in normalized learning gain while keeping 98.68 percent of tutoring steps
+              within a 500 ms threshold.</p>
+            <div class="research-article__footer"><span>By Vimanga Umange · Master's thesis</span><strong>View thesis
+                brief <b aria-hidden="true">↗</b></strong></div>
           </a>
         </div>
 
@@ -415,39 +740,64 @@
           <h2 id="experience-title">Work shaped by<br><em>real systems.</em></h2>
           <div class="experience__intro">
             <div class="experience__resume-actions">
-              <a class="experience__resume" href="output/pdf/Vimanga_Umange_Resume.pdf" target="_blank" rel="noopener noreferrer">View Resume <span aria-hidden="true">↗</span></a>
-              <a class="experience__resume experience__resume--download" href="output/pdf/Vimanga_Umange_Resume.pdf" download="Vimanga_Umange_Resume.pdf">Download Resume <span aria-hidden="true">↓</span></a>
+              <a class="experience__resume" href="output/pdf/Vimanga_Umange_Resume.pdf" target="_blank"
+                rel="noopener noreferrer"><i class="cta-bloom" aria-hidden="true"></i><span
+                  class="cta-label-swap"><span>View resume</span><span aria-hidden="true">Open PDF</span></span><b
+                  aria-hidden="true">↗</b></a>
+              <a class="experience__resume experience__resume--download" href="output/pdf/Vimanga_Umange_Resume.pdf"
+                download="Vimanga_Umange_Resume.pdf" aria-label="Download Vimanga Umange’s resume as a PDF"><span>Download resume</span><b
+                  aria-hidden="true">↓</b></a>
             </div>
           </div>
         </div>
       </header>
       <div class="roles shell" aria-label="Professional experience timeline">
         <article class="role role--left role--graduate reveal" style="--role-order:0;--role-accent:#75e6c7">
-          <img class="role__cloud" src="images/experience-cloud-card-v1.webp" loading="lazy" decoding="async" alt="" aria-hidden="true">
+          <img class="role__cloud" src="images/experience-cloud-card-v1.webp" loading="lazy" decoding="async" alt=""
+            aria-hidden="true">
           <div class="role__top"><time datetime="2025">2025—Now</time></div>
-          <h3>Graduate Assistant</h3><p class="role__company">University of Windsor · Canada</p>
-          <ul><li>Support 100+ Computer Networks students through labs, assessments, and office hours.</li><li>Teach practical routing, TCP/IP, Wireshark, Cisco Packet Tracer, and network security.</li></ul>
+          <h3>Graduate Assistant</h3>
+          <p class="role__company">University of Windsor · Canada</p>
+          <ul>
+            <li>Support 100+ Computer Networks students through labs, assessments, and office hours.</li>
+            <li>Teach practical routing, TCP/IP, Wireshark, Cisco Packet Tracer, and network security.</li>
+          </ul>
         </article>
-        <figure class="experience-art experience-art--ladder" aria-hidden="true"><img src="images/experience-ladder-reference.svg" alt=""></figure>
+        <figure class="experience-art experience-art--ladder" aria-hidden="true"><img
+            src="images/experience-ladder-reference.svg" alt=""></figure>
         <article class="role role--right role--specialist reveal" style="--role-order:1;--role-accent:#ff9b72">
-          <img class="role__cloud" src="images/experience-cloud-card-v1.webp" loading="lazy" decoding="async" alt="" aria-hidden="true">
+          <img class="role__cloud" src="images/experience-cloud-card-v1.webp" loading="lazy" decoding="async" alt=""
+            aria-hidden="true">
           <div class="role__top"><time>2021—2024</time></div>
-          <h3>IT Specialist</h3><p class="role__company">Etezazi Industries · USA</p>
-          <ul><li>Migrated more than 100 users to a new domain with zero downtime.</li><li>Managed identity, VPN, firewall, server, and database infrastructure.</li><li>Built a Python inventory workflow that reduced scrap parts by 40%.</li></ul>
+          <h3>IT Specialist</h3>
+          <p class="role__company">Etezazi Industries · USA</p>
+          <ul>
+            <li>Migrated more than 100 users to a new domain with zero downtime.</li>
+            <li>Managed identity, VPN, firewall, server, and database infrastructure.</li>
+            <li>Built a Python inventory workflow that reduced scrap parts by 40%.</li>
+          </ul>
         </article>
-        <figure class="experience-art experience-art--conduit" aria-hidden="true"><img src="images/experience-column-reference.svg" alt=""></figure>
+        <figure class="experience-art experience-art--conduit" aria-hidden="true"><img
+            src="images/experience-column-reference.svg" alt=""></figure>
         <article class="role role--left role--intern reveal" style="--role-order:2;--role-accent:#f3d83f">
-          <img class="role__cloud" src="images/experience-cloud-card-v1.webp" loading="lazy" decoding="async" alt="" aria-hidden="true">
+          <img class="role__cloud" src="images/experience-cloud-card-v1.webp" loading="lazy" decoding="async" alt=""
+            aria-hidden="true">
           <div class="role__top"><time datetime="2021">2021</time></div>
-          <h3>IT Intern</h3><p class="role__company">Etezazi Industries · USA</p>
-          <ul><li>Resolved more than 200 IT requests through centralized monitoring.</li><li>Supported operational databases and wrote SQL reporting queries.</li></ul>
+          <h3>IT Intern</h3>
+          <p class="role__company">Etezazi Industries · USA</p>
+          <ul>
+            <li>Resolved more than 200 IT requests through centralized monitoring.</li>
+            <li>Supported operational databases and wrote SQL reporting queries.</li>
+          </ul>
         </article>
         <figure class="experience-art experience-art--portal" aria-hidden="true">
           <div class="experience-portal-composite">
             <img class="experience-portal__door" src="images/experience-door-reference.svg" alt="">
             <div class="experience-portal__clouds">
-              <img class="experience-portal__cloud experience-portal__cloud--one" src="images/experience-cloud-left-reference.svg" alt="">
-              <img class="experience-portal__cloud experience-portal__cloud--two" src="images/experience-cloud-right-reference.svg" alt="">
+              <img class="experience-portal__cloud experience-portal__cloud--one"
+                src="images/experience-cloud-left-reference.svg" alt="">
+              <img class="experience-portal__cloud experience-portal__cloud--two"
+                src="images/experience-cloud-right-reference.svg" alt="">
             </div>
           </div>
         </figure>
@@ -459,161 +809,241 @@
       <div class="shell contact__inner">
         <p class="eyebrow reveal">Contact / 06</p>
         <h2 id="contact-title" class="reveal">Have a difficult<br>problem? Good.</h2>
+        <div class="contact-note-anchor reveal">
+          <aside class="contact-note" aria-label="A few things ahead">
+            <span class="contact-note__pin" aria-hidden="true"></span>
+            <p>A few things ahead</p>
+            <ul>
+              <li><s>Portfolio refresh</s></li>
+              <li><s>Finish the thesis</s></li>
+              <li>Graduate in October</li>
+              <li>Publish my thesis</li>
+              <li>Read more science fiction</li>
+              <li>Run the next 10K</li>
+            </ul>
+          </aside>
+        </div>
+
         <div class="contact__bottom reveal">
           <div class="contact__intro">
-            <p>I’m interested in software engineering, applied AI, research, and teams building ambitious things with real utility.</p>
-            <a class="contact__email" href="mailto:vimangau@gmail.com"><span>Prefer email?</span><strong>vimangau@gmail.com</strong><b aria-hidden="true">↗</b></a>
+            <p>I’m interested in software engineering, applied AI, research, and teams building ambitious things with
+              real utility.</p>
+            <button class="archive-callbox" id="archiveCallbox" type="button" aria-label="Open the portfolio archive"
+              aria-haspopup="dialog" aria-controls="portfolioArchive" aria-expanded="false">
+              <span class="archive-callbox__stage" aria-hidden="true">
+                <model-viewer class="archive-callbox__model" src="models_for_hero/telephone_booth.glb?v=20260923" alt="Red British telephone booth"
+                  camera-orbit="24deg 74deg 108%" camera-target="auto 6.1m auto" field-of-view="27deg" exposure="1.12" environment-image="neutral" tone-mapping="neutral"
+                  shadow-intensity="1.2" shadow-softness=".5" interpolation-decay="200" auto-rotate auto-rotate-delay="0"
+                  rotation-per-second="8deg" disable-zoom interaction-prompt="none" loading="lazy">
+                </model-viewer>
+              </span>
+            </button>
+            <a class="contact__email" href="mailto:vimangau@gmail.com"><span>Prefer
+                email?</span><strong>vimangau@gmail.com</strong><b aria-hidden="true">↗</b></a>
           </div>
 
           <form class="contact-form" data-contact-form action="https://formspree.io/f/xvgwddda" method="post">
-            <div class="contact-form__heading"><div><span>Start a conversation</span><strong>Tell me what you’re working on.</strong></div><b>01—03</b></div>
-            <div class="contact-form__row">
-              <label class="contact-field"><span>Name</span><input type="text" name="name" autocomplete="name" maxlength="80" placeholder="Your name" required></label>
-              <label class="contact-field"><span>Email address</span><input type="email" name="email" autocomplete="email" maxlength="160" placeholder="you@example.com" required></label>
+            <div class="contact-form__heading">
+              <div><span>Start a conversation</span><strong>Tell me what you’re working on.</strong></div><b>01—03</b>
             </div>
-            <label class="contact-field contact-field--message"><span>Message</span><textarea name="message" rows="5" maxlength="2500" placeholder="A quick outline of the idea, problem, or opportunity…" required></textarea></label>
+            <div class="contact-form__row">
+              <label class="contact-field"><span>Name</span><input type="text" name="name" autocomplete="name"
+                  maxlength="80" placeholder="Your name" required></label>
+              <label class="contact-field"><span>Email address</span><input type="email" name="email"
+                  autocomplete="email" maxlength="160" placeholder="you@example.com" required></label>
+            </div>
+            <label class="contact-field contact-field--message"><span>Message</span><textarea name="message" rows="5"
+                maxlength="2500" placeholder="A quick outline of the idea, problem, or opportunity…"
+                required></textarea></label>
             <div class="contact-form__footer">
-              <button type="submit" data-contact-submit><i class="cta-bloom" aria-hidden="true"></i><span class="cta-label-swap" data-contact-submit-label><span data-contact-submit-label-default>Send message</span><span aria-hidden="true">Let’s connect</span></span><b aria-hidden="true">↗</b></button>
+              <button type="submit" data-contact-submit><i class="cta-bloom" aria-hidden="true"></i><span
+                  class="cta-label-swap" data-contact-submit-label><span data-contact-submit-label-default>Send
+                    message</span><span aria-hidden="true">Let’s connect</span></span><b
+                  aria-hidden="true">↗</b></button>
             </div>
             <p class="contact-form__status" data-contact-status aria-live="polite"></p>
           </form>
         </div>
-
-        <button class="archive-callbox reveal" id="archiveCallbox" type="button" aria-label="Open the portfolio archive" aria-haspopup="dialog" aria-controls="portfolioArchive" aria-expanded="false">
-          <span class="archive-callbox__stage" aria-hidden="true">
-            <model-viewer class="archive-callbox__model"
-              src="models_for_hero/telephone_booth.glb?v=20260821"
-              alt=""
-              camera-orbit="28deg 72deg 112%"
-              field-of-view="28deg"
-              exposure="1.08"
-              environment-image="neutral"
-              shadow-intensity="1"
-              shadow-softness=".85"
-              auto-rotate
-              auto-rotate-delay="0"
-              rotation-per-second="8deg"
-              disable-zoom
-              interaction-prompt="none"
-              loading="lazy">
-            </model-viewer>
-          </span>
-        </button>
       </div>
     </section>
   </main>
 
-  <div class="case-navigation-curtain" id="caseNavigationCurtain" aria-hidden="true">
-    <div class="case-navigation-curtain__orb"></div>
-    <div class="case-navigation-curtain__content">
-      <span>Selected work / Case study</span>
-      <strong id="caseNavigationTitle">Project</strong>
-      <i></i>
-      <small>Opening the case study</small>
-    </div>
-  </div>
-
   <footer class="footer garden-footer" aria-labelledby="garden-title">
-    <video class="garden-footer__butterflies" src="videos/butterflies-loop-sm.webm?v=2" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture></video>
+    <video class="garden-footer__butterflies" src="videos/butterflies-loop-sm.webm?v=7" muted loop playsinline
+      preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture></video>
     <div class="garden-footer__copy shell">
       <p>Useful software starts with a good conversation.</p>
       <h2 id="garden-title">Let’s grow your next idea</h2>
       <div class="garden-footer__actions">
-        <a class="garden-footer__email" href="mailto:vimangau@gmail.com"><i class="cta-bloom" aria-hidden="true"></i><span class="garden-footer__email-label cta-label-swap"><span>Start a conversation</span><span aria-hidden="true">What’s up?</span></span><span class="garden-footer__email-arrow" aria-hidden="true">↗</span></a>
-        <a class="garden-footer__resume" href="output/pdf/Vimanga_Umange_Resume.pdf" download="Vimanga_Umange_Resume.pdf" aria-label="Download Vimanga Umange’s resume as a PDF"><span>Download resume</span><b aria-hidden="true">↓</b></a>
+        <a class="garden-footer__email" href="mailto:vimangau@gmail.com"><i class="cta-bloom"
+            aria-hidden="true"></i><span class="garden-footer__email-label cta-label-swap"><span>Start a
+              conversation</span><span aria-hidden="true">What’s up?</span></span><span
+            class="garden-footer__email-arrow" aria-hidden="true">↗</span></a>
+        <a class="garden-footer__resume" href="output/pdf/Vimanga_Umange_Resume.pdf"
+          download="Vimanga_Umange_Resume.pdf" aria-label="Download Vimanga Umange’s resume as a PDF"><span>Download
+            resume</span><b aria-hidden="true">↓</b></a>
       </div>
     </div>
 
     <svg class="garden-footer__scene" viewBox="0 0 1800 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       <defs>
         <filter id="gardenRough" x="-8%" y="-8%" width="116%" height="116%">
-          <feTurbulence type="fractalNoise" baseFrequency=".018 .08" numOctaves="2" seed="9" result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4"/>
+          <feTurbulence type="fractalNoise" baseFrequency=".018 .08" numOctaves="2" seed="9" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4" />
         </filter>
         <filter id="gardenGrain" x="0" y="0" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency=".32" numOctaves="3" seed="21" result="grain"/>
-          <feBlend in="SourceGraphic" in2="grain" mode="soft-light"/>
+          <feTurbulence type="fractalNoise" baseFrequency=".32" numOctaves="3" seed="21" result="grain" />
+          <feBlend in="SourceGraphic" in2="grain" mode="soft-light" />
         </filter>
         <g id="gardenDaisy">
-          <path d="M1 15C-4 74 7 118 0 176" fill="none" stroke="#aa583b" stroke-width="5" stroke-linecap="round"/>
+          <path d="M1 15C-4 74 7 118 0 176" fill="none" stroke="#aa583b" stroke-width="5" stroke-linecap="round" />
           <g fill="#f9f2de" stroke="#eee4cb" stroke-width="1.2">
-            <ellipse cx="0" cy="-21" rx="8" ry="24"/>
-            <ellipse cx="0" cy="21" rx="8" ry="24"/>
-            <ellipse cx="-21" cy="0" rx="24" ry="8"/>
-            <ellipse cx="21" cy="0" rx="24" ry="8"/>
-            <ellipse cx="-15" cy="-15" rx="8" ry="23" transform="rotate(-45 -15 -15)"/>
-            <ellipse cx="15" cy="-15" rx="8" ry="23" transform="rotate(45 15 -15)"/>
-            <ellipse cx="-15" cy="15" rx="8" ry="23" transform="rotate(45 -15 15)"/>
-            <ellipse cx="15" cy="15" rx="8" ry="23" transform="rotate(-45 15 15)"/>
+            <ellipse cx="0" cy="-21" rx="8" ry="24" />
+            <ellipse cx="0" cy="21" rx="8" ry="24" />
+            <ellipse cx="-21" cy="0" rx="24" ry="8" />
+            <ellipse cx="21" cy="0" rx="24" ry="8" />
+            <ellipse cx="-15" cy="-15" rx="8" ry="23" transform="rotate(-45 -15 -15)" />
+            <ellipse cx="15" cy="-15" rx="8" ry="23" transform="rotate(45 15 -15)" />
+            <ellipse cx="-15" cy="15" rx="8" ry="23" transform="rotate(45 -15 15)" />
+            <ellipse cx="15" cy="15" rx="8" ry="23" transform="rotate(-45 15 15)" />
           </g>
-          <circle r="11" fill="#efa70d" stroke="#d78608" stroke-width="2"/>
-          <path d="M-5-5l10 10M5-5L-5 5M0-8v16M-8 0H8" stroke="#c47705" stroke-width="1.2" opacity=".72"/>
+          <circle r="11" fill="#efa70d" stroke="#d78608" stroke-width="2" />
+          <path d="M-5-5l10 10M5-5L-5 5M0-8v16M-8 0H8" stroke="#c47705" stroke-width="1.2" opacity=".72" />
         </g>
         <g id="gardenGrass" fill="#48501f">
-          <path d="M0 105C-1 63-10 30-28 0C-19 43-19 75-18 110Z"/>
-          <path d="M-13 111C-28 70-48 43-72 22C-47 64-40 90-35 118Z"/>
-          <path d="M9 111C18 64 37 30 62 7C38 52 31 83 29 116Z"/>
-          <path d="M-1 110C5 61 3 28-5-8C14 33 18 72 18 113Z"/>
-          <path d="M-30 116C-48 91-70 75-96 66C-65 93-57 110-54 126Z"/>
-          <path d="M28 116C46 82 64 66 88 55C64 88 57 109 53 124Z"/>
+          <path d="M0 105C-1 63-10 30-28 0C-19 43-19 75-18 110Z" />
+          <path d="M-13 111C-28 70-48 43-72 22C-47 64-40 90-35 118Z" />
+          <path d="M9 111C18 64 37 30 62 7C38 52 31 83 29 116Z" />
+          <path d="M-1 110C5 61 3 28-5-8C14 33 18 72 18 113Z" />
+          <path d="M-30 116C-48 91-70 75-96 66C-65 93-57 110-54 126Z" />
+          <path d="M28 116C46 82 64 66 88 55C64 88 57 109 53 124Z" />
         </g>
         <g id="gardenLavender">
-          <path d="M0 8C-3 62 5 112 0 165" fill="none" stroke="#63813a" stroke-width="4"/>
+          <path d="M0 8C-3 62 5 112 0 165" fill="none" stroke="#63813a" stroke-width="4" />
           <g fill="#9568bf">
-            <circle cx="-4" cy="0" r="7"/><circle cx="5" cy="9" r="7"/><circle cx="-5" cy="18" r="7"/><circle cx="5" cy="27" r="7"/><circle cx="-4" cy="36" r="7"/><circle cx="4" cy="45" r="6"/><circle cx="-2" cy="54" r="6"/>
+            <circle cx="-4" cy="0" r="7" />
+            <circle cx="5" cy="9" r="7" />
+            <circle cx="-5" cy="18" r="7" />
+            <circle cx="5" cy="27" r="7" />
+            <circle cx="-4" cy="36" r="7" />
+            <circle cx="4" cy="45" r="6" />
+            <circle cx="-2" cy="54" r="6" />
           </g>
-          <path d="M0 85l-20-17M1 105l24-21M0 125l-18-13" fill="none" stroke="#63813a" stroke-width="4" stroke-linecap="round"/>
+          <path d="M0 85l-20-17M1 105l24-21M0 125l-18-13" fill="none" stroke="#63813a" stroke-width="4"
+            stroke-linecap="round" />
         </g>
       </defs>
 
-      <path d="M0 331C144 312 272 350 402 342C563 332 689 291 842 302C1014 315 1128 275 1277 296C1412 316 1518 273 1800 237V500H0Z" fill="var(--garden-back-earth)" filter="url(#gardenRough)"/>
+      <path
+        d="M0 331C144 312 272 350 402 342C563 332 689 291 842 302C1014 315 1128 275 1277 296C1412 316 1518 273 1800 237V500H0Z"
+        fill="var(--garden-back-earth)" filter="url(#gardenRough)" />
 
-      <path d="M0 335C147 317 278 348 404 368C540 389 633 350 777 342C927 333 1078 335 1218 374C1377 418 1482 325 1641 309C1711 302 1765 307 1800 320V500H0Z" fill="var(--garden-front-earth)" stroke="var(--garden-ridge)" stroke-width="5" filter="url(#gardenRough)"/>
-      <path d="M0 409C187 382 327 429 493 424C617 420 693 373 841 386C990 399 1100 452 1238 435C1392 416 1499 342 1800 342" fill="none" stroke="var(--garden-ridge)" stroke-width="5"/>
-      <path d="M14 457C90 439 147 444 218 463M344 448C421 432 482 447 541 463M705 421C792 405 886 409 975 430M1218 457C1308 437 1379 444 1452 467M1516 389C1602 367 1672 365 1765 374" fill="none" stroke="var(--garden-furrow)" stroke-width="12" stroke-linecap="round" filter="url(#gardenRough)"/>
-      <path d="M62 438l35-8M403 463l49-7M893 438l63-5M1316 468l54-9M1667 402l50-8" fill="none" stroke="var(--garden-highlight)" stroke-width="3" opacity=".38"/>
-      <rect y="330" width="1800" height="170" fill="var(--garden-grain)" opacity="var(--garden-grain-opacity)" filter="url(#gardenGrain)"/>
+      <path
+        d="M0 335C147 317 278 348 404 368C540 389 633 350 777 342C927 333 1078 335 1218 374C1377 418 1482 325 1641 309C1711 302 1765 307 1800 320V500H0Z"
+        fill="var(--garden-front-earth)" stroke="var(--garden-ridge)" stroke-width="5" filter="url(#gardenRough)" />
+      <path
+        d="M0 409C187 382 327 429 493 424C617 420 693 373 841 386C990 399 1100 452 1238 435C1392 416 1499 342 1800 342"
+        fill="none" stroke="var(--garden-ridge)" stroke-width="5" />
+      <path
+        d="M14 457C90 439 147 444 218 463M344 448C421 432 482 447 541 463M705 421C792 405 886 409 975 430M1218 457C1308 437 1379 444 1452 467M1516 389C1602 367 1672 365 1765 374"
+        fill="none" stroke="var(--garden-furrow)" stroke-width="12" stroke-linecap="round" filter="url(#gardenRough)" />
+      <path d="M62 438l35-8M403 463l49-7M893 438l63-5M1316 468l54-9M1667 402l50-8" fill="none"
+        stroke="var(--garden-highlight)" stroke-width="3" opacity=".38" />
+      <rect y="330" width="1800" height="170" fill="var(--garden-grain)" opacity="var(--garden-grain-opacity)"
+        filter="url(#gardenGrain)" />
 
       <g class="garden-plants">
         <!-- Foliage is painted as one back layer so it frames the flowers
              without covering their stems or blooms. -->
         <g class="garden-foliage">
-          <g class="garden-leaves" transform="translate(126 258) scale(.73)"><use href="#gardenGrass"/></g>
-          <g class="garden-leaves" transform="translate(190 272) scale(.62)"><use href="#gardenGrass"/></g>
-          <g class="garden-leaves" transform="translate(470 249) scale(.88)"><use href="#gardenGrass"/></g>
-          <g class="garden-leaves" transform="translate(555 264) scale(.76)"><use href="#gardenGrass"/></g>
-          <g class="garden-leaves" transform="translate(930 258) scale(.72)"><use href="#gardenGrass"/></g>
-          <g class="garden-leaves" transform="translate(1012 252) scale(.78)"><use href="#gardenGrass"/></g>
-          <g class="garden-leaves" transform="translate(1210 272) scale(.74)"><use href="#gardenGrass"/></g>
-          <g class="garden-leaves" transform="translate(1282 254) scale(.88)"><use href="#gardenGrass"/></g>
-          <g class="garden-leaves" transform="translate(1640 212) scale(.94)"><use href="#gardenGrass"/></g>
-          <g class="garden-leaves" transform="translate(1720 239) scale(.76)"><use href="#gardenGrass"/></g>
+          <g class="garden-leaves" transform="translate(126 258) scale(.73)">
+            <use href="#gardenGrass" />
+          </g>
+          <g class="garden-leaves" transform="translate(190 272) scale(.62)">
+            <use href="#gardenGrass" />
+          </g>
+          <g class="garden-leaves" transform="translate(470 249) scale(.88)">
+            <use href="#gardenGrass" />
+          </g>
+          <g class="garden-leaves" transform="translate(555 264) scale(.76)">
+            <use href="#gardenGrass" />
+          </g>
+          <g class="garden-leaves" transform="translate(930 258) scale(.72)">
+            <use href="#gardenGrass" />
+          </g>
+          <g class="garden-leaves" transform="translate(1012 252) scale(.78)">
+            <use href="#gardenGrass" />
+          </g>
+          <g class="garden-leaves" transform="translate(1210 272) scale(.74)">
+            <use href="#gardenGrass" />
+          </g>
+          <g class="garden-leaves" transform="translate(1282 254) scale(.88)">
+            <use href="#gardenGrass" />
+          </g>
+          <g class="garden-leaves" transform="translate(1640 212) scale(.94)">
+            <use href="#gardenGrass" />
+          </g>
+          <g class="garden-leaves" transform="translate(1720 239) scale(.76)">
+            <use href="#gardenGrass" />
+          </g>
         </g>
 
         <g class="garden-blooms">
-          <g class="garden-flower" transform="translate(38 213) scale(.78)"><use href="#gardenDaisy"/></g>
-          <g class="garden-flower" transform="translate(116 248) scale(.58)"><use href="#gardenDaisy"/></g>
-          <g class="garden-flower" transform="translate(174 192) scale(.9)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(38 213) scale(.78)">
+            <use href="#gardenDaisy" />
+          </g>
+          <g class="garden-flower" transform="translate(116 248) scale(.58)">
+            <use href="#gardenDaisy" />
+          </g>
+          <g class="garden-flower" transform="translate(174 192) scale(.9)">
+            <use href="#gardenDaisy" />
+          </g>
 
-          <g class="garden-flower" transform="translate(535 202) scale(.9)"><use href="#gardenDaisy"/></g>
-          <g class="garden-flower" transform="translate(585 258) scale(.62)"><use href="#gardenLavender"/></g>
+          <g class="garden-flower" transform="translate(535 202) scale(.9)">
+            <use href="#gardenDaisy" />
+          </g>
+          <g class="garden-flower" transform="translate(585 258) scale(.62)">
+            <use href="#gardenLavender" />
+          </g>
 
           <!-- Zainab-inspired trio: tall lavender, a single daisy, and a
                close daisy/lavender pairing growing from shared foliage. -->
-          <g class="garden-flower" transform="translate(700 165) scale(.96)"><use href="#gardenLavender"/></g>
-          <g class="garden-flower" transform="translate(842 222) scale(.68)"><use href="#gardenDaisy"/></g>
-          <g class="garden-flower" transform="translate(916 210) scale(.72)"><use href="#gardenDaisy"/></g>
-          <g class="garden-flower" transform="translate(934 177) scale(.86)"><use href="#gardenLavender"/></g>
+          <g class="garden-flower" transform="translate(700 165) scale(.96)">
+            <use href="#gardenLavender" />
+          </g>
+          <g class="garden-flower" transform="translate(842 222) scale(.68)">
+            <use href="#gardenDaisy" />
+          </g>
+          <g class="garden-flower" transform="translate(916 210) scale(.72)">
+            <use href="#gardenDaisy" />
+          </g>
+          <g class="garden-flower" transform="translate(934 177) scale(.86)">
+            <use href="#gardenLavender" />
+          </g>
 
-          <g class="garden-flower" transform="translate(1045 243) scale(.61)"><use href="#gardenDaisy"/></g>
-          <g class="garden-flower" transform="translate(1078 244) scale(.64)"><use href="#gardenLavender"/></g>
+          <g class="garden-flower" transform="translate(1045 243) scale(.61)">
+            <use href="#gardenDaisy" />
+          </g>
+          <g class="garden-flower" transform="translate(1078 244) scale(.64)">
+            <use href="#gardenLavender" />
+          </g>
 
-          <g class="garden-flower" transform="translate(1218 232) scale(.67)"><use href="#gardenDaisy"/></g>
-          <g class="garden-flower" transform="translate(1278 188) scale(.92)"><use href="#gardenDaisy"/></g>
-          <g class="garden-flower" transform="translate(1320 206) scale(.82)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(1218 232) scale(.67)">
+            <use href="#gardenDaisy" />
+          </g>
+          <g class="garden-flower" transform="translate(1278 188) scale(.92)">
+            <use href="#gardenDaisy" />
+          </g>
+          <g class="garden-flower" transform="translate(1320 206) scale(.82)">
+            <use href="#gardenDaisy" />
+          </g>
 
-          <g class="garden-flower" transform="translate(1655 186) scale(.82)"><use href="#gardenDaisy"/></g>
-          <g class="garden-flower" transform="translate(1724 212) scale(.7)"><use href="#gardenDaisy"/></g>
+          <g class="garden-flower" transform="translate(1655 186) scale(.82)">
+            <use href="#gardenDaisy" />
+          </g>
+          <g class="garden-flower" transform="translate(1724 212) scale(.7)">
+            <use href="#gardenDaisy" />
+          </g>
         </g>
       </g>
     </svg>
@@ -626,10 +1056,11 @@
       </p>
       <p class="garden-footer__matcha">
         <svg class="garden-footer__matcha-mark" viewBox="0 0 28 20" aria-hidden="true" focusable="false">
-          <path fill="#e28a2a" d="M13.2 10.2C8.4 2.4 1.2 3.6.8 8.8c-.3 4.2 4.2 6.4 8.8 5.4 1.8-.4 3-1.6 3.6-4z"/>
-          <path fill="#c96b18" d="M14.8 10.2C19.6 2.4 26.8 3.6 27.2 8.8c.3 4.2-4.2 6.4-8.8 5.4-1.8-.4-3-1.6-3.6-4z"/>
-          <path fill="#1c140c" d="M13.2 4.2c.4 2.2.6 5 .6 8.2 0 1.2.1 2.4.3 3.4h-.2c-.4.8-1.1 1.3-1.9 1.3-.6 0-1-.3-1-.8 0-.4.3-.7.7-.8.2 0 .3.1.4.3.2-.8.3-1.8.3-3.1 0-2.8-.2-5.5-.6-7.6.5-.4 1.1-.7 1.4-.9z"/>
-          <path fill="#f3d27a" d="M5.4 8.1c1.6-.7 3.3-.4 4.2.8.2.3 0 .6-.3.5-1.2-.3-2.5-.1-3.6.5-.3.2-.6 0-.3-.4z"/>
+          <path fill="#e28a2a" d="M13.2 10.2C8.4 2.4 1.2 3.6.8 8.8c-.3 4.2 4.2 6.4 8.8 5.4 1.8-.4 3-1.6 3.6-4z" />
+          <path fill="#c96b18" d="M14.8 10.2C19.6 2.4 26.8 3.6 27.2 8.8c.3 4.2-4.2 6.4-8.8 5.4-1.8-.4-3-1.6-3.6-4z" />
+          <path fill="#1c140c"
+            d="M13.2 4.2c.4 2.2.6 5 .6 8.2 0 1.2.1 2.4.3 3.4h-.2c-.4.8-1.1 1.3-1.9 1.3-.6 0-1-.3-1-.8 0-.4.3-.7.7-.8.2 0 .3.1.4.3.2-.8.3-1.8.3-3.1 0-2.8-.2-5.5-.6-7.6.5-.4 1.1-.7 1.4-.9z" />
+          <path fill="#f3d27a" d="M5.4 8.1c1.6-.7 3.3-.4 4.2.8.2.3 0 .6-.3.5-1.2-.3-2.5-.1-3.6.5-.3.2-.6 0-.3-.4z" />
         </svg>
         <span><b data-garden-matcha>159</b> matchas in, no plans to stop</span>
       </p>
@@ -644,7 +1075,8 @@
   </footer>
 
   <dialog class="portfolio-archive" id="portfolioArchive" aria-labelledby="portfolioArchiveTitle">
-    <button class="portfolio-archive__close" type="button" data-archive-close aria-label="Close portfolio archive">×</button>
+    <button class="portfolio-archive__close" type="button" data-archive-close
+      aria-label="Close portfolio archive">×</button>
     <div class="portfolio-archive__orb">
       <span class="archive-blob archive-blob--a" aria-hidden="true"></span>
       <span class="archive-blob archive-blob--b" aria-hidden="true"></span>
@@ -657,7 +1089,8 @@
           <h2 id="portfolioArchiveTitle">Looking for a different site? Go back in time...</h2>
           <div class="portfolio-archive__versions">
             <a class="archive-version archive-version--v1" href="older-portfolio/">
-              <span class="archive-version__preview"><img src="images/archive-v1.png" loading="lazy" decoding="async" alt="Homepage of Vimanga Umange's original portfolio, with Playfair display type and a 3D workstation"></span>
+              <span class="archive-version__preview"><img src="images/archive-v1.png" loading="lazy" decoding="async"
+                  alt="Homepage of Vimanga Umange's original portfolio, with Playfair display type and a 3D workstation"></span>
               <span class="archive-version__meta">
                 <small>v1 · Original</small>
                 <strong>Vimanga Umange.</strong>
@@ -665,7 +1098,8 @@
               </span>
             </a>
             <a class="archive-version archive-version--v2" href="v2/">
-              <span class="archive-version__preview"><img src="images/archive-v2.png" loading="lazy" decoding="async" alt="Homepage of the studio portfolio, with constructed letterforms and a creation-hand hero"></span>
+              <span class="archive-version__preview"><img src="images/archive-v2.png" loading="lazy" decoding="async"
+                  alt="Homepage of the studio portfolio, with constructed letterforms and a creation-hand hero"></span>
               <span class="archive-version__meta">
                 <small>v2 · Studio</small>
                 <strong>Vimanga Umange.</strong>
@@ -677,15 +1111,16 @@
       </div>
     </div>
   </dialog>
-  <script src="js/model-viewer-loader.js?v=20260831p" defer></script>
-  <script src="js/hero-tv.js?v=4" defer></script>
+  <script src="js/model-viewer-loader.js?v=20260923" defer></script>
+  <script src="js/hero-tv.js?v=8" defer></script>
   <script src="js/about-me.js?v=3" defer></script>
-  <script src="js/project-devices.js?v=13" defer></script>
+  <script src="js/project-devices.js?v=15" defer></script>
   <script src="js/project-cursor.js?v=3" defer></script>
+  <script src="js/project-card-art.js?v=1" defer></script>
   <script src="js/contact-form.js?v=3" defer></script>
   <script src="js/portfolio-archive.js?v=2" defer></script>
   <script src="js/pastel-sun.js?v=3" defer></script>
-  <script src="js/revision-2026.js?v=37" defer></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.addEventListener('load',()=>{const a=document.createElement('script');a.async=true;a.src='https://www.googletagmanager.com/gtag/js?id=G-EPL5BQGBMF';document.head.appendChild(a);gtag('js',new Date());gtag('config','G-EPL5BQGBMF')},{once:true});</script>
+  <script src="js/revision-2026.js?v=48" defer></script>
 </body>
+
 </html>

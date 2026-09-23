@@ -12,17 +12,19 @@
       const image = new Image();
       image.decoding = 'async';
       image.onload = () => {
-        const maxWidth = 1280;
+        const maxWidth = matchMedia('(max-width: 720px)').matches ? 1080 : 1920;
         const scale = Math.min(1, maxWidth / image.naturalWidth);
         const canvas = document.createElement('canvas');
         canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
         canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
-        const context = canvas.getContext('2d');
+        const context = canvas.getContext('2d', { alpha: false });
         if (!context) {
           resolve(source);
           return;
         }
 
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = 'high';
         context.fillStyle = '#0d0f13';
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.filter = `saturate(${saturation}) contrast(.88) brightness(.84)`;
@@ -40,7 +42,11 @@
         context.filter = 'none';
         context.fillStyle = 'rgba(12, 17, 23, .045)';
         context.fillRect(0, 0, canvas.width, canvas.height);
-        resolve(canvas.toDataURL('image/jpeg', .82));
+        try {
+          resolve(canvas.toDataURL('image/webp', .92));
+        } catch (_) {
+          resolve(canvas.toDataURL('image/jpeg', .92));
+        }
       };
       image.onerror = reject;
       image.src = source;

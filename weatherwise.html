@@ -7,16 +7,29 @@
   <title>WeatherWise Case Study | Vimanga Umange</title>
   <meta name="description"
     content="WeatherWise is a NASA Space Apps 2025 project. An interactive weather intelligence platform powered by NASA Earth observation data.">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EPL5BQGBMF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-EPL5BQGBMF');
+  </script>
   <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="logos/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"></noscript>
   <link href="css/styles-weatherwise.css?v=20260824a" rel="stylesheet">
+  <link href="css/weatherwise-showcase.css?v=5" rel="stylesheet">
+  <link href="css/case-hero-models.css?v=4" rel="stylesheet">
+  <link href="css/case-tech-board.css?v=3" rel="stylesheet">
+  <link href="css/case-art-props.css?v=3" rel="stylesheet">
+  <link href="css/case-editorial-boards.css?v=1" rel="stylesheet">
 </head>
 
 <body>
@@ -34,9 +47,73 @@
 
   <!-- ====== HERO ====== -->
   <section class="hero">
-    <div class="hero-bg" style="background-image: url('images/Space_Apps_Screenshot.png');"></div>
+    <div class="hero-bg" style="background-image: url('images/Space_Apps_Screenshot.webp');"></div>
     <div class="hero-orbit"></div>
     <div class="hero-orbit"></div>
+    <div class="hero-stage hero-stage--weather" data-hero-stage aria-hidden="true">
+      <div class="hero-stage__item hero-stage__item--tower">
+        <model-viewer
+          src="assets/weather_wise/weathered_water_tower.glb?v=20260923"
+          alt=""
+          loading="eager"
+          exposure="1.08"
+          tone-mapping="neutral"
+          shadow-intensity="0.55"
+          shadow-softness="1"
+          environment-image="neutral"
+          camera-orbit="35deg 72deg 105%"
+          field-of-view="28deg"
+          orientation="0deg 0deg 0deg"
+          data-hero-motion="landmark"
+          interaction-prompt="none"
+          disable-zoom
+          disable-pan
+          disable-tap
+        ></model-viewer>
+      </div>
+      <div class="hero-stage__item hero-stage__item--vane">
+        <model-viewer
+          src="assets/weather_wise/weather_vane.glb?v=20260923"
+          alt=""
+          loading="lazy"
+          exposure="1.12"
+          tone-mapping="neutral"
+          shadow-intensity="0.4"
+          shadow-softness="1"
+          environment-image="neutral"
+          camera-orbit="-20deg 68deg 110%"
+          field-of-view="26deg"
+          orientation="0deg 0deg 0deg"
+          interpolation-decay="0"
+          data-hero-motion="wind-vane"
+          interaction-prompt="none"
+          disable-zoom
+          disable-pan
+          disable-tap
+        ></model-viewer>
+      </div>
+      <div class="hero-stage__item hero-stage__item--umbrella">
+        <model-viewer
+          src="assets/weather_wise/weathered_umbrella__gameready.glb?v=20260923"
+          alt=""
+          loading="lazy"
+          exposure="1.05"
+          tone-mapping="neutral"
+          shadow-intensity="0.5"
+          shadow-softness="1"
+          environment-image="neutral"
+          camera-orbit="10deg 75deg 100%"
+          field-of-view="30deg"
+          orientation="-8deg 0deg 0deg"
+          interpolation-decay="0"
+          data-hero-motion="gust"
+          interaction-prompt="none"
+          disable-zoom
+          disable-pan
+          disable-tap
+        ></model-viewer>
+      </div>
+    </div>
     <div class="hero-content">
       <div class="hero-badge"> NASA Space Apps Challenge 2025</div>
       <h1>Weather<span class="accent">Wise</span></h1>
@@ -104,6 +181,101 @@
     </section>
   </div>
 
+  <!-- ====== ARTIFACT / CAMPAIGN PROP ====== -->
+  <div class="section-cream-alt">
+    <section class="content-wrap wide reveal-el art-prop-section">
+      <div class="section-label">Artifact</div>
+      <h2 class="editorial-heading">Field Advisory</h2>
+      <p class="editorial-body">
+        A mission-desk placard — weather intelligence framed like something you’d actually tape up before heading out.
+      </p>
+
+      <div class="art-prop-stage art-prop-stage--weather">
+        <div class="art-prop-stage__side art-prop-stage__side--left" aria-hidden="true">
+          <article class="side-prop side-prop--script side-prop--lx">
+            <p class="side-prop__kicker">Mission briefing</p>
+            <h4>Morning run window</h4>
+            <p>Activity profile beats a generic hourly chart.</p>
+            <ul>
+              <li><span>Start</span><span>06:40</span></li>
+              <li><span>Wind</span><span>8 mph</span></li>
+              <li><span>UV</span><span>Low</span></li>
+            </ul>
+            <span class="side-prop__stamp">Go<br>Now</span>
+          </article>
+          <article class="side-prop side-prop--badge side-prop--lx2">
+            <div>
+              <p class="side-prop__kicker">NASA</p>
+              <strong>POWER<br>Ready</strong>
+              <em>Earth data</em>
+            </div>
+          </article>
+        </div>
+
+        <div class="art-prop-stage__main">
+          <article class="art-prop art-prop--weather" aria-label="WeatherWise field advisory notice">
+            <div class="art-prop__face">
+              <div class="art-prop__band">
+                <span class="art-prop__band-mark">WeatherWise Ops</span>
+                <span>No. AX-01</span>
+              </div>
+              <div class="art-prop__hazard" aria-hidden="true"></div>
+              <div class="art-prop__body">
+                <p class="art-prop__eyebrow">Public notice</p>
+                <h3 class="art-prop__title">Not your<br>problem.</h3>
+                <p class="art-prop__copy">
+                  The wet forecast, that is — if your activity profile says the window is clear.
+                </p>
+                <div class="art-prop__status"><b>GO</b> Outdoor run · 06:40 window</div>
+                <div class="art-prop__row">
+                  <span class="art-prop__chip">Activity aware</span>
+                  <span class="art-prop__qr" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                  </span>
+                </div>
+                <div class="art-prop__meta">
+                  <span>Lat 42.98</span>
+                  <span>Lon -81.25</span>
+                  <span>NASA POWER</span>
+                </div>
+              </div>
+              <div class="art-prop__footer">
+                <span>Stay on your feet</span>
+                <span>WW // 2025</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="art-prop-stage__side art-prop-stage__side--right" aria-hidden="true">
+          <article class="side-prop side-prop--poster side-prop--rx">
+            <div class="side-prop__poster-top">Storm advisory</div>
+            <div class="side-prop__poster-body">
+              <h4>Hold the long route</h4>
+              <p>Cell risk after 14:00. Keep the outing short and local.</p>
+              <div class="side-prop__poster-foot">Layer · Radar · Live</div>
+            </div>
+          </article>
+          <article class="side-prop side-prop--script side-prop--rx2">
+            <p class="side-prop__kicker">Field note</p>
+            <h4>Same sky, different call</h4>
+            <p>A photographer waits. A runner goes. Context decides.</p>
+            <ul>
+              <li><span>Runner</span><span>GO</span></li>
+              <li><span>Shoot</span><span>HOLD</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <p class="art-prop__caption">Activity-aware · NASA-backed · Built to share</p>
+    </section>
+  </div>
+
   <!-- ====== IMPACT BY THE NUMBERS ====== -->
   <div class="section-dark">
     <section class="impact-section" id="impactSection">
@@ -166,63 +338,78 @@
 
   <!-- ====== SCREENSHOTS ====== -->
   <div class="section-cream">
-    <section class="content-wrap reveal-el">
+    <section class="content-wrap wide reveal-el">
       <div class="section-label">Product</div>
       <h2 class="editorial-heading">The Experience</h2>
       <p class="editorial-body">
-        From satellite imagery overlay to AI-generated activity briefs — here is a walkthrough of WeatherWise's core
-        interfaces.
+        WeatherWise as an orbital mission desk — map sheets, layered overlays, and a pinned Space Apps brief.
       </p>
 
-      <div class="gallery">
-        <div class="gallery-grid">
-          <!-- Weather Recommendations -->
-          <div class="gallery-item reveal-el">
-            <div class="gallery-img-wrapper"><img src="images/Nasa-Weathewise_Weather_Recommendation.jpg"
-                alt="WeatherWise Weather Recommendations"></div>
-            <div class="gallery-caption">
-              <h4>Weather Recommendations</h4>
-              <p>AI-generated weather insights for a selected location, with draggable metric widgets overlaid on the
-                interactive map.</p>
-            </div>
+      <div class="ww-desk" data-ww-desk>
+        <div class="ww-desk__orbit" aria-hidden="true"></div>
+        <div class="ww-desk__orbit ww-desk__orbit--inner" aria-hidden="true"></div>
+        <div class="ww-desk__coords">
+          <span>Lat <strong>27.7568</strong> · Lon <strong>-81.4640</strong></span>
+          <div class="ww-desk__swatches" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
           </div>
-
-          <div class="gallery-row">
-            <!-- Active Layers -->
-            <div class="gallery-item reveal-el">
-              <div class="gallery-img-wrapper"><img
-                  src="images/Nasa-Weathewise_Weather_Recommendation_with_ActiveLayers.jpg"
-                  alt="WeatherWise Active Satellite Layers"></div>
-              <div class="gallery-caption">
-                <h4>Satellite Layer Control</h4>
-                <p>Toggle NASA Blue Marble and MODIS imagery layers in real-time for enhanced weather visualization
-                  context.</p>
-              </div>
-            </div>
-
-            <!-- Activities -->
-            <div class="gallery-item reveal-el">
-              <div class="gallery-img-wrapper"><img src="images/Nasa-Weathewise_Activites.jpg"
-                  alt="WeatherWise Activity Selection"></div>
-              <div class="gallery-caption">
-                <h4>Activity Selection</h4>
-                <p>Choose from running, hiking, photography, gardening & more while the AI tailors recommendations to
-                  your
-                  plans.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Space Apps Overview -->
-          <div class="gallery-item reveal-el">
-            <div class="gallery-img-wrapper"><img src="images/Space_Apps_Screenshot.png"
-                alt="NASA Space Apps Challenge 2025"></div>
-            <div class="gallery-caption">
-              <h4>NASA Space Apps Challenge</h4>
-              <p>WeatherWise was developed as part of the global NASA Space Apps Challenge 2025 hackathon.</p>
-            </div>
-          </div>
+          <span>Mission board · NASA POWER</span>
         </div>
+
+        <!-- 01 Forecast -->
+        <article class="ww-scene reveal-el">
+          <header class="ww-scene__meta">
+            <div>
+              <p class="ww-scene__index">01 / Forecast</p>
+              <h3 class="ww-scene__title">Ideal conditions, pinned to the map.</h3>
+            </div>
+            <p class="ww-scene__note">AI weather brief with live widgets over the terrain.</p>
+          </header>
+          <div class="ww-collage ww-collage--forecast">
+            <figure class="ww-sheet ww-sheet--forecast">
+              <img src="images/Nasa-Weathewise_Weather_Recommendation.jpg" alt="WeatherWise weather recommendations" loading="lazy">
+              <span class="ww-chip ww-chip--ideal ww-chip--br"><i class="ph ph-check-circle"></i> Ideal</span>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 02 Layer deck -->
+        <article class="ww-scene reveal-el">
+          <header class="ww-scene__meta">
+            <div>
+              <p class="ww-scene__index">02 / Layers</p>
+              <h3 class="ww-scene__title">Satellite context, activity intent.</h3>
+            </div>
+            <p class="ww-scene__note">Overlays stack like pulled map plates — not a flat grid.</p>
+          </header>
+          <div class="ww-collage ww-collage--deck">
+            <figure class="ww-sheet ww-sheet--layers">
+              <img src="images/Nasa-Weathewise_Weather_Recommendation_with_ActiveLayers.jpg" alt="WeatherWise active satellite layers" loading="lazy">
+              <span class="ww-chip ww-chip--bl"><i class="ph ph-stack"></i> Active Layers</span>
+            </figure>
+            <figure class="ww-sheet ww-sheet--activities">
+              <img src="images/Nasa-Weathewise_Activites.jpg" alt="WeatherWise activity selection" loading="lazy">
+              <span class="ww-chip ww-chip--tr"><i class="ph ph-person-simple-hike"></i> Activities</span>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 03 Mission pin -->
+        <article class="ww-scene reveal-el">
+          <header class="ww-scene__meta">
+            <div>
+              <p class="ww-scene__index">03 / Mission</p>
+              <h3 class="ww-scene__title">Built for NASA Space Apps.</h3>
+            </div>
+            <p class="ww-scene__note">Pinned field note from the 2025 global challenge.</p>
+          </header>
+          <div class="ww-collage ww-collage--mission">
+            <figure class="ww-sheet ww-sheet--mission">
+              <img src="images/Space_Apps_Screenshot.webp" alt="NASA Space Apps Challenge 2025 WeatherWise overview" loading="lazy">
+              <span class="ww-chip"><i class="ph ph-planet"></i> Space Apps 2025</span>
+            </figure>
+          </div>
+        </article>
       </div>
     </section>
   </div>
@@ -307,82 +494,42 @@
 
   <!-- ====== CHALLENGES ====== -->
   <div class="section-cream">
-    <section class="content-wrap carousel-section reveal-el">
+    <section class="content-wrap reveal-el">
       <div class="section-label">Challenges</div>
       <h2 class="editorial-heading">Hurdles We Overcame</h2>
       <p class="editorial-body">
         Building a real-time geospatial intelligence app in 48 hours pushed us across multiple engineering frontiers.
       </p>
 
-      <div class="carousel-wrapper reveal-el">
-        <div class="carousel-track">
-          <!-- Original cards -->
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-map-trifold"></i></div>
-            <div class="carousel-text">
-              <h4>Map-UI Synchronization</h4>
-              <p>Keeping draggable weather widgets, satellite overlays, and AI recommendation panels in sync required
-                careful state management across Leaflet's event system and our custom TypeScript components.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-database"></i></div>
-            <div class="carousel-text">
-              <h4>NASA API Normalization</h4>
-              <p>The POWER API returns parameters in varying units and temporal resolutions. We built a normalization
-                layer on the Flask backend to standardize values before passing them to the LLM.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-chat-centered-text"></i></div>
-            <div class="carousel-text">
-              <h4>Prompt Engineering</h4>
-              <p>Getting the AI to produce concise, actionable recommendations required iterative prompt tuning with
-                activity-specific context injection and output format constraints.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-clock-countdown"></i></div>
-            <div class="carousel-text">
-              <h4>48-Hour Constraint</h4>
-              <p>Balancing feature ambition with hackathon reality. We scoped aggressively by prioritizing the
-                click-to-insight core flow over peripheral features.</p>
-            </div>
-          </div>
-          <!-- Duplicated cards for seamless loop -->
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-map-trifold"></i></div>
-            <div class="carousel-text">
-              <h4>Map-UI Synchronization</h4>
-              <p>Keeping draggable weather widgets, satellite overlays, and AI recommendation panels in sync required
-                careful state management across Leaflet's event system and our custom TypeScript components.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-database"></i></div>
-            <div class="carousel-text">
-              <h4>NASA API Normalization</h4>
-              <p>The POWER API returns parameters in varying units and temporal resolutions. We built a normalization
-                layer on the Flask backend to standardize values before passing them to the LLM.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-chat-centered-text"></i></div>
-            <div class="carousel-text">
-              <h4>Prompt Engineering</h4>
-              <p>Getting the AI to produce concise, actionable recommendations required iterative prompt tuning with
-                activity-specific context injection and output format constraints.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-clock-countdown"></i></div>
-            <div class="carousel-text">
-              <h4>48-Hour Constraint</h4>
-              <p>Balancing feature ambition with hackathon reality. We scoped aggressively by prioritizing the
-                click-to-insight core flow over peripheral features.</p>
-            </div>
-          </div>
-        </div>
+      <div class="challenge-board challenge-board--quad">
+        <article class="challenge-sheet reveal-el" style="--rot: -1.2deg">
+          <span class="challenge-sheet__no">01</span>
+          <p class="challenge-sheet__label">Challenge</p>
+          <h3>Map-UI Synchronization</h3>
+          <p>Keeping draggable weather widgets, satellite overlays, and AI recommendation panels in sync required
+            careful state management across Leaflet's event system and our custom TypeScript components.</p>
+        </article>
+        <article class="challenge-sheet reveal-el" style="--rot: 1deg">
+          <span class="challenge-sheet__no">02</span>
+          <p class="challenge-sheet__label">Challenge</p>
+          <h3>NASA API Normalization</h3>
+          <p>The POWER API returns parameters in varying units and temporal resolutions. We built a normalization
+            layer on the Flask backend to standardize values before passing them to the LLM.</p>
+        </article>
+        <article class="challenge-sheet reveal-el" style="--rot: -0.7deg">
+          <span class="challenge-sheet__no">03</span>
+          <p class="challenge-sheet__label">Challenge</p>
+          <h3>Prompt Engineering</h3>
+          <p>Getting the AI to produce concise, actionable recommendations required iterative prompt tuning with
+            activity-specific context injection and output format constraints.</p>
+        </article>
+        <article class="challenge-sheet reveal-el" style="--rot: 1.3deg">
+          <span class="challenge-sheet__no">04</span>
+          <p class="challenge-sheet__label">Challenge</p>
+          <h3>48-Hour Constraint</h3>
+          <p>Balancing feature ambition with hackathon reality. We scoped aggressively by prioritizing the
+            click-to-insight core flow over peripheral features.</p>
+        </article>
       </div>
     </section>
   </div>
@@ -397,9 +544,10 @@
         Earth observation data.
       </p>
 
-      <div class="learnings-grid">
-        <div class="learning-card spotlight-card reveal-el">
-          <h4>Activity-First Design</h4>
+      <div class="learning-board">
+        <article class="learning-note reveal-el">
+          <span class="learning-note__no">01</span>
+          <h3>Activity-First Design</h3>
           <p>
             Instead of dumping raw numbers, WeatherWise asks <span class="highlight">"What are you planning to
               do?"</span>
@@ -407,28 +555,31 @@
             vs.
             a photographer.
           </p>
-        </div>
-        <div class="learning-card spotlight-card reveal-el">
-          <h4>Spatial UI Innovation</h4>
+        </article>
+        <article class="learning-note reveal-el">
+          <span class="learning-note__no">02</span>
+          <h3>Spatial UI Innovation</h3>
           <p>
             Weather data lives <span class="highlight">on the map itself</span> — not in sidebars or tables. Draggable
             widgets create a spatial relationship between location and conditions that feels intuitive and immediate.
           </p>
-        </div>
-        <div class="learning-card spotlight-card reveal-el">
-          <h4>Accessible NASA Data</h4>
+        </article>
+        <article class="learning-note reveal-el">
+          <span class="learning-note__no">03</span>
+          <h3>Accessible NASA Data</h3>
           <p>
             NASA's POWER API is powerful but complex. We wrapped it in a <span class="highlight">conversational
               interface</span> that makes satellite-grade weather intelligence accessible to anyone.
           </p>
-        </div>
-        <div class="learning-card spotlight-card reveal-el">
-          <h4>Hackathon to Product Thinking</h4>
+        </article>
+        <article class="learning-note reveal-el">
+          <span class="learning-note__no">04</span>
+          <h3>Hackathon to Product Thinking</h3>
           <p>
             We designed with <span class="highlight">extensibility in mind</span> — the architecture supports adding
             new data layers, activities, and recommendation types without restructuring the core pipeline.
           </p>
-        </div>
+        </article>
       </div>
     </section>
   </div>
@@ -436,31 +587,96 @@
   <!-- ====== TECH STACK ====== -->
   <div class="section-dark">
     <section class="content-wrap reveal-el">
-      <div class="section-label">Built With</div>
-      <h2 class="editorial-heading">The Tech Stack</h2>
+      <div class="toolboard toolboard--weather">
+        <header class="toolboard__header">
+          <div>
+            <p class="toolboard__index">04 / Specimens</p>
+            <h2 class="toolboard__title">The Tech Stack</h2>
+          </div>
+          <p class="toolboard__note">Instruments stamped onto the mission board — the stack behind the forecast.</p>
+        </header>
 
-      <div class="tech-grid">
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/typescript.svg" alt="TypeScript"
-            loading="lazy">TypeScript
-        </div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/vite.svg" alt="Vite" loading="lazy">Vite</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/javascript.svg" alt="Leaflet.js"
-            loading="lazy">Leaflet.js
-        </div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/flask-light.svg" alt="Flask"
-            loading="lazy">Flask</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/openai-light.svg" alt="OpenAI"
-            loading="lazy">OpenAI API</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/nasa.svg" alt="NASA POWER" loading="lazy">NASA
-          POWER</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/nominatim_logo.svg" alt="Nominatim"
-            loading="lazy">Nominatim
-        </div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/CSS3_logo.svg" alt="CSS3" loading="lazy">CSS3
-        </div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/nodejs.svg" alt="Node.js" loading="lazy">Node.js
-        </div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/python.svg" alt="Python" loading="lazy">Python
+        <div class="toolboard__deck">
+          <article class="tool-chip" style="--rot: -2.4deg">
+            <span class="tool-chip__no">01</span>
+            <img src="logos/typescript.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>TypeScript</h3>
+              <p>Language</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 1.8deg">
+            <span class="tool-chip__no">02</span>
+            <img src="logos/vite.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Vite</h3>
+              <p>Build</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: -1.2deg">
+            <span class="tool-chip__no">03</span>
+            <img src="logos/javascript.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Leaflet.js</h3>
+              <p>Maps</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 2.6deg">
+            <span class="tool-chip__no">04</span>
+            <img src="logos/flask-light.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Flask</h3>
+              <p>API</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: -1.7deg">
+            <span class="tool-chip__no">05</span>
+            <img src="logos/openai-light.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>OpenAI API</h3>
+              <p>Intelligence</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 1.4deg">
+            <span class="tool-chip__no">06</span>
+            <img src="logos/nasa.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>NASA POWER</h3>
+              <p>Data</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: -2.1deg">
+            <span class="tool-chip__no">07</span>
+            <img src="logos/nominatim_logo.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Nominatim</h3>
+              <p>Geocoding</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 2.2deg">
+            <span class="tool-chip__no">08</span>
+            <img src="logos/CSS3_logo.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>CSS3</h3>
+              <p>Interface</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: -1.5deg">
+            <span class="tool-chip__no">09</span>
+            <img src="logos/nodejs.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Node.js</h3>
+              <p>Runtime</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 1.9deg">
+            <span class="tool-chip__no">10</span>
+            <img src="logos/python.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Python</h3>
+              <p>Backend</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -492,8 +708,10 @@
 
   </main>
 
-  <script src="js/weatherwise.js?v=20260824a" defer></script>
-
+  <script src="js/model-viewer-loader.js?v=20260923" defer></script>
+  <script src="js/case-hero-models.js?v=7" defer></script>
+  <script src="js/weatherwise.js?v=20260913e" defer></script>
+  <script src="js/weatherwise-showcase.js?v=1" defer></script>
 </body>
 
 </html>

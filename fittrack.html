@@ -7,16 +7,30 @@
   <title>FitTrack Case Study | Vimanga Umange</title>
   <meta name="description"
     content="FitTrack is an AI-powered wellness and recovery assistant. A deep-dive case study by Vimanga Umange.">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EPL5BQGBMF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-EPL5BQGBMF');
+  </script>
   <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="logos/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"></noscript>
   <link href="css/styles-fittrack.css?v=20260824a" rel="stylesheet">
+  <link href="css/fittrack-showcase.css?v=7" rel="stylesheet">
+  <link href="css/wop-feature-card.css?v=10" rel="stylesheet">
+  <link href="css/case-hero-models.css?v=5" rel="stylesheet">
+  <link href="css/case-tech-board.css?v=3" rel="stylesheet">
+  <link href="css/case-art-props.css?v=3" rel="stylesheet">
+  <link href="css/case-editorial-boards.css?v=1" rel="stylesheet">
 
 </head>
 
@@ -36,6 +50,68 @@
   <!-- ====== HERO ====== -->
   <section class="hero">
     <div class="hero-bg"></div>
+    <div class="hero-stage hero-stage--fit" data-hero-stage aria-hidden="true">
+      <div class="hero-stage__item hero-stage__item--treadmill">
+        <model-viewer
+          src="assets/fittrack/treadmill_machine.glb?v=20260923"
+          alt=""
+          loading="eager"
+          exposure="1.05"
+          tone-mapping="neutral"
+          shadow-intensity="0.65"
+          shadow-softness="1"
+          environment-image="neutral"
+          camera-orbit="42deg 70deg 112%"
+          field-of-view="24deg"
+          orientation="0deg 0deg 0deg"
+          data-hero-motion="steady"
+          interaction-prompt="none"
+          disable-zoom
+          disable-pan
+          disable-tap
+        ></model-viewer>
+      </div>
+      <div class="hero-stage__item hero-stage__item--weights">
+        <model-viewer
+          src="assets/fittrack/gym_weights_-_game_asset.glb?v=20260923"
+          alt=""
+          loading="lazy"
+          exposure="1.08"
+          tone-mapping="neutral"
+          shadow-intensity="0.45"
+          shadow-softness="1"
+          environment-image="neutral"
+          camera-orbit="30deg 70deg 110%"
+          field-of-view="26deg"
+          orientation="0deg 12deg 0deg"
+          data-hero-motion="heavy"
+          interaction-prompt="none"
+          disable-zoom
+          disable-pan
+          disable-tap
+        ></model-viewer>
+      </div>
+      <div class="hero-stage__item hero-stage__item--props">
+        <model-viewer
+          src="assets/fittrack/gym_props._mat_and_push-up_equipment.glb?v=20260923"
+          alt=""
+          loading="lazy"
+          exposure="1.02"
+          tone-mapping="neutral"
+          shadow-intensity="0.5"
+          shadow-softness="1"
+          environment-image="neutral"
+          camera-orbit="15deg 74deg 100%"
+          field-of-view="30deg"
+          orientation="0deg 8deg 0deg"
+          data-hero-motion="ready"
+          interaction-prompt="none"
+          disable-zoom
+          disable-pan
+          disable-tap
+        ></model-viewer>
+      </div>
+    </div>
     <div class="hero-content">
       <div class="hero-badge"><i class="ph ph-trophy"></i> Hackathon Finalist</div>
       <h1>Fit<span class="accent">Track</span></h1>
@@ -48,8 +124,6 @@
       <span>Scroll to explore</span>
       <div class="line"></div>
     </div>
-    </div>
-
   </section>
 
   <!-- ====== INSPIRATIONAL VIDEO ====== -->
@@ -74,7 +148,29 @@
         innovative approach to turning raw biometrics into actionable daily coaching.
       </p>
       <div class="winner-img-wrap">
-        <img src="images/Thumbnail-Winner-tag.png" alt="FitTrack Winner Badge">
+        <div class="wop-shot" data-wop-parallax>
+          <div class="wop-shot__link" role="group" aria-label="FitTrack hackathon finalist preview">
+            <div class="wop-shot__shine" aria-hidden="true"></div>
+            <div class="wop-shot__layer wop-shot__media" data-depth="0.055">
+              <img src="images/LandingPage-winhacks.webp" alt="FitTrack landing page" loading="lazy" decoding="async">
+              <span class="wop-shot__ribbon" aria-hidden="true">Winner</span>
+            </div>
+            <div class="wop-shot__layer wop-shot__body" data-depth="0.09">
+              <span class="wop-shot__eyebrow">WinHacks Finalist</span>
+              <h3>FitTrack</h3>
+              <p>FitTrack is a wellness and recovery assistant that brings activity tracking, nutrition insights, and AI coaching into one clear daily picture.</p>
+            </div>
+            <div class="wop-shot__layer wop-shot__meta" data-depth="0.12">
+              <div class="wop-shot__avatars" aria-hidden="true">
+                <span></span><span>S</span><span>N</span><span></span>
+              </div>
+              <div class="wop-shot__stats" aria-hidden="true">
+                <span>♥ 4</span>
+                <span>💬 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -130,6 +226,99 @@
     </section>
   </div>
 
+  <!-- ====== ARTIFACT / CAMPAIGN PROP ====== -->
+  <div class="section-cream-alt">
+    <section class="content-wrap wide reveal-el art-prop-section">
+      <div class="section-label">Artifact</div>
+      <h2 class="editorial-heading">Daily Clearance</h2>
+      <p class="editorial-body">
+        A locker-room notice treatment — coaching that feels physical, decisive, and ready to act on.
+      </p>
+
+      <div class="art-prop-stage">
+        <div class="art-prop-stage__side art-prop-stage__side--left" aria-hidden="true">
+          <article class="side-prop side-prop--script side-prop--lx">
+            <p class="side-prop__kicker">Recovery Rx</p>
+            <h4>Prescription for today</h4>
+            <p>Dose the work to the recovery score — not the ego.</p>
+            <ul>
+              <li><span>Zone 2</span><span>42 min</span></li>
+              <li><span>Mobility</span><span>12 min</span></li>
+              <li><span>Protein</span><span>1.6g/kg</span></li>
+            </ul>
+            <span class="side-prop__stamp">Rx<br>OK</span>
+          </article>
+          <article class="side-prop side-prop--sheet side-prop--lx2">
+            <p class="side-prop__kicker">Gym sticker sheet</p>
+            <div class="side-prop__stickers">
+              <span>Cleared</span>
+              <span>No Ego<br>Lifts</span>
+              <span>HRV<br>First</span>
+              <span>Rest<br>Day</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="art-prop-stage__main">
+          <article class="art-prop art-prop--fit" aria-label="FitTrack daily clearance notice">
+            <div class="art-prop__face">
+              <div class="art-prop__band">
+                <span class="art-prop__band-mark">FitTrack Protocol</span>
+                <span>No. FT-07</span>
+              </div>
+              <div class="art-prop__hazard" aria-hidden="true"></div>
+              <div class="art-prop__body">
+                <p class="art-prop__eyebrow">Revised notice</p>
+                <h3 class="art-prop__title">Train when<br>cleared.</h3>
+                <p class="art-prop__copy">
+                  Recovery first. Hit the floor only when HRV, sleep debt, and stress load say go.
+                </p>
+                <div class="art-prop__row">
+                  <span class="art-prop__chip">Cleared · Today</span>
+                  <span class="art-prop__qr" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                  </span>
+                </div>
+                <div class="art-prop__meta">
+                  <span>HRV · Ready</span>
+                  <span>Sleep · 7.4h</span>
+                  <span>Stress · Low</span>
+                </div>
+              </div>
+              <div class="art-prop__footer">
+                <span>Stay on your feet</span>
+                <span>FT // 2025</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="art-prop-stage__side art-prop-stage__side--right" aria-hidden="true">
+          <article class="side-prop side-prop--tag side-prop--rx">
+            <p class="side-prop__kicker">Wearable tag</p>
+            <strong>FT-Band</strong>
+            <em>Readiness · Live</em>
+          </article>
+          <article class="side-prop side-prop--script side-prop--rx2">
+            <p class="side-prop__kicker">Locker note</p>
+            <h4>Check the curve first</h4>
+            <p>If energy dips before noon, swap intensity for continuity.</p>
+            <ul>
+              <li><span>Signal</span><span>Stable</span></li>
+              <li><span>Coach</span><span>Hold hard sets</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <p class="art-prop__caption">Low friction · Highly clear · Coaching you can act on</p>
+    </section>
+  </div>
+
   <!-- ====== IMPACT BY THE NUMBERS ====== -->
   <div class="section-dark">
     <section class="impact-section" id="impactSection">
@@ -160,81 +349,80 @@
 
   <!-- ====== SCREENSHOTS: DASHBOARD ====== -->
   <div class="section-cream">
-    <section class="content-wrap reveal-el">
+    <section class="content-wrap wide reveal-el">
       <div class="section-label">Product</div>
       <h2 class="editorial-heading">The Experience</h2>
       <p class="editorial-body">
-        A walkthrough of FitTrack's key interfaces — from the bold landing page to the intelligence-driven dashboards.
+        FitTrack as overlapping studio boards — cascading screens, full shots, no crop.
       </p>
 
-      <div class="gallery">
-        <div class="gallery-grid">
-          <!-- Landing Page -->
-          <div class="gallery-item reveal-el">
-            <div class="gallery-img-wrapper"><img src="images/LandingPage-winhacks.jpg" alt="FitTrack Landing Page"
-                loading="lazy">
-            </div>
-            <div class="gallery-caption">
-              <h4>Landing Page</h4>
-              <p>Bold, cinematic hero with clear call-to-action. "It's not fitness. It's a lifestyle."</p>
-            </div>
-          </div>
-
-          <div class="gallery-row">
-            <!-- Fitness Dashboard -->
-            <div class="gallery-item reveal-el">
-              <div class="gallery-img-wrapper"><img src="images/Fitness_Dashbaord-Winhacks.jpg"
-                  alt="FitTrack Fitness Dashboard" loading="lazy"></div>
-              <div class="gallery-caption">
-                <h4>Fitness Dashboard</h4>
-                <p>Calorie strategy, daily targets, meal logging, and activity breakdown at a glance.</p>
-              </div>
-            </div>
-
-            <!-- Recovery Dashboard -->
-            <div class="gallery-item reveal-el">
-              <div class="gallery-img-wrapper"><img src="images/Recovery-Dashboard_WInhacks.png"
-                  alt="FitTrack Recovery Dashboard" loading="lazy"></div>
-              <div class="gallery-caption">
-                <h4>Recovery Dashboard</h4>
-                <p>Sleep architecture, activity rings, stress scores — all built on your Google Fit profile.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="gallery-row">
-            <!-- Energy & Stress -->
-            <div class="gallery-item reveal-el">
-              <div class="gallery-img-wrapper"><img loading="lazy" src="images/EnergyGraphs-Nutrition-Stress_Levels.png"
-                  alt="Energy Curve and Stress Load"></div>
-              <div class="gallery-caption">
-                <h4>Energy Curve & Stress Load</h4>
-                <p>Predicted energy windows based on yesterday's sleep. 7-day stress trend with HRV and RHR data.</p>
-              </div>
-            </div>
-
-            <!-- AI Daily Analysis -->
-            <div class="gallery-item reveal-el">
-              <div class="gallery-img-wrapper"><img src="images/DailyAnalysis-Winhacks.png" alt="AI Daily Analysis"
-                  loading="lazy">
-              </div>
-              <div class="gallery-caption">
-                <h4>AI Daily Analysis</h4>
-                <p>AI-guided summary based on today's entries — featuring a coach avatar and audio replay.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Recovery Tips -->
-          <div class="gallery-item reveal-el">
-            <div class="gallery-img-wrapper"><img loading="lazy" src="images/AI_guided_recovery_tips_advice.png"
-                alt="AI Recovery Insights"></div>
-            <div class="gallery-caption">
-              <h4>Recovery Insights</h4>
-              <p>AI-generated coaching tips across sleep, training, nutrition, and stress management categories.</p>
-            </div>
-          </div>
+      <div class="ft-board">
+        <div class="ft-board__swatches" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
+
+        <!-- 01 Landing -->
+        <article class="ft-scene reveal-el">
+          <header class="ft-scene__meta">
+            <div>
+              <p class="ft-scene__index">01 / Product</p>
+              <h3 class="ft-scene__title">It’s not fitness. It’s a lifestyle.</h3>
+            </div>
+            <p class="ft-scene__note">Cinematic entry with a hard CTA.</p>
+          </header>
+          <div class="ft-collage ft-collage--hero">
+            <figure class="ft-float ft-float--hero">
+              <img src="images/LandingPage-winhacks.webp" alt="FitTrack landing page" loading="lazy">
+              <span class="ft-tag"><i class="ph ph-browsers"></i> Landing</span>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 02 Dashboards overlap -->
+        <article class="ft-scene reveal-el">
+          <header class="ft-scene__meta">
+            <div>
+              <p class="ft-scene__index">02 / Dashboards</p>
+              <h3 class="ft-scene__title">Signals into a daily picture.</h3>
+            </div>
+            <p class="ft-scene__note">Fitness and recovery, layered like a studio board.</p>
+          </header>
+          <div class="ft-collage ft-collage--pair">
+            <figure class="ft-float ft-float--back">
+              <img src="images/Fitness_Dashbaord-Winhacks.jpg" alt="FitTrack fitness dashboard" loading="lazy">
+              <span class="ft-tag"><i class="ph ph-barbell"></i> Fitness</span>
+            </figure>
+            <figure class="ft-float ft-float--front">
+              <img src="images/Recovery-Dashboard_WInhacks.png" alt="FitTrack recovery dashboard" loading="lazy">
+              <span class="ft-tag"><i class="ph ph-heartbeat"></i> Recovery</span>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 03 Intelligence cascade (like the first Ryan Walter board) -->
+        <article class="ft-scene reveal-el">
+          <header class="ft-scene__meta">
+            <div>
+              <p class="ft-scene__index">03 / Intelligence</p>
+              <h3 class="ft-scene__title">Coaching grounded in hard metrics.</h3>
+            </div>
+            <p class="ft-scene__note">Energy, analysis, and insights — cascading overlap.</p>
+          </header>
+          <div class="ft-collage ft-collage--cascade">
+            <figure class="ft-float ft-float--tips">
+              <img src="images/AI_guided_recovery_tips_advice.png" alt="AI recovery insights" loading="lazy">
+              <span class="ft-tag"><i class="ph ph-lightbulb"></i> Insights</span>
+            </figure>
+            <figure class="ft-float ft-float--energy">
+              <img src="images/EnergyGraphs-Nutrition-Stress_Levels.png" alt="Energy curve and stress load charts" loading="lazy">
+              <span class="ft-tag"><i class="ph ph-chart-line"></i> Energy</span>
+            </figure>
+            <figure class="ft-float ft-float--analysis">
+              <img src="images/DailyAnalysis-Winhacks.png" alt="AI daily analysis screen" loading="lazy">
+              <span class="ft-tag"><i class="ph ph-robot"></i> Analysis</span>
+            </figure>
+          </div>
+        </article>
       </div>
     </section>
   </div>
@@ -281,7 +469,7 @@
 
   <!-- ====== CHALLENGES ====== -->
   <div class="section-dark">
-    <section class="content-wrap carousel-section reveal-el">
+    <section class="content-wrap reveal-el">
       <div class="section-label">Challenges</div>
       <h2 class="editorial-heading">Hurdles We Overcame</h2>
       <p class="editorial-body">
@@ -290,61 +478,28 @@
         challenges.
       </p>
 
-      <div class="carousel-wrapper reveal-el">
-        <div class="carousel-track">
-          <!-- Original cards -->
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-bridge"></i></div>
-            <div class="carousel-text">
-              <h4>The Deployment Bridge</h4>
-              <p>Connecting a Vercel frontend to a Render backend required precise CORS configuration for secure
-                cross-domain communication.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-timer"></i></div>
-            <div class="carousel-text">
-              <h4>Cold Starts & Latency</h4>
-              <p>Render's free tier can "spin down" after inactivity. We designed the frontend to handle potential
-                wake-up
-                delays gracefully with loading states.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-shield-warning"></i></div>
-            <div class="carousel-text">
-              <h4>Output Reliability</h4>
-              <p>Ensuring the LLM returns consistent, structured advice instead of hallucinations. Solved with strict
-                Pydantic schemas so the AI outputs valid JSON the UI can reliably render.</p>
-            </div>
-          </div>
-          <!-- Duplicated cards for seamless loop -->
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-bridge"></i></div>
-            <div class="carousel-text">
-              <h4>The Deployment Bridge</h4>
-              <p>Connecting a Vercel frontend to a Render backend required precise CORS configuration for secure
-                cross-domain communication.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-timer"></i></div>
-            <div class="carousel-text">
-              <h4>Cold Starts & Latency</h4>
-              <p>Render's free tier can "spin down" after inactivity. We designed the frontend to handle potential
-                wake-up
-                delays gracefully with loading states.</p>
-            </div>
-          </div>
-          <div class="carousel-card spotlight-card">
-            <div class="carousel-icon"><i class="ph ph-shield-warning"></i></div>
-            <div class="carousel-text">
-              <h4>Output Reliability</h4>
-              <p>Ensuring the LLM returns consistent, structured advice instead of hallucinations. Solved with strict
-                Pydantic schemas so the AI outputs valid JSON the UI can reliably render.</p>
-            </div>
-          </div>
-        </div>
+      <div class="challenge-board">
+        <article class="challenge-sheet reveal-el" style="--rot: -1.4deg">
+          <span class="challenge-sheet__no">01</span>
+          <p class="challenge-sheet__label">Challenge</p>
+          <h3>The Deployment Bridge</h3>
+          <p>Connecting a Vercel frontend to a Render backend required precise CORS configuration for secure
+            cross-domain communication.</p>
+        </article>
+        <article class="challenge-sheet reveal-el" style="--rot: 1.1deg">
+          <span class="challenge-sheet__no">02</span>
+          <p class="challenge-sheet__label">Challenge</p>
+          <h3>Cold Starts &amp; Latency</h3>
+          <p>Render's free tier can "spin down" after inactivity. We designed the frontend to handle potential
+            wake-up delays gracefully with loading states.</p>
+        </article>
+        <article class="challenge-sheet reveal-el" style="--rot: -0.8deg">
+          <span class="challenge-sheet__no">03</span>
+          <p class="challenge-sheet__label">Challenge</p>
+          <h3>Output Reliability</h3>
+          <p>Ensuring the LLM returns consistent, structured advice instead of hallucinations. Solved with strict
+            Pydantic schemas so the AI outputs valid JSON the UI can reliably render.</p>
+        </article>
       </div>
     </section>
   </div>
@@ -355,21 +510,23 @@
       <div class="section-label">Learnings</div>
       <h2 class="editorial-heading">What We Took Away</h2>
 
-      <div class="learnings-grid">
-        <div class="learning-card spotlight-card reveal-el">
-          <h4>Natural Language Is the New UI</h4>
+      <div class="learning-board">
+        <article class="learning-note reveal-el">
+          <span class="learning-note__no">01</span>
+          <h3>Natural Language Is the New UI</h3>
           <p>
             By replacing rigid search bars with <span class="highlight">semantic intake</span> — where a user simply
             types "burrito bowl and a 3-mile walk" — we reduced logging friction dramatically.
           </p>
-        </div>
-        <div class="learning-card spotlight-card reveal-el">
-          <h4>Transparency Builds Trust</h4>
+        </article>
+        <article class="learning-note reveal-el">
+          <span class="learning-note__no">02</span>
+          <h3>Transparency Builds Trust</h3>
           <p>
             By showing the <span class="highlight">Energy Curve</span> — a visual of daily energy windows — we aren't
             just giving orders. We're teaching users how to interpret their own signals.
           </p>
-        </div>
+        </article>
       </div>
     </section>
   </div>
@@ -377,35 +534,112 @@
   <!-- ====== TECH STACK ====== -->
   <div class="section-dark">
     <section class="content-wrap reveal-el">
-      <div class="section-label">Built With</div>
-      <h2 class="editorial-heading">The Tech Stack</h2>
+      <div class="toolboard toolboard--fit">
+        <header class="toolboard__header">
+          <div>
+            <p class="toolboard__index">04 / Specimens</p>
+            <h2 class="toolboard__title">The Tech Stack</h2>
+          </div>
+          <p class="toolboard__note">Recovery-room instruments — the stack that turned biometrics into coaching.</p>
+        </header>
 
-      <div class="tech-grid">
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/react_light.svg" alt="React"
-            loading="lazy">React</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/typescript.svg" alt="TypeScript"
-            loading="lazy">TypeScript
-        </div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/vite.svg" alt="Vite" loading="lazy">Vite</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/tailwindcss.svg" alt="Tailwind CSS"
-            loading="lazy">Tailwind CSS
-        </div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/fastapi.svg" alt="FastAPI"
-            loading="lazy">FastAPI</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/openai-light.svg" alt="OpenAI"
-            loading="lazy">OpenAI API</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/firebase.svg" alt="Firebase"
-            loading="lazy">Firebase</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/Google_Health_logo.svg" alt="Google Health"
-            loading="lazy">Google
-          Health</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/Render_logo.svg" alt="Render"
-            loading="lazy">Render</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/vercel_light.svg" alt="Vercel"
-            loading="lazy">Vercel</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/threejs-light.svg" alt="Three.js"
-            loading="lazy">Three.js</div>
-        <div class="tech-item spotlight-card reveal-el"><img src="logos/nodejs.svg" alt="Node.js" loading="lazy">Node.js
+        <div class="toolboard__deck">
+          <article class="tool-chip" style="--rot: -2.2deg">
+            <span class="tool-chip__no">01</span>
+            <img src="logos/react_light.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>React</h3>
+              <p>Interface</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 1.7deg">
+            <span class="tool-chip__no">02</span>
+            <img src="logos/typescript.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>TypeScript</h3>
+              <p>Language</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: -1.4deg">
+            <span class="tool-chip__no">03</span>
+            <img src="logos/vite.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Vite</h3>
+              <p>Build</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 2.4deg">
+            <span class="tool-chip__no">04</span>
+            <img src="logos/tailwindcss.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Tailwind CSS</h3>
+              <p>Styling</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: -1.8deg">
+            <span class="tool-chip__no">05</span>
+            <img src="logos/fastapi.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>FastAPI</h3>
+              <p>API</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 1.5deg">
+            <span class="tool-chip__no">06</span>
+            <img src="logos/openai-light.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>OpenAI API</h3>
+              <p>Intelligence</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: -2.0deg">
+            <span class="tool-chip__no">07</span>
+            <img src="logos/firebase.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Firebase</h3>
+              <p>Data</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 2.1deg">
+            <span class="tool-chip__no">08</span>
+            <img src="logos/Google_Health_logo.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Google Health</h3>
+              <p>Signals</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: -1.6deg">
+            <span class="tool-chip__no">09</span>
+            <img src="logos/Render_logo.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Render</h3>
+              <p>Hosting</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 1.9deg">
+            <span class="tool-chip__no">10</span>
+            <img src="logos/vercel_light.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Vercel</h3>
+              <p>Deploy</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: -2.3deg">
+            <span class="tool-chip__no">11</span>
+            <img src="logos/threejs-light.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Three.js</h3>
+              <p>Motion</p>
+            </div>
+          </article>
+          <article class="tool-chip" style="--rot: 1.3deg">
+            <span class="tool-chip__no">12</span>
+            <img src="logos/nodejs.svg" alt="" loading="lazy">
+            <div class="tool-chip__copy">
+              <h3>Node.js</h3>
+              <p>Runtime</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -416,27 +650,34 @@
     <section class="content-wrap reveal-el">
       <div class="section-label">Setup</div>
       <h2 class="editorial-heading">Getting Started</h2>
-      <p class="editorial-body">Prerequisites: <strong>Node.js 18+</strong> and <strong>Python 3.10+</strong></p>
 
-      <div class="overview-grid">
-        <div class="overview-card spotlight-card">
-          <h4 style="font-family: var(--font-mono); color: var(--accent);">Install</h4>
-          <p style="font-family: var(--font-mono); font-size: 0.82rem; margin-top: 0.5rem;">
-            npm install<br>pip install -r requirements.txt
-          </p>
-        </div>
-        <div class="overview-card spotlight-card">
-          <h4 style="font-family: var(--font-mono); color: var(--accent);">Run Frontend</h4>
-          <p style="font-family: var(--font-mono); font-size: 0.82rem; margin-top: 0.5rem;">npm run dev</p>
-        </div>
-        <div class="overview-card spotlight-card">
-          <h4 style="font-family: var(--font-mono); color: var(--accent);">Run Backend</h4>
-          <p style="font-family: var(--font-mono); font-size: 0.82rem; margin-top: 0.5rem;">uvicorn main:app --reload
-          </p>
-        </div>
-        <div class="overview-card spotlight-card">
-          <h4 style="font-family: var(--font-mono); color: var(--accent);">Build</h4>
-          <p style="font-family: var(--font-mono); font-size: 0.82rem; margin-top: 0.5rem;">npm run build</p>
+      <div class="setup-board">
+        <header class="setup-board__header">
+          <p>Prerequisites: <strong>Node.js 18+</strong> · <strong>Python 3.10+</strong></p>
+          <span class="setup-board__mark">FT // Local</span>
+        </header>
+        <div class="setup-board__grid">
+          <div class="setup-step">
+            <span class="setup-step__no">01</span>
+            <h4>Install</h4>
+            <pre>npm install
+pip install -r requirements.txt</pre>
+          </div>
+          <div class="setup-step">
+            <span class="setup-step__no">02</span>
+            <h4>Run Frontend</h4>
+            <pre>npm run dev</pre>
+          </div>
+          <div class="setup-step">
+            <span class="setup-step__no">03</span>
+            <h4>Run Backend</h4>
+            <pre>uvicorn main:app --reload</pre>
+          </div>
+          <div class="setup-step">
+            <span class="setup-step__no">04</span>
+            <h4>Build</h4>
+            <pre>npm run build</pre>
+          </div>
         </div>
       </div>
     </section>
@@ -464,8 +705,10 @@
 
   </main>
 
+  <script src="js/model-viewer-loader.js?v=20260923" defer></script>
+  <script src="js/case-hero-models.js?v=7" defer></script>
   <script src="js/fittrack.js?v=20260824a" defer></script>
-
+  <script src="js/wop-feature-parallax.js?v=8" defer></script>
 </body>
 
 </html>

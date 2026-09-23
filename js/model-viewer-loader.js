@@ -7,8 +7,13 @@
   const configureRuntime = () => {
     const ModelViewerElement = window.customElements?.get('model-viewer');
     if (!ModelViewerElement) return;
-    const constrained = matchMedia('(pointer: coarse)').matches || innerWidth < 800;
-    ModelViewerElement.minimumRenderScale = constrained ? 0.5 : 0.75;
+    // Enforce 1:1 full-resolution render scale so 3D objects are crystal clear without blur
+    ModelViewerElement.minimumRenderScale = 1;
+    models.forEach(model => {
+      try {
+        model.minimumRenderScale = 1;
+      } catch (_) {}
+    });
   };
 
   let runtimeRequested = false;
@@ -30,23 +35,78 @@
     document.head.appendChild(script);
   };
 
-  const pauseOffscreenRotation = model => {
-    if (!model.hasAttribute('auto-rotate')) return;
+  const isLoaderModel = model => Boolean(model.closest('#loader, .loader'));
+
+  const pauseOffscreenWork = model => {
     const sync = visible => {
-      if (visible) model.setAttribute('auto-rotate', '');
-      else model.removeAttribute('auto-rotate');
+      if (visible) {
+        if (model.hasAttribute('data-wants-auto-rotate')) model.setAttribute('auto-rotate', '');
+        model.resume?.();
+      } else {
+        if (model.hasAttribute('auto-rotate')) {
+          model.setAttribute('data-wants-auto-rotate', '');
+          model.removeAttribute('auto-rotate');
+        }
+        model.pause?.();
+      }
     };
+
     if (!('IntersectionObserver' in window)) return;
+    // Keep the splash cup spinning for the whole loading sequence.
+    if (isLoaderModel(model)) return;
+
     const rotationObserver = new IntersectionObserver(entries => {
       sync(Boolean(entries[0]?.isIntersecting));
-    }, { threshold: 0.12 });
+    }, { threshold: 0.08, rootMargin: '80px 0px' });
     sync(false);
     rotationObserver.observe(model);
   };
 
-  if (!('IntersectionObserver' in window)) {
+  // Keep src off the network until the model is near the viewport. model-viewer's
+  // native loading="lazy" still competes once the runtime is up; this gates fetch.
+  const deferHeavySources = () => {
+    if (!('IntersectionObserver' in window)) return;
+
+    const deferred = models.filter(model => {
+      if (isLoaderModel(model)) return false;
+      if (model.getAttribute('loading') === 'eager') return false;
+      const src = model.getAttribute('src');
+      if (!src) return false;
+      model.setAttribute('data-src', src);
+      model.removeAttribute('src');
+      return true;
+    });
+
+    if (!deferred.length) return;
+
+    const hydrate = model => {
+      const src = model.getAttribute('data-src');
+      if (!src || model.getAttribute('src')) return;
+      model.minimumRenderScale = 1;
+      model.setAttribute('src', src);
+      model.removeAttribute('data-src');
+    };
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        hydrate(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '280px 0px', threshold: 0.01 });
+
+    deferred.forEach(model => observer.observe(model));
+  };
+
+  const needsEagerRuntime = models.some(model => (
+    model.getAttribute('loading') === 'eager' || isLoaderModel(model)
+  ));
+
+  deferHeavySources();
+
+  if (needsEagerRuntime || !('IntersectionObserver' in window)) {
     loadRuntime();
-    models.forEach(pauseOffscreenRotation);
+    models.forEach(pauseOffscreenWork);
     return;
   }
 
@@ -58,7 +118,7 @@
 
   models.forEach(model => {
     observer.observe(model);
-    pauseOffscreenRotation(model);
+    pauseOffscreenWork(model);
   });
   window.addEventListener('pagehide', () => observer.disconnect(), { once: true });
 })();

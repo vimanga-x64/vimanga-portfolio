@@ -73,6 +73,8 @@ pnpm-debug.log*
 *~
 *.swp
 *.swo
+tmp/
+*.specgloss-backup
 
 # OS metadata
 .DS_Store
