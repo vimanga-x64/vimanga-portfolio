@@ -39,9 +39,10 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=Caveat:wght@500&family=DM+Mono:wght@500&family=DM+Serif+Display&family=Inter:wght@400;600;700&display=swap">
   </noscript>
-  <link rel="preload" href="assets/starbucks_grande_coffee_cup_caution_hot.glb?v=20260923" as="fetch" type="model/gltf-binary"
+  <link rel="preload" href="assets/starbucks_grande_coffee_cup_caution_hot.glb?v=20260923" as="fetch"
+    type="model/gltf-binary" crossorigin>
+  <link rel="preload" href="assets/everything_bagel-loader.glb?v=20260923" as="fetch" type="model/gltf-binary"
     crossorigin>
-  <link rel="preload" href="assets/everything_bagel-loader.glb?v=20260923" as="fetch" type="model/gltf-binary" crossorigin>
   <link rel="stylesheet" href="css/revision-2026.css?v=205">
   <script>
     document.documentElement.classList.add('js');
@@ -72,17 +73,18 @@
           <model-viewer class="loader__brew-model loader__brew-model--bagel" id="loaderBagel"
             src="assets/everything_bagel-loader.glb?v=20260923" alt="" auto-rotate auto-rotate-delay="0"
             rotation-per-second="14deg" camera-orbit="-18deg 62deg 105%" field-of-view="26deg"
-            environment-image="neutral" tone-mapping="neutral" exposure="1.05" shadow-intensity=".35" shadow-softness="1"
-            interpolation-decay="200" interaction-prompt="none" disable-zoom disable-pan disable-tap loading="eager" reveal="auto"></model-viewer>
+            environment-image="neutral" tone-mapping="neutral" exposure="1.05" shadow-intensity=".35"
+            shadow-softness="1" interpolation-decay="200" interaction-prompt="none" disable-zoom disable-pan disable-tap
+            loading="eager" reveal="auto"></model-viewer>
           <span class="loader__brew-shadow loader__brew-shadow--bagel"></span>
         </div>
         <div class="loader__brew-stage loader__brew-stage--cup">
           <model-viewer class="loader__brew-model loader__brew-model--cup" id="loaderCup"
             src="assets/starbucks_grande_coffee_cup_caution_hot.glb?v=20260923" alt="" auto-rotate auto-rotate-delay="0"
             rotation-per-second="22deg" camera-orbit="32deg 70deg 108%" min-camera-orbit="auto 55deg auto"
-            max-camera-orbit="auto 85deg auto" field-of-view="26deg" environment-image="neutral" tone-mapping="neutral" exposure="1.12"
-            shadow-intensity=".4" shadow-softness="1" interpolation-decay="200" interaction-prompt="none" disable-zoom disable-pan disable-tap
-            loading="eager" reveal="auto"></model-viewer>
+            max-camera-orbit="auto 85deg auto" field-of-view="26deg" environment-image="neutral" tone-mapping="neutral"
+            exposure="1.12" shadow-intensity=".4" shadow-softness="1" interpolation-decay="200"
+            interaction-prompt="none" disable-zoom disable-pan disable-tap loading="eager" reveal="auto"></model-viewer>
           <span class="loader__brew-shadow"></span>
           <span class="loader__brew-steam"></span>
         </div>
@@ -162,12 +164,18 @@
         <model-viewer class="hero-tv__model" id="heroTvModel" src="assets/old_tv.glb?v=2"
           data-video-src="videos/pixel-face-tv-loop.webm"
           alt="Vintage television showing a pixel-art face that blinks, glances around and grins"
-          camera-orbit="0deg 90deg 112%" field-of-view="28deg" environment-image="neutral" tone-mapping="neutral" exposure="1.08"
-          shadow-intensity=".7" shadow-softness=".9" interpolation-decay="200" interaction-prompt="none" loading="eager">
+          camera-orbit="0deg 90deg 112%" field-of-view="28deg" environment-image="neutral" tone-mapping="neutral"
+          exposure="1.08" shadow-intensity=".7" shadow-softness=".9" interpolation-decay="200" interaction-prompt="none"
+          loading="eager">
           <span slot="progress-bar" class="hero-tv__progress" aria-hidden="true"></span>
         </model-viewer>
       </figure>
-      <div class="pastel-sun" id="pastelSun" aria-hidden="true"></div>
+      <div class="pastel-sun" id="pastelSun" aria-hidden="true">
+        <img class="pastel-sun__img pastel-sun__img--sun" src="images/hero-sun-gif.webp"
+          alt="Animated crayon sun smiling and bouncing" width="118" height="118" decoding="async">
+        <img class="pastel-sun__img pastel-sun__img--moon" src="images/hero-moon-gif.webp"
+          alt="Animated crayon moon smiling and bouncing" width="118" height="118" decoding="async">
+      </div>
     </section>
 
     <section class="about-me" id="about" aria-labelledby="about-title">
@@ -301,6 +309,15 @@
             </div>
             <h4>M.Sc.<br>Computer Science</h4>
             <p class="education-card__school">University of Windsor</p>
+            <div class="education-card__merit">
+              <span class="education-card__merit-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Graduated Top 15% of Program
+              </span>
+            </div>
             <p class="education-card__detail">Specialization in Artificial Intelligence · Thesis research in adaptive
               mobile intelligent tutoring systems.</p>
             <span class="education-card__seal" aria-hidden="true">MSc</span>
@@ -432,11 +449,11 @@
                 class="project-screen-model project-laptop-model" src="laptop-model/source/macbook_pro_14_inch_M5.glb"
                 data-project-screen="images/LandingPage-winhacks.webp" data-screen-saturation="0.48"
                 alt="MacBook displaying the FitTrack wellness dashboard" camera-orbit="0deg 76deg 64%"
-                field-of-view="19deg" environment-image="neutral" tone-mapping="neutral" exposure=".9" shadow-intensity=".75"
-                shadow-softness="1" interpolation-decay="200" interaction-prompt="none" loading="lazy"><span slot="progress-bar"
-                  class="project-model-progress" aria-hidden="true"></span></model-viewer><img
-                class="project-model-fallback project-laptop-fallback" src="images/LandingPage-winhacks.webp"
-                loading="lazy" decoding="async" alt="" aria-hidden="true"></div>
+                field-of-view="19deg" environment-image="neutral" tone-mapping="neutral" exposure=".9"
+                shadow-intensity=".75" shadow-softness="1" interpolation-decay="200" interaction-prompt="none"
+                loading="lazy"><span slot="progress-bar" class="project-model-progress"
+                  aria-hidden="true"></span></model-viewer><img class="project-model-fallback project-laptop-fallback"
+                src="images/LandingPage-winhacks.webp" loading="lazy" decoding="async" alt="" aria-hidden="true"></div>
           </a>
           <div class="project-showcase-card__shade" aria-hidden="true"></div>
           <div class="project-showcase-card__content">
@@ -535,11 +552,11 @@
                 data-project-screen="images/free-games.webp" data-screen-material="Screen" data-screen-flip-y="true"
                 data-screen-inset-x="0" data-screen-inset-y="0.18"
                 alt="Front-facing 2021 iMac displaying the complete Free Game Scraper interface"
-                camera-orbit="90deg 90deg 72%" field-of-view="24deg" environment-image="neutral" tone-mapping="neutral" exposure="1"
-                shadow-intensity=".7" shadow-softness="1" interpolation-decay="200" interaction-prompt="none" loading="lazy"><span
-                  slot="progress-bar" class="project-model-progress" aria-hidden="true"></span></model-viewer><img
-                class="project-model-fallback project-imac-fallback" src="images/free-games.webp" loading="lazy"
-                decoding="async" alt="" aria-hidden="true"></div>
+                camera-orbit="90deg 90deg 72%" field-of-view="24deg" environment-image="neutral" tone-mapping="neutral"
+                exposure="1" shadow-intensity=".7" shadow-softness="1" interpolation-decay="200"
+                interaction-prompt="none" loading="lazy"><span slot="progress-bar" class="project-model-progress"
+                  aria-hidden="true"></span></model-viewer><img class="project-model-fallback project-imac-fallback"
+                src="images/free-games.webp" loading="lazy" decoding="async" alt="" aria-hidden="true"></div>
           </a>
           <div class="project-showcase-card__shade" aria-hidden="true"></div>
           <div class="project-showcase-card__content">
@@ -745,7 +762,8 @@
                   class="cta-label-swap"><span>View resume</span><span aria-hidden="true">Open PDF</span></span><b
                   aria-hidden="true">↗</b></a>
               <a class="experience__resume experience__resume--download" href="output/pdf/Vimanga_Umange_Resume.pdf"
-                download="Vimanga_Umange_Resume.pdf" aria-label="Download Vimanga Umange’s resume as a PDF"><span>Download resume</span><b
+                download="Vimanga_Umange_Resume.pdf"
+                aria-label="Download Vimanga Umange’s resume as a PDF"><span>Download resume</span><b
                   aria-hidden="true">↓</b></a>
             </div>
           </div>
@@ -831,10 +849,12 @@
             <button class="archive-callbox" id="archiveCallbox" type="button" aria-label="Open the portfolio archive"
               aria-haspopup="dialog" aria-controls="portfolioArchive" aria-expanded="false">
               <span class="archive-callbox__stage" aria-hidden="true">
-                <model-viewer class="archive-callbox__model" src="models_for_hero/telephone_booth.glb?v=20260923" alt="Red British telephone booth"
-                  camera-orbit="24deg 74deg 108%" camera-target="auto 6.1m auto" field-of-view="27deg" exposure="1.12" environment-image="neutral" tone-mapping="neutral"
-                  shadow-intensity="1.2" shadow-softness=".5" interpolation-decay="200" auto-rotate auto-rotate-delay="0"
-                  rotation-per-second="8deg" disable-zoom interaction-prompt="none" loading="lazy">
+                <model-viewer class="archive-callbox__model" src="models_for_hero/telephone_booth.glb?v=20260923"
+                  alt="Red British telephone booth" camera-orbit="24deg 74deg 108%" camera-target="auto 6.1m auto"
+                  field-of-view="27deg" exposure="1.12" environment-image="neutral" tone-mapping="neutral"
+                  shadow-intensity="1.2" shadow-softness=".5" interpolation-decay="200" auto-rotate
+                  auto-rotate-delay="0" rotation-per-second="8deg" disable-zoom interaction-prompt="none"
+                  loading="lazy">
                 </model-viewer>
               </span>
             </button>
@@ -1119,7 +1139,7 @@
   <script src="js/project-card-art.js?v=1" defer></script>
   <script src="js/contact-form.js?v=3" defer></script>
   <script src="js/portfolio-archive.js?v=2" defer></script>
-  <script src="js/pastel-sun.js?v=3" defer></script>
+  <script src="js/pastel-sun.js?v=5" defer></script>
   <script src="js/revision-2026.js?v=48" defer></script>
 </body>
 

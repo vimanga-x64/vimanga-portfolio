@@ -618,7 +618,7 @@
 
   const butterflies = document.querySelector('.garden-footer__butterflies');
   if (butterflies && !reducedMotion) {
-    const playButterflies = () => butterflies.play().catch(() => {});
+    const playButterflies = () => butterflies.play().catch(() => { });
     butterflies.removeAttribute('autoplay');
     butterflies.preload = 'none';
     if ('IntersectionObserver' in window) {

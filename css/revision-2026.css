@@ -1679,11 +1679,29 @@ textarea {
   filter: drop-shadow(0 8px 14px rgba(255, 183, 15, .16))
 }
 
-.pastel-sun svg {
+.pastel-sun svg,
+.pastel-sun img,
+.pastel-sun__img {
   display: block;
   width: 100%;
   height: auto;
   overflow: visible
+}
+
+.pastel-sun__img--moon {
+  display: none
+}
+
+html[data-theme=dark] .pastel-sun {
+  filter: drop-shadow(0 8px 22px rgba(186, 178, 235, .32))
+}
+
+html[data-theme=dark] .pastel-sun__img--sun {
+  display: none
+}
+
+html[data-theme=dark] .pastel-sun__img--moon {
+  display: block
 }
 
 .pastel-sun__texture,
@@ -7915,6 +7933,40 @@ html[data-theme=dark] .project-atlas .project-showcase-card__visual {
   letter-spacing: -.035em
 }
 
+.education-card__merit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 14px
+}
+
+.education-card__merit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 10px;
+  border-radius: 999px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #200f45;
+  background: #f3d83f;
+  box-shadow: 0 4px 14px rgba(243, 216, 63, .32);
+  transition: transform .2s ease, box-shadow .2s ease
+}
+
+.education-card__merit-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(243, 216, 63, .45)
+}
+
+.education-card__merit-badge svg {
+  flex-shrink: 0
+}
+
 .education-card__detail {
   max-width: 72%;
   margin: auto 0 0;
@@ -11367,7 +11419,9 @@ html[data-theme=dark] .experience-studio {
   animation: pastelSunArrive .78s .18s cubic-bezier(.16, 1, .3, 1) both
 }
 
-.pastel-sun svg {
+.pastel-sun svg,
+.pastel-sun img,
+.pastel-sun__img {
   animation: pastelSunFloat 5.8s 1s ease-in-out infinite alternate
 }
 
@@ -11407,7 +11461,9 @@ html[data-theme=dark] .experience-studio {
 @media(prefers-reduced-motion:reduce) {
 
   .pastel-sun,
-  .pastel-sun svg {
+  .pastel-sun svg,
+  .pastel-sun img,
+  .pastel-sun__img {
     animation: none
   }
 

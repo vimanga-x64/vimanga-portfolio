@@ -266,7 +266,7 @@ story = [
     section("Education"),
     role(
         "Master of Science in Computer Science", "University of Windsor",
-        "Expected October 2026 | Specialization: Artificial Intelligence", "Windsor, ON", [],
+        "Expected October 2026 | Specialization: Artificial Intelligence | Top 15% of program", "Windsor, ON", [],
     ),
     role(
         "Bachelor of Science in Computer Science", "Wichita State University",
