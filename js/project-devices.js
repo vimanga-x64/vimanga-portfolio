@@ -27,7 +27,7 @@
         context.imageSmoothingQuality = 'high';
         context.fillStyle = '#0d0f13';
         context.fillRect(0, 0, canvas.width, canvas.height);
-        context.filter = `saturate(${saturation}) contrast(.88) brightness(.84)`;
+        context.filter = `saturate(${saturation}) contrast(.96) brightness(.97)`;
         if (flipY) {
           context.translate(0, canvas.height);
           context.scale(1, -1);
@@ -40,7 +40,7 @@
         context.drawImage(image, paddingX, paddingY, canvas.width - paddingX * 2, canvas.height - paddingY * 2);
         context.setTransform(1, 0, 0, 1, 0, 0);
         context.filter = 'none';
-        context.fillStyle = 'rgba(12, 17, 23, .045)';
+        context.fillStyle = 'rgba(12, 17, 23, .02)';
         context.fillRect(0, 0, canvas.width, canvas.height);
         try {
           resolve(canvas.toDataURL('image/webp', .92));
@@ -97,7 +97,22 @@
         pbr.baseColorTexture?.setTexture(texture);
       }
       material.emissiveTexture?.setTexture(texture);
-      material.setEmissiveFactor?.([.3, .3, .3]);
+      const requestedGlow = Number.parseFloat(viewer.dataset.screenGlow || '.3');
+      const glow = Math.min(1, Math.max(0, Number.isFinite(requestedGlow) ? requestedGlow : .3));
+      material.setEmissiveFactor?.([glow, glow, glow]);
+
+      // keycaps and other palette-textured parts ship with a glossy metal/rough map that smears
+      // highlights across the keyboard; make them matte so the keys read cleanly
+      if (viewer.dataset.matteKeys !== 'false') {
+        (viewer.model?.materials || []).forEach(other => {
+          if (other === material || !/^PaletteMaterial/i.test(other.name || '')) return;
+          const otherPbr = other.pbrMetallicRoughness;
+          if (!otherPbr) return;
+          otherPbr.metallicRoughnessTexture?.setTexture(null);
+          otherPbr.setMetallicFactor(0);
+          otherPbr.setRoughnessFactor(.92);
+        });
+      }
 
       viewer.dataset.screenApplied = 'true';
       device?.classList.add('is-screen-ready');
