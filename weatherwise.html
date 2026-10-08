@@ -26,7 +26,6 @@
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"></noscript>
   <link href="css/styles-weatherwise.css?v=20260824a" rel="stylesheet">
   <link href="css/weatherwise-showcase.css?v=5" rel="stylesheet">
-  <link href="css/case-hero-models.css?v=4" rel="stylesheet">
   <link href="css/case-tech-board.css?v=3" rel="stylesheet">
   <link href="css/case-art-props.css?v=3" rel="stylesheet">
   <link href="css/case-editorial-boards.css?v=1" rel="stylesheet">
@@ -50,70 +49,6 @@
     <div class="hero-bg" style="background-image: url('images/Space_Apps_Screenshot.webp');"></div>
     <div class="hero-orbit"></div>
     <div class="hero-orbit"></div>
-    <div class="hero-stage hero-stage--weather" data-hero-stage aria-hidden="true">
-      <div class="hero-stage__item hero-stage__item--tower">
-        <model-viewer
-          src="assets/weather_wise/weathered_water_tower.glb?v=20260923"
-          alt=""
-          loading="eager"
-          exposure="1.08"
-          tone-mapping="neutral"
-          shadow-intensity="0.55"
-          shadow-softness="1"
-          environment-image="neutral"
-          camera-orbit="35deg 72deg 105%"
-          field-of-view="28deg"
-          orientation="0deg 0deg 0deg"
-          data-hero-motion="landmark"
-          interaction-prompt="none"
-          disable-zoom
-          disable-pan
-          disable-tap
-        ></model-viewer>
-      </div>
-      <div class="hero-stage__item hero-stage__item--vane">
-        <model-viewer
-          src="assets/weather_wise/weather_vane.glb?v=20260923"
-          alt=""
-          loading="lazy"
-          exposure="1.12"
-          tone-mapping="neutral"
-          shadow-intensity="0.4"
-          shadow-softness="1"
-          environment-image="neutral"
-          camera-orbit="-20deg 68deg 110%"
-          field-of-view="26deg"
-          orientation="0deg 0deg 0deg"
-          interpolation-decay="0"
-          data-hero-motion="wind-vane"
-          interaction-prompt="none"
-          disable-zoom
-          disable-pan
-          disable-tap
-        ></model-viewer>
-      </div>
-      <div class="hero-stage__item hero-stage__item--umbrella">
-        <model-viewer
-          src="assets/weather_wise/weathered_umbrella__gameready.glb?v=20260923"
-          alt=""
-          loading="lazy"
-          exposure="1.05"
-          tone-mapping="neutral"
-          shadow-intensity="0.5"
-          shadow-softness="1"
-          environment-image="neutral"
-          camera-orbit="10deg 75deg 100%"
-          field-of-view="30deg"
-          orientation="-8deg 0deg 0deg"
-          interpolation-decay="0"
-          data-hero-motion="gust"
-          interaction-prompt="none"
-          disable-zoom
-          disable-pan
-          disable-tap
-        ></model-viewer>
-      </div>
-    </div>
     <div class="hero-content">
       <div class="hero-badge"> NASA Space Apps Challenge 2025</div>
       <h1>Weather<span class="accent">Wise</span></h1>
@@ -708,8 +643,6 @@
 
   </main>
 
-  <script src="js/model-viewer-loader.js?v=20260923" defer></script>
-  <script src="js/case-hero-models.js?v=7" defer></script>
   <script src="js/weatherwise.js?v=20260913e" defer></script>
   <script src="js/weatherwise-showcase.js?v=1" defer></script>
 </body>

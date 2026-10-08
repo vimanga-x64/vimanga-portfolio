@@ -247,25 +247,25 @@
       {
         id: 'nasa',
         keys: ['nasa', 'weather', 'space', 'satellite', 'geospatial', 'earth'],
-        target: '.project--weather',
+        target: '.work-card--weather',
         answer: 'WeatherWise, built at NASA Space Apps. Taking you there.'
       },
       {
         id: 'fittrack',
         keys: ['fittrack', 'fit track', 'health', 'recovery', 'hackathon', 'winhacks', 'fitness', 'biometric'],
-        target: '.project--fittrack',
+        target: '.work-card--fittrack',
         answer: 'FitTrack: a recovery assistant that was a WinHacks finalist.'
       },
       {
         id: 'movie',
         keys: ['movie', 'films', 'tmdb', 'semantic', 'hugging'],
-        target: '.project--movie',
+        target: '.work-card--movie',
         answer: 'AI Movie Search, a natural-language way to find films.'
       },
       {
         id: 'tutor',
         keys: ['tutor', 'thesis', 'pomdp', 'adaptive', 'e-tutor', 'etutor'],
-        target: '.project--tutor',
+        target: '.work-card--tutor',
         answer: 'E-Tutor, the mobile tutoring system behind my master’s thesis.'
       },
       {
@@ -327,6 +327,8 @@
         else if (i === (index + total - 1) % total) photo.classList.add('is-prev');
         else if (i === (index + 1) % total) photo.classList.add('is-next');
       });
+      const count = document.querySelector('[data-hero-count] b');
+      if (count) count.textContent = String((index % total) + 1);
     };
 
     const wait = ms => new Promise(resolve => { ghostTimer = window.setTimeout(resolve, ms); });
@@ -393,7 +395,7 @@
       if (!target) return;
       window.setTimeout(() => {
         target.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: target.matches('.egg') ? 'center' : 'start' });
-        if (!reduced() && target.matches('.project')) spotlight(target);
+        if (!reduced() && target.matches('.work-card')) spotlight(target);
         if (target.matches('.egg')) {
           target.classList.add('is-hinted');
           window.setTimeout(() => target.classList.remove('is-hinted'), 3200);
