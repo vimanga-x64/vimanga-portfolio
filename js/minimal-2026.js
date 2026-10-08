@@ -33,40 +33,138 @@
   const menu = document.getElementById('siteMenu');
   const scrim = document.querySelector('[data-menu-scrim]');
 
+  let headerFrame = 0;
   const syncHeader = () => {
+    headerFrame = 0;
     header?.classList.toggle('is-scrolled', window.scrollY > 24);
   };
   syncHeader();
-  window.addEventListener('scroll', syncHeader, { passive: true });
+  window.addEventListener('scroll', () => {
+    if (headerFrame) return;
+    headerFrame = window.requestAnimationFrame(syncHeader);
+  }, { passive: true });
 
   if (menuToggle && menu && scrim) {
     let closeTimer = 0;
+    let readyTimer = 0;
+    let motion = null;
+    const openDuration = reduced() ? 0 : 520;
+    const closeDuration = reduced() ? 0 : 520;
+    const snap = 'cubic-bezier(.33, 0, .2, 1)';
+
+    const layoutWidth = () => document.documentElement.clientWidth;
+
+    const buttonFrame = () => {
+      const rect = menuToggle.getBoundingClientRect();
+      const top = rect.top;
+      const right = Math.max(0, layoutWidth() - rect.right);
+      menu.style.setProperty('--menu-top', `${top}px`);
+      menu.style.setProperty('--menu-right', `${right}px`);
+      return {
+        top: `${top}px`,
+        right: `${right}px`,
+        width: `${rect.width}px`,
+        height: `${rect.height}px`,
+        borderRadius: '999px',
+        backgroundColor: '#1d3f86',
+        boxShadow: '0 8px 18px rgba(29, 63, 134, .18)',
+      };
+    };
+
+    const currentFrame = () => {
+      const rect = menu.getBoundingClientRect();
+      const style = getComputedStyle(menu);
+      return {
+        top: `${rect.top}px`,
+        right: `${Math.max(0, layoutWidth() - rect.right)}px`,
+        width: `${rect.width}px`,
+        height: `${rect.height}px`,
+        borderRadius: style.borderTopLeftRadius,
+        backgroundColor: style.backgroundColor,
+        boxShadow: style.boxShadow,
+      };
+    };
+
+    const pin = frame => {
+      menu.style.top = frame.top;
+      menu.style.right = frame.right;
+      menu.style.width = frame.width;
+      menu.style.height = frame.height;
+    };
+
+    const unpin = () => {
+      menu.style.top = '';
+      menu.style.right = '';
+      menu.style.width = '';
+      menu.style.height = '';
+    };
 
     const finishClose = () => {
+      motion?.cancel();
+      motion = null;
       menu.hidden = true;
       scrim.hidden = true;
+      unpin();
+      menu.classList.remove('is-closing');
+      header.classList.remove('is-menu-open');
+      header.classList.remove('is-closing');
+      document.body.style.overflow = '';
+    };
+
+    const play = (frames, duration, fill, easing = snap) => {
+      motion?.cancel();
+      motion = menu.animate(frames, { duration, easing, fill });
     };
 
     const openMenu = () => {
       window.clearTimeout(closeTimer);
+      header.classList.remove('is-closing');
+      menu.classList.remove('is-closing');
+      document.body.style.overflow = 'hidden';
+      const from = menu.hidden ? buttonFrame() : currentFrame();
+      motion?.cancel();
+      motion = null;
       menu.hidden = false;
       scrim.hidden = false;
+      pin(from);
+      menu.classList.add('is-open');
+      unpin();
+      const to = currentFrame();
+      pin(from);
+      play([from, to], openDuration, 'both');
       menuToggle.setAttribute('aria-expanded', 'true');
       header.classList.add('is-menu-open');
-      document.body.style.overflow = 'hidden';
-      window.requestAnimationFrame(() => {
-        menu.classList.add('is-open');
-        scrim.classList.add('is-open');
-      });
+      scrim.classList.add('is-open');
+      window.clearTimeout(readyTimer);
+      readyTimer = window.setTimeout(() => menu.classList.add('is-ready'), openDuration ? 160 : 0);
+      const running = motion;
+      running.onfinish = () => {
+        if (motion !== running) return;
+        running.cancel();
+        motion = null;
+        unpin();
+      };
     };
 
     const closeMenu = () => {
+      if (menu.hidden) return;
+      window.clearTimeout(readyTimer);
+      menu.classList.remove('is-ready');
+      const from = currentFrame();
+      const to = buttonFrame();
+      from.backgroundColor = '#ffffff';
+      to.backgroundColor = '#1d3f86';
       menu.classList.remove('is-open');
+      menu.classList.add('is-closing');
       scrim.classList.remove('is-open');
+      pin(from);
+      play([
+        { ...from, backgroundColor: '#ffffff', offset: 0 },
+        { backgroundColor: '#ffffff', offset: .62 },
+        { ...to, backgroundColor: '#1d3f86', offset: 1 },
+      ], closeDuration, 'forwards');
       menuToggle.setAttribute('aria-expanded', 'false');
-      header.classList.remove('is-menu-open');
-      document.body.style.overflow = '';
-      closeTimer = window.setTimeout(finishClose, reduced() ? 0 : 420);
+      closeTimer = window.setTimeout(finishClose, closeDuration);
     };
 
     menuToggle.addEventListener('click', openMenu);
@@ -382,14 +480,29 @@
       }
     };
 
+    let scrolling = false;
+    let scrollTimer = 0;
+    window.addEventListener('scroll', () => {
+      scrolling = true;
+      if (raf) {
+        window.cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        scrolling = false;
+        lastFrame = 0;
+        if (visible) start();
+      }, 160);
+    }, { passive: true });
+
     const resize = () => {
       const rect = hero.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
       width = Math.max(1, Math.round(rect.width));
       height = Math.max(1, Math.round(rect.height));
-      heroCanvas.width = Math.round(width * dpr);
-      heroCanvas.height = Math.round(height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      heroCanvas.width = width;
+      heroCanvas.height = height;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
     };
 
     const draw = delta => {
@@ -447,10 +560,15 @@
 
     const frame = now => {
       raf = 0;
-      const delta = lastFrame ? Math.min(64, now - lastFrame) : 16;
+      if (!visible || document.hidden || reduced() || scrolling) return;
+      const elapsed = lastFrame ? now - lastFrame : 48;
+      if (lastFrame && elapsed < 48) {
+        raf = window.requestAnimationFrame(frame);
+        return;
+      }
       lastFrame = now;
-      draw(delta);
-      if (visible && !document.hidden && !reduced()) raf = window.requestAnimationFrame(frame);
+      draw(Math.min(80, elapsed));
+      raf = window.requestAnimationFrame(frame);
     };
 
     const start = () => {
@@ -550,11 +668,23 @@
 
   document.querySelectorAll('[data-tilt]').forEach(card => {
     if (reduced() || !window.matchMedia('(hover: hover)').matches) return;
+    let tiltFrame = 0;
+    let tiltX = 0;
+    let tiltY = 0;
+    let tiltRect = null;
+    const paintTilt = () => {
+      tiltFrame = 0;
+      card.style.transform = `perspective(1200px) rotateX(${(-tiltY * 6).toFixed(2)}deg) rotateY(${(tiltX * 8).toFixed(2)}deg)`;
+    };
+    card.addEventListener('pointerenter', () => {
+      tiltRect = card.getBoundingClientRect();
+    });
     card.addEventListener('pointermove', event => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - .5;
-      const y = (event.clientY - rect.top) / rect.height - .5;
-      card.style.transform = `perspective(1200px) rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 8).toFixed(2)}deg)`;
+      const rect = tiltRect || card.getBoundingClientRect();
+      tiltX = (event.clientX - rect.left) / rect.width - .5;
+      tiltY = (event.clientY - rect.top) / rect.height - .5;
+      if (tiltFrame) return;
+      tiltFrame = window.requestAnimationFrame(paintTilt);
     });
     card.addEventListener('pointerleave', () => {
       card.style.transform = '';
