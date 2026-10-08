@@ -3211,25 +3211,13 @@ section[id],
 
 /* -------------------------------------------------------------- reveals */
 
-.js .reveal {
-  opacity: 0;
-  transform: translateY(26px);
-  transition: opacity .9s var(--ease-smooth), transform 1s var(--ease-out);
-}
-
-.js .reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+.js .reveal,
+.js .reveal.is-visible,
 .js .project--fittrack.reveal,
 .js .project--fittrack.reveal.is-visible {
+  opacity: 1;
   transform: none;
 }
-
-.js .reveal:nth-child(2) { transition-delay: .08s; }
-.js .reveal:nth-child(3) { transition-delay: .16s; }
-.js .reveal:nth-child(4) { transition-delay: .24s; }
 
 /* ----------------------------------------------------------- responsive */
 
@@ -3545,16 +3533,6 @@ section[id],
   .loop {
     grid-template-columns: 1fr;
   }
-}
-
-/* skip layout and paint for sections still far down the page */
-.research,
-.about,
-.experience,
-.ahead,
-.contact {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 920px;
 }
 
 /* ------------------------------------------------------- reduced motion */
